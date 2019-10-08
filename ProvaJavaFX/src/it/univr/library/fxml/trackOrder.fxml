@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+      <BorderPane prefHeight="834.0" prefWidth="900.0">
+         <top>
+            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="87.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/Logo.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="catalogButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" textAlignment="CENTER">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <graphic>
+                        <HBox alignment="CENTER">
+                           <children>
+                              <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../images/home.png" />
+                                 </image>
+                              </ImageView>
+                              <Label text="Catalog">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                           </children>
+                        </HBox>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="chartsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" text="Charts" textAlignment="CENTER">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="604.0">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <children>
+                        <Hyperlink text="Hello Name Surname,">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets right="40.0" />
+                           </HBox.margin>
+                        </Hyperlink>
+                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../../images/cart.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+         </top>
+         <right>
+            <ScrollPane prefHeight="817.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="catalogVBox" alignment="TOP_CENTER" prefHeight="700.0" prefWidth="884.0">
+                     <children>
+                        <Label contentDisplay="CENTER" prefHeight="25.0" prefWidth="110.0" text="Track Orders:" textAlignment="CENTER">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="2.0" left="4.0" right="2.0" top="2.0" />
+                           </VBox.margin>
+                        </Label>
+                        <GridPane prefHeight="330.0" prefWidth="884.0">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.60003662109375" minWidth="10.0" prefWidth="154.40001220703124" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="678.4000000000001" minWidth="10.0" prefWidth="630.8000244140626" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.79997558593755" minWidth="10.0" prefWidth="110.79997558593755" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="45.60000991821289" minHeight="10.0" prefHeight="23.60000228881836" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="45.60000991821289" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="167.99998779296874" minHeight="10.0" prefHeight="160.80001831054688" vgrow="SOMETIMES" />
+                            <RowConstraints maxHeight="39.59998474121093" minHeight="0.0" prefHeight="19.599993896484364" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="10.0" prefHeight="27.600006103515625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="55.999981689453136" minHeight="10.0" prefHeight="52.39997558593751" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="10.0" prefHeight="18.4000244140625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="180.0" text="Order made: DATE">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="18.0" prefHeight="17.0" prefWidth="228.0" text="Send to: Address" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <ImageView fitHeight="109.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                                 <image>
+                                    <Image url="@../../../../images/signoreanelli.jpg" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Label layoutX="20.0" layoutY="16.0" prefHeight="17.0" prefWidth="180.0" text="N° order: number" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="48.0" prefHeight="17.0" prefWidth="246.0" text="Title: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="100.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="154.0" layoutY="94.0" prefHeight="17.0" prefWidth="246.0" text="Author: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="60.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="154.0" layoutY="114.0" prefHeight="17.0" prefWidth="246.0" text="Publisher: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="167.0" layoutY="132.0" prefHeight="17.0" prefWidth="246.0" text="ISBN: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="167.0" layoutY="152.0" prefHeight="17.0" prefWidth="246.0" text="Price: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="80.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="167.0" layoutY="182.0" prefHeight="17.0" prefWidth="246.0" text="LibroCard points: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="120.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Separator prefWidth="200.0" GridPane.rowIndex="7" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Separator prefHeight="0.0" prefWidth="202.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <ProgressBar prefHeight="18.0" prefWidth="633.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Ordinato il:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="173.0" layoutY="390.0" text="Data" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="30.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="390.0" prefHeight="17.0" prefWidth="612.0" text="Spedito il:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="410.0" prefHeight="17.0" prefWidth="584.0" text="Data" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="30.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="403.0" layoutY="390.0" prefHeight="17.0" prefWidth="88.0" text="Consegnato il:" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="399.0" layoutY="410.0" text="Data" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="30.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
+                        <GridPane layoutX="10.0" layoutY="49.0" prefHeight="330.0" prefWidth="884.0">
+                           <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.60003662109375" minWidth="10.0" prefWidth="154.40001220703124" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="678.4000000000001" minWidth="10.0" prefWidth="630.8000244140626" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.79997558593755" minWidth="10.0" prefWidth="110.79997558593755" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints maxHeight="45.60000991821289" minHeight="10.0" prefHeight="23.60000228881836" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="45.60000991821289" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="167.99998779296874" minHeight="10.0" prefHeight="160.80001831054688" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="0.0" prefHeight="19.599993896484364" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="10.0" prefHeight="27.600006103515625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="55.999981689453136" minHeight="10.0" prefHeight="52.39997558593751" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="10.0" prefHeight="18.4000244140625" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="39.59998474121093" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label prefHeight="17.0" prefWidth="180.0" text="Order made: DATE">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="18.0" prefHeight="17.0" prefWidth="228.0" text="Send to: Address" GridPane.columnIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <ImageView fitHeight="109.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                                 <image>
+                                    <Image url="@../../../../images/ITestamenti.jpg" />
+                                 </image>
+                                 <GridPane.margin>
+                                    <Insets left="20.0" />
+                                 </GridPane.margin>
+                              </ImageView>
+                              <Label layoutX="20.0" layoutY="16.0" prefHeight="17.0" prefWidth="180.0" text="N° order: number" GridPane.rowIndex="1">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="20.0" layoutY="48.0" prefHeight="17.0" prefWidth="246.0" text="Title: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <GridPane.margin>
+                                    <Insets bottom="100.0" />
+                                 </GridPane.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="154.0" layoutY="94.0" prefHeight="17.0" prefWidth="246.0" text="Author: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="60.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="154.0" layoutY="114.0" prefHeight="17.0" prefWidth="246.0" text="Publisher: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets bottom="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="167.0" layoutY="132.0" prefHeight="17.0" prefWidth="246.0" text="ISBN: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="20.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="167.0" layoutY="152.0" prefHeight="17.0" prefWidth="246.0" text="Price: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="80.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="167.0" layoutY="182.0" prefHeight="17.0" prefWidth="246.0" text="LibroCard points: " GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets top="120.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Separator prefWidth="200.0" GridPane.rowIndex="7" />
+                              <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                              <Separator prefHeight="0.0" prefWidth="202.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <ProgressBar prefHeight="18.0" prefWidth="633.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Label text="Ordinato il:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="173.0" layoutY="390.0" text="Data" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="30.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="390.0" prefHeight="17.0" prefWidth="612.0" text="Spedito il:" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="173.0" layoutY="410.0" prefHeight="17.0" prefWidth="584.0" text="Data" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="30.0" />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="403.0" layoutY="390.0" prefHeight="17.0" prefWidth="88.0" text="Consegnato il:" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
+                              <Label layoutX="399.0" layoutY="410.0" text="Data" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                 <GridPane.margin>
+                                    <Insets bottom="30.0" />
+                                 </GridPane.margin>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </VBox>
+               </content>
+            </ScrollPane>
+         </right>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="243.0" text="© Developed by Deborah Pintani &amp; Luca Marzari " textFill="#b5b5b5">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+  </children>
+</VBox>
