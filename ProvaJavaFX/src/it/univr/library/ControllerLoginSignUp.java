@@ -43,7 +43,10 @@ public class ControllerLoginSignUp {
 
         if(DBLogin.getUser(user) == null)
             displayAllert("Invalid mail or password!");
-
+        else
+        {
+            System.out.println("Schermata login");
+        }
 
 
     }

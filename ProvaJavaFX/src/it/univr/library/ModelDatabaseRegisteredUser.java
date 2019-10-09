@@ -11,9 +11,14 @@ public class ModelDatabaseRegisteredUser implements Model
     {
         User user;
         db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT name, surname, phoneNumber, email, password" +
+        String q =  "SELECT email, password " +
+                    "FROM registeredUsers " +
+                    "WHERE UPPER (email) GLOB \"" + testUser.getEmail() +  "\" AND password LIKE \"" + testUser.getPassword() + "\"";
+        System.out.println(q);
+
+        db.executeSQLQuery( "SELECT email, password" +
                             "FROM registeredUsers " +
-                            "WHERE UPPER (email) GLOB " + testUser.getEmail() +  " AND password LIKE " + testUser.getPassword());
+                            "WHERE UPPER (email) GLOB \"" + testUser.getEmail() +  "\" AND password LIKE \"" + testUser.getPassword() + "\"");
 
         user = resultSetToUser(db.getResultSet());
         db.DBCloseConnection();
