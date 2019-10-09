@@ -19,4 +19,6 @@ public interface Model
     }
 
     public default  ArrayList<Language> getLanguages(){ return null; }
+
+    public default User getUser(User testUser){ return null;}
 }

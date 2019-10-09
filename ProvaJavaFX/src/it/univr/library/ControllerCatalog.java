@@ -28,6 +28,9 @@ public class ControllerCatalog {
     private Button filterButton;
 
     @FXML
+    private Button loginSignUpButton;
+
+    @FXML
     private ComboBox genreCombobox;
     private ObservableList<Genre> genreComboboxData = FXCollections.observableArrayList();
 
@@ -61,6 +64,7 @@ public class ControllerCatalog {
         catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
         chartsButton.setOnAction(this::handleChartsButton);
         filterButton.setOnAction(this::handleFilterButton);
+        loginSignUpButton.setOnAction(this::handleLoginSignUpButton);
 
         //Inizializza combobox Genre
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
@@ -72,6 +76,7 @@ public class ControllerCatalog {
 
         //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
     }
+
 
 
 
@@ -105,6 +110,11 @@ public class ControllerCatalog {
             }
         };
     }*/
+
+    private void handleLoginSignUpButton(ActionEvent actionEvent) {
+        StageManager loginStage = new StageManager();
+        loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), "hello");
+    }
 
     private void handleFilterButton(ActionEvent actionEvent) {
         Model DBBooks = new ModelDatabaseBooks();
