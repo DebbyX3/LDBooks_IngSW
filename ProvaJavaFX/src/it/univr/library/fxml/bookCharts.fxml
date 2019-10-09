@@ -217,7 +217,7 @@
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label prefHeight="17.0" prefWidth="243.0" text="© Developed by Deborah Pintani &amp; Luca Marzari " textFill="#b5b5b5">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="243.0" text="© Developed by Deborah Pintani &amp; Luca Marzari " textFill="#b5b5b5">
                      <font>
                         <Font name="System Italic" size="11.0" />
                      </font>
