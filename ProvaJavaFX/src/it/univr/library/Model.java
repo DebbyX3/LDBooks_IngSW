@@ -6,6 +6,8 @@ public interface Model
 {
     public default ArrayList<Book> getBooks() { return null; }
 
+    public default ArrayList<Book> getBooks(Filter filter) { return null; }
+
     public default ArrayList<Object> getCharts()
     {
         return null;
@@ -15,4 +17,6 @@ public interface Model
     {
         return null;
     }
+
+    public default  ArrayList<Language> getLanguages(){ return null; }
 }

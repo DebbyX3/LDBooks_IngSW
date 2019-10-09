@@ -10,8 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.util.Collections;
-
 /*------------------------ IMPORTANTE! ----------------------
 In a few words: The constructor is called first, then any @FXML annotated fields are populated,
 then initialize() is called. So the constructor does NOT have access to @FXML fields referring
@@ -27,12 +25,15 @@ public class ControllerCatalog {
     private Button chartsButton;
 
     @FXML
+    private Button filterButton;
+
+    @FXML
     private ComboBox genreCombobox;
     private ObservableList<Genre> genreComboboxData = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox linguaCombobox;
-    private ObservableList<Genre> languageComboboxData = FXCollections.observableArrayList();
+    private ComboBox languageCombobox;
+    private ObservableList<Language> languageComboboxData = FXCollections.observableArrayList();
 
     @FXML
     private HBox book1;
@@ -45,21 +46,10 @@ public class ControllerCatalog {
     public ControllerCatalog()
     {
         // Riempio il genere
-
-        /*
-        Model DBBooks = new ModelDatabaseBooks();
-        View viewBooks = new ViewBooks();
-
-        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox);
-        */
-
         populateGenreFilter();
 
-        // Riempio la lingua
-        languageComboboxData.add(new Genre("Tutti"));
-        languageComboboxData.add(new Genre("Inglese"));
-        languageComboboxData.add(new Genre("Italiano"));
-        languageComboboxData.add(new Genre("Spagnolo"));
+        //riempio la lingua
+        populateLanguageFilter();
     }
 
     @FXML
@@ -70,17 +60,20 @@ public class ControllerCatalog {
         //Setta listener bottoni
         catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
         chartsButton.setOnAction(this::handleChartsButton);
+        filterButton.setOnAction(this::handleFilterButton);
 
         //Inizializza combobox Genre
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
 
         //Inizializza combobox Language
-        linguaCombobox.setItems(languageComboboxData);    //setto il combobox del genere con i dati messi in languagecomboboxdata
-        linguaCombobox.getSelectionModel().selectFirst();
+        languageCombobox.setItems(languageComboboxData);    //setto il combobox del genere con i dati messi in languagecomboboxdata
+        languageCombobox.getSelectionModel().selectFirst();
 
         //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
     }
+
+
 
     //@FXML
     /*  oppure se metto il tag @FXML posso usare direttamente il nome del metodo nell'fxml che si chiama, senza dover dichiarare
@@ -113,6 +106,15 @@ public class ControllerCatalog {
         };
     }*/
 
+    private void handleFilterButton(ActionEvent actionEvent) {
+        Model DBBooks = new ModelDatabaseBooks();
+        View viewBooks = new ViewBooks();
+        Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());
+
+        catalogVBox.getChildren().clear();
+        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox);
+    }
+
     private void handleCatalogButton(ActionEvent event)
     {
         //quando clicco il bottone, riportami alla scena del catalogo (questa)
@@ -136,5 +138,11 @@ public class ControllerCatalog {
     {
         Model DBGenres = new ModelDatabaseGenres();
         genreComboboxData.addAll(DBGenres.getGenres());
+    }
+
+    private void populateLanguageFilter()
+    {
+        Model DBLanguage = new ModelDatabaseLanguage();
+        languageComboboxData.addAll(DBLanguage.getLanguages());
     }
 }

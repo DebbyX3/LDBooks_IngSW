@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
+
 public class ModelDatabaseBooks implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
@@ -23,6 +24,43 @@ public class ModelDatabaseBooks implements Model
                             "JOIN authors ON write.idAuthor = authors.idAuthor " +
                             "GROUP BY books.ISBN, title, languageName, formatName " +
                             "ORDER By books.title, nameSurnameAuthors ASC ");
+        books = resultSetToArrayListBook(db.getResultSet());
+        db.DBCloseConnection();
+
+        System.out.println(books);
+        return books;
+    }
+
+    @Override
+    public ArrayList<Book> getBooks(Filter filter)
+    {
+        ArrayList<Book> books;
+        String query =  "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(name || ' ' || surname) AS nameSurnameAuthors " +
+                        "FROM books " +
+                        "JOIN write ON books.ISBN = write.ISBN " +
+                        "JOIN authors ON write.idAuthor = authors.idAuthor ";
+
+        if(filter.getGenre() != null)
+            query += "WHERE genreName LIKE \"" + filter.getGenre().getName() + "\" ";
+
+        if (filter.getLanguage() != null)
+        {
+            if(filter.getGenre() != null)
+                query += "AND ";
+            else
+                query += "WHERE ";
+
+            query += "languageName LIKE \"" + filter.getLanguage().getName() + "\" ";
+        }
+
+
+        query +=    "GROUP BY books.ISBN, title, languageName, formatName " +
+                    "ORDER By books.title, nameSurnameAuthors ASC ";
+
+        System.out.println(query);
+
+        db.DBOpenConnection();
+        db.executeSQLQuery(query);
         books = resultSetToArrayListBook(db.getResultSet());
         db.DBCloseConnection();
 
@@ -69,4 +107,6 @@ public class ModelDatabaseBooks implements Model
 
         return null;
     }
+
+
 }

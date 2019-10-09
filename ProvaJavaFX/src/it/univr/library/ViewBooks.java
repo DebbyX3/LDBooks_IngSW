@@ -24,7 +24,10 @@ public class ViewBooks implements View
         Set<String> authors = new TreeSet<>();
         String imagePath = null;
 
-        Book originalBook = books.get(0);
+        Book originalBook = null;
+
+        if(!books.isEmpty())
+            originalBook = books.get(0);
 
         for (Book currentBook : books)
         {
@@ -53,7 +56,9 @@ public class ViewBooks implements View
             if(imagePath == null)
                 imagePath = currentBook.getImagePath();
         }
-        buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
+
+        if(!books.isEmpty())
+            buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
     }
 
     //ci sto ancora pensando

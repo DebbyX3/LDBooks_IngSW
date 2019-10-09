@@ -6,6 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/*
+    Per caricare su github: (si usa prima di tutto git status)
+    1) git add nome_file
+    2) git commit -m "messaggio che indica la modifica effettuata"
+    3) git push per uploadare il file
+
+    Per scaricare (assicurarsi essere sincronizzati con github)
+*/
 public class Main extends Application {
 
     @Override

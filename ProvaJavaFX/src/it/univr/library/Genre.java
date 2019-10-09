@@ -2,16 +2,17 @@ package it.univr.library;
 
 public class Genre
 {
-    private String nome;
+    private String name;
 
-    public Genre(String nome)
+    public Genre(String name)
     {
-        this.nome = nome;
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     @Override
-    public String toString()
-    {
-        return nome;
-    }
+    public String toString() { return name; }
 }

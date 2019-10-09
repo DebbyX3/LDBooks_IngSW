@@ -2,17 +2,20 @@ package it.univr.library;
 
 public class Language
 {
-    private String nome;
+    private String name;
 
-    public Language(String nome)
+    public Language(String name)
     {
-        this.nome = nome;
+        this.name = name;
     }
 
     @Override
     public String toString()
     {
-        return nome;
+        return name;
     }
 
+    public String getName() {
+        return name;
+    }
 }
