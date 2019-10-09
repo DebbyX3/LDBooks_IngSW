@@ -34,11 +34,8 @@ public class ControllerCharts {
 
     public ControllerCharts()
     {
-        // Riempio la lingua
-        //languageComboboxData.add(new Genre("Tutti"));
-        //languageComboboxData.add(new Genre("Inglese"));
-        //languageComboboxData.add(new Genre("Italiano"));
-        //languageComboboxData.add(new Genre("Spagnolo"));
+        // Riempio il genere
+        populateGenreFilter();
     }
 
     public void setMessage(String message)
@@ -50,23 +47,29 @@ public class ControllerCharts {
     private void initialize()
     {
         //Setta listener bottoni
-        catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
+        catalogButton.setOnAction(this::handleCatalogButton);
         chartsButton.setOnAction(this::handleChartsButton);
 
-        //Inizializza combobox Language
-        //linguaCombobox.setItems(languageComboboxData);    //setto il combobox del genere con i dati messi in languagecomboboxdata
-        //linguaCombobox.getSelectionModel().selectFirst();
+        //Inizializza combobox Genre
+        genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
+        genreCombobox.getSelectionModel().selectFirst();
     }
 
     private void handleCatalogButton(ActionEvent event)
     {
-        System.out.println(message);
         StageManager catalogStage = new StageManager();
         catalogStage.setStageCatalog((Stage) chartsButton.getScene().getWindow());
     }
 
     private void handleChartsButton(ActionEvent event)
     {
-        //portami a questa pagina
+        StageManager chartsStage = new StageManager();
+        chartsStage.setStageCharts((Stage) chartsButton.getScene().getWindow(), "hello");
+    }
+
+    private void populateGenreFilter()
+    {
+        Model DBGenres = new ModelDatabaseGenres();
+        genreComboboxData.addAll(DBGenres.getGenres());
     }
 }
