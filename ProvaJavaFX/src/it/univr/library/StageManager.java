@@ -72,4 +72,26 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageUserPage(Stage primaryStage, String message)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/userPage.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerUserPage controllerUserPage = fxmlLoader.getController();
+
+
+            primaryStage.setTitle("UserPage - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

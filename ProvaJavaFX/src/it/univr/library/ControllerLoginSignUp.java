@@ -45,7 +45,9 @@ public class ControllerLoginSignUp {
             displayAllert("Invalid mail or password!");
         else
         {
-            System.out.println("Schermata login");
+           //carico la nuova schermata
+            StageManager loginStage = new StageManager();
+            loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), "hello");
         }
 
 
@@ -75,7 +77,7 @@ public class ControllerLoginSignUp {
     private User fetchUser()
     {
         User u = new User();
-        u.setEmail(mailTextField.getText());
+        u.setEmail(mailTextField.getText().toUpperCase());
         u.setPassword(pswField.getText());
 
         return u;

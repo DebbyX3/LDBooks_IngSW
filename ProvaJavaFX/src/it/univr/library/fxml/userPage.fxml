@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerUserPage">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -171,7 +171,7 @@
                            <children>
                               <ImageView fitHeight="128.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../images/box%20of%20books.png" />
+                                    <Image url="@../../../../images/box%20of%20books.png" />
                                  </image>
                               </ImageView>
                               <VBox alignment="CENTER" prefHeight="150.0" prefWidth="223.0">
@@ -204,7 +204,7 @@
                            <children>
                               <ImageView fitHeight="128.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../images/user%20profile.png" />
+                                    <Image url="@../../../../images/user%20profile.png" />
                                  </image>
                               </ImageView>
                               <VBox alignment="CENTER" prefHeight="150.0" prefWidth="221.0">
@@ -248,7 +248,7 @@
                            <children>
                               <ImageView fitHeight="128.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../../images/loyalty%20card.png" />
+                                    <Image url="@../../../../images/loyalty%20card.png" />
                                  </image>
                               </ImageView>
                               <VBox alignment="CENTER" prefHeight="150.0" prefWidth="186.0">
