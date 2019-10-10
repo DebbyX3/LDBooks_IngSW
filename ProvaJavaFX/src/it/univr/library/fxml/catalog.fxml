@@ -181,7 +181,7 @@
                               <Insets right="10.0" />
                            </HBox.margin>
                         </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="38.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Order Status for unregistered user" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="orderStatusForUnregisteredUserButton" alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="38.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Order Status for unregistered user" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -192,7 +192,7 @@
                               <Insets right="15.0" />
                            </HBox.margin>
                         </Button>
-                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cartImageView" fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../images/cart.png" />
                            </image>

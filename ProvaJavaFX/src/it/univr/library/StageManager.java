@@ -94,4 +94,26 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageOrderUser(Stage primaryStage, String message)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderUser.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
+
+
+            primaryStage.setTitle("OrderUser - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

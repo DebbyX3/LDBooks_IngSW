@@ -125,15 +125,20 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <Hyperlink text="Hello Name Surname,">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
+                        <VBox alignment="CENTER" prefHeight="87.0" prefWidth="176.0">
+                           <children>
+                              <Hyperlink fx:id="nameSurnameHyperlink" text="Hello Name Surname,">
+                                 <font>
+                                    <Font name="System Italic" size="14.0" />
+                                 </font>
+                              </Hyperlink>
+                              <Button fx:id="logoutButton" mnemonicParsing="false" style="-fx-background-color: #ffa939;" text="Log out" />
+                           </children>
                            <HBox.margin>
-                              <Insets right="40.0" />
+                              <Insets right="10.0" />
                            </HBox.margin>
-                        </Hyperlink>
-                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        </VBox>
+                        <ImageView fx:id="cartImageView" fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../images/cart.png" />
                            </image>
@@ -190,7 +195,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="My Orders">
+                              <Button fx:id="myOrdersButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="My Orders">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -223,7 +228,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="View Profile">
+                              <Button fx:id="viewProfileButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="View Profile">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -234,7 +239,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Edit Profile">
+                              <Button fx:id="editProfileButton" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Edit Profile">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -267,7 +272,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="My LibroCard">
+                              <Button fx:id="myLibroCardButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="My LibroCard">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerOrderUser">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -66,7 +66,7 @@
          <center>
             <ScrollPane prefHeight="817.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="catalogVBox" alignment="TOP_CENTER" prefHeight="700.0" prefWidth="884.0">
+                  <VBox fx:id="orderVBox" alignment="TOP_CENTER" prefHeight="700.0" prefWidth="884.0">
                      <children>
                         <Label contentDisplay="CENTER" prefHeight="26.0" prefWidth="83.0" text="My Orders:" textAlignment="CENTER">
                            <font>
@@ -393,7 +393,7 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <Button fx:id="catalogButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Login - Sign Up" textAlignment="CENTER">
+                        <Button fx:id="loginSignUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Login - Sign Up" textAlignment="CENTER">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -407,7 +407,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button fx:id="chartsButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Order Status for unregistered user" textAlignment="CENTER" wrapText="true">
+                        <Button fx:id="orderStatusForUnregisteredUserButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Order Status for unregistered user" textAlignment="CENTER" wrapText="true">
                            <font>
                               <Font size="13.0" />
                            </font>
@@ -421,7 +421,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cartImageView" fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../images/cart.png" />
                            </image>
