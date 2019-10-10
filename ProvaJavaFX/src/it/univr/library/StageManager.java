@@ -51,7 +51,7 @@ public class StageManager
         }
     }
 
-    public void setStageLogin(Stage primaryStage, String message)
+    public void setStageLogin(Stage primaryStage, User user)
     {
         Parent root;
 
@@ -62,6 +62,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerLoginSignUp controllerLoginSignUp = fxmlLoader.getController();
 
+            controllerLoginSignUp.setUser(user);
 
             primaryStage.setTitle("Login or Sign Up - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -73,7 +74,7 @@ public class StageManager
         }
     }
 
-    public void setStageUserPage(Stage primaryStage, String message)
+    public void setStageUserPage(Stage primaryStage, User user)
     {
         Parent root;
 

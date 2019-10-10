@@ -25,6 +25,7 @@ public class ControllerLoginSignUp {
     @FXML
     private PasswordField pswField;
 
+    private User user;
 
     @FXML
     private void initialize()
@@ -35,19 +36,25 @@ public class ControllerLoginSignUp {
         loginButton.setOnAction(this::handleLoginButton);
     }
 
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
     private void handleLoginButton(ActionEvent actionEvent)
     {
 
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
+        User realUser = DBLogin.getUser(user);
 
-        if(DBLogin.getUser(user) == null)
+        if(realUser == null)
             displayAllert("Invalid mail or password!");
         else
         {
            //carico la nuova schermata
             StageManager loginStage = new StageManager();
-            loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), "hello");
+            loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser);
         }
 
 
@@ -82,5 +89,6 @@ public class ControllerLoginSignUp {
 
         return u;
     }
+
 
 }
