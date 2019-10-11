@@ -6,15 +6,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class ControllerLoginSignUp {
-
-    @FXML
-    private Button catalogButton;
-
-    @FXML
-    private Button chartsButton;
 
     @FXML
     private Button loginButton;
@@ -28,23 +23,22 @@ public class ControllerLoginSignUp {
     @FXML
     private PasswordField pswField;
 
-
+    @FXML
+    private HBox headerHBox;
 
     private User user;
-
 
     @FXML
     private void initialize()
     {
-
         //Setta listener bottoni
-        catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
-        chartsButton.setOnAction(this::handleChartsButton);
+
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
+
         loginButton.setOnAction(this::handleLoginButton);
         signUpButton.setOnAction(this::handleSignUpButton);
     }
-
-
 
     public void setUser(User user)
     {
@@ -81,18 +75,6 @@ public class ControllerLoginSignUp {
         alert.setContentText(s);
 
         alert.showAndWait();
-    }
-
-    private void handleCatalogButton(ActionEvent event)
-    {
-        StageManager catalogStage = new StageManager();
-        catalogStage.setStageCatalog((Stage) catalogButton.getScene().getWindow());
-    }
-
-    private void handleChartsButton(ActionEvent event)
-    {
-        StageManager chartsStage = new StageManager();
-        chartsStage.setStageCharts((Stage) chartsButton.getScene().getWindow(), "hello");
     }
 
     private User fetchUser()

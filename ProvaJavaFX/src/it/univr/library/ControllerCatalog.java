@@ -19,16 +19,7 @@ to components defined in the .fxml file, while initialize() does have access to 
 public class ControllerCatalog {
 
     @FXML
-    private Button catalogButton;
-
-    @FXML
-    private Button chartsButton;
-
-    @FXML
     private Button filterButton;
-
-    @FXML
-    private Button loginSignUpButton;
 
     @FXML
     private ComboBox genreCombobox;
@@ -44,6 +35,11 @@ public class ControllerCatalog {
     @FXML
     private VBox catalogVBox;
 
+    @FXML
+    private HBox headerHBox;
+
+    private User user;
+
     private Stage primaryStage;
 
     public ControllerCatalog()
@@ -58,13 +54,13 @@ public class ControllerCatalog {
     @FXML
     private void initialize()
     {
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
+
         populateCatalog();
 
         //Setta listener bottoni
-        catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
-        chartsButton.setOnAction(this::handleChartsButton);
         filterButton.setOnAction(this::handleFilterButton);
-        loginSignUpButton.setOnAction(this::handleLoginSignUpButton);
 
         //Inizializza combobox Genre
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
@@ -76,8 +72,6 @@ public class ControllerCatalog {
 
         //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
     }
-
-
 
 
     //@FXML
@@ -95,27 +89,6 @@ public class ControllerCatalog {
         alert.showAndWait();
     }
 
-    /*
-    * private void bookClicked(MouseEvent mouseEvent)
-    {
-        new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Information Dialog");
-                alert.setHeaderText(null);
-                alert.setContentText("Libro cliccato");
-
-                alert.showAndWait();
-            }
-        };
-    }*/
-
-    private void handleLoginSignUpButton(ActionEvent actionEvent) {
-        StageManager loginStage = new StageManager();
-        loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), null);
-    }
-
     private void handleFilterButton(ActionEvent actionEvent) {
         Model DBBooks = new ModelDatabaseBooks();
         View viewBooks = new ViewBooks();
@@ -123,17 +96,6 @@ public class ControllerCatalog {
 
         catalogVBox.getChildren().clear();
         viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox);
-    }
-
-    private void handleCatalogButton(ActionEvent event)
-    {
-        //quando clicco il bottone, riportami alla scena del catalogo (questa)
-    }
-
-    private void handleChartsButton(ActionEvent event)
-    {
-        StageManager chartsStage = new StageManager();
-        chartsStage.setStageCharts((Stage) chartsButton.getScene().getWindow(), "hello");
     }
 
     private void populateCatalog()

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -10,8 +9,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -45,7 +42,7 @@
             <MenuItem mnemonicParsing="false" text="Cut" />
             <MenuItem mnemonicParsing="false" text="Copy" />
             <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />lo
+            <MenuItem mnemonicParsing="false" text="Delete" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" text="Select All" />
             <MenuItem mnemonicParsing="false" text="Unselect All" />
@@ -117,96 +114,7 @@
             </VBox>
          </left>
          <top>
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="87.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../images/Logo.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="catalogButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" textAlignment="CENTER">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../images/home.png" />
-                                 </image>
-                              </ImageView>
-                              <Label text="Catalog">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="chartsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" text="Charts" textAlignment="CENTER">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="604.0">
-                     <children>
-                        <Button fx:id="loginSignUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Login - Sign Up" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="orderStatusForUnregisteredUserButton" alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="38.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Order Status for unregistered user" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                        <ImageView fx:id="cartImageView" fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/cart.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="900.0" BorderPane.alignment="CENTER">

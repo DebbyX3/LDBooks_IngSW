@@ -19,14 +19,13 @@ import javafx.stage.Stage;
 public class ControllerCharts {
 
     @FXML
-    private Button catalogButton;
-
-    @FXML
-    private Button chartsButton;
-
-    @FXML
     private ComboBox genreCombobox;
     private ObservableList<Genre> genreComboboxData = FXCollections.observableArrayList();
+
+    @FXML
+    private HBox headerHBox;
+
+    private User user;
 
     private Stage primaryStage;
 
@@ -46,25 +45,12 @@ public class ControllerCharts {
     @FXML
     private void initialize()
     {
-        //Setta listener bottoni
-        catalogButton.setOnAction(this::handleCatalogButton);
-        chartsButton.setOnAction(this::handleChartsButton);
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
 
         //Inizializza combobox Genre
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
-    }
-
-    private void handleCatalogButton(ActionEvent event)
-    {
-        StageManager catalogStage = new StageManager();
-        catalogStage.setStageCatalog((Stage) chartsButton.getScene().getWindow());
-    }
-
-    private void handleChartsButton(ActionEvent event)
-    {
-        StageManager chartsStage = new StageManager();
-        chartsStage.setStageCharts((Stage) chartsButton.getScene().getWindow(), "hello");
     }
 
     private void populateGenreFilter()

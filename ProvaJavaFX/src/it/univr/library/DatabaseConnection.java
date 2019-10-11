@@ -15,7 +15,7 @@ public class DatabaseConnection
         try
         {
             Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:src/inglese.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:src/LDBooksDatabase.db");
         }
         catch ( Exception e )
         {
