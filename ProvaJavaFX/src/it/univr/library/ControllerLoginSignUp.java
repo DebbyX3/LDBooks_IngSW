@@ -32,9 +32,11 @@ public class ControllerLoginSignUp {
 
     private User user;
 
+
     @FXML
     private void initialize()
     {
+
         //Setta listener bottoni
         catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
         chartsButton.setOnAction(this::handleChartsButton);

@@ -66,7 +66,7 @@
     </MenuBar>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER">
+            <HBox fx:id="headerHbox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fitHeight="87.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -120,7 +120,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="604.0">
+                  <HBox fx:id="rightHeaderHbox" alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="604.0">
                      <HBox.margin>
                         <Insets />
                      </HBox.margin>

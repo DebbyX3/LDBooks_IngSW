@@ -84,6 +84,7 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerUserPage controllerUserPage = fxmlLoader.getController();
+            controllerUserPage.setUser(user);
 
 
             primaryStage.setTitle("UserPage - LD Books");

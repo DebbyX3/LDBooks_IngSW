@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class ControllerUserPage
@@ -37,15 +38,18 @@ public class ControllerUserPage
     @FXML
     private ImageView cartImageView;
 
+    @FXML
+    private HBox rightHeaderHbox;
 
 
+    private User user;
 
 
     @FXML
     private void initialize()
     {
-
-        checkUser();
+        Controller controller = new Controller();
+        controller.checkTopPart(user, rightHeaderHbox);
         catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
         chartsButton.setOnAction(this::handleChartsButton);
         myOrdersButton.setOnAction(this::handleMyOrdersButton);
@@ -57,8 +61,12 @@ public class ControllerUserPage
         cartImageView.setOnMouseClicked(this::handleCartImageView);
     }
 
-    private void checkUser() {
+    public void setUser(User user)
+    {
+        this.user = user;
     }
+
+
 
     private void handleLogOutButton(ActionEvent actionEvent)
     {
