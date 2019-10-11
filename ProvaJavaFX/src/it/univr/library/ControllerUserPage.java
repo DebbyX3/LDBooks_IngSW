@@ -44,6 +44,8 @@ public class ControllerUserPage
     @FXML
     private void initialize()
     {
+
+        checkUser();
         catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
         chartsButton.setOnAction(this::handleChartsButton);
         myOrdersButton.setOnAction(this::handleMyOrdersButton);
@@ -53,6 +55,9 @@ public class ControllerUserPage
         logoutButton.setOnAction(this::handleLogOutButton);
         nameSurnameHyperlink.setOnAction(this::handleNameSurnameHyperlink);
         cartImageView.setOnMouseClicked(this::handleCartImageView);
+    }
+
+    private void checkUser() {
     }
 
     private void handleLogOutButton(ActionEvent actionEvent)
