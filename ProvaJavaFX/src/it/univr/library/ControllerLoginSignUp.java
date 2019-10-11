@@ -20,10 +20,15 @@ public class ControllerLoginSignUp {
     private Button loginButton;
 
     @FXML
+    private Button signUpButton;
+
+    @FXML
     private TextField mailTextField;
 
     @FXML
     private PasswordField pswField;
+
+
 
     private User user;
 
@@ -34,7 +39,10 @@ public class ControllerLoginSignUp {
         catalogButton.setOnAction(this::handleCatalogButton); //setto il listener
         chartsButton.setOnAction(this::handleChartsButton);
         loginButton.setOnAction(this::handleLoginButton);
+        signUpButton.setOnAction(this::handleSignUpButton);
     }
+
+
 
     public void setUser(User user)
     {
@@ -56,8 +64,12 @@ public class ControllerLoginSignUp {
             StageManager loginStage = new StageManager();
             loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser);
         }
+    }
 
-
+    private void handleSignUpButton(ActionEvent actionEvent)
+    {
+        StageManager signUpStage = new StageManager();
+        signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), "hello");
     }
 
     private void displayAllert(String s) {

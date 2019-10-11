@@ -220,7 +220,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Sign Up">
+                              <Button fx:id="signUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Sign Up">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

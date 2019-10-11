@@ -117,4 +117,27 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageSignUp(Stage primaryStage, String message)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/signUp.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerSignUp controllerSignUp = fxmlLoader.getController();
+
+
+            primaryStage.setTitle("SignUp - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
 }

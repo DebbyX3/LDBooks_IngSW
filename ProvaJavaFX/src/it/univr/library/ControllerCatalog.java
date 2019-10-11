@@ -113,7 +113,7 @@ public class ControllerCatalog {
 
     private void handleLoginSignUpButton(ActionEvent actionEvent) {
         StageManager loginStage = new StageManager();
-        loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), "hello");
+        loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), null);
     }
 
     private void handleFilterButton(ActionEvent actionEvent) {

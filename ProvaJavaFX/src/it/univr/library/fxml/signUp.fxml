@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerSignUp">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -123,7 +123,7 @@
                         <Insets />
                      </HBox.margin>
                      <children>
-                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="cartImageView" fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../../../images/cart.png" />
                            </image>
@@ -252,7 +252,7 @@
                         <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Sign Up">
+                              <Button fx:id="signUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Sign Up">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
