@@ -32,9 +32,6 @@ public class ControllerUserPage
     @FXML
     private void initialize()
     {
-        ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
-
         //setto il listener
         myOrdersButton.setOnAction(this::handleMyOrdersButton);
         viewProfileButton.setOnAction(this::handleViewProfileButton);
@@ -45,6 +42,12 @@ public class ControllerUserPage
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public void setHeader()
+    {
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
     }
 
     private void handleMyLibroCardButton(ActionEvent actionEvent)
@@ -60,12 +63,12 @@ public class ControllerUserPage
     private void handleEditProfileButton(ActionEvent actionEvent)
     {
         StageManager orderUserStage = new StageManager();
-        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), "hello");
+        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), user);
     }
 
     private void handleMyOrdersButton(ActionEvent actionEvent)
     {
         StageManager orderUserStage = new StageManager();
-        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), "hello");
+        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), user);
     }
 }

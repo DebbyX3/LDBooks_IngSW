@@ -45,12 +45,22 @@ public class ControllerCharts {
     @FXML
     private void initialize()
     {
-        ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+
 
         //Inizializza combobox Genre
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public void setHeader()
+    {
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
     }
 
     private void populateGenreFilter()

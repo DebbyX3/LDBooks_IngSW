@@ -31,10 +31,6 @@ public class ControllerLoginSignUp {
     @FXML
     private void initialize()
     {
-        //Setta listener bottoni
-
-        ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
 
         loginButton.setOnAction(this::handleLoginButton);
         signUpButton.setOnAction(this::handleSignUpButton);
@@ -43,6 +39,12 @@ public class ControllerLoginSignUp {
     public void setUser(User user)
     {
         this.user = user;
+    }
+
+    public void setHeader()
+    {
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
     }
 
     private void handleLoginButton(ActionEvent actionEvent)
@@ -65,7 +67,7 @@ public class ControllerLoginSignUp {
     private void handleSignUpButton(ActionEvent actionEvent)
     {
         StageManager signUpStage = new StageManager();
-        signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), "hello");
+        signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), user);
     }
 
     private void displayAllert(String s) {

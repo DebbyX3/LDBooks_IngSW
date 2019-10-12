@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public class StageManager
 {
-    public void setStageCharts(Stage primaryStage, String message)
+    public void setStageCharts(Stage primaryStage, User user)
     {
         Parent root;
 
@@ -18,7 +18,8 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerCharts controllerCharts = fxmlLoader.getController();
 
-            controllerCharts.setMessage(message);
+            controllerCharts.setUser(user);
+            controllerCharts.setHeader();
 
             primaryStage.setTitle("Charts - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -30,7 +31,7 @@ public class StageManager
         }
     }
 
-    public void setStageCatalog(Stage primaryStage)
+    public void setStageCatalog(Stage primaryStage, User user)
     {
         Parent root;
 
@@ -40,6 +41,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerCatalog controllerCatalog = fxmlLoader.getController();
+            controllerCatalog.setUser(user);
+            controllerCatalog.setHeader();
 
             primaryStage.setTitle("Catalog - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -61,8 +64,9 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerLoginSignUp controllerLoginSignUp = fxmlLoader.getController();
-
             controllerLoginSignUp.setUser(user);
+            controllerLoginSignUp.setHeader();
+
 
             primaryStage.setTitle("Login or Sign Up - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -85,7 +89,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerUserPage controllerUserPage = fxmlLoader.getController();
             controllerUserPage.setUser(user);
-
+            controllerUserPage.setHeader();
 
             primaryStage.setTitle("UserPage - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -97,7 +101,7 @@ public class StageManager
         }
     }
 
-    public void setStageOrderUser(Stage primaryStage, String message)
+    public void setStageOrderUser(Stage primaryStage, User user)
     {
         Parent root;
 
@@ -107,6 +111,9 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
+            controllerOrderUser.setUser(user);
+            controllerOrderUser.setHeader();
+
 
 
             primaryStage.setTitle("OrderUser - LD Books");
@@ -119,7 +126,7 @@ public class StageManager
         }
     }
 
-    public void setStageSignUp(Stage primaryStage, String message)
+    public void setStageSignUp(Stage primaryStage, User user)
     {
         Parent root;
 
@@ -129,6 +136,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerSignUp controllerSignUp = fxmlLoader.getController();
+            controllerSignUp.setUser(user);
+            controllerSignUp.setHeader();
 
 
             primaryStage.setTitle("SignUp - LD Books");

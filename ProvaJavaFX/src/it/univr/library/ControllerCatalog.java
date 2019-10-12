@@ -54,8 +54,6 @@ public class ControllerCatalog {
     @FXML
     private void initialize()
     {
-        ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
 
         populateCatalog();
 
@@ -71,6 +69,17 @@ public class ControllerCatalog {
         languageCombobox.getSelectionModel().selectFirst();
 
         //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
+    }
+
+    public void setUser(User user)
+    {
+        this.user = user;
+    }
+
+    public void setHeader()
+    {
+        ControllerHeader controllerHeader = new ControllerHeader();
+        controllerHeader.createHeader(user, headerHBox);
     }
 
 

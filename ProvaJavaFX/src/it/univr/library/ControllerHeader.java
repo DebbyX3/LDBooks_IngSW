@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -17,8 +18,8 @@ public class ControllerHeader
         HBox rightHeaderHBox;
 
         createHeader.createLogo(headerHBox);
-        createHeader.createCatalogButton(headerHBox);
-        createHeader.createChartsButton(headerHBox);
+        createHeader.createCatalogButton(headerHBox, user);
+        createHeader.createChartsButton(headerHBox, user);
 
         rightHeaderHBox = createHeader.createRightHeaderHBox(headerHBox);
         checkHeader(user, rightHeaderHBox); //puts the right button in the rightHeaderHBox
@@ -33,31 +34,38 @@ public class ControllerHeader
 
         if(user == null)
         {
-            createHeader.createLoginSignupButton(rightHeaderHbox);
+            createHeader.createLoginSignupButton(rightHeaderHbox, user);
             createHeader.createOrderStatusButton(rightHeaderHbox);
         }
         else
         {
-            VBox userInfoVBox = createHeader.createUserHyperlink(user);
+            VBox userInfoVBox = createHeader.createUserHyperlink(user, rightHeaderHbox);
             createHeader.createLogOutButton(userInfoVBox, rightHeaderHbox);
         }
     }
 
 
-    public void handleCatalogButton(Button catalogButton)
+    public void handleCatalogButton(Button catalogButton, User user)
     {
         StageManager catalogStage = new StageManager();
-        catalogStage.setStageCatalog((Stage) catalogButton.getScene().getWindow());
+        catalogStage.setStageCatalog((Stage) catalogButton.getScene().getWindow(), user);
     }
 
-    public void handleChartsButton(Button chartsButton)
+    public void handleChartsButton(Button chartsButton, User user)
     {
         StageManager chartsStage = new StageManager();
-        chartsStage.setStageCharts((Stage) chartsButton.getScene().getWindow(), "hello");
+        chartsStage.setStageCharts((Stage) chartsButton.getScene().getWindow(), user);
     }
 
-    public void handleLoginSignUpButton(Button loginSignUpButton) {
+    public void handleLoginSignUpButton(Button loginSignUpButton, User user) {
         StageManager loginStage = new StageManager();
-        loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), null);
+        loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), user);
     }
+
+    public void handlerUserPageHyperlink(Hyperlink nameSurnameHyperlink, User user) {
+        StageManager userPageStage = new StageManager();
+        userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
+    }
+
+
 }

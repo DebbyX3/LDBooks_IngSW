@@ -57,8 +57,6 @@ public class ModelDatabaseBooks implements Model
         query +=    "GROUP BY books.ISBN, title, languageName, formatName " +
                     "ORDER By books.title, nameSurnameAuthors ASC ";
 
-        System.out.println(query);
-
         db.DBOpenConnection();
         db.executeSQLQuery(query);
         books = resultSetToArrayListBook(db.getResultSet());

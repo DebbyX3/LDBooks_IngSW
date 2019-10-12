@@ -27,7 +27,7 @@ public class ViewHeader implements View
         headerHBox.getChildren().add(logoImageView);
     }
 
-    public void createCatalogButton(HBox headerHBox) {
+    public void createCatalogButton(HBox headerHBox, User user) {
         Button catalogButton = new Button();
         HBox imageTextHBox = new HBox();
         ImageView homeImageView = new ImageView("/images/home.png");
@@ -65,13 +65,13 @@ public class ViewHeader implements View
         catalogButton.setGraphic(imageTextHBox);
 
         // *** setting button handler
-        catalogButton.setOnAction(e -> new ControllerHeader().handleCatalogButton(catalogButton));
+        catalogButton.setOnAction(e -> new ControllerHeader().handleCatalogButton(catalogButton, user));
 
         // *** adding button to headerHBox
         headerHBox.getChildren().add(catalogButton);
     }
 
-    public void createChartsButton(HBox headerHBox)
+    public void createChartsButton(HBox headerHBox, User user)
     {
         Button chartsButton = new Button();
 
@@ -87,7 +87,7 @@ public class ViewHeader implements View
         chartsButton.setCursor(Cursor.HAND);
         headerHBox.setMargin(chartsButton, new Insets(0, 0, 0, 10.0));  //top, right, bottom, left
 
-        chartsButton.setOnAction(e -> new ControllerHeader().handleChartsButton(chartsButton));
+        chartsButton.setOnAction(e -> new ControllerHeader().handleChartsButton(chartsButton, user));
 
         headerHBox.getChildren().add(chartsButton);
     }
@@ -103,7 +103,7 @@ public class ViewHeader implements View
         return rightHeaderHBox;
     }
 
-    public void createLoginSignupButton(HBox rightHeaderHbox)
+    public void createLoginSignupButton(HBox rightHeaderHbox, User user)
     {
         Button loginSignUpButton = new Button();
 
@@ -120,7 +120,7 @@ public class ViewHeader implements View
         loginSignUpButton.setCursor(Cursor.HAND);
         rightHeaderHbox.setMargin(loginSignUpButton, new Insets(0, 10.0, 0, 0));  //top, right, bottom, left
 
-        loginSignUpButton.setOnAction(e -> new ControllerHeader().handleLoginSignUpButton(loginSignUpButton));
+        loginSignUpButton.setOnAction(e -> new ControllerHeader().handleLoginSignUpButton(loginSignUpButton, user));
 
         rightHeaderHbox.getChildren().add(loginSignUpButton);
     }
@@ -146,19 +146,21 @@ public class ViewHeader implements View
         rightHeaderHbox.getChildren().add(createOrderStatusButton);
     }
 
-    public VBox createUserHyperlink(User user)
+    public VBox createUserHyperlink(User user, HBox rightHeaderHBox)
     {
         VBox userInfoVBox = new VBox();
         Hyperlink nameSurnameHyperlink = new Hyperlink();
 
-        userInfoVBox.setMargin(userInfoVBox, new Insets(0, 10.0, 0, 0)); //top, right, bottom, left
+        rightHeaderHBox.setMargin(userInfoVBox, new Insets(0, 30.0, 0, 0)); //top, right, bottom, left
         userInfoVBox.setAlignment(Pos.CENTER);
 
         nameSurnameHyperlink.setId("nameSurnameHyperlink");
         nameSurnameHyperlink.setText("Hello " + user.getName() + " " + user.getSurname() + ",");
         nameSurnameHyperlink.setFont(new Font("System Italic", 14.0));
 
+        nameSurnameHyperlink.setOnAction(e -> new ControllerHeader().handlerUserPageHyperlink(nameSurnameHyperlink, user));
         userInfoVBox.getChildren().add(nameSurnameHyperlink);
+
 
         return userInfoVBox;
     }
@@ -186,7 +188,7 @@ public class ViewHeader implements View
         cartImageView.setPickOnBounds(true);
         cartImageView.setPreserveRatio(true);
 
-        rightHeaderHBox.setMargin(cartImageView, new Insets(0, 10.0, 0, 0));  //top, right, bottom, left
+        rightHeaderHBox.setMargin(cartImageView, new Insets(0, 20.0, 0, 0));  //top, right, bottom, left
         cartImageView.setCursor(Cursor.HAND);
 
         rightHeaderHBox.getChildren().add(cartImageView);

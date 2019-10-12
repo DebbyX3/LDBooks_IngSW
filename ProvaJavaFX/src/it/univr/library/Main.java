@@ -19,15 +19,18 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        StageManager catalogStage = new StageManager();
+        catalogStage.setStageCatalog(primaryStage, null);
+
         /*ControllerCatalog catalog = new ControllerCatalog();
         catalog.setSceneCatalog(primaryStage);*/
 
-        Parent root = FXMLLoader.load(getClass().getResource("fxml/catalog.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("fxml/catalog.fxml"));
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root));
 
-        primaryStage.show();
+        primaryStage.show();*/
 
         /*
         FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/catalog.fxml"));
