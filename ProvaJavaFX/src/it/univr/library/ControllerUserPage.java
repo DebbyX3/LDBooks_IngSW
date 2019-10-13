@@ -57,13 +57,13 @@ public class ControllerUserPage
 
     private void handleViewProfileButton(ActionEvent actionEvent)
     {
-
+        StageManager viewProfileStage = new StageManager();
+        viewProfileStage.setStageViewProfile((Stage) viewProfileButton.getScene().getWindow(), user);
     }
 
     private void handleEditProfileButton(ActionEvent actionEvent)
     {
-        StageManager orderUserStage = new StageManager();
-        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), user);
+
     }
 
     private void handleMyOrdersButton(ActionEvent actionEvent)

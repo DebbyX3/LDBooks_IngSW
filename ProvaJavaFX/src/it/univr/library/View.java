@@ -8,4 +8,7 @@ public interface View
 {
     public default void buildCatalog(ArrayList<Book> books, VBox catalogVBox)
     {}
+
+    public default void buildInformations(RegisteredUser registeredUser, VBox infomationHBox)
+    {}
 }

@@ -61,6 +61,8 @@ public class ViewBooks implements View
             buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
     }
 
+
+
     //ci sto ancora pensando
     /*private void buildBook(VBox bookVBox, Book book)
     {

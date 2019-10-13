@@ -27,7 +27,7 @@ public class ControllerCharts {
 
     private User user;
 
-    private Stage primaryStage;
+    //private Stage primaryStage;
 
     private String message;
 
@@ -45,8 +45,6 @@ public class ControllerCharts {
     @FXML
     private void initialize()
     {
-
-
         //Inizializza combobox Genre
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();

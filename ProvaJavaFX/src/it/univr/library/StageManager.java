@@ -150,4 +150,31 @@ public class StageManager
         }
 
     }
+
+    public void setStageViewProfile(Stage primaryStage, User user)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/viewProfile.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerViewProfile controllerViewProfile = fxmlLoader.getController();
+            controllerViewProfile.setUser(user);
+            controllerViewProfile.populateUserInformations();
+            controllerViewProfile.setHeader();
+
+
+
+            primaryStage.setTitle("ViewProfile - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
 }

@@ -26,4 +26,6 @@ public interface Model
     {
         return null;
     }
+
+    public default RegisteredUser getRegisteredUser(User testUser){ return null;}
 }
