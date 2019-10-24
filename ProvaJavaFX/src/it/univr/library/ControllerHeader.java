@@ -1,8 +1,5 @@
 package it.univr.library;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.HBox;
@@ -68,4 +65,8 @@ public class ControllerHeader
     }
 
 
+    public void handlerEditButton(Button editProfile, RegisteredUser registeredUser) {
+        StageManager EditProfilePage = new StageManager();
+        EditProfilePage.setStageEditProfile((Stage) editProfile.getScene().getWindow(), registeredUser);
+    }
 }

@@ -161,7 +161,7 @@
                                                 <Insets />
                                              </HBox.margin>
                                           </Label>
-                                          <Label prefHeight="17.0" prefWidth="274.0" text="street" />
+                                          <Label prefHeight="17.0" prefWidth="274.0" text="Via F Baracca" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />
@@ -177,7 +177,7 @@
                                                 <Insets />
                                              </HBox.margin>
                                           </Label>
-                                          <Label prefHeight="17.0" prefWidth="274.0" text="house n" />
+                                          <Label prefHeight="17.0" prefWidth="274.0" text="213" />
                                        </children>
                                        <opaqueInsets>
                                           <Insets />

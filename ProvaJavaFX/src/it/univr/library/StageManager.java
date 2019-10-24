@@ -177,4 +177,30 @@ public class StageManager
         }
 
     }
+
+    public void setStageEditProfile(Stage primaryStage, RegisteredUser registeredUser) {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/updateProfile.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerUpdateProfile ControllerUpdateProfile = fxmlLoader.getController();
+            ControllerUpdateProfile.setUser(registeredUser);
+            ControllerUpdateProfile.populateUserInformations();
+            ControllerUpdateProfile.setHeader();
+
+
+
+            primaryStage.setTitle("UpdateProfile - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
 }

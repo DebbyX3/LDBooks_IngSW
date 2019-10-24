@@ -53,7 +53,6 @@ public class ModelDatabaseBooks implements Model
             query += "languageName LIKE \"" + filter.getLanguage().getName() + "\" ";
         }
 
-
         query +=    "GROUP BY books.ISBN, title, languageName, formatName " +
                     "ORDER By books.title, nameSurnameAuthors ASC ";
 

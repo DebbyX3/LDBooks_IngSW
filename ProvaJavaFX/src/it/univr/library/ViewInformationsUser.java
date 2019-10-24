@@ -2,13 +2,15 @@ package it.univr.library;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-import java.awt.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -102,8 +104,6 @@ public class ViewInformationsUser implements View {
         infomationGridePaneRow10.setMinHeight(10.0);
         infomationGridePaneRow10.setPrefHeight(35.0);
         infomationGridePaneRow10.setVgrow(Priority.SOMETIMES);
-
-
 
         informationGridPane.getColumnConstraints().addAll(informationGridPaneColumn1, informationGridPaneColumn2, informationGridPaneColumn3);
         informationGridPane.getRowConstraints().addAll( infomationGridePaneRow1, infomationGridePaneRow2, infomationGridePaneRow3, infomationGridePaneRow4,
@@ -322,7 +322,24 @@ public class ViewInformationsUser implements View {
         m.setText(registeredUser.getEmail());
         informationGridPane.setConstraints(m, 1, 5); // label in column 0, row 0
 
-        informationGridPane.getChildren().addAll(name, n, surname, s, address, addressVBox, phoneNumber, p, mail, m);
+        VBox buttonEditProfileVBox = new VBox();
+        buttonEditProfileVBox.setAlignment(Pos.CENTER);
+        Button editProfile = new Button();
+        editProfile.setId("editButton");
+        editProfile.setPrefHeight(57);
+        editProfile.setPrefWidth(145);
+        editProfile.setText("Edit");
+        editProfile.setStyle("-fx-background-color: #ffa939;");
+        editProfile.setCursor(Cursor.HAND);
+        buttonEditProfileVBox.getChildren().addAll(editProfile);
+        informationGridPane.setConstraints(buttonEditProfileVBox, 1, 7);
+
+        //setto i listener
+        editProfile.setOnAction(e -> new ControllerHeader().handlerEditButton(editProfile, registeredUser));
+
+        informationGridPane.getChildren().addAll(name, n, surname, s, address, addressVBox, phoneNumber, p, mail, m, buttonEditProfileVBox);
         informationVBox.getChildren().addAll(informationGridPane);
+
+
     }
 }
