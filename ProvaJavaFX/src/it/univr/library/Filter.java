@@ -10,6 +10,11 @@ public class Filter
         this.language = language;
     }
 
+    public Filter(Genre genre)
+    {
+        this(genre, null);
+    }
+
     public Genre getGenre()
     {
         return genre;

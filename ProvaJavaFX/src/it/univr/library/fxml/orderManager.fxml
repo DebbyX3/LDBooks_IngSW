@@ -121,16 +121,25 @@
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <Label prefHeight="17.0" prefWidth="246.0" text="Author: ">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <Label prefHeight="17.0" prefWidth="246.0" text="Publisher: ">
                                        <font>
                                           <Font name="System Bold" size="12.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <Label prefHeight="17.0" prefWidth="246.0" text="ISBN: ">
                                        <font>
@@ -141,14 +150,17 @@
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
-                                       <padding>
-                                          <Insets top="15.0" />
-                                       </padding>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="15.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <Label prefHeight="17.0" prefWidth="246.0" text="LibroCard points: ">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
                                     </Label>
                                  </children>
                               </VBox>
@@ -180,6 +192,7 @@
                                     <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="1" />
                                  </children>
                               </GridPane>
+                              <Label text="Total Price:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                         <Separator prefWidth="200.0" />
@@ -221,96 +234,7 @@
             </VBox>
          </left>
          <top>
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="87.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../images/Logo.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="catalogButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" textAlignment="CENTER">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../images/home.png" />
-                                 </image>
-                              </ImageView>
-                              <Label text="Catalog">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="chartsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" text="Charts" textAlignment="CENTER">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="604.0">
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Login - Sign Up" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="49.0" prefWidth="124.0" style="-fx-background-color: #ffa939;" text="Order Status for unregistered user" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font size="13.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <HBox.margin>
-                              <Insets right="15.0" />
-                           </HBox.margin>
-                        </Button>
-                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/cart.png" />
-                           </image>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                        </ImageView>
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" BorderPane.alignment="CENTER">

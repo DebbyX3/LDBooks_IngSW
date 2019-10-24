@@ -98,7 +98,8 @@ public class ControllerCatalog {
         alert.showAndWait();
     }
 
-    private void handleFilterButton(ActionEvent actionEvent) {
+    private void handleFilterButton(ActionEvent actionEvent)
+    {
         Model DBBooks = new ModelDatabaseBooks();
         View viewBooks = new ViewBooks();
         Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());

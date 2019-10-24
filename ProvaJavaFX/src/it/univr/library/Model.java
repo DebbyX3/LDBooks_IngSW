@@ -22,7 +22,7 @@ public interface Model
 
     public default User getUser(User testUser){ return null;}
 
-    public default ArrayList<Charts> getCharts(Genre genre)
+    public default ArrayList<Charts> getCharts(Filter filter)
     {
         return null;
     }

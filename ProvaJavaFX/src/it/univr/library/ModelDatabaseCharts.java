@@ -10,7 +10,7 @@ public class ModelDatabaseCharts implements Model{
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public ArrayList<Charts> getCharts(Genre genre)
+    public ArrayList<Charts> getCharts(Filter filter)
     {
         ArrayList<Charts> chart;
 
@@ -20,7 +20,7 @@ public class ModelDatabaseCharts implements Model{
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
                 "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE genreName LIKE \"" + genre.getName() +"\" " +
+                "WHERE genreName LIKE \"" + filter.getGenre().getName() +"\" " +
                 "GROUP BY books.ISBN " +
                 "ORDER BY rank");
 

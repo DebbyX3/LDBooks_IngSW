@@ -3,15 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -63,173 +61,124 @@
     </MenuBar>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER">
-               <children>
-                  <ImageView fitHeight="87.0" fitWidth="92.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../images/Logo.png" />
-                     </image>
-                  </ImageView>
-                  <Button fx:id="catalogButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" textAlignment="CENTER">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                     <graphic>
-                        <HBox alignment="CENTER">
-                           <children>
-                              <ImageView fitHeight="28.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../images/home.png" />
-                                 </image>
-                              </ImageView>
-                              <Label text="Catalog">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets left="5.0" />
-                                 </HBox.margin>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Label>
-                           </children>
-                        </HBox>
-                     </graphic>
-                  </Button>
-                  <Button fx:id="chartsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #ffa939;" text="Charts" textAlignment="CENTER">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="87.0" prefWidth="604.0">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                     <children>
-                        <Hyperlink text="Hello Name Surname,">
-                           <font>
-                              <Font name="System Italic" size="14.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="40.0" />
-                           </HBox.margin>
-                        </Hyperlink>
-                        <ImageView fitHeight="43.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/cart.png" />
-                           </image>
-                           <HBox.margin>
-                              <Insets right="10.0" />
-                           </HBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </ImageView>
-                     </children>
-                  </HBox>
-               </children>
-            </HBox>
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <GridPane alignment="CENTER" prefHeight="500.0" prefWidth="861.0">
+                  <GridPane alignment="CENTER" prefHeight="465.0" prefWidth="913.0">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="282.20001220703125" minWidth="10.0" percentWidth="33.0" prefWidth="253.1999755859375" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="561.2000213623047" minWidth="10.0" percentWidth="33.0" prefWidth="284.4000244140625" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.60003662109375" minWidth="10.0" percentWidth="33.0" prefWidth="323.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="177.99996948242188" minHeight="10.0" prefHeight="97.2" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="177.99996948242188" minHeight="10.0" prefHeight="63.400014495849604" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="1.7976931348623157E308" minHeight="30.0" prefHeight="48.8" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" prefHeight="53.5999786376953" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="51.40000610351561" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" prefHeight="48.8" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="43.199987792968784" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="38.599999999999966" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="307.4000244140625" minHeight="0.0" prefHeight="39.599999999999966" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="52.199993896484386" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="4.599969482421898" prefHeight="61.99998779296874" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="45.600012207031284" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="53.39996337890625" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="60.60001220703123" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label prefHeight="27.0" prefWidth="153.0" text="Total Price:" textAlignment="CENTER" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
+                        <VBox GridPane.rowIndex="1">
                            <GridPane.margin>
-                              <Insets left="20.0" />
+                              <Insets />
                            </GridPane.margin>
-                        </Label>
-                        <Label prefHeight="25.0" prefWidth="81.0" text="Price €" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
-                        <Label prefHeight="27.0" prefWidth="230.0" text="Select a shipping address:" GridPane.columnIndex="2" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="153.0" text="Total Price:" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="priceLabel" prefHeight="25.0" prefWidth="81.0" text="price €">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="153.0" text="LibroCard points:" textAlignment="CENTER">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="81.0" text="points">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4">
                            <GridPane.margin>
-                              <Insets left="25.0" />
+                              <Insets />
                            </GridPane.margin>
-                        </Label>
-                        <RadioButton mnemonicParsing="false" text="Default Address" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="230.0" text="Select a shipping address:">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <RadioButton mnemonicParsing="false" text="Default Address" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <GridPane.margin>
-                              <Insets left="25.0" />
-                           </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Address2" GridPane.columnIndex="2" GridPane.rowIndex="5">
-                           <GridPane.margin>
-                              <Insets left="25.0" />
-                           </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Address3" GridPane.columnIndex="2" GridPane.rowIndex="6">
-                           <GridPane.margin>
-                              <Insets left="25.0" />
-                           </GridPane.margin>
-                        </RadioButton>
-                        <Label layoutX="572.0" layoutY="207.0" prefHeight="27.0" prefWidth="230.0" text="Select a payment method:" GridPane.rowIndex="3">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <RadioButton layoutX="548.0" layoutY="255.0" mnemonicParsing="false" text="Credit-Debit Card" GridPane.rowIndex="4">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton layoutX="30.0" layoutY="255.0" mnemonicParsing="false" text="PayPal" GridPane.rowIndex="5">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
-                           </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton layoutX="30.0" layoutY="255.0" mnemonicParsing="false" text="GiftCard" GridPane.rowIndex="6">
-                           <GridPane.margin>
-                              <Insets left="20.0" />
+                              <Insets />
                            </GridPane.margin>
                         </RadioButton>
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                        <RadioButton mnemonicParsing="false" text="Address2" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Address3" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <VBox alignment="CENTER" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="230.0" text="Select a payment method:">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <RadioButton layoutX="548.0" layoutY="255.0" mnemonicParsing="false" text="Credit-Debit Card" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton layoutX="30.0" layoutY="255.0" mnemonicParsing="false" text="PayPal" GridPane.rowIndex="6">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton layoutX="30.0" layoutY="255.0" mnemonicParsing="false" text="GiftCard" GridPane.rowIndex="7">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -255,23 +204,13 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label layoutX="30.0" layoutY="113.0" prefHeight="27.0" prefWidth="153.0" text="LibroCard points:" textAlignment="CENTER" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets bottom="20.0" left="20.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label layoutX="263.0" layoutY="114.0" prefHeight="25.0" prefWidth="81.0" text="points" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets bottom="20.0" />
-                           </GridPane.margin>
-                        </Label>
+                        <Separator prefWidth="200.0" GridPane.rowIndex="3" />
+                        <Separator prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Separator prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                      </children>
+                     <HBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" />
+                     </HBox.margin>
                   </GridPane>
                </children>
             </HBox>

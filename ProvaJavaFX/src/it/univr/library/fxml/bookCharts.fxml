@@ -68,14 +68,14 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <TableView prefHeight="445.0" prefWidth="727.0">
+                  <TableView fx:id="chartsTableView" prefHeight="445.0" prefWidth="727.0">
                     <columns>
-                        <TableColumn editable="false" prefWidth="75.99996948242188" text="Rank" />
-                      <TableColumn editable="false" prefWidth="140.79998779296875" text="ISBN" />
-                      <TableColumn editable="false" prefWidth="145.6000213623047" text="Title" />
-                        <TableColumn editable="false" prefWidth="120.0" text="Authors" />
-                        <TableColumn editable="false" prefWidth="90.4000244140625" text="Genre" />
-                        <TableColumn editable="false" prefWidth="142.4000244140625" text="Weeks In" />
+                        <TableColumn fx:id="rankTableColumn" editable="false" prefWidth="75.99996948242188" text="Rank" />
+                      <TableColumn fx:id="ISBNTableColumn" editable="false" prefWidth="140.79998779296875" text="ISBN" />
+                      <TableColumn fx:id="titleTableColumn" editable="false" prefWidth="145.6000213623047" text="Title" />
+                        <TableColumn fx:id="authorsTableColumn" editable="false" prefWidth="120.0" text="Authors" />
+                        <TableColumn fx:id="genreTableColumn" editable="false" prefWidth="90.4000244140625" text="Genre" />
+                        <TableColumn fx:id="weeksInTableColumn" editable="false" prefWidth="142.4000244140625" text="Weeks In" />
                     </columns>
                      <opaqueInsets>
                         <Insets />
@@ -108,7 +108,7 @@
                         <Insets bottom="8.0" left="2.0" right="2.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button mnemonicParsing="false" text="Refresh">
+                  <Button fx:id="filterButton" mnemonicParsing="false" text="Refresh">
                      <VBox.margin>
                         <Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
                      </VBox.margin>

@@ -13,7 +13,7 @@ public class ModelDatabaseRegisteredUser implements Model
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT name, surname, phoneNumber, email, password " +
                             "FROM registeredUsers " +
-                             "WHERE UPPER (email) GLOB \"" + testUser.getEmail() +  "\" AND password LIKE \"" + testUser.getPassword() + "\"");
+                            "WHERE UPPER (email) GLOB \"" + testUser.getEmail() +  "\" AND password LIKE \"" + testUser.getPassword() + "\"");
 
         user = resultSetToUser(db.getResultSet());
         db.DBCloseConnection();

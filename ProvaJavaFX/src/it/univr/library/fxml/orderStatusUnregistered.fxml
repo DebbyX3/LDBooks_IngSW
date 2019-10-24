@@ -150,7 +150,6 @@
                         <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" prefHeight="42.99999008178712" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" prefHeight="46.80000000000001" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="280.19996643066406" minHeight="9.000021362304693" prefHeight="44.00000610351563" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="71.20001220703125" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="2.600006103515625" prefHeight="25.99998779296874" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="9.000015258789062" prefHeight="34.19999999999999" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
@@ -159,7 +158,7 @@
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="68.80004272460934" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -191,13 +190,13 @@
                            </GridPane.margin>
                         </Label>
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="7">
+                        <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                         </Separator>
-                        <Separator layoutX="9.0" layoutY="469.0" prefHeight="2.0" prefWidth="258.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                        <Separator layoutX="9.0" layoutY="469.0" prefHeight="2.0" prefWidth="258.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="8">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
