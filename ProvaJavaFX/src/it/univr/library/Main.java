@@ -19,9 +19,13 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+        StageManager homePageStage = new StageManager();
+        homePageStage.setStageHomepage(primaryStage);
+
+        /* SCHERMATA INIZIALE PRECEDENTE
         StageManager catalogStage = new StageManager();
         catalogStage.setStageCatalog(primaryStage, null);
-
+        */
         /*ControllerCatalog catalog = new ControllerCatalog();
         catalog.setSceneCatalog(primaryStage);*/
 

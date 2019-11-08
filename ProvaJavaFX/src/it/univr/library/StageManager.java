@@ -7,6 +7,26 @@ import javafx.stage.Stage;
 
 public class StageManager
 {
+    public void setStageHomepage(Stage primaryStage) {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/homePage.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerHomepage controllerHomepage = fxmlLoader.getController();
+
+            primaryStage.setTitle("Homepage - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void setStageCharts(Stage primaryStage, User user)
     {
         Parent root;
@@ -203,4 +223,6 @@ public class StageManager
         }
 
     }
+
+
 }
