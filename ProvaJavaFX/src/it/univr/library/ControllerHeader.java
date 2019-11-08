@@ -71,9 +71,9 @@ public class ControllerHeader
     }
 
     public void handleLogOutButton(Button logoutButton) {
-        //todo
+        //todo svuotare il carello
         StageManager catalogLogout = new StageManager();
         catalogLogout.setStageCatalog((Stage) logoutButton.getScene().getWindow(), null);
-        //svuotare carrello
+
     }
 }

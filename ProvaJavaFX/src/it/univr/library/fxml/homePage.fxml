@@ -59,12 +59,12 @@
                <children>
                   <ImageView fitHeight="679.0" fitWidth="1069.0" opacity="0.84" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../tumblr_mo39exmKBm1qhttpto3_1280.jpg" />
+                        <Image url="@../../../../../../../tumblr_mo39exmKBm1qhttpto3_1280.jpg" />
                      </image>
                   </ImageView>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button layoutX="409.0" layoutY="436.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="87.0" text="Button" />
+                        <Button layoutX="409.0" layoutY="436.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Enter to LD books" />
                      </children>
                   </Pane>
                </children>
