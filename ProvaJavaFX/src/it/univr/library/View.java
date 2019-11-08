@@ -5,6 +5,7 @@ import javafx.scene.chart.Chart;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,5 +23,8 @@ public interface View
                            TableColumn<Charts, String> ISBNTableColumn, TableColumn<Charts, String> titleTableColumn,
                            TableColumn<Charts, List<String>> authorsTableColumn, TableColumn<Charts, String> genreTableColumn,
                            TableColumn<Charts, Integer> weeksInTableColumn)
+    {}
+
+    public default void buildLibrocard(User user, Librocard librocard, Text nameSurnameText, Text pointsText, Text issueDateText, Text idText)
     {}
 }

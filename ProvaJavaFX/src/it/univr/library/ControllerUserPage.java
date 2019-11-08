@@ -52,7 +52,8 @@ public class ControllerUserPage
 
     private void handleMyLibroCardButton(ActionEvent actionEvent)
     {
-
+        StageManager viewLibroCard = new StageManager();
+        viewLibroCard.setStageViewLibroCard((Stage) myLibroCardButton.getScene().getWindow(), user);
     }
 
     private void handleViewProfileButton(ActionEvent actionEvent)

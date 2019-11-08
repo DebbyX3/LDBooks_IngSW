@@ -213,7 +213,7 @@ public class StageManager
 
 
 
-            primaryStage.setTitle("UpdateProfile - LD Books");
+            primaryStage.setTitle("Update Profile - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
@@ -224,5 +224,26 @@ public class StageManager
 
     }
 
+    public void setStageViewLibroCard(Stage primaryStage, User user) {
+        Parent root;
 
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/librocardUser.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerLibroCardUser controllerLibroCardUser = fxmlLoader.getController();
+            controllerLibroCardUser.setUser(user);
+            controllerLibroCardUser.populateUserLibroCard();
+            controllerLibroCardUser.setHeader();
+
+            primaryStage.setTitle("My LibroCard - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

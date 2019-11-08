@@ -82,6 +82,18 @@ public class DatabaseConnection
         }
     }
 
+    public Long getSQLLong(ResultSet rs, String name)
+    {
+        try
+        {
+            return rs.getLong(name);
+        }
+        catch (SQLException e)
+        {
+            return null;
+        }
+    }
+
     public BigDecimal getSQLNumeric(ResultSet rs, String name)
     {
         try
