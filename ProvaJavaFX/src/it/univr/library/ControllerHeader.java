@@ -37,7 +37,7 @@ public class ControllerHeader
         else
         {
             VBox userInfoVBox = createHeader.createUserHyperlink(user, rightHeaderHbox);
-            createHeader.createLogOutButton(userInfoVBox, rightHeaderHbox);
+            createHeader.createLogOutButton(userInfoVBox, rightHeaderHbox,user);
         }
     }
 
@@ -68,5 +68,12 @@ public class ControllerHeader
     public void handlerEditButton(Button editProfile, RegisteredUser registeredUser) {
         StageManager EditProfilePage = new StageManager();
         EditProfilePage.setStageEditProfile((Stage) editProfile.getScene().getWindow(), registeredUser);
+    }
+
+    public void handleLogOutButton(Button logoutButton) {
+        //todo
+        StageManager catalogLogout = new StageManager();
+        catalogLogout.setStageCatalog((Stage) logoutButton.getScene().getWindow(), null);
+        //svuotare carrello
     }
 }

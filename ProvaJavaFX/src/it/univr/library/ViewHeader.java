@@ -165,14 +165,16 @@ public class ViewHeader implements View
         return userInfoVBox;
     }
 
-    public void createLogOutButton(VBox userInfoVBox, HBox rightHeaderHBox)
+    public void createLogOutButton(VBox userInfoVBox, HBox rightHeaderHBox, User user)
     {
         Button logoutButton = new Button();
 
         logoutButton.setId("logoutButton");
         logoutButton.setStyle("-fx-background-color: #ffa939");
         logoutButton.setText("Log Out");
+        logoutButton.setCursor(Cursor.HAND);
 
+        logoutButton.setOnAction(e -> new ControllerHeader().handleLogOutButton(logoutButton));
         userInfoVBox.getChildren().add(logoutButton);
 
         rightHeaderHBox.getChildren().add(userInfoVBox);
