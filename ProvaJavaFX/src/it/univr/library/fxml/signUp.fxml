@@ -151,12 +151,12 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="postalCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="307.0" text="Registration:" underline="true" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -165,7 +165,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="citiesComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <Label alignment="TOP_RIGHT" layoutX="210.0" layoutY="421.0" prefHeight="20.0" prefWidth="314.0" text="Password:" textAlignment="CENTER" GridPane.rowIndex="9">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -174,7 +174,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <PasswordField fx:id="pswPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="12">
                            <children>
                               <Button fx:id="signUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Sign Up">
@@ -195,7 +195,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField layoutX="298.0" layoutY="127.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="houseNumberTextField" layoutX="298.0" layoutY="127.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>

@@ -30,4 +30,8 @@ public interface Model
     public default RegisteredUser getRegisteredUser(User testUser){ return null;}
 
     public default Librocard getLibrocardInformation(User user){return null;}
+
+    public default ArrayList<String> getCities(){return null;}
+
+    public default Boolean checkMail(RegisteredUser test){return null;}
 }

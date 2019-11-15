@@ -55,7 +55,7 @@ public class ControllerLoginSignUp {
         User realUser = DBLogin.getUser(user);
 
         if(realUser == null)
-            displayAllert("Invalid mail or password!");
+            displayAlert("Invalid mail or password!");
         else
         {
            //carico la nuova schermata
@@ -70,7 +70,7 @@ public class ControllerLoginSignUp {
         signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), user);
     }
 
-    private void displayAllert(String s) {
+    private void displayAlert(String s) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);

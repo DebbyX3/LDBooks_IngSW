@@ -88,7 +88,7 @@ public class ViewBooks implements View
             //bookImageView = new ImageView(new Image(element.getImagePath()));
             bookImageView = new ImageView(new Image(imagePath));
         }
-        catch(NullPointerException e)
+        catch(NullPointerException | IllegalArgumentException e)
         {
             bookImageView = new ImageView(new Image("/images/coverNotAvailable.png"));
         }
