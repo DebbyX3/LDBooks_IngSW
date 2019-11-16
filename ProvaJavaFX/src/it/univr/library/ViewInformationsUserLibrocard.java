@@ -1,6 +1,5 @@
 package it.univr.library;
 
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class ViewInformationsUserLibrocard implements View {
@@ -12,5 +11,10 @@ public class ViewInformationsUserLibrocard implements View {
         pointsText.setText("Points: " + librocard.getTotalPoints());
         issueDateText.setText("Issue Date: " + librocard.getDateFromUnixTime());
         idText.setText("Id: " + librocard.getNumberID());
+    }
+
+    public static class Cities
+    {
+
     }
 }

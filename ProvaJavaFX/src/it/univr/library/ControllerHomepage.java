@@ -2,6 +2,7 @@ package it.univr.library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 

@@ -54,7 +54,6 @@ public class ControllerCatalog {
     @FXML
     private void initialize()
     {
-
         populateCatalog();
 
         //Setta listener bottoni

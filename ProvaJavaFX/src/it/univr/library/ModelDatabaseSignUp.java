@@ -1,6 +1,7 @@
 package it.univr.library;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelDatabaseSignUp implements Model
@@ -10,32 +11,55 @@ public class ModelDatabaseSignUp implements Model
     @Override
     public ArrayList<String> getCities()
     {
-        ArrayList<String> cities;
-
-        db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT name FROM cities " +
-                            "ORDER BY name ASC");
-        cities = resultSetToArrayListCities(db.getResultSet());
-        db.DBCloseConnection();
-
-        System.out.println(cities);
-        return cities;
+        return getCitiesCAPs().getCities();
     }
 
-    private ArrayList<String> resultSetToArrayListCities(ResultSet rs)
+    @Override
+    public ArrayList<String> getCAPs()
+    {
+        return getCitiesCAPs().getCAPs();
+    }
+
+    private Cities getCitiesCAPs()
+    {
+        Cities citiesAndCAPs;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT name, CAP "+
+                            "FROM cities " +
+                            "ORDER BY name ASC");
+
+        citiesAndCAPs = resultSetToCitiesAndCAPs(db.getResultSet());
+        db.DBCloseConnection();
+
+        return citiesAndCAPs;
+    }
+
+    private Cities resultSetToCitiesAndCAPs(ResultSet rs)
     {
         ArrayList<String> cities = new ArrayList<>();
+        ArrayList<String> CAPs = new ArrayList<>();
+
         String singleCity;
+        String singleCAP;
+
+        Cities citiesAndCAPs = new Cities();
 
         try
         {
             while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
             {
                 singleCity = db.getSQLString(rs, "name");
+                singleCAP = db.getSQLString(rs, "CAP");
+
                 cities.add(singleCity);
+                CAPs.add(singleCAP);
             }
 
-            return cities;
+            citiesAndCAPs.setCAPs(CAPs);
+            citiesAndCAPs.setCities(cities);
+
+            return citiesAndCAPs;
         }
         catch (Exception e)
         {
@@ -46,10 +70,44 @@ public class ModelDatabaseSignUp implements Model
         return null;
     }
 
+    /**
+     * This method tells if the mail inserted by the user during sign up already exists.
+     * @param user contains user's form data
+     * @return  true if the mail already exists in DB in registeredUser and/or manager tables
+     *          false if the mail does not exist
+     */
     @Override
-    public Boolean checkMail(RegisteredUser test)
+    public Boolean doesMailAlreadyExist(RegisteredUser user)
     {
-        //todo finire il check della mail
-        return true;
+        boolean result = false;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT email " +
+                            "FROM registeredUsers " +
+                            "WHERE email LIKE \"" + user.getEmail() + "\"");
+
+        try {
+            //if the mail does not exist in the registeredUser table
+            result = db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+        }
+        catch (SQLException e) {
+            result = false;
+        }
+
+        db.executeSQLQuery( "SELECT email " +
+                "FROM managers " +
+                "WHERE email LIKE \"" + user.getEmail() + "\"");
+
+        try {
+            //if the mail does not exist in the managers table
+            result = result || db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+        }
+        catch (SQLException e) {
+            result = result || false;
+        }
+
+        db.DBCloseConnection();
+
+        return result;
     }
 }

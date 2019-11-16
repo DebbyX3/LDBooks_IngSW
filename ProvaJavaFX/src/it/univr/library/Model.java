@@ -33,5 +33,7 @@ public interface Model
 
     public default ArrayList<String> getCities(){return null;}
 
-    public default Boolean checkMail(RegisteredUser test){return null;}
+    public default ArrayList<String> getCAPs(){return null;}
+
+    public default Boolean doesMailAlreadyExist(RegisteredUser test){return null;}
 }

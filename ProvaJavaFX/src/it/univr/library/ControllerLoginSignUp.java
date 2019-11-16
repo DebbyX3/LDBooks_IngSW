@@ -49,7 +49,6 @@ public class ControllerLoginSignUp {
 
     private void handleLoginButton(ActionEvent actionEvent)
     {
-
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
         User realUser = DBLogin.getUser(user);
@@ -71,8 +70,8 @@ public class ControllerLoginSignUp {
     }
 
     private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Check your input");
         alert.setHeaderText(null);
         alert.setContentText(s);
 
