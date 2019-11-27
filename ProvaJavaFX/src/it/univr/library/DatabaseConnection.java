@@ -9,6 +9,7 @@ public class DatabaseConnection
     private Connection connection;
     private Statement stmt;
     private ResultSet rs;
+    private int updateRow;
 
     public void DBOpenConnection()
     {
@@ -45,6 +46,20 @@ public class DatabaseConnection
         {
             stmt = connection.createStatement();
             rs = stmt.executeQuery(query);
+        }
+        catch (Exception e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+    }
+
+    public void executeSQLUpdate(String query)
+    {
+        try
+        {
+            stmt = connection.createStatement();
+            updateRow = stmt.executeUpdate(query);
         }
         catch (Exception e)
         {

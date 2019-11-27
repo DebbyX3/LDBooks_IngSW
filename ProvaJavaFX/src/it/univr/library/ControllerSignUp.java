@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -122,7 +123,18 @@ public class ControllerSignUp {
                 // check if mail is unique
                 if(!DBcheckUser.doesMailAlreadyExist(testUser))
                 {
-                    // TODO: 16/11/2019 mettere tutto nel db con check su indirizzo (ora cap e città sono divisi AAAAAAAA)
+                    //call method to add user to db
+                    DBcheckUser.addUser(testUser);
+
+                    //call method to first check if address already exists then if doesn't exist, puts it into db.
+                    DBcheckUser.addAddress(testUser);
+
+                    //create associate librcard
+                    DBcheckUser.createLibroCard(testUser);
+
+                    //if everything's ok change scene
+                    StageManager loginStage = new StageManager();
+                    loginStage.setStageUserPage((Stage) signUpButton.getScene().getWindow(), testUser);
                 }
                 else
                     displayAlert("Mail already exists");

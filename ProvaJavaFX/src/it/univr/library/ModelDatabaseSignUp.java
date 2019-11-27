@@ -110,4 +110,125 @@ public class ModelDatabaseSignUp implements Model
 
         return result;
     }
+
+    public void addUser(RegisteredUser testUser)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
+                            "VALUES ('" + testUser.getEmail() + "','" + testUser.getName() + "','" + testUser.getSurname()
+                            + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
+
+        System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
+                "VALUES ('" + testUser.getEmail() + "','" + testUser.getName() + "','" + testUser.getSurname()
+                + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
+
+        db.DBCloseConnection();
+    }
+
+    public void addAddress(RegisteredUser testUser)
+    {
+       if(!addressAlreadyExists(testUser.getAddresses()))
+       {
+           //create address
+           createNewAddress(testUser.getAddresses());
+       }
+        //only link it to the user
+        linkAddressToUser(testUser);
+    }
+
+    private void linkAddressToUser(RegisteredUser testUser)
+    {
+        Address a = new Address();
+
+        for (Address address: testUser.getAddresses()) {
+            a.setStreet(address.getStreet());
+            a.setHouseNumber(address.getHouseNumber());
+            a.setCity(address.getCity());
+            a.setPostalCode(address.getPostalCode());
+        }
+
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
+                            "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreet() + "', '" + a.getHouseNumber() +
+                            "', '" + a.getCity() + "', '" + a.getPostalCode() + "')");
+
+        System.out.println("INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
+                "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreet() + "', '" + a.getHouseNumber() +
+                "', '" + a.getCity() + "', '" + a.getPostalCode() + "')");
+
+        db.DBCloseConnection();
+    }
+
+    private void createNewAddress(ArrayList<Address> addresses)
+    {
+        Address a = new Address();
+
+        for (Address address:addresses) {
+            a.setStreet(address.getStreet());
+            a.setHouseNumber(address.getHouseNumber());
+            a.setCity(address.getCity());
+            a.setPostalCode(address.getPostalCode());
+        }
+
+        db.DBOpenConnection();
+        db.executeSQLUpdate("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
+                           "VALUES( '" + a.getStreet() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
+                            a.getPostalCode() + "')");
+
+        System.out.println("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
+                "VALUES( '" + a.getStreet() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
+                a.getPostalCode() + "')");
+
+        db.DBCloseConnection();
+    }
+
+    /**
+     * @param addresses, list of addresses
+     * @return true if address already exists in db otherwise false
+     */
+    private boolean addressAlreadyExists(ArrayList<Address> addresses) {
+
+        Address a = new Address();
+        boolean result = false;
+        db.DBOpenConnection();
+
+        for (Address address:addresses) {
+            a.setStreet(address.getStreet());
+            a.setHouseNumber(address.getHouseNumber());
+            a.setCity(address.getCity());
+            a.setPostalCode(address.getPostalCode());
+        }
+
+        db.executeSQLQuery("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
+                            "FROM ship " +
+                            "WHERE addressStreet LIKE '" + a.getStreet() + "' AND addressHouseNumber LIKE '" +
+                            a.getHouseNumber() + "' AND cityName LIKE '" + a.getCity() +
+                            "' AND cityCAP LIKE '" + a.getPostalCode() + "'");
+        System.out.println("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
+                "FROM ship " +
+                "WHERE addressStreet LIKE '" + a.getStreet() + "' AND addressHouseNumber LIKE '" +
+                a.getHouseNumber() + "' AND cityName LIKE '" + a.getCity() +
+                "' AND cityCAP LIKE '" + a.getPostalCode() + "'");
+
+        try
+        {
+            result = db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+        }
+        catch (SQLException e) {
+            result = false;
+        }
+
+        db.DBCloseConnection();
+        return result;
+    }
+
+    public void createLibroCard(RegisteredUser testUser)
+    {
+        db.DBOpenConnection();
+        //db.executeSQLQuery( "INSERT INTO table (totalPoints, issueDate, email) " +
+          //                  "VALUES(0, , '" + "');");
+        // TODO: 27/11/2019 data in unix time e creazione librocard in database (usando executeSQLUpdate) 
+
+        db.DBCloseConnection();
+    }
 }

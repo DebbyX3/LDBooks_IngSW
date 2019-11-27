@@ -36,4 +36,10 @@ public interface Model
     public default ArrayList<String> getCAPs(){return null;}
 
     public default Boolean doesMailAlreadyExist(RegisteredUser test){return null;}
+
+    public default void addUser(RegisteredUser user){}
+
+    public default void addAddress(RegisteredUser testUser){};
+
+    public default void createLibroCard(RegisteredUser testUser){};
 }
