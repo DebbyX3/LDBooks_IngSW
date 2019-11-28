@@ -224,10 +224,12 @@ public class ModelDatabaseSignUp implements Model
 
     public void createLibroCard(RegisteredUser testUser)
     {
+        long unixTime = System.currentTimeMillis() / 1000L;
         db.DBOpenConnection();
-        //db.executeSQLQuery( "INSERT INTO table (totalPoints, issueDate, email) " +
-          //                  "VALUES(0, , '" + "');");
-        // TODO: 27/11/2019 data in unix time e creazione librocard in database (usando executeSQLUpdate) 
+        db.executeSQLUpdate( "INSERT INTO libroCards (totalPoints, issueDate, email) " +
+                           "VALUES('0', '" + unixTime + "', '" + testUser.getEmail() +"');");
+        System.out.println( "INSERT INTO table (totalPoints, issueDate, email) " +
+                            "VALUES('0', '" + unixTime + "', '" + testUser.getEmail() +"');");
 
         db.DBCloseConnection();
     }

@@ -43,6 +43,6 @@ public class Librocard
 
     public Date getDateFromUnixTime()
     {
-        return new Date((long) issueDate);
+        return new Date((long) issueDate*1000);
     }
 }

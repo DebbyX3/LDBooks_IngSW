@@ -219,7 +219,7 @@ public class ControllerSignUp {
     }
 
     private boolean isAlpha(String s) {
-        return s.matches("[a-zA-Z]+");
+        return s.matches("[a-zA-Z ]+");
 
     }
 

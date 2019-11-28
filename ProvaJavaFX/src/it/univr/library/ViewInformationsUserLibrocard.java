@@ -2,6 +2,13 @@ package it.univr.library;
 
 import javafx.scene.text.Text;
 
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.spi.CalendarDataProvider;
+
 public class ViewInformationsUserLibrocard implements View {
 
     @Override
@@ -9,7 +16,8 @@ public class ViewInformationsUserLibrocard implements View {
     {
         nameSurnameText.setText(user.getName() + " " + user.getSurname());
         pointsText.setText("Points: " + librocard.getTotalPoints());
-        issueDateText.setText("Issue Date: " + librocard.getDateFromUnixTime());
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+        issueDateText.setText("Issue Date: " + dateFormat.format(librocard.getDateFromUnixTime()));
         idText.setText("Id: " + librocard.getNumberID());
     }
 

@@ -8,7 +8,7 @@ public class ModelDatabaseUserInformations implements Model
 
     public RegisteredUser getRegisteredUser(User testUser)
     {
-
+        //TODO: take all the information to build a registered user from db and return it.
         //creo un address di prova
         Address addressTest = new Address();
         addressTest.setStreet("Via F. Baracca");
