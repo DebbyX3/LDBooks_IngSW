@@ -9,6 +9,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -17,7 +18,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerViewProfile">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerEditProfile">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -157,10 +158,10 @@
                                     <VBox fx:id="addressVbox" alignment="CENTER" fillWidth="false" prefHeight="140.0" prefWidth="336.0" />
                                  </content>
                               </ScrollPane>
-                              <Label fx:id="nameLabel" prefHeight="17.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <Label fx:id="surnameLabel" layoutX="292.0" layoutY="84.0" prefHeight="17.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label fx:id="phoneLabel" layoutX="292.0" layoutY="135.0" prefHeight="17.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Label fx:id="emailLabel" layoutX="292.0" layoutY="90.0" prefHeight="17.0" prefWidth="384.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <TextField fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="phoneTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                            <opaqueInsets>
                               <Insets />

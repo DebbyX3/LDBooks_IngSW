@@ -1,7 +1,6 @@
 package it.univr.library;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -178,15 +177,13 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/viewProfile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/viewProfileOld.fxml"));
 
             root = fxmlLoader.load();
             ControllerViewProfile controllerViewProfile = fxmlLoader.getController();
             controllerViewProfile.setUser(user);
             controllerViewProfile.populateUserInformations();
             controllerViewProfile.setHeader();
-
-
 
             primaryStage.setTitle("ViewProfile - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -199,22 +196,22 @@ public class StageManager
 
     }
 
-    public void setStageEditProfile(Stage primaryStage, RegisteredUser registeredUser) {
+    public void setStageEditProfile(Stage primaryStage, User user) {
         Parent root;
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/updateProfile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/EditProfile.fxml"));
 
             root = fxmlLoader.load();
-            ControllerUpdateProfile ControllerUpdateProfile = fxmlLoader.getController();
-            ControllerUpdateProfile.setUser(registeredUser);
-            ControllerUpdateProfile.populateUserInformations();
-            ControllerUpdateProfile.setHeader();
+            ControllerEditProfile controllerEditProfile = fxmlLoader.getController();
+            controllerEditProfile.setUser(user);
+            controllerEditProfile.populateUserInformations();
+            controllerEditProfile.setHeader();
 
 
 
-            primaryStage.setTitle("Update Profile - LD Books");
+            primaryStage.setTitle("Edit Profile - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }

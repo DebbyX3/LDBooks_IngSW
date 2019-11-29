@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class RegisteredUser extends User {
     private ArrayList<Address> addresses = new ArrayList<Address>();
 
+    public RegisteredUser(){};
+
     public RegisteredUser(Address singleAddress)
     {
         addresses.add(singleAddress);
@@ -19,6 +21,8 @@ public class RegisteredUser extends User {
         return addresses;
     }
 
-
-
+    public void setSingleAddress(Address singleAddress)
+    {
+        addresses.add(singleAddress);
+    }
 }

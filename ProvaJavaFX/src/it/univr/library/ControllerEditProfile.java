@@ -3,51 +3,45 @@ package it.univr.library;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class ControllerViewProfile
-{
+public class ControllerEditProfile {
+
     @FXML
     private HBox headerHBox;
 
     @FXML
-    private VBox informationVBox;
-
-    @FXML
-    private Label nameLabel;
-
-    @FXML
-    private Label surnameLabel;
-
-    @FXML
-    private Label phoneLabel;
-
-    @FXML
-    private Label emailLabel;
+    private Button editProfileButton;
 
     @FXML
     private VBox addressVbox;
 
     @FXML
-    private Button editProfileButton;
+    private TextField nameTextField;
+
+    @FXML
+    private TextField surnameTextField;
+
+    @FXML
+    private TextField phoneTextField;
+
+    @FXML
+    private TextField mailTextField;
 
     User user;
 
-    public ControllerViewProfile()
-    {
+    RegisteredUser regUser; //serve?
 
-    }
+    public ControllerEditProfile()
+    {}
 
     @FXML
     private void initialize()
     {
         editProfileButton.setOnAction(this::handleEditProfileButton);
     }
-
-
 
     public void setUser(User user) {
         this.user = user;
@@ -61,16 +55,14 @@ public class ControllerViewProfile
 
     private void handleEditProfileButton(ActionEvent actionEvent)
     {
-        StageManager EditProfileStage = new StageManager();
-        EditProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user);
+        //TODO first take all the values in the textfields and check if there're changes
+
     }
 
     public void populateUserInformations()
     {
-        //genero schermata fxml con le informazioni e le riempio
         View viewInformationsUser = new ViewInformationsUser();
-
-        viewInformationsUser.buildInformations(userToRegisteredUser(user), nameLabel, surnameLabel, phoneLabel, emailLabel, addressVbox);
+        viewInformationsUser.buildInformationsEdit(userToRegisteredUser(user), nameTextField, surnameTextField, phoneTextField, mailTextField, addressVbox);
     }
 
     private RegisteredUser userToRegisteredUser(User testuser)
@@ -86,4 +78,5 @@ public class ControllerViewProfile
 
         return regUser;
     }
+
 }

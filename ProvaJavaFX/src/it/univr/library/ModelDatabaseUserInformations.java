@@ -8,23 +8,46 @@ public class ModelDatabaseUserInformations implements Model
 
     public RegisteredUser getRegisteredUser(User testUser)
     {
-        //TODO: take all the information to build a registered user from db and return it.
-        //creo un address di prova
-        Address addressTest = new Address();
-        addressTest.setStreet("Via F. Baracca");
-        addressTest.setHouseNumber("213");
-        addressTest.setCity("Vicenza");
-        addressTest.setPostalCode("36100");
+        RegisteredUser regUser;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
+                            "FROM ship " +
+                            "WHERE emailRegisteredUser LIKE '" + testUser.getEmail() + "'");
 
-        RegisteredUser registeredUser = new RegisteredUser(addressTest);
-        registeredUser.setName("Giulia");
-        registeredUser.setSurname("Rossi");
-        registeredUser.setEmail("giuliarossi@gmail.com");
-        registeredUser.setPassword("giulia");
-        registeredUser.setPhoneNumber("3401215455");
-        return registeredUser;
+        regUser = resultSetToRegisteredUser(db.getResultSet());
+        db.DBCloseConnection();
+
+        return regUser;
     }
 
-    private RegisteredUser resultSetToregisteredUser(ResultSet rs)
-    { return null;}
+    private RegisteredUser resultSetToRegisteredUser(ResultSet rs)
+    {
+        RegisteredUser regUser = new RegisteredUser();
+        Address address;
+
+        try
+        {
+            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            {
+                address = new Address();
+
+                address.setStreet(db.getSQLString(rs, "addressStreet"));
+                address.setHouseNumber(db.getSQLString(rs, "addressHouseNumber"));
+                address.setCity(db.getSQLString(rs, "cityName"));
+                address.setPostalCode(db.getSQLString(rs, "cityCAP"));
+
+                regUser.setSingleAddress(address);
+            }
+
+            return regUser;
+        }
+        catch (Exception e)
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+        return null;
+    }
+
 }

@@ -2,8 +2,10 @@ package it.univr.library;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.Chart;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -15,9 +17,11 @@ public interface View
     public default void buildCatalog(ArrayList<Book> books, VBox catalogVBox)
     {}
 
-    public default void buildInformations(RegisteredUser registeredUser, VBox infomationHBox)
+    public default void buildInformations(RegisteredUser registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
     {}
 
+    public default void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, TextField mailTextField, VBox addressVbox)
+    {}
 
     public default void buildChart(ArrayList<Charts> charts, TableView chartsTableView, TableColumn<Charts, Integer> rankTableColumn,
                            TableColumn<Charts, String> ISBNTableColumn, TableColumn<Charts, String> titleTableColumn,
