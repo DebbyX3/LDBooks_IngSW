@@ -178,11 +178,17 @@ public class ControllerSignUp {
         testUser.setName(testUser.getName().trim());
         testUser.setSurname(testUser.getSurname().trim());
 
+        //check if name, surname, street have apostrophe
+        testUser.setName(testUser.getName().replaceAll("'","''"));
+        testUser.setSurname(testUser.getSurname().replaceAll("'","''"));
+
         for (Address address: testUser.getAddresses()) {
             address.setStreet(address.getStreet().trim());
             address.setCity(address.getCity().trim());
             address.setHouseNumber(address.getHouseNumber().trim());
             address.setPostalCode(address.getPostalCode().trim());
+
+            address.setStreet(address.getStreet().replaceAll("'", "''"));
         }
 
         testUser.setPhoneNumber(testUser.getPhoneNumber().trim());
@@ -219,7 +225,7 @@ public class ControllerSignUp {
     }
 
     private boolean isAlpha(String s) {
-        return s.matches("[a-zA-Z ]+");
+        return s.matches("[A-zÀ-ú ']+");
 
     }
 

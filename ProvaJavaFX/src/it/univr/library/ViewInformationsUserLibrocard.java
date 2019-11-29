@@ -16,8 +16,7 @@ public class ViewInformationsUserLibrocard implements View {
     {
         nameSurnameText.setText(user.getName() + " " + user.getSurname());
         pointsText.setText("Points: " + librocard.getTotalPoints());
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-        issueDateText.setText("Issue Date: " + dateFormat.format(librocard.getDateFromUnixTime()));
+        issueDateText.setText("Issue Date: " + librocard.LibroCardDate());
         idText.setText("Id: " + librocard.getNumberID());
     }
 

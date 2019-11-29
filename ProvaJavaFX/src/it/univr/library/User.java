@@ -8,16 +8,24 @@ public class User {
     private String password;
 
 
-    public String getName() {
+    public String getNameQuery() {
         return name;
+    }
+
+    public String getName() {
+        return name.replaceAll("''", "'");
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getSurname() {
+    public String getSurnameQuery() {
         return surname;
+    }
+
+    public String getSurname() {
+        return surname.replaceAll("''", "'");
     }
 
     public void setSurname(String surname) {

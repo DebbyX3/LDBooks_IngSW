@@ -114,13 +114,16 @@ public class ModelDatabaseSignUp implements Model
     public void addUser(RegisteredUser testUser)
     {
         db.DBOpenConnection();
+
         db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
-                            "VALUES ('" + testUser.getEmail() + "','" + testUser.getName() + "','" + testUser.getSurname()
+                            "VALUES ('" + testUser.getEmail() + "','" + testUser.getNameQuery() + "','" + testUser.getSurnameQuery()
                             + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
 
         System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
-                "VALUES ('" + testUser.getEmail() + "','" + testUser.getName() + "','" + testUser.getSurname()
+                "VALUES ('" + testUser.getEmail() + "','" + testUser.getNameQuery() + "','" + testUser.getSurnameQuery()
                 + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
+
+
 
         db.DBCloseConnection();
     }
@@ -149,11 +152,11 @@ public class ModelDatabaseSignUp implements Model
 
         db.DBOpenConnection();
         db.executeSQLUpdate( "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                            "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreet() + "', '" + a.getHouseNumber() +
+                            "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreetQuery() + "', '" + a.getHouseNumber() +
                             "', '" + a.getCity() + "', '" + a.getPostalCode() + "')");
 
         System.out.println("INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreet() + "', '" + a.getHouseNumber() +
+                "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreetQuery() + "', '" + a.getHouseNumber() +
                 "', '" + a.getCity() + "', '" + a.getPostalCode() + "')");
 
         db.DBCloseConnection();
@@ -172,11 +175,11 @@ public class ModelDatabaseSignUp implements Model
 
         db.DBOpenConnection();
         db.executeSQLUpdate("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
-                           "VALUES( '" + a.getStreet() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
+                           "VALUES( '" + a.getStreetQuery() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
                             a.getPostalCode() + "')");
 
         System.out.println("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
-                "VALUES( '" + a.getStreet() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
+                "VALUES( '" + a.getStreetQuery() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
                 a.getPostalCode() + "')");
 
         db.DBCloseConnection();
@@ -201,12 +204,12 @@ public class ModelDatabaseSignUp implements Model
 
         db.executeSQLQuery("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
                             "FROM ship " +
-                            "WHERE addressStreet LIKE '" + a.getStreet() + "' AND addressHouseNumber LIKE '" +
+                            "WHERE addressStreet LIKE '" + a.getStreetQuery() + "' AND addressHouseNumber LIKE '" +
                             a.getHouseNumber() + "' AND cityName LIKE '" + a.getCity() +
                             "' AND cityCAP LIKE '" + a.getPostalCode() + "'");
         System.out.println("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
                 "FROM ship " +
-                "WHERE addressStreet LIKE '" + a.getStreet() + "' AND addressHouseNumber LIKE '" +
+                "WHERE addressStreet LIKE '" + a.getStreetQuery() + "' AND addressHouseNumber LIKE '" +
                 a.getHouseNumber() + "' AND cityName LIKE '" + a.getCity() +
                 "' AND cityCAP LIKE '" + a.getPostalCode() + "'");
 

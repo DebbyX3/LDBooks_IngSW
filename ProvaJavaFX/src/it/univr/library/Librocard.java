@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Librocard
@@ -44,5 +46,11 @@ public class Librocard
     public Date getDateFromUnixTime()
     {
         return new Date((long) issueDate*1000);
+    }
+
+    public String LibroCardDate()
+    {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+        return dateFormat.format(this.getDateFromUnixTime());
     }
 }

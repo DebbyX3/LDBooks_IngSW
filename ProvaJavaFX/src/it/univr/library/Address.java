@@ -7,8 +7,12 @@ public class Address
     private String city;
     private String postalCode;
 
-    public String getStreet() {
+    public String getStreetQuery() {
         return street;
+    }
+
+    public String getStreet() {
+        return street.replaceAll("''", "'");
     }
 
     public void setStreet(String street) {
