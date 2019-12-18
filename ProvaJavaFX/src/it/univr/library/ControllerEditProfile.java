@@ -31,6 +31,9 @@ public class ControllerEditProfile {
     @FXML
     private Label mailLabel;
 
+    @FXML
+    private TextField passwordTextField;
+
     User user;
 
     RegisteredUser regUser; //serve?
