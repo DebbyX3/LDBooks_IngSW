@@ -121,12 +121,12 @@ public class ViewInformationsUser implements View
 
     }
 
-    public void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, TextField mailTextField, VBox addressVbox)
+    public void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
     {
         nameTextField.setText(registeredUser.getName());
         surnameTextField.setText(registeredUser.getSurname());
         phoneTextField.setText(registeredUser.getPhoneNumber());
-        mailTextField.setText(registeredUser.getEmail());
+        mailLabel.setText(registeredUser.getEmail());
 
         String street;
         String houseNumber;

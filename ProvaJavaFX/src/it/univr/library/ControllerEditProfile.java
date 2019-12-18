@@ -3,6 +3,7 @@ package it.univr.library;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -28,7 +29,7 @@ public class ControllerEditProfile {
     private TextField phoneTextField;
 
     @FXML
-    private TextField mailTextField;
+    private Label mailLabel;
 
     User user;
 
@@ -62,7 +63,7 @@ public class ControllerEditProfile {
     public void populateUserInformations()
     {
         View viewInformationsUser = new ViewInformationsUser();
-        viewInformationsUser.buildInformationsEdit(userToRegisteredUser(user), nameTextField, surnameTextField, phoneTextField, mailTextField, addressVbox);
+        viewInformationsUser.buildInformationsEdit(userToRegisteredUser(user), nameTextField, surnameTextField, phoneTextField, mailLabel, addressVbox);
     }
 
     private RegisteredUser userToRegisteredUser(User testuser)

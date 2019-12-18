@@ -20,7 +20,7 @@ public interface View
     public default void buildInformations(RegisteredUser registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
     {}
 
-    public default void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, TextField mailTextField, VBox addressVbox)
+    public default void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
     {}
 
     public default void buildChart(ArrayList<Charts> charts, TableView chartsTableView, TableColumn<Charts, Integer> rankTableColumn,
