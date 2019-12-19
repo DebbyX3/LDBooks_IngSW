@@ -127,7 +127,7 @@
                               <TextField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                               <VBox alignment="CENTER" prefHeight="40.0" prefWidth="352.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                  <children>
-                                    <Button fx:id="editProfileButton1" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" style="-fx-background-color: #ffc880;" text="Add new address">
+                                    <Button fx:id="addAddressButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" style="-fx-background-color: #ffc880;" text="Add new address">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

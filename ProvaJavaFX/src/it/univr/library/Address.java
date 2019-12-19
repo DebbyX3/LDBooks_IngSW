@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import java.util.Objects;
+
 public class Address
 {
     private String street;
@@ -41,5 +43,27 @@ public class Address
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Address address = (Address) o;
+        return  this.getStreet().equals(address.getStreet()) &&
+                this.getCity().equals(address.getCity()) &&
+                this.getPostalCode().equals(address.getPostalCode()) &&
+                this.getHouseNumber().equals(address.getHouseNumber());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return street.hashCode() ^ houseNumber.hashCode() ^ city.hashCode() ^ postalCode.hashCode();
     }
 }

@@ -23,8 +23,8 @@ public class ControllerSignUp {
     private Button signUpButton;
 
     @FXML
-    private ComboBox citiesComboBox;
-    private ObservableList<String> citiesComboboxData = FXCollections.observableArrayList();
+    private ComboBox citiesAndCapsComboBox;
+    private ObservableList<String> citiesAndCapsComboboxData = FXCollections.observableArrayList();
 
     @FXML
     private HBox headerHBox;
@@ -65,8 +65,8 @@ public class ControllerSignUp {
         //populate comboBox of cities
         populateCitiesAndCAPsCombobox();
 
-        citiesComboBox.setItems(citiesComboboxData);
-        citiesComboBox.getSelectionModel().selectFirst();
+        citiesAndCapsComboBox.setItems(citiesAndCapsComboboxData);
+        citiesAndCapsComboBox.getSelectionModel().selectFirst();
 
         signUpButton.setOnAction(this::handleSignUpButton);
     }
@@ -99,7 +99,7 @@ public class ControllerSignUp {
             citiesAndCAPs.add(citiesIterator.next() + " - " + CAPsIterator.next());
         }
         
-        citiesComboboxData.addAll(citiesAndCAPs);
+        citiesAndCapsComboboxData.addAll(citiesAndCAPs);
     }
 
     private void handleSignUpButton(ActionEvent actionEvent)
@@ -151,12 +151,12 @@ public class ControllerSignUp {
 
     private String getCityFromCombobox()
     {
-        return cities.get(citiesComboBox.getSelectionModel().getSelectedIndex());
+        return cities.get(citiesAndCapsComboBox.getSelectionModel().getSelectedIndex());
     }
 
     private String getPostalCodeFromCombobox()
     {
-        return postalCodes.get(citiesComboBox.getSelectionModel().getSelectedIndex());
+        return postalCodes.get(citiesAndCapsComboBox.getSelectionModel().getSelectedIndex());
     }
 
     private boolean areValidFields(RegisteredUser testUser, StringBuilder error)
@@ -201,7 +201,7 @@ public class ControllerSignUp {
                 || surnameTextField == null || surnameTextField.getText().isEmpty()
                 || streetTextField == null || streetTextField.getText().isEmpty()
                 || houseNumberTextField == null || houseNumberTextField.getText().isEmpty()
-                || citiesComboBox == null
+                || citiesAndCapsComboBox == null
                 || phoneNumberTextField == null || phoneNumberTextField.getText().isEmpty()
                 || mailTextField == null || mailTextField.getText().isEmpty()
                 || pswPasswordField == null || pswPasswordField.getText().isEmpty();
