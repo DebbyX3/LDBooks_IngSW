@@ -1,7 +1,9 @@
 package it.univr.library;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelDatabaseRegisteredUser implements Model
 {
@@ -13,7 +15,8 @@ public class ModelDatabaseRegisteredUser implements Model
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT name, surname, phoneNumber, email, password " +
                             "FROM registeredUsers " +
-                            "WHERE UPPER (email) GLOB \"" + testUser.getEmail() +  "\" AND password LIKE \"" + testUser.getPassword() + "\"");
+                            "WHERE email LIKE ? AND password LIKE ?",
+                            List.of(testUser.getEmail(), testUser.getPassword()));
 
         user = resultSetToUser(db.getResultSet());
         db.DBCloseConnection();
@@ -27,7 +30,7 @@ public class ModelDatabaseRegisteredUser implements Model
 
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
                 user = new User();
                 user.setName(db.getSQLString(rs, "name"));
@@ -39,7 +42,7 @@ public class ModelDatabaseRegisteredUser implements Model
 
             return user;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
