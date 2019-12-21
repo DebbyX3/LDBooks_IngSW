@@ -1,6 +1,7 @@
 package it.univr.library;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelDatabaseGenres implements Model
@@ -25,22 +26,21 @@ public class ModelDatabaseGenres implements Model
     private ArrayList<Genre> resultSetToArrayListGenre(ResultSet rs)
     {
         ArrayList<Genre> genres = new ArrayList<>();
-        Genre singlegenre;
+        Genre singleGenre;
 
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
-                singlegenre = new Genre(db.getSQLString(rs, "name"));
-
-                genres.add(singlegenre);
+                singleGenre = new Genre(db.getSQLString(rs, "name"));
+                genres.add(singleGenre);
             }
 
             return genres;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 

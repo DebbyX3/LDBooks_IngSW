@@ -1,9 +1,9 @@
 package it.univr.library;
 
-import javafx.scene.chart.Chart;
-
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelDatabaseCharts implements Model{
 
@@ -15,14 +15,15 @@ public class ModelDatabaseCharts implements Model{
         ArrayList<Charts> chart;
 
         db.DBOpenConnection();
-        db.executeSQLQuery("SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors, books.genreName " +
-                "FROM charts " +
-                "JOIN books ON books.ISBN = charts.ISBN " +
-                "JOIN write ON write.ISBN = books.ISBN " +
-                "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE genreName LIKE \"" + filter.getGenre().getName() +"\" " +
-                "GROUP BY books.ISBN " +
-                "ORDER BY rank");
+
+        db.executeSQLQuery( "SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors, books.genreName " +
+                            "FROM charts " +
+                            "JOIN books ON books.ISBN = charts.ISBN " +
+                            "JOIN write ON write.ISBN = books.ISBN " +
+                            "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                            "WHERE genreName LIKE ? " +
+                            "GROUP BY books.ISBN " +
+                            "ORDER BY rank", List.of(filter.getGenre().getName()));
 
         chart = resultSetToArrayListCharts(db.getResultSet());
         db.DBCloseConnection();
@@ -37,7 +38,7 @@ public class ModelDatabaseCharts implements Model{
 
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
                 chartRecord = new Charts();
 
@@ -53,16 +54,14 @@ public class ModelDatabaseCharts implements Model{
 
             return chart;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
         return null;
     }
-
-
 }
 
 
