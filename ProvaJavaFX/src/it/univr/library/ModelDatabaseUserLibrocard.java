@@ -1,7 +1,11 @@
 package it.univr.library;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class ModelDatabaseUserLibrocard implements Model
 {
@@ -15,11 +19,10 @@ public class ModelDatabaseUserLibrocard implements Model
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT numberID, totalPoints, issueDate, email " +
                             "FROM libroCards " +
-                            "WHERE email LIKE \"" + user.getEmail() + "\"");
+                            "WHERE email LIKE ?", List.of(user.getEmail()));
         librocard = resultSetToLibroCard(db.getResultSet());
         db.DBCloseConnection();
 
-        System.out.println(librocard);
         return librocard;
     }
 
@@ -40,9 +43,9 @@ public class ModelDatabaseUserLibrocard implements Model
             //TODO: 08/11/2019 check date before return librocard object, and check if query is null
             return librocard;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
