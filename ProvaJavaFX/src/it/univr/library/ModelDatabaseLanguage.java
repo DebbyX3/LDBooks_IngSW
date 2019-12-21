@@ -1,6 +1,7 @@
 package it.univr.library;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ModelDatabaseLanguage implements Model {
@@ -19,28 +20,27 @@ public class ModelDatabaseLanguage implements Model {
         return languages;
     }
 
-    private ArrayList<Language> resultSetToArrayListLanguages(ResultSet rs) {
+    private ArrayList<Language> resultSetToArrayListLanguages(ResultSet rs)
+    {
         ArrayList<Language> languages = new ArrayList<>();
         Language language;
 
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
                 language = new Language(db.getSQLString(rs, "name"));
-
                 languages.add(language);
             }
 
             return languages;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
         return null;
     }
-
 }
