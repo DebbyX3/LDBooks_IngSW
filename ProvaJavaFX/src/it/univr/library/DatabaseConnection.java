@@ -7,7 +7,6 @@ import java.util.List;
 public class DatabaseConnection
 {
     private Connection connection;
-    private Statement stmt;
     private ResultSet rs;
     private int updateRow;
 
@@ -18,7 +17,7 @@ public class DatabaseConnection
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:sqlite:src/LDBooksDatabaseNew.db");
         }
-        catch ( Exception e )
+        catch (Exception e)
         {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -30,24 +29,30 @@ public class DatabaseConnection
         try
         {
             rs.close();
-            stmt.close();
             connection.close();
         }
-        catch ( Exception e )
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
     }
 
     public void executeSQLQuery(String query)
     {
+        executeSQLQuery(query, List.of());
+    }
+
+    public void executeSQLQuery(String query, List<Object> args)
+    {
+        Object objectClass;
+
         try
         {
-            stmt = connection.createStatement();
-            rs = stmt.executeQuery(query);
+            final PreparedStatement preparedStmt = prepareStatement(query, args);
+            rs = preparedStmt.executeQuery();
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
@@ -56,16 +61,65 @@ public class DatabaseConnection
 
     public void executeSQLUpdate(String query)
     {
+        executeSQLUpdate(query, List.of());
+    }
+
+    public void executeSQLUpdate(String query, List<Object> args)
+    {
+        Object objectClass;
+
         try
         {
-            stmt = connection.createStatement();
-            updateRow = stmt.executeUpdate(query);
+            final PreparedStatement preparedStmt = prepareStatement(query, args);
+            updateRow = preparedStmt.executeUpdate();
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
+    }
+
+    private PreparedStatement prepareStatement(String query, List<Object> args)
+    {
+        Object objectClass;
+
+        try
+        {
+            final PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+            for (int i = 0; i < args.size(); i++) {
+                objectClass = args.get(i);
+
+                if (objectClass instanceof String)
+                    preparedStmt.setString(i + 1, (String) objectClass);
+                else if (objectClass instanceof BigDecimal)
+                    preparedStmt.setBigDecimal(i + 1, (BigDecimal) objectClass);
+                else if (objectClass instanceof Boolean)
+                    preparedStmt.setBoolean(i + 1, (Boolean) objectClass);
+                else if (objectClass instanceof Date)
+                    preparedStmt.setDate(i + 1, (Date) objectClass);
+                else if (objectClass instanceof Double)
+                    preparedStmt.setDouble(i + 1, (Double) objectClass);
+                else if (objectClass instanceof Float)
+                    preparedStmt.setFloat(i + 1, (Float) objectClass);
+                else if (objectClass instanceof Integer)
+                    preparedStmt.setInt(i + 1, (Integer) objectClass);
+                else if (objectClass instanceof Long)
+                    preparedStmt.setLong(i + 1, (Long) objectClass);
+                else if (objectClass == null)
+                    preparedStmt.setNull(i + 1, Types.NULL);
+            }
+
+            return preparedStmt;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
     }
 
     public ResultSet getResultSet()

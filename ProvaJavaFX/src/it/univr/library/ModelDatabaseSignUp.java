@@ -1,8 +1,10 @@
 package it.univr.library;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelDatabaseSignUp implements Model
 {
@@ -47,7 +49,7 @@ public class ModelDatabaseSignUp implements Model
 
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
                 singleCity = db.getSQLString(rs, "name");
                 singleCAP = db.getSQLString(rs, "CAP");
@@ -61,7 +63,7 @@ public class ModelDatabaseSignUp implements Model
 
             return citiesAndCAPs;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
@@ -82,25 +84,32 @@ public class ModelDatabaseSignUp implements Model
         boolean result = false;
 
         db.DBOpenConnection();
+
+        //First, check the registeredUser table
         db.executeSQLQuery( "SELECT email " +
                             "FROM registeredUsers " +
-                            "WHERE email LIKE \"" + user.getEmail() + "\"");
+                            "WHERE email LIKE ?", List.of(user.getEmail()));
 
-        try {
-            //if the mail does not exist in the registeredUser table
-            result = db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+        try
+        {
+            //If the mail does not exist in the registeredUser table
+            //return false if there are no rows, true if there are some rows
+            result = db.getResultSet().isBeforeFirst();
         }
         catch (SQLException e) {
             result = false;
         }
 
+        //If the user doesn't exist in the registeredUser table, then check in the Manager table
         db.executeSQLQuery( "SELECT email " +
-                "FROM managers " +
-                "WHERE email LIKE \"" + user.getEmail() + "\"");
+                            "FROM managers " +
+                            "WHERE email LIKE ?", List.of(user.getEmail()));
 
-        try {
-            //if the mail does not exist in the managers table
-            result = result || db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+        try
+        {
+            //If the mail does not exist in the managers table,
+            //return false if there are no rows, true if there are some rows
+            result = result || db.getResultSet().isBeforeFirst();
         }
         catch (SQLException e) {
             result = result || false;
@@ -116,14 +125,12 @@ public class ModelDatabaseSignUp implements Model
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
-                            "VALUES ('" + testUser.getEmail() + "','" + testUser.getNameQuery() + "','" + testUser.getSurnameQuery()
-                            + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
+                            "VALUES (?, ?, ?, ?, ?)",
+                            List.of(testUser.getEmail(), testUser.getNameQuery(), testUser.getSurnameQuery(), testUser.getPhoneNumber(), testUser.getPassword()));
 
         System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
                 "VALUES ('" + testUser.getEmail() + "','" + testUser.getNameQuery() + "','" + testUser.getSurnameQuery()
                 + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
-
-
 
         db.DBCloseConnection();
     }
@@ -143,7 +150,8 @@ public class ModelDatabaseSignUp implements Model
     {
         Address a = new Address();
 
-        for (Address address: testUser.getAddresses()) {
+        for (Address address: testUser.getAddresses())
+        {
             a.setStreet(address.getStreet());
             a.setHouseNumber(address.getHouseNumber());
             a.setCity(address.getCity());
@@ -151,9 +159,10 @@ public class ModelDatabaseSignUp implements Model
         }
 
         db.DBOpenConnection();
+
         db.executeSQLUpdate( "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                            "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreetQuery() + "', '" + a.getHouseNumber() +
-                            "', '" + a.getCity() + "', '" + a.getPostalCode() + "')");
+                            "VALUES(?, ?, ?, ?, ?)",
+                            List.of(testUser.getEmail(), a.getStreetQuery(), a.getHouseNumber(), a.getCity(), a.getPostalCode()));
 
         System.out.println("INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
                 "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreetQuery() + "', '" + a.getHouseNumber() +
@@ -174,9 +183,10 @@ public class ModelDatabaseSignUp implements Model
         }
 
         db.DBOpenConnection();
+
         db.executeSQLUpdate("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
-                           "VALUES( '" + a.getStreetQuery() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
-                            a.getPostalCode() + "')");
+                           "VALUES(?, ?, ?, ?)",
+                            List.of(a.getStreetQuery(), a.getHouseNumber(), a.getCity(), a.getPostalCode()));
 
         System.out.println("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
                 "VALUES( '" + a.getStreetQuery() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
@@ -204,9 +214,12 @@ public class ModelDatabaseSignUp implements Model
 
         db.executeSQLQuery("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
                             "FROM ship " +
-                            "WHERE addressStreet LIKE '" + a.getStreetQuery() + "' AND addressHouseNumber LIKE '" +
-                            a.getHouseNumber() + "' AND cityName LIKE '" + a.getCity() +
-                            "' AND cityCAP LIKE '" + a.getPostalCode() + "'");
+                            "WHERE addressStreet LIKE ? " +
+                            "AND addressHouseNumber LIKE ? " +
+                            "AND cityName LIKE ? "+
+                            "AND cityCAP LIKE ?",
+                            List.of(a.getStreetQuery(), a.getHouseNumber(), a.getCity(), a.getPostalCode()));
+
         System.out.println("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
                 "FROM ship " +
                 "WHERE addressStreet LIKE '" + a.getStreetQuery() + "' AND addressHouseNumber LIKE '" +
@@ -227,10 +240,13 @@ public class ModelDatabaseSignUp implements Model
 
     public void createLibroCard(RegisteredUser testUser)
     {
-        long unixTime = System.currentTimeMillis() / 1000L;
+        Date unixTime = new Date(System.currentTimeMillis() / 1000L);
+
         db.DBOpenConnection();
         db.executeSQLUpdate( "INSERT INTO libroCards (totalPoints, issueDate, email) " +
-                           "VALUES('0', '" + unixTime + "', '" + testUser.getEmail() +"');");
+                           "VALUES('0', ?, ?);",
+                            List.of(unixTime, testUser.getEmail()));
+
         System.out.println( "INSERT INTO table (totalPoints, issueDate, email) " +
                             "VALUES('0', '" + unixTime + "', '" + testUser.getEmail() +"');");
 
