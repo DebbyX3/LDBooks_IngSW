@@ -1,7 +1,8 @@
 package it.univr.library;
 
+import javafx.scene.image.Image;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Book

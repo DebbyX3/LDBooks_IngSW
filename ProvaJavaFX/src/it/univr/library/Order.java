@@ -115,7 +115,7 @@ public class Order
 
     public Date getDateFromUnixTime()
     {
-        return new Date((long) date*1000);
+        return new Date((long) this.getDate()*1000);
     }
 
     public String UnixDateToString()

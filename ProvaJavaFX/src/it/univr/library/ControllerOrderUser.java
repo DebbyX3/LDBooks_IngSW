@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -60,12 +61,14 @@ public class ControllerOrderUser {
     @FXML
     private ImageView bookImageView;
 
+    @FXML
+    private GridPane singleOrderGridPane;
+
     private User user;
 
     @FXML
     private void initialize()
     {
-
     }
 
     public void setUser(User user)
@@ -89,26 +92,16 @@ public class ControllerOrderUser {
 
     }
 
-    private void handleNameSurnameHyperlink(ActionEvent actionEvent)
-    {
-
-    }
 
     public void populateOrderUser()
     {
-        /*
-        *TODO:
-        *
-        * 3)ora ho un arraylist di orders, creo view e stampo arraylist.
-        */
+
         Model DBorders = new ModelDatabaseOrder();
         View viewOrders = new ViewOrders();
 
         viewOrders.buildOrders(DBorders.getOrders(user), dateLabel,addressLabel, totalPriceLabel, orderLabel,
                 titleLabel, authorLabel, publisherLabel, ISBNLabel, priceLabel, librocardLabel, statusLabel,
-                progressBar, bookImageView);
-
-
+                progressBar, bookImageView,singleOrderGridPane);
 
         }
 }

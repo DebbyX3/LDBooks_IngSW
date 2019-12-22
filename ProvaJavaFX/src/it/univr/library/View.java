@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.Chart;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -32,6 +33,6 @@ public interface View
 
     public default void buildOrders(ArrayList<Order> orders, Label dateLabel, Label addressLabel, Label totalPriceLabel, Label orderLabel,
                             Label titleLabel, Label authorLabel, Label publisherLabel, Label ISBNLabel, Label priceLabel,
-                            Label librocardLabel, Label statusLabel, ProgressBar progressBar, ImageView bookImageView)
+                            Label librocardLabel, Label statusLabel, ProgressBar progressBar, ImageView bookImageView, GridPane singleOrderGridPane)
     {}
 }

@@ -132,7 +132,6 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
             controllerOrderUser.setUser(user);
-            //TODO chiamo metodo per popolare la view populateOrderUser()
             controllerOrderUser.populateOrderUser();
             controllerOrderUser.setHeader();
 

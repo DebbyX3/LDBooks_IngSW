@@ -1,7 +1,5 @@
 package it.univr.library;
 
-import java.util.Objects;
-
 public class Address
 {
     private String street;
@@ -74,5 +72,10 @@ public class Address
     public int hashCode()
     {
         return street.hashCode() ^ houseNumber.hashCode() ^ city.hashCode() ^ postalCode.hashCode();
+    }
+
+    public String toString()
+    {
+        return this.getStreet() + " " + this.getHouseNumber() + " " + this.getCity() + " " + this.getPostalCode();
     }
 }

@@ -13,19 +13,28 @@ public class ModelDatabaseOrder implements Model
         ArrayList<Order> orders;
 
         db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, emailNotRegisteredUser, " +
-                            "emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP, shipping, status, " +
-                            "books.ISBN, books.description, books.formatName, books.genreName, books.imagePath, books.languageName, " +
-                            "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
-                            "books.publishingHouseName, books.title," +
+        db.executeSQLQuery( "SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, " +
+                            "emailNotRegisteredUser, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, " +
+                            "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
+                            "books.imagePath, books.languageName, books.maxQuantity, books.pages, books.points, books.price, " +
+                            "books.publicationYear, books.publishingHouseName, books.title, " +
                             "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
                             "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
-                            "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                            "WHERE emailRegisteredUser LIKE \"" + user.getEmail() + "\" or emailNotRegisteredUser LIKE \"" +
-                            user.getEmail() + "\" " +
+                            "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
+                            "WHERE emailRegisteredUser LIKE \'" + user.getEmail() + "\' " +
                             "GROUP BY books.ISBN " +
                             "ORDER BY orders.code ASC");
-
+        System.out.println("SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, " +
+                "emailNotRegisteredUser, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, " +
+                "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
+                "books.imagePath, books.languageName, books.maxQuantity, books.pages, books.points, books.price, " +
+                "books.publicationYear, books.publishingHouseName, books.title, " +
+                "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
+                "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE emailRegisteredUser LIKE \'" + user.getEmail() + "\' or emailNorRegisteredUser LIKE \"" + user.getEmail() + "\" " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY orders.code ASC");
         orders = resultSetToOrders(db.getResultSet());
         db.DBCloseConnection();
 
