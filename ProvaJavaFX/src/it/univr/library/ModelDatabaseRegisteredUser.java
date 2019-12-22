@@ -44,7 +44,7 @@ public class ModelDatabaseRegisteredUser implements Model
         }
         catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 

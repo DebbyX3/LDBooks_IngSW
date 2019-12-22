@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import java.util.Objects;
+
 public class Genre
 {
     private String name;
@@ -15,4 +17,22 @@ public class Genre
 
     @Override
     public String toString() { return name; }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Genre genre = (Genre) o;
+        return name.equals(genre.getName());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return name.hashCode();
+    }
 }
