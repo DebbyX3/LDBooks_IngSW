@@ -1,5 +1,6 @@
 package it.univr.library;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public interface Model
@@ -42,4 +43,7 @@ public interface Model
     public default void addAddress(RegisteredUser testUser){};
 
     public default void createLibroCard(RegisteredUser testUser){};
+
+    public default ArrayList<Order> getOrders(User user){return null;};
+
 }

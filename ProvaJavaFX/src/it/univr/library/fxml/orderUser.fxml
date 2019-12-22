@@ -70,7 +70,7 @@
                                     <Insets left="10.0" />
                                  </GridPane.margin>
                                  <children>
-                                    <ImageView fitHeight="109.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fx:id="bookImageView" fitHeight="109.0" fitWidth="116.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../../images/signoreanelli.jpg" />
                                        </image>
@@ -137,7 +137,7 @@
                                                 <Insets bottom="10.0" />
                                              </padding>
                                           </Label>
-                                          <Label fx:id="isbnLabel" prefHeight="17.0" prefWidth="346.0" />
+                                          <Label fx:id="ISBNLabel" prefHeight="17.0" prefWidth="346.0" />
                                        </children>
                                     </HBox>
                                     <HBox alignment="CENTER">
@@ -171,7 +171,7 @@
                                     <Insets left="15.0" />
                                  </GridPane.margin>
                               </HBox>
-                              <ProgressBar prefHeight="18.0" prefWidth="633.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ProgressBar fx:id="progressBar" prefHeight="18.0" prefWidth="633.0" progress="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                                  <children>
                                     <Label alignment="CENTER_RIGHT" prefHeight="66.0" prefWidth="226.0" text="Status:">

@@ -13,7 +13,7 @@ import java.util.List;
 public class Order
 {
     private Address address;
-    private List<Book> books = new ArrayList<>();
+    private ArrayList<Book> books = new ArrayList<>();
     private String code;
     private Long date;
     private BigDecimal totalPrice;
@@ -32,11 +32,11 @@ public class Order
         this.address = address;
     }
 
-    public List<Book> getBooks() {
+    public ArrayList<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(List<Book> books) {
+    public void setBooks(ArrayList<Book> books) {
         this.books = books;
     }
 

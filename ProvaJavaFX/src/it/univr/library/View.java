@@ -2,10 +2,8 @@ package it.univr.library;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.Chart;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -30,5 +28,10 @@ public interface View
     {}
 
     public default void buildLibrocard(User user, Librocard librocard, Text nameSurnameText, Text pointsText, Text issueDateText, Text idText)
+    {}
+
+    public default void buildOrders(ArrayList<Order> orders, Label dateLabel, Label addressLabel, Label totalPriceLabel, Label orderLabel,
+                            Label titleLabel, Label authorLabel, Label publisherLabel, Label ISBNLabel, Label priceLabel,
+                            Label librocardLabel, Label statusLabel, ProgressBar progressBar, ImageView bookImageView)
     {}
 }

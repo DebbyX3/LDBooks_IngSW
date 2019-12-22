@@ -3,6 +3,8 @@ package it.univr.library;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -18,6 +20,45 @@ public class ControllerOrderUser {
 
     @FXML
     private HBox headerHBox;
+
+    @FXML
+    private Label dateLabel;
+
+    @FXML
+    private Label addressLabel;
+
+    @FXML
+    private Label totalPriceLabel;
+
+    @FXML
+    private Label orderLabel;
+
+    @FXML
+    private Label titleLabel;
+
+    @FXML
+    private Label authorLabel;
+
+    @FXML
+    private Label publisherLabel;
+
+    @FXML
+    private Label ISBNLabel;
+
+    @FXML
+    private Label priceLabel;
+
+    @FXML
+    private Label librocardLabel;
+
+    @FXML
+    private Label statusLabel;
+
+    @FXML
+    private ProgressBar progressBar;
+
+    @FXML
+    private ImageView bookImageView;
 
     private User user;
 
@@ -57,11 +98,17 @@ public class ControllerOrderUser {
     {
         /*
         *TODO:
-        * 1) chiama model per query
-        * 2)la query va a pescare tutti gli ordini di user e li mette dentro un'arraylist<Order> -->crea classe e metodo resultSetToArrayList
+        *
         * 3)ora ho un arraylist di orders, creo view e stampo arraylist.
         */
-        ArrayList<Order> orders = new ArrayList<>();
         Model DBorders = new ModelDatabaseOrder();
-    }
+        View viewOrders = new ViewOrders();
+
+        viewOrders.buildOrders(DBorders.getOrders(user), dateLabel,addressLabel, totalPriceLabel, orderLabel,
+                titleLabel, authorLabel, publisherLabel, ISBNLabel, priceLabel, librocardLabel, statusLabel,
+                progressBar, bookImageView);
+
+
+
+        }
 }
