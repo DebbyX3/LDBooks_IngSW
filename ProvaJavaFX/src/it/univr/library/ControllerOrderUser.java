@@ -9,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class ControllerOrderUser {
 
     @FXML
@@ -54,10 +56,12 @@ public class ControllerOrderUser {
     public void populateOrderUser()
     {
         /*
-        *TODO 1) chiama model per query
+        *TODO:
+        * 1) chiama model per query
         * 2)la query va a pescare tutti gli ordini di user e li mette dentro un'arraylist<Order> -->crea classe e metodo resultSetToArrayList
-        * 3)ora ho un array list di orders, devo mettere sulla view ad ogni stampa del singolo ordine un handle
+        * 3)ora ho un arraylist di orders, creo view e stampo arraylist.
         */
-
+        ArrayList<Order> orders = new ArrayList<>();
+        Model DBorders = new ModelDatabaseOrder();
     }
 }

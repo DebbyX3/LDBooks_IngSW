@@ -22,6 +22,25 @@ public class Book
     private String format;
     private String imagePath;
 
+    public Book(){}
+
+    public Book(String ISBN, String title, List<String> authors, String description, Integer points, BigDecimal price, Integer publicationYear, String publishingHouse, String genre, String language, Integer maxQuantity, Integer pages, String format, String imagePath) {
+        this.ISBN = ISBN;
+        this.title = title;
+        this.authors = authors;
+        this.description = description;
+        this.points = points;
+        this.price = price;
+        this.publicationYear = publicationYear;
+        this.publishingHouse = publishingHouse;
+        this.genre = genre;
+        this.language = language;
+        this.maxQuantity = maxQuantity;
+        this.pages = pages;
+        this.format = format;
+        this.imagePath = imagePath;
+    }
+
     @Override
     public String toString()
     {
