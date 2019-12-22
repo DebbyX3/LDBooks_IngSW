@@ -101,7 +101,18 @@ public class ControllerCatalog {
     {
         Model DBBooks = new ModelDatabaseBooks();
         View viewBooks = new ViewBooks();
-        Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());
+
+        Filter filter = new Filter();
+
+        Genre genre = (Genre) genreCombobox.getValue();
+        Language language = (Language) languageCombobox.getValue();
+
+        if(!genre.equals(new Genre("All"))) //if the genre is not "all", add the genre to the filter
+            filter.setGenre(genre);
+        if(!language.equals(new Language("All"))) //if the lang is not "all", add the lang to the filter
+            filter.setLanguage(language);
+
+        //Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());
 
         catalogVBox.getChildren().clear();
         viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox);
@@ -118,12 +129,14 @@ public class ControllerCatalog {
     private void populateGenreFilter()
     {
         Model DBGenres = new ModelDatabaseGenres();
-        genreComboboxData.addAll(DBGenres.getGenres());
+        genreComboboxData.add(new Genre("All"));
+        genreComboboxData.addAll((DBGenres.getGenres()));
     }
 
     private void populateLanguageFilter()
     {
         Model DBLanguage = new ModelDatabaseLanguage();
+        languageComboboxData.add(new Language("All"));
         languageComboboxData.addAll(DBLanguage.getLanguages());
     }
 }
