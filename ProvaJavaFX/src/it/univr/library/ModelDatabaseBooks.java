@@ -5,6 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class ModelDatabaseBooks implements Model
 {
@@ -13,49 +14,40 @@ public class ModelDatabaseBooks implements Model
     @Override
     public ArrayList<Book> getBooks()
     {
-        ArrayList<Book> books;
-
-        db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(name || ' ' || surname) AS nameSurnameAuthors " +
-                            "FROM books " +
-                            "JOIN write ON books.ISBN = write.ISBN " +
-                            "JOIN authors ON write.idAuthor = authors.idAuthor " +
-                            "GROUP BY books.ISBN, title, languageName, formatName " +
-                            "ORDER By books.title, nameSurnameAuthors ASC ");
-        books = resultSetToArrayListBook(db.getResultSet());
-        db.DBCloseConnection();
-
-        System.out.println(books);
-        return books;
+        return getBooks(new Filter());
     }
 
     @Override
     public ArrayList<Book> getBooks(Filter filter)
     {
+        boolean isFirstInQuery = true;
         ArrayList<Book> books;
+        ArrayList<Object> queryParameters = new ArrayList<>();
+
         String query =  "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(name || ' ' || surname) AS nameSurnameAuthors " +
                         "FROM books " +
                         "JOIN write ON books.ISBN = write.ISBN " +
                         "JOIN authors ON write.idAuthor = authors.idAuthor ";
 
-        if(filter.getGenre() != null)
-            query += "WHERE genreName LIKE \"" + filter.getGenre().getName() + "\" ";
-
-        if (filter.getLanguage() != null)
+        if (filter.isGenreSetted())
         {
-            if(filter.getGenre() != null)
-                query += "AND ";
-            else
-                query += "WHERE ";
-
-            query += "languageName LIKE \"" + filter.getLanguage().getName() + "\" ";
+            queryParameters.add(filter.getGenre().getName());
+            query += "WHERE genreName LIKE ? ";
+            isFirstInQuery = false;
+        }
+        if (filter.isLanguageSetted())
+        {
+            queryParameters.add(filter.getLanguage().getName());
+            query += isFirstInQuery ? "WHERE " : "AND ";
+            query += "languageName LIKE ? ";
+            isFirstInQuery = false;
         }
 
-        query +=    "GROUP BY books.ISBN, title, languageName, formatName " +
-                    "ORDER By books.title, nameSurnameAuthors ASC ";
+        query += "GROUP BY books.ISBN, title, languageName, formatName " +
+                 "ORDER By books.title, nameSurnameAuthors ASC ";
 
         db.DBOpenConnection();
-        db.executeSQLQuery(query);
+        db.executeSQLQuery(query, queryParameters);
         books = resultSetToArrayListBook(db.getResultSet());
         db.DBCloseConnection();
 
@@ -70,7 +62,7 @@ public class ModelDatabaseBooks implements Model
 
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
                 singleBook = new Book();
 
@@ -94,14 +86,12 @@ public class ModelDatabaseBooks implements Model
 
             return books;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
         return null;
     }
-
-
 }
