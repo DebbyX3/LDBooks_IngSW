@@ -145,18 +145,18 @@ public class ViewBooks implements View
         bookLanguageLabel.setContentDisplay(ContentDisplay.CENTER);
         GridPane.setConstraints(bookLanguageLabel, 0, 3); // label in column 0, row 3
 
-        Label[] bookFormatsPricesLabel = new Label[formats.size()]; //usare arraylist per array dinamico ???
+        List<Label> bookFormatsPricesLabel = new ArrayList<>();
 
         for (int i = 0; i < formats.size(); i++) {
-            bookFormatsPricesLabel[i] = new Label();
-            bookFormatsPricesLabel[i].setText(prices.get(i) + "€ - " + formats.get(i));
+            bookFormatsPricesLabel.add(new Label(prices.get(i) + "€ - " + formats.get(i)));
 
             if (i >= bookGridPane.getRowCount())
                 bookGridPane.getRowConstraints().add(new RowConstraints(27.0, 27.0, Double.MAX_VALUE));
 
-            GridPane.setConstraints(bookFormatsPricesLabel[i], 1, i); // label in column 1, row i
-            bookGridPane.getChildren().addAll(bookFormatsPricesLabel[i]);
+            GridPane.setConstraints(bookFormatsPricesLabel.get(i), 1, i);
         }
+
+        bookGridPane.getChildren().addAll(bookFormatsPricesLabel);
 
         /* **** SETTING LINE SEPARATOR **** */
         Separator separatorLine = new Separator();

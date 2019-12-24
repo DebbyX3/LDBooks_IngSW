@@ -135,8 +135,6 @@ public class StageManager
             controllerOrderUser.populateOrderUser();
             controllerOrderUser.setHeader();
 
-
-
             primaryStage.setTitle("OrderUser - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();

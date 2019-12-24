@@ -2,7 +2,9 @@ package it.univr.library;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelDatabaseOrder implements Model
 {
@@ -21,9 +23,11 @@ public class ModelDatabaseOrder implements Model
                             "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
                             "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
                             "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
-                            "WHERE emailRegisteredUser LIKE \'" + user.getEmail() + "\' " +
+                            "WHERE emailRegisteredUser LIKE ? " +
                             "GROUP BY books.ISBN " +
-                            "ORDER BY orders.code ASC");
+                            "ORDER BY orders.code ASC",
+                            List.of(user.getEmail()));
+
         System.out.println("SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, " +
                 "emailNotRegisteredUser, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, " +
                 "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
@@ -35,6 +39,7 @@ public class ModelDatabaseOrder implements Model
                 "WHERE emailRegisteredUser LIKE \'" + user.getEmail() + "\' or emailNorRegisteredUser LIKE \"" + user.getEmail() + "\" " +
                 "GROUP BY books.ISBN " +
                 "ORDER BY orders.code ASC");
+
         orders = resultSetToOrders(db.getResultSet());
         db.DBCloseConnection();
 
@@ -51,10 +56,9 @@ public class ModelDatabaseOrder implements Model
         String originalOrderCode = "0";
         String currentOrderCode;
 
-
         try
         {
-            while (rs.next())   //bisogna per forza gestire l'eccezione per tutti i campi del DB
+            while (rs.next())
             {
                 currentOrderCode = db.getSQLString(rs,"code");
 
@@ -78,9 +82,9 @@ public class ModelDatabaseOrder implements Model
 
             return orders;
         }
-        catch (Exception e)
+        catch (SQLException e)
         {
-            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
@@ -95,60 +99,60 @@ public class ModelDatabaseOrder implements Model
      */
     private void createSingleOrder(Order order, ResultSet rs, ArrayList<Book> books)
     {
-
-        /////////////////////// ADDRESS ///////////////////////
+        // ------- ADDRESS -------
         Address address = new Address(db.getSQLString(rs, "addressStreet"), db.getSQLString(rs, "addressHouseNumber"),
                 db.getSQLString(rs, "cityName"), db.getSQLString(rs, "cityCAP"));
         order.setAddress(address);
-        /////////////////////// BOOK ///////////////////////
+        // ------- BOOK  -------
         addBookToArrayList(books, rs);
         order.setBooks(books);
 
-        /////////////////////// CODE ///////////////////////
+        // ------- CODE -------
         String code = db.getSQLString(rs,"code");
         order.setCode(code);
 
-        /////////////////////// DATE ///////////////////////
+        // ------- DATE -------
         Long date;
         date = db.getSQLLong(rs,"dateOrder");
         order.setDate(date);
 
-        /////////////////////// TOTAL PRICE ///////////////////////
+        // ------- TOTAL PRICE -------
         BigDecimal totalPrice;
         totalPrice = db.getSQLNumeric(rs,"totalPrice");
         order.setTotalPrice(totalPrice);
 
-        /////////////////////// BALANCE POINTS ///////////////////////
+        // ------- BALANCE POINTS -------
         int balancePoints;
         balancePoints = db.getSQLInt(rs,"balancePoints");
         order.setBalancePoints(balancePoints);
 
-        /////////////////////// PAYMENT TYPE ///////////////////////
+        // ------- PAYMENT TYPE -------
         String paymentType;
         paymentType = db.getSQLString(rs,"paymentType");
         order.setPaymentType(paymentType);
 
-        /////////////////////// MAIL NOT REG ///////////////////////
+        // ------- MAIL NOT REG -------
         String emailNotRegisteredUser;
         emailNotRegisteredUser = db.getSQLString(rs,"emailNotRegisteredUser");
         order.setEmailNotRegisteredUser(emailNotRegisteredUser);
 
-        /////////////////////// MAIL REG ///////////////////////
+        // ------- MAIL REG -------
         String emailRegisteredUser;
         emailRegisteredUser = db.getSQLString(rs,"emailRegisteredUser");
         order.setEmailRegisteredUser(emailRegisteredUser);
 
-        /////////////////////// SHIPPING COST ///////////////////////
+        // ------- SHIPPING COST -------
         BigDecimal shippingCost;
         shippingCost = db.getSQLNumeric(rs,"shipping");
         order.setShippingCost(shippingCost);
 
-        /////////////////////// STATUS ///////////////////////
+        // ------- STATUS -------
         String status;
         status = db.getSQLString(rs,"status");
         order.setStatus(status);
     }
 
+    //TODO probabilmente meglio usare il metodo già disponibile nel modelDatabaseBooks
     /**
      * This method creates a single book and adds it to the arrayList<Book> books.
      * @param books
@@ -163,6 +167,7 @@ public class ModelDatabaseOrder implements Model
                 db.getSQLString(rs, "languageName"), db.getSQLInt(rs, "maxQuantity"),
                 db.getSQLInt(rs, "pages"), db.getSQLString(rs, "formatName"),
                 db.getSQLString(rs, "imagePath"));
+
         books.add(book);
     }
 }
