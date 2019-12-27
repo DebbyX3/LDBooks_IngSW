@@ -22,48 +22,6 @@ public class ControllerOrderUser {
     @FXML
     private HBox headerHBox;
 
-    @FXML
-    private Label dateLabel;
-
-    @FXML
-    private Label addressLabel;
-
-    @FXML
-    private Label totalPriceLabel;
-
-    @FXML
-    private Label orderLabel;
-
-    @FXML
-    private Label titleLabel;
-
-    @FXML
-    private Label authorLabel;
-
-    @FXML
-    private Label publisherLabel;
-
-    @FXML
-    private Label ISBNLabel;
-
-    @FXML
-    private Label priceLabel;
-
-    @FXML
-    private Label librocardLabel;
-
-    @FXML
-    private Label statusLabel;
-
-    @FXML
-    private ProgressBar progressBar;
-
-    @FXML
-    private ImageView bookImageView;
-
-    @FXML
-    private GridPane singleOrderGridPane;
-
     private User user;
 
     @FXML
@@ -99,9 +57,7 @@ public class ControllerOrderUser {
         Model DBorders = new ModelDatabaseOrder();
         View viewOrders = new ViewOrders();
 
-        viewOrders.buildOrders(DBorders.getOrders(user), dateLabel,addressLabel, totalPriceLabel, orderLabel,
-                titleLabel, authorLabel, publisherLabel, ISBNLabel, priceLabel, librocardLabel, statusLabel,
-                progressBar, bookImageView,singleOrderGridPane);
+        viewOrders.buildOrders(DBorders.getOrders(user), orderVBox);
 
         }
 }

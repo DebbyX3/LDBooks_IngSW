@@ -1,56 +1,470 @@
 package it.univr.library;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOrders implements View {
-    public void buildOrders(ArrayList<Order> orders, Label dateLabel, Label addressLabel, Label totalPriceLabel, Label orderLabel,
-                            Label titleLabel, Label authorLabel, Label publisherLabel, Label ISBNLabel, Label priceLabel,
-                            Label librocardLabel, Label statusLabel, ProgressBar progressBar, ImageView bookImageView,
-                            GridPane singleOrderGridPane)
+
+    public void buildOrders(ArrayList<Order> orders, VBox orderVBox)
     {
-        for (Order o: orders)
+        GridPane orderGridPane;
+
+        for (Order order: orders)
         {
-            dateLabel.setText(o.UnixDateToString());
-            addressLabel.setText(o.getAddress().toString());
-            totalPriceLabel.setText(o.getTotalPrice().toString());
-            orderLabel.setText(o.getCode());
+            // create the grid pane for the single order
+            orderGridPane = new GridPane();
+            orderGridPane.setPrefWidth(884.0);
+            orderGridPane.setPrefHeight(464.0);
+            VBox.setMargin(orderGridPane,new Insets(10,0,0,0));
 
-            for (Book book: o.getBooks())
+            // create the fix external labels such as dateOrder, OrderCode, ecc...
+            createExternalLabel(orderGridPane, order);
+
+            //declaration for the next single row for each book
+            RowConstraints orderGridPaneRow3;
+
+            for (Book book: order.getBooks())
             {
-                //TODO add a row to gripane
-                titleLabel.setText(book.getTitle());
+                //create a new row for the new book
+                orderGridPaneRow3 = new RowConstraints();
+                orderGridPaneRow3.setVgrow(Priority.SOMETIMES);
+                orderGridPaneRow3.setMaxHeight(200);
+                orderGridPaneRow3.setPrefHeight(200);
+                orderGridPaneRow3.setMinHeight(200);
+                orderGridPane.getRowConstraints().add(orderGridPaneRow3);
 
-                for (String author: book.getAuthors())
-                {
-                    authorLabel.setText(author);
-                }
-                publisherLabel.setText(book.getPublishingHouse());
-                ISBNLabel.setText(book.getISBN());
-                priceLabel.setText(book.getPrice().toString() + "€");
-                librocardLabel.setText(book.getPoints().toString());
-
-                if(book.getImagePath() != null && !book.getImagePath().equals(""))
-                    bookImageView.setImage(new Image(book.getImagePath()));
-                else
-                    bookImageView.setImage(new Image("/images/coverNotAvailable.png"));
+                //build new book
+                buildSingleBookInformation(book, orderGridPane);
             }
 
-            statusLabel.setText(o.getStatus());
-            if(statusLabel.getText().equals("In elaborazione"))
-                progressBar.setProgress(10.0);
-            else if(statusLabel.getText().equals("Spedito"))
-                progressBar.setProgress(60.0);
-            else
-                progressBar.setProgress(100);
+            //add new row for the status bar
+            RowConstraints orderGridPaneRow4 = new RowConstraints();
+            orderGridPaneRow4.setMinHeight(30);
+            orderGridPaneRow4.setPrefHeight(114);
+            orderGridPaneRow4.setMaxHeight(194.39);
+
+            orderGridPane.getRowConstraints().add(orderGridPaneRow4);
+
+            createLastRowOrderInformation(order, orderGridPane);
+            orderVBox.getChildren().add(orderGridPane);
+
+            //separator for the new order or for last order
+            Separator line = new Separator();
+            line.setPrefHeight(200);
+            VBox.setMargin(line, new Insets(0,10 , 0, 0));
+            orderVBox.getChildren().add(line);
+
         }
+
+    }
+
+    private void createExternalLabel(GridPane orderGridPane, Order order)
+    {
+
+        /* **** COLUMNS **** */
+        ColumnConstraints orderGridPaneColumn1 = new ColumnConstraints();
+        orderGridPaneColumn1.setHgrow(Priority.SOMETIMES);
+        orderGridPaneColumn1.setMinWidth(10.0);
+        orderGridPaneColumn1.setPrefWidth(213.40);
+        orderGridPaneColumn1.setMaxWidth(292.60);
+        orderGridPaneColumn1.setPercentWidth(25.0);
+
+        ColumnConstraints orderGridPaneColumn2 = new ColumnConstraints();
+        orderGridPaneColumn2.setHgrow(Priority.SOMETIMES);
+        orderGridPaneColumn2.setMinWidth(10.0);
+        orderGridPaneColumn2.setMaxWidth(385.59);
+        orderGridPaneColumn2.setPrefWidth(385.59);
+        orderGridPaneColumn2.setPercentWidth(48.0);
+
+
+        ColumnConstraints orderGridPaneColumn3 = new ColumnConstraints();
+        orderGridPaneColumn3.setHgrow(Priority.SOMETIMES);
+        orderGridPaneColumn3.setMinWidth(10.0);
+        orderGridPaneColumn3.setMaxWidth(284.80);
+        orderGridPaneColumn3.setPrefWidth(284.80);
+        orderGridPaneColumn3.setPercentWidth(28.0);
+
+        orderGridPane.getColumnConstraints().addAll(orderGridPaneColumn1, orderGridPaneColumn2, orderGridPaneColumn3);
+
+        /* *** BASIC ROWS *** */
+        RowConstraints orderGridPaneRow1 = new RowConstraints();
+        orderGridPaneRow1.setVgrow(Priority.SOMETIMES);
+        orderGridPaneRow1.setMinHeight(30.0);
+        orderGridPaneRow1.setPrefHeight(30.0);
+        orderGridPaneRow1.setMaxHeight(45.60);
+
+        RowConstraints orderGridPaneRow2 = new RowConstraints();
+        orderGridPaneRow2.setVgrow(Priority.SOMETIMES);
+        orderGridPaneRow2.setMinHeight(30.0);
+        orderGridPaneRow2.setPrefHeight(30.0);
+        orderGridPaneRow2.setMaxHeight(45.60);
+
+        orderGridPane.getRowConstraints().addAll(orderGridPaneRow1, orderGridPaneRow2);
+
+        /* *** ADD BASIC LABELS *** */
+        HBox orderMadeHbox = new HBox();
+        orderMadeHbox.setAlignment(Pos.TOP_LEFT);
+        orderMadeHbox.setPrefWidth(223);
+        orderMadeHbox.setPrefHeight(24);
+        GridPane.setMargin(orderMadeHbox, new Insets(0,0,0,10));
+
+        Label orderMadeFixLabel = new Label("dateLabel");
+        orderMadeFixLabel.setPrefWidth(72);
+        orderMadeFixLabel.setPrefHeight(17);
+        orderMadeFixLabel.setText("Order made:");
+        orderMadeFixLabel.setAlignment(Pos.CENTER_LEFT);
+        orderMadeFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        orderMadeFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label orderMadeLabel = new Label("dateOrder");
+        orderMadeLabel.setPrefWidth(127);
+        orderMadeLabel.setPrefHeight(17);
+        orderMadeLabel.setText(order.UnixDateToString());
+        orderMadeLabel.setAlignment(Pos.CENTER_LEFT);
+        orderMadeLabel.setContentDisplay(ContentDisplay.LEFT);
+        orderMadeLabel.setFont(new Font("System", 12.0));
+
+        orderMadeHbox.getChildren().addAll(orderMadeFixLabel,orderMadeLabel);
+        GridPane.setConstraints(orderMadeHbox, 0,0);
+
+        HBox sentToHbox = new HBox();
+        sentToHbox.setAlignment(Pos.TOP_LEFT);
+
+
+        Label sentToFixLabel = new Label("sentToFixLabel");
+        sentToFixLabel.setPrefWidth(49);
+        sentToFixLabel.setPrefHeight(17);
+        sentToFixLabel.setText("Sent to:");
+        sentToFixLabel.setAlignment(Pos.CENTER_LEFT);
+        sentToFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        sentToFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label sentToLabel = new Label("sentToLabel");
+        sentToLabel.setPrefWidth(366);
+        sentToLabel.setPrefHeight(17);
+        sentToLabel.setText(order.getAddress().toString());
+        sentToLabel.setAlignment(Pos.CENTER_LEFT);
+        sentToLabel.setContentDisplay(ContentDisplay.LEFT);
+        sentToLabel.setFont(new Font("System", 12.0));
+
+        sentToHbox.getChildren().addAll(sentToFixLabel, sentToLabel);
+        GridPane.setConstraints(sentToHbox, 1,0);
+
+        HBox orderCodeHbox = new HBox();
+        orderCodeHbox.setAlignment(Pos.TOP_LEFT);
+        GridPane.setMargin(orderCodeHbox, new Insets(0,0,0,10));
+
+        Label orderCodeFixLabel = new Label("orderCodeFixLabel");
+        orderCodeFixLabel.setPrefWidth(80);
+        orderCodeFixLabel.setPrefHeight(17);
+        orderCodeFixLabel.setText("Order Code:");
+        orderCodeFixLabel.setAlignment(Pos.CENTER_LEFT);
+        orderCodeFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        orderCodeFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label orderCodeLabel = new Label("orderCodeLabel");
+        orderCodeLabel.setPrefWidth(145);
+        orderCodeLabel.setPrefHeight(17);
+        orderCodeLabel.setText(order.getCode());
+        orderCodeLabel.setAlignment(Pos.CENTER_LEFT);
+        orderCodeLabel.setContentDisplay(ContentDisplay.LEFT);
+        orderCodeLabel.setFont(new Font("System", 12.0));
+
+        orderCodeHbox.getChildren().addAll(orderCodeFixLabel, orderCodeLabel);
+        GridPane.setConstraints(orderCodeHbox, 0,1);
+
+        HBox totalPriceHbox = new HBox();
+        totalPriceHbox.setAlignment(Pos.TOP_LEFT);
+
+
+        Label totalPriceFixLabel = new Label("totalPriceFixLabel");
+        totalPriceFixLabel.setPrefWidth(96);
+        totalPriceFixLabel.setPrefHeight(17);
+        totalPriceFixLabel.setText("Total Price:");
+        totalPriceFixLabel.setAlignment(Pos.CENTER_LEFT);
+        totalPriceFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        totalPriceFixLabel.setFont(new Font("System Bold", 12.0));
+
+
+        Label totalPriceLabel = new Label("totalPriceLabel");
+        totalPriceLabel.setPrefWidth(201);
+        totalPriceLabel.setPrefHeight(17);
+        totalPriceLabel.setText(order.getTotalPrice().toString() + "€");
+        totalPriceLabel.setAlignment(Pos.CENTER_LEFT);
+        totalPriceLabel.setContentDisplay(ContentDisplay.LEFT);
+        totalPriceLabel.setFont(new Font("System", 12.0));
+
+        totalPriceHbox.getChildren().addAll(totalPriceFixLabel, totalPriceLabel);
+        GridPane.setConstraints(totalPriceHbox, 2,1);
+
+        /* *** ADD ALL THE LABELS TO GRID PANE */
+
+        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,totalPriceHbox);
+
+    }
+
+    private void buildSingleBookInformation(Book book, GridPane orderGridPane)
+    {
+
+
+        addImageBook(orderGridPane, book);
+
+        /* *** BOOK INFORMATIONS *** */
+        VBox bookInformationVbox = new VBox();
+        bookInformationVbox.setAlignment(Pos.CENTER_LEFT);
+
+
+        /* *** TITLE *** */
+        HBox titleHbox = new HBox();
+        VBox.setMargin(titleHbox, new Insets(0,0,10,0));
+
+        Label titleFixLabel = new Label("titleFixLabel");
+        titleFixLabel.setPrefWidth(33);
+        titleFixLabel.setPrefHeight(17);
+        titleFixLabel.setText("Title:");
+        titleFixLabel.setAlignment(Pos.CENTER_LEFT);
+        titleFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        titleFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label titleLabel = new Label("titleLabel");
+        titleLabel.setPrefWidth(392);
+        titleLabel.setPrefHeight(17);
+        titleLabel.setText(book.getTitle());
+        titleLabel.setAlignment(Pos.CENTER_LEFT);
+        titleLabel.setContentDisplay(ContentDisplay.LEFT);
+        titleLabel.setFont(new Font("System", 12.0));
+
+        titleHbox.getChildren().addAll(titleFixLabel,titleLabel);
+        bookInformationVbox.getChildren().add(titleHbox);
+
+        /* *** AUTHOR *** */
+        HBox authorsHbox = new HBox();
+        authorsHbox.setPrefWidth(78);
+        authorsHbox.setPrefHeight(17);
+        VBox.setMargin(authorsHbox, new Insets(0,0,10,0));
+
+        Label authorFixLabel = new Label("authorFixLabel");
+        authorFixLabel.setPrefWidth(48);
+        authorFixLabel.setPrefHeight(27);
+        authorFixLabel.setText("Author:");
+        authorFixLabel.setAlignment(Pos.CENTER_LEFT);
+        authorFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        authorFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label authorLabel = new Label("authorLabel");
+        authorLabel.setPrefWidth(378);
+        authorLabel.setPrefHeight(17);
+        for (String author: book.getAuthors())
+        {
+            authorLabel.setText(author);
+        }
+        authorLabel.setAlignment(Pos.CENTER_LEFT);
+        authorLabel.setContentDisplay(ContentDisplay.LEFT);
+        authorLabel.setFont(new Font("System", 12.0));
+
+        authorsHbox.getChildren().addAll(authorFixLabel,authorLabel);
+        bookInformationVbox.getChildren().add(authorsHbox);
+
+        /* *** PUBLISHER *** */
+        HBox publisherHbox = new HBox();
+        publisherHbox.setPrefWidth(78);
+        publisherHbox.setPrefHeight(17);
+        VBox.setMargin(publisherHbox, new Insets(0,0,10,0));
+
+        Label publisherFixLabel = new Label("publisherFixLabel");
+        publisherFixLabel.setPrefWidth(62);
+        publisherFixLabel.setPrefHeight(17);
+        publisherFixLabel.setText("Publisher:");
+        publisherFixLabel.setAlignment(Pos.CENTER_LEFT);
+        publisherFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        publisherFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label publisherLabel = new Label("publisherLabel");
+        publisherLabel.setPrefWidth(367);
+        publisherLabel.setPrefHeight(17);
+        publisherLabel.setText(book.getPublishingHouse());
+        publisherLabel.setAlignment(Pos.CENTER_LEFT);
+        publisherLabel.setContentDisplay(ContentDisplay.LEFT);
+        publisherLabel.setFont(new Font("System", 12.0));
+
+        publisherHbox.getChildren().addAll(publisherFixLabel,publisherLabel);
+        bookInformationVbox.getChildren().add(publisherHbox);
+
+        /* *** ISBN *** */
+        HBox isbnHbox = new HBox();
+        isbnHbox.setPrefWidth(78);
+        isbnHbox.setPrefHeight(17);
+        VBox.setMargin(isbnHbox, new Insets(0,0,10,0));
+
+        Label isbnFixLabel = new Label("isbnFixLabel");
+        isbnFixLabel.setPrefWidth(43);
+        isbnFixLabel.setPrefHeight(17);
+        isbnFixLabel.setText("ISBN:");
+        isbnFixLabel.setAlignment(Pos.CENTER_LEFT);
+        isbnFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        isbnFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label isbnLabel = new Label("isbnLabel");
+        isbnLabel.setPrefWidth(392);
+        isbnLabel.setPrefHeight(17);
+        isbnLabel.setText(book.getISBN());
+        isbnLabel.setAlignment(Pos.CENTER_LEFT);
+        isbnLabel.setContentDisplay(ContentDisplay.LEFT);
+        isbnLabel.setFont(new Font("System", 12.0));
+
+        isbnHbox.getChildren().addAll(isbnFixLabel,isbnLabel);
+        bookInformationVbox.getChildren().add(isbnHbox);
+
+        /* *** PRICE *** */
+        HBox priceHbox = new HBox();
+        priceHbox.setPrefWidth(78);
+        priceHbox.setPrefHeight(17);
+        VBox.setMargin(priceHbox, new Insets(0,0,10,0));
+
+        Label priceFixLabel = new Label("priceFixLabel");
+        priceFixLabel.setPrefWidth(93);
+        priceFixLabel.setPrefHeight(17);
+        priceFixLabel.setText("Price:");
+        priceFixLabel.setAlignment(Pos.CENTER_LEFT);
+        priceFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        priceFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label priceLabel = new Label("priceLabel");
+        priceLabel.setPrefWidth(414);
+        priceLabel.setPrefHeight(17);
+        priceLabel.setText(book.getPrice().toString() + "€");
+        priceLabel.setAlignment(Pos.CENTER_LEFT);
+        priceLabel.setContentDisplay(ContentDisplay.LEFT);
+        priceLabel.setFont(new Font("System", 12.0));
+
+        priceHbox.getChildren().addAll(priceFixLabel,priceLabel);
+        bookInformationVbox.getChildren().add(priceHbox);
+
+        /* *** LIBROCARD POINTS *** */
+        HBox librocardPointsHbox = new HBox();
+        priceHbox.setPrefWidth(78);
+        priceHbox.setPrefHeight(17);
+        VBox.setMargin(librocardPointsHbox, new Insets(0,0,10,0));
+
+        Label librocardPointsFixLabel = new Label("librocardPointsFixLabel");
+        librocardPointsFixLabel.setPrefWidth(121);
+        librocardPointsFixLabel.setPrefHeight(17);
+        librocardPointsFixLabel.setText("LibroCard points:");
+        librocardPointsFixLabel.setAlignment(Pos.CENTER_LEFT);
+        librocardPointsFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        librocardPointsFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label librocardPointsLabel = new Label("librocardPointsLabel");
+        librocardPointsLabel.setPrefWidth(307);
+        librocardPointsLabel.setPrefHeight(17);
+        librocardPointsLabel.setText(book.getPoints().toString());
+        librocardPointsLabel.setAlignment(Pos.CENTER_LEFT);
+        librocardPointsLabel.setContentDisplay(ContentDisplay.LEFT);
+        librocardPointsLabel.setFont(new Font("System", 12.0));
+
+        librocardPointsHbox.getChildren().addAll(librocardPointsFixLabel,librocardPointsLabel);
+        bookInformationVbox.getChildren().add(librocardPointsHbox);
+
+
+
+        GridPane.setConstraints(bookInformationVbox, 1, orderGridPane.getRowCount()-1);
+        orderGridPane.getChildren().add(bookInformationVbox);
+    }
+
+    private void createLastRowOrderInformation(Order order, GridPane orderGridPane)
+    {
+        HBox statusFixHbox = new HBox();
+        statusFixHbox.setAlignment(Pos.CENTER_RIGHT);
+        GridPane.setMargin(statusFixHbox, new Insets(0, 15 , 0, 0));
+        statusFixHbox.setPrefWidth(200);
+        statusFixHbox.setPrefHeight(100);
+
+        Label statusOrderFixLabel = new Label("statusOrderFixLabel");
+        statusOrderFixLabel.setPrefWidth(206);
+        statusOrderFixLabel.setPrefHeight(101);
+        statusOrderFixLabel.setText("Status:");
+        statusOrderFixLabel.setAlignment(Pos.CENTER_RIGHT);
+        statusOrderFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        statusOrderFixLabel.setFont(new Font("System Bold", 12.0));
+
+        statusFixHbox.getChildren().add(statusOrderFixLabel);
+        orderGridPane.getChildren().add(statusFixHbox);
+        GridPane.setConstraints(statusFixHbox,0,orderGridPane.getRowCount()-1);
+
+
+        ProgressBar progressBarOrder = new ProgressBar();
+        progressBarOrder.setPrefWidth(415);
+        progressBarOrder.setPrefHeight(18);
+
+        System.out.println(order.getStatus());
+
+        if(order.getStatus().equals("In elaborazione"))
+            progressBarOrder.setProgress(0.1);
+        else if(order.getStatus().equals("Spedito"))
+            progressBarOrder.setProgress(0.6);
+        else
+            progressBarOrder.setProgress(1);
+
+        orderGridPane.getChildren().add(progressBarOrder);
+        GridPane.setConstraints(progressBarOrder, 1, orderGridPane.getRowCount()-1);
+
+
+
+        HBox statusHbox = new HBox();
+        statusHbox.setAlignment(Pos.CENTER);
+        GridPane.setMargin(statusHbox, new Insets(0,  0, 0, 15));
+        statusHbox.setPrefWidth(200);
+        statusHbox.setPrefHeight(100);
+
+        Label statusOrderLabel = new Label("statusOrderLabel");
+        statusOrderLabel.setPrefWidth(283);
+        statusOrderLabel.setPrefHeight(17);
+        statusOrderLabel.setText(order.getStatus());
+        statusOrderLabel.setAlignment(Pos.CENTER_LEFT);
+        statusOrderLabel.setContentDisplay(ContentDisplay.LEFT);
+        statusOrderLabel.setFont(new Font("System Bold", 12.0));
+
+        statusHbox.getChildren().add(statusOrderLabel);
+        orderGridPane.getChildren().add(statusHbox);
+        GridPane.setConstraints(statusHbox,2, orderGridPane.getRowCount()-1);
+    }
+
+    private void addImageBook(GridPane orderGridPane, Book book)
+    {
+        /* *** VBOX Image *** */
+        VBox imageVbox = new VBox();
+        imageVbox.setAlignment(Pos.CENTER);
+        ImageView bookImageView;
+
+        try
+        {
+
+            bookImageView = new ImageView(new Image(book.getImagePath()));
+        }
+        catch(NullPointerException | IllegalArgumentException e)
+        {
+            bookImageView = new ImageView(new Image("/images/coverNotAvailable.png"));
+        }
+
+        bookImageView.setFitWidth(115);
+        bookImageView.setFitHeight(169);
+        bookImageView.setPreserveRatio(true);
+
+        imageVbox.getChildren().addAll(bookImageView);
+
+        GridPane.setConstraints(imageVbox, 0,orderGridPane.getRowCount()-1);
+        orderGridPane.getChildren().add(imageVbox);
     }
 }

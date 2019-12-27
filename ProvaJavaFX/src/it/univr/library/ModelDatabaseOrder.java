@@ -24,7 +24,7 @@ public class ModelDatabaseOrder implements Model
                             "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
                             "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
                             "WHERE emailRegisteredUser LIKE ? " +
-                            "GROUP BY books.ISBN " +
+                            "GROUP BY books.ISBN, orders.code " +
                             "ORDER BY orders.code ASC",
                             List.of(user.getEmail()));
 
@@ -37,7 +37,7 @@ public class ModelDatabaseOrder implements Model
                 "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
                 "WHERE emailRegisteredUser LIKE \'" + user.getEmail() + "\' or emailNorRegisteredUser LIKE \"" + user.getEmail() + "\" " +
-                "GROUP BY books.ISBN " +
+                "GROUP BY books.ISBN, orders.code " +
                 "ORDER BY orders.code ASC");
 
         orders = resultSetToOrders(db.getResultSet());
