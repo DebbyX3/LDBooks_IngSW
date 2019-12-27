@@ -28,17 +28,6 @@ public class ModelDatabaseOrder implements Model
                             "ORDER BY orders.code ASC",
                             List.of(user.getEmail()));
 
-        System.out.println("SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, " +
-                "emailNotRegisteredUser, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, " +
-                "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
-                "books.imagePath, books.languageName, books.maxQuantity, books.pages, books.points, books.price, " +
-                "books.publicationYear, books.publishingHouseName, books.title, " +
-                "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
-                "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
-                "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE emailRegisteredUser LIKE \'" + user.getEmail() + "\' or emailNorRegisteredUser LIKE \"" + user.getEmail() + "\" " +
-                "GROUP BY books.ISBN, orders.code " +
-                "ORDER BY orders.code ASC");
 
         orders = resultSetToOrders(db.getResultSet());
         db.DBCloseConnection();
@@ -53,8 +42,10 @@ public class ModelDatabaseOrder implements Model
         Order order;
         ArrayList<Book> books;
 
-        String originalOrderCode = "0";
+        String originalOrderCode = "";
         String currentOrderCode;
+
+        boolean isNewOrder = true;
 
         try
         {
@@ -62,15 +53,15 @@ public class ModelDatabaseOrder implements Model
             {
                 currentOrderCode = db.getSQLString(rs,"code");
 
-                if(!currentOrderCode.equals(originalOrderCode))
+                if(originalOrderCode.equals("") || !currentOrderCode.equals(originalOrderCode))
                 {
+                    //change the currentOrderCode
+                    originalOrderCode = currentOrderCode;
                     order = new Order();
                     books = new ArrayList<>();
                     createSingleOrder(order,rs,books);
                     //after create the singleOrder add into Orders arrayList of orders
                     orders.add(order);
-                    //and change the currentOrderCode
-                    originalOrderCode = currentOrderCode;
                 }
                 else
                 {
@@ -100,8 +91,8 @@ public class ModelDatabaseOrder implements Model
     private void createSingleOrder(Order order, ResultSet rs, ArrayList<Book> books)
     {
         // ------- ADDRESS -------
-        Address address = new Address(db.getSQLString(rs, "addressStreet"), db.getSQLString(rs, "addressHouseNumber"),
-                db.getSQLString(rs, "cityName"), db.getSQLString(rs, "cityCAP"));
+        Address address = new Address(  db.getSQLString(rs, "addressStreet"), db.getSQLString(rs, "addressHouseNumber"),
+                                        db.getSQLString(rs, "cityName"), db.getSQLString(rs, "cityCAP"));
         order.setAddress(address);
         // ------- BOOK  -------
         addBookToArrayList(books, rs);

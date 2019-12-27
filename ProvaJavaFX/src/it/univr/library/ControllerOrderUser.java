@@ -40,10 +40,7 @@ public class ControllerOrderUser {
         controllerHeader.createHeader(user, headerHBox);
     }
 
-    private void handleLogOutButton(ActionEvent actionEvent)
-    {
 
-    }
 
     private void handleCartImageView(MouseEvent mouseEvent)
     {

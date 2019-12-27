@@ -207,11 +207,35 @@ public class ViewOrders implements View {
         totalPriceLabel.setFont(new Font("System", 12.0));
 
         totalPriceHbox.getChildren().addAll(totalPriceFixLabel, totalPriceLabel);
-        GridPane.setConstraints(totalPriceHbox, 2,1);
+        GridPane.setConstraints(totalPriceHbox, 2,0);
+
+        HBox balancePointsHbox = new HBox();
+        balancePointsHbox.setAlignment(Pos.TOP_LEFT);
+
+
+        Label balancePointsFixLabel = new Label("balancePointsFixLabel");
+        balancePointsFixLabel.setPrefWidth(120);
+        balancePointsFixLabel.setPrefHeight(17);
+        balancePointsFixLabel.setText("Balance Points:");
+        balancePointsFixLabel.setAlignment(Pos.CENTER_LEFT);
+        balancePointsFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        balancePointsFixLabel.setFont(new Font("System Bold", 12.0));
+
+
+        Label balancePointsLabel = new Label("balancePointsLabel");
+        balancePointsLabel.setPrefWidth(180);
+        balancePointsLabel.setPrefHeight(17);
+        balancePointsLabel.setText(Integer.toString(order.getBalancePoints()));
+        balancePointsLabel.setAlignment(Pos.CENTER_LEFT);
+        balancePointsLabel.setContentDisplay(ContentDisplay.LEFT);
+        balancePointsLabel.setFont(new Font("System", 12.0));
+
+        balancePointsHbox.getChildren().addAll(balancePointsFixLabel, balancePointsLabel);
+        GridPane.setConstraints(balancePointsHbox, 2,1);
 
         /* *** ADD ALL THE LABELS TO GRID PANE */
 
-        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,totalPriceHbox);
+        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,totalPriceHbox,balancePointsHbox);
 
     }
 
