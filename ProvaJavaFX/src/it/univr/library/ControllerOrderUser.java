@@ -56,5 +56,13 @@ public class ControllerOrderUser {
 
         viewOrders.buildOrders(DBorders.getOrders(user), orderVBox);
 
-        }
+    }
+
+    public void populateOrderUnregisteredUser(Order order)
+    {
+        ArrayList<Order> o = new ArrayList<>();
+        o.add(order);
+        View viewOrders = new ViewOrders();
+        viewOrders.buildOrders(o, orderVBox);
+    }
 }

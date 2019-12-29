@@ -46,4 +46,6 @@ public interface Model
 
     public default ArrayList<Order> getOrders(User user){return null;};
 
+    public default Order getOrderNotRegisteresUser(String mailNotRegUser, String orderCode){return null;};
+
 }

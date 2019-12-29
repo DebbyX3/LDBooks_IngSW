@@ -32,7 +32,7 @@ public class ControllerHeader
         if(user == null)
         {
             createHeader.createLoginSignupButton(rightHeaderHbox, user);
-            createHeader.createOrderStatusButton(rightHeaderHbox);
+            createHeader.createOrderStatusButton(rightHeaderHbox, user);
         }
         else
         {
@@ -74,6 +74,13 @@ public class ControllerHeader
         //todo svuotare il carrello
         StageManager catalogLogout = new StageManager();
         catalogLogout.setStageCatalog((Stage) logoutButton.getScene().getWindow(), null);
+
+    }
+
+    public void handleOrderStatusUnregisteredUser(Button orderStatusUnregisteredUser, User user)
+    {
+        StageManager orderStatusUnregUser = new StageManager();
+        orderStatusUnregUser.setStageOrderUnregUser((Stage)orderStatusUnregisteredUser.getScene().getWindow(), user);
 
     }
 }

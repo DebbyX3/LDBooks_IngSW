@@ -125,25 +125,27 @@ public class ViewHeader implements View
         rightHeaderHbox.getChildren().add(loginSignUpButton);
     }
 
-    // TODO: 11/10/2019 manca il settaggio dell'handler
-    public void createOrderStatusButton(HBox rightHeaderHbox)
+
+    public void createOrderStatusButton(HBox rightHeaderHbox, User user)
     {
-        Button createOrderStatusButton = new Button();
+        Button orderStatusUnregisteredUserButton = new Button();
 
-        createOrderStatusButton.setId("orderStatusForUnregisteredUserButton");
-        createOrderStatusButton.setAlignment(Pos.CENTER);
-        createOrderStatusButton.setContentDisplay(ContentDisplay.CENTER);
-        createOrderStatusButton.setPrefHeight(49.0);
-        createOrderStatusButton.setPrefWidth(124.0);
-        createOrderStatusButton.setStyle("-fx-background-color: #ffa939;");
-        createOrderStatusButton.setText("Order Status for unregistered user");
-        createOrderStatusButton.setTextAlignment(TextAlignment.CENTER);
-        createOrderStatusButton.setWrapText(true);
-        createOrderStatusButton.setFont(new Font(13.0));
-        createOrderStatusButton.setCursor(Cursor.HAND);
-        rightHeaderHbox.setMargin(createOrderStatusButton, new Insets(0, 15.0, 0, 0));  //top, right, bottom, left
+        orderStatusUnregisteredUserButton.setId("orderStatusForUnregisteredUserButton");
+        orderStatusUnregisteredUserButton.setAlignment(Pos.CENTER);
+        orderStatusUnregisteredUserButton.setContentDisplay(ContentDisplay.CENTER);
+        orderStatusUnregisteredUserButton.setPrefHeight(49.0);
+        orderStatusUnregisteredUserButton.setPrefWidth(124.0);
+        orderStatusUnregisteredUserButton.setStyle("-fx-background-color: #ffa939;");
+        orderStatusUnregisteredUserButton.setText("Order Status for unregistered user");
+        orderStatusUnregisteredUserButton.setTextAlignment(TextAlignment.CENTER);
+        orderStatusUnregisteredUserButton.setWrapText(true);
+        orderStatusUnregisteredUserButton.setFont(new Font(13.0));
+        orderStatusUnregisteredUserButton.setCursor(Cursor.HAND);
+        rightHeaderHbox.setMargin(orderStatusUnregisteredUserButton, new Insets(0, 15.0, 0, 0));  //top, right, bottom, left
 
-        rightHeaderHbox.getChildren().add(createOrderStatusButton);
+        orderStatusUnregisteredUserButton.setOnAction(e -> new ControllerHeader().handleOrderStatusUnregisteredUser(orderStatusUnregisteredUserButton, user));
+
+        rightHeaderHbox.getChildren().add(orderStatusUnregisteredUserButton);
     }
 
     public VBox createUserHyperlink(User user, HBox rightHeaderHBox)

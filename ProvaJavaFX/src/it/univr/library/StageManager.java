@@ -243,4 +243,53 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+
+    public void setStageOrderUnregUser(Stage primaryStage, User user)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderStatusUnregistered.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerOrderUnregisteredUser controllerOrderUnregisteredUser = fxmlLoader.getController();
+            controllerOrderUnregisteredUser.setUser(user);
+            controllerOrderUnregisteredUser.setHeader();
+
+            primaryStage.setTitle("Order Status Unregistered User - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStageUnregOrderUserView(Stage primaryStage, User user, Order order)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderUser.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
+            controllerOrderUser.setUser(user);
+            controllerOrderUser.populateOrderUnregisteredUser(order);
+            controllerOrderUser.setHeader();
+
+            primaryStage.setTitle("OrderUser - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }

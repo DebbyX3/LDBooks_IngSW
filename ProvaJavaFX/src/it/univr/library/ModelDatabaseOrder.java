@@ -45,7 +45,6 @@ public class ModelDatabaseOrder implements Model
         String originalOrderCode = "";
         String currentOrderCode;
 
-        boolean isNewOrder = true;
 
         try
         {

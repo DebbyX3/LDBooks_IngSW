@@ -432,7 +432,6 @@ public class ViewOrders implements View {
         progressBarOrder.setPrefWidth(415);
         progressBarOrder.setPrefHeight(18);
 
-        System.out.println(order.getStatus());
 
         if(order.getStatus().equals("In elaborazione"))
             progressBarOrder.setProgress(0.1);

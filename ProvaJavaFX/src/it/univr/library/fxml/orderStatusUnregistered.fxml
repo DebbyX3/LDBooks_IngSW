@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerOrderUnregisteredUser">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -48,7 +48,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Track your order">
+                              <Button fx:id="trackOrderButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Track your order">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -74,7 +74,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="trackingCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets />
@@ -86,8 +86,8 @@
                               <Insets />
                            </GridPane.margin>
                         </HBox>
-                        <TextField layoutX="278.0" layoutY="186.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label alignment="TOP_RIGHT" layoutX="10.0" layoutY="188.0" prefHeight="20.0" prefWidth="327.0" text="Temporary Password:" GridPane.rowIndex="3">
+                        <TextField fx:id="mailTextField" layoutX="278.0" layoutY="186.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label alignment="TOP_RIGHT" layoutX="10.0" layoutY="188.0" prefHeight="20.0" prefWidth="327.0" text="Email:" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
