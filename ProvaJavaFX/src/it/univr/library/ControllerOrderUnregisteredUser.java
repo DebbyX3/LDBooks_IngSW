@@ -66,7 +66,16 @@ public class ControllerOrderUnregisteredUser {
             if(isMailValid(mailNotRegUser, error))
             {
                 //take the order from DB
-                order = DBgetOrderUserNotReg.getOrderNotRegisteresUser(mailNotRegUser, orderCode);
+                try
+                {
+                    order = DBgetOrderUserNotReg.getOrderNotRegisteresUser(mailNotRegUser, orderCode);
+                }
+                catch (NullPointerException e)
+                {
+                    displayAlert("There is not Track Code associates to this mail!\n" +
+                                    "Check your inputs");
+                }
+
 
                 //and show it
                 StageManager orderUnregisteredUserStage = new StageManager();
@@ -76,6 +85,8 @@ public class ControllerOrderUnregisteredUser {
                 displayAlert(error.toString());
 
         }
+        else
+            displayAlert("All text field must be filled!");
     }
 
     private boolean isAnyFieldNullOrEmpty()
