@@ -15,11 +15,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerManagerPage">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <HBox prefHeight="550.0" prefWidth="900.0" BorderPane.alignment="CENTER">
@@ -61,7 +61,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Order status">
+                              <Button fx:id="orderStatusButton" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Order status">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -94,7 +94,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Add books">
+                              <Button fx:id="addBooksButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Add books">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -105,7 +105,7 @@
                                     <Insets right="15.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Update charts">
+                              <Button fx:id="updateChartsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="153.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Update charts">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -138,7 +138,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Users' LibroCards">
+                              <Button fx:id="usersLibroCardsButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Users' LibroCards">
                                  <font>
                                     <Font size="14.0" />
                                  </font>

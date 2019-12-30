@@ -51,4 +51,47 @@ public class ModelDatabaseRegisteredUser implements Model
         return null;
     }
 
+    public User getManager(User testUser)
+    {
+        User manager;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT email, name, surname, password " +
+                        "FROM managers " +
+                        "WHERE email LIKE ? AND password LIKE ?",
+                        List.of(testUser.getEmail(), testUser.getPassword()));
+
+        manager = resultSetToManager(db.getResultSet());
+        db.DBCloseConnection();
+
+        return manager;
+    }
+
+    private User resultSetToManager(ResultSet rs)
+    {
+        User manager = null;
+
+        try
+        {
+            while (rs.next())
+            {
+                manager = new User();
+                manager.setName(db.getSQLString(rs, "name"));
+                manager.setSurname(db.getSQLString(rs, "surname"));
+                manager.setEmail(db.getSQLString(rs, "email"));
+                manager.setPassword(db.getSQLString(rs, "password"));
+                manager.setPhoneNumber(null);
+            }
+
+            return manager;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
+    }
+
+
 }

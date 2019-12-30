@@ -23,6 +23,8 @@ public interface Model
 
     public default User getUser(User testUser){ return null;}
 
+    public default User getManager(User testUser){return null;};
+
     public default ArrayList<Charts> getCharts(Filter filter)
     {
         return null;
@@ -46,6 +48,6 @@ public interface Model
 
     public default ArrayList<Order> getOrders(User user){return null;};
 
-    public default Order getOrderNotRegisteresUser(String mailNotRegUser, String orderCode){return null;};
+    public default ArrayList<Order> getOrderNotRegisteresUser(String mailNotRegUser, String orderCode){return null;};
 
 }

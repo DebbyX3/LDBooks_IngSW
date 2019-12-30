@@ -36,6 +36,28 @@ public class ModelDatabaseOrder implements Model
         return orders;
     }
 
+    public ArrayList<Order> getOrderNotRegisteresUser(String mailNotRegUser, String orderCode)
+    {
+        ArrayList<Order> order;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, " +
+                "emailNotRegisteredUser, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, " +
+                "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
+                "books.imagePath, books.languageName, books.maxQuantity, books.pages, books.points, books.price," +
+                "books.publicationYear, books.publishingHouseName, books.title, " +
+                "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
+                "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE emailNotRegisteredUser LIKE ? AND orders.code LIKE ? " +
+                "GROUP BY books.ISBN", List.of(mailNotRegUser, orderCode));
+
+        order = resultSetToOrders(db.getResultSet());
+        db.DBCloseConnection();
+
+        return order;
+    }
+
     private ArrayList<Order> resultSetToOrders(ResultSet rs)
     {
         ArrayList<Order> orders = new ArrayList<>();

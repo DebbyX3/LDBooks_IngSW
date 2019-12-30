@@ -6,6 +6,8 @@ public class Manager {
     private String email;
     private String password;
 
+    public Manager(){};
+
     public Manager(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;

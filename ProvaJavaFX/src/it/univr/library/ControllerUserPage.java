@@ -44,6 +44,7 @@ public class ControllerUserPage
         this.user = user;
     }
 
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();

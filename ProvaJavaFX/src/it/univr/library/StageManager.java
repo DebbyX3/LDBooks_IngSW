@@ -5,6 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class StageManager
 {
     public void setStageHomepage(Stage primaryStage) {
@@ -112,6 +114,29 @@ public class StageManager
             controllerUserPage.setHeader();
 
             primaryStage.setTitle("UserPage - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStageManagerPage(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/managerPage.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerManagerPage controllerManagerPage = fxmlLoader.getController();
+            controllerManagerPage.setManager(manager);
+            controllerManagerPage.setHeader();
+
+            primaryStage.setTitle("ManagerPage - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }
@@ -268,7 +293,7 @@ public class StageManager
         }
     }
 
-    public void setStageUnregOrderUserView(Stage primaryStage, User user, Order order)
+    public void setStageUnregOrderUserView(Stage primaryStage, User user, ArrayList<Order> order)
     {
         Parent root;
 

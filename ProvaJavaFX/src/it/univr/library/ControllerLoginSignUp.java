@@ -52,14 +52,25 @@ public class ControllerLoginSignUp {
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
         User realUser = DBLogin.getUser(user);
+        User manager = DBLogin.getManager(user);
 
-        if(realUser == null)
+
+
+        if(realUser == null && manager==null || realUser!=null && manager!=null)
             displayAlert("Invalid mail or password!");
         else
         {
-           //carico la nuova schermata
-            StageManager loginStage = new StageManager();
-            loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser);
+            if(realUser != null) //user page
+            {
+                StageManager loginStage = new StageManager();
+                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser);
+            }
+            else //manager page
+            {
+                StageManager loginStage = new StageManager();
+                loginStage.setStageManagerPage((Stage) loginButton.getScene().getWindow(), manager);
+            }
+
         }
     }
 

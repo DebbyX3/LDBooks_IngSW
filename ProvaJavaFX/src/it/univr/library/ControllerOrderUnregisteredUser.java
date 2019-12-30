@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -49,11 +50,11 @@ public class ControllerOrderUnregisteredUser {
 
     private void handleTrackOrderButton(ActionEvent actionEvent)
     {
-        Model DBgetOrderUserNotReg = new ModelDatabaseNotRegUser();
+        Model DBgetOrderUserNotReg = new ModelDatabaseOrder();
         StringBuilder error = new StringBuilder();
         String mailNotRegUser;
         String orderCode;
-        Order order = new Order();
+        ArrayList<Order> order = new ArrayList<>();
 
         //first check if every field is compiled
         if(!isAnyFieldNullOrEmpty())
@@ -75,7 +76,6 @@ public class ControllerOrderUnregisteredUser {
                     displayAlert("There is not Track Code associates to this mail!\n" +
                                     "Check your inputs");
                 }
-
 
                 //and show it
                 StageManager orderUnregisteredUserStage = new StageManager();

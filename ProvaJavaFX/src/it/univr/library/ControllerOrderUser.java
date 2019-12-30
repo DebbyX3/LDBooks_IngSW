@@ -58,11 +58,12 @@ public class ControllerOrderUser {
 
     }
 
-    public void populateOrderUnregisteredUser(Order order)
+
+    public void populateOrderUnregisteredUser(ArrayList<Order> order)
     {
-        ArrayList<Order> o = new ArrayList<>();
-        o.add(order);
         View viewOrders = new ViewOrders();
-        viewOrders.buildOrders(o, orderVBox);
+        viewOrders.buildOrders(order, orderVBox);
     }
+
+
 }

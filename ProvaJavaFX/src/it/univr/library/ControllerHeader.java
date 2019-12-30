@@ -61,7 +61,12 @@ public class ControllerHeader
 
     public void handlerUserPageHyperlink(Hyperlink nameSurnameHyperlink, User user) {
         StageManager userPageStage = new StageManager();
-        userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
+
+        //TODO change this if with something better
+        if(user.getPhoneNumber()!=null)
+            userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
+        else
+            userPageStage.setStageManagerPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
     }
 
 
