@@ -56,7 +56,7 @@ public class ControllerLoginSignUp {
 
 
 
-        if(realUser == null && manager==null || realUser!=null && manager!=null)
+        if(realUser == null && manager == null || realUser != null && manager != null)
             displayAlert("Invalid mail or password!");
         else
         {
