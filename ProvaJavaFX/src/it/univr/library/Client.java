@@ -19,4 +19,10 @@ public class Client extends UserAbstract
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+
+    @Override
+    public String toString()
+    {
+        return super.toString() + ", " + phoneNumber;
+    }
 }

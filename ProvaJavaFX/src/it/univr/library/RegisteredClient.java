@@ -43,4 +43,10 @@ public class RegisteredClient extends Client
     {
         this.addresses = addresses;
     }
+
+    @Override
+    public String toString()
+    {
+        return super.toString() + ", " + addresses;
+    }
 }
