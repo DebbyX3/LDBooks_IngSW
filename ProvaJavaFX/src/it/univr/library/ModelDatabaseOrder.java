@@ -58,6 +58,29 @@ public class ModelDatabaseOrder implements Model
         return order;
     }
 
+    public ArrayList<Order> getSpecificMailOrders(String mail)
+    {
+        ArrayList<Order> order;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, " +
+                "emailNotRegisteredUser, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, " +
+                "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
+                "books.imagePath, books.languageName, books.maxQuantity, books.pages, books.points, books.price," +
+                "books.publicationYear, books.publishingHouseName, books.title, " +
+                "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
+                "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE emailNotRegisteredUser LIKE ? OR emailRegisteredUser LIKE ? " +
+                "GROUP BY books.ISBN, orders.code " +
+                "ORDER BY orders.code", List.of(mail,mail));
+
+        order = resultSetToOrders(db.getResultSet());
+        db.DBCloseConnection();
+
+        return order;
+    }
+
     private ArrayList<Order> resultSetToOrders(ResultSet rs)
     {
         ArrayList<Order> orders = new ArrayList<>();
@@ -102,6 +125,69 @@ public class ModelDatabaseOrder implements Model
 
         return null;
     }
+
+    public ArrayList<String> getMailsOrders()
+    {
+        ArrayList<String> mails;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT DISTINCT orders.emailRegisteredUser, orders.emailNotRegisteredUser " +
+                            "FROM orders ");
+
+        mails = resultSetToStringMails(db.getResultSet());
+        db.DBCloseConnection();
+
+        return mails;
+    }
+
+    private ArrayList<String> resultSetToStringMails(ResultSet rs)
+    {
+        ArrayList<String> mails = new ArrayList<>();
+        String mail;
+        try
+        {
+            while (rs.next())
+            {
+                mail = new String();
+                if(db.getSQLString(rs,"emailRegisteredUser") != null)
+                    mail = db.getSQLString(rs,"emailRegisteredUser") + " (Registered)";
+                else
+                    mail = db.getSQLString(rs,"emailNotRegisteredUser") + " (Not Registered)";
+                mails.add(mail);
+            }
+
+            return mails;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return null;
+    }
+
+    public ArrayList<Order> getAllOrders()
+    {
+        ArrayList<Order> orders;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT orders.code, dateOrder, totalPrice, balancePoints, paymentType, emailNotRegisteredUser, " +
+                            "emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP, shipping, " +
+                            "status, books.ISBN, books.description, books.formatName, books.genreName, books.imagePath, " +
+                            "books.languageName, books.maxQuantity, books.pages, books.points, books.price, " +
+                            "books.publicationYear, books.publishingHouseName, books.title, " +
+                            "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
+                            "FROM orders JOIN makeUp on makeUp.code = orders.code " +
+                            "JOIN books on makeUp.ISBN = books.ISBN JOIN write ON write.ISBN = books.ISBN " +
+                            "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                            "GROUP BY books.ISBN, orders.code " +
+                            "ORDER BY orders.code");
+
+        orders = resultSetToOrders(db.getResultSet());
+        db.DBCloseConnection();
+
+        return orders;
+    }
+
 
     /**
      * This method creates a single order with all the information
@@ -182,4 +268,5 @@ public class ModelDatabaseOrder implements Model
 
         books.add(book);
     }
+
 }

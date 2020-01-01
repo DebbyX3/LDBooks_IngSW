@@ -170,6 +170,31 @@ public class StageManager
         }
     }
 
+    public void setStageOrderManager(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderManager.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerOrderManager controllerOrderManager = fxmlLoader.getController();
+            controllerOrderManager.setManager(manager);
+            //controllerOrderManager.populateMailUserFilter();
+            controllerOrderManager.populateOrderUsers();
+            controllerOrderManager.setHeader();
+
+            primaryStage.setTitle("OrderManager - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     public void setStageSignUp(Stage primaryStage, User user)
     {
         Parent root;

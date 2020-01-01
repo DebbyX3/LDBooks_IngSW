@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class ControllerManagerPage {
 
@@ -47,7 +48,8 @@ public class ControllerManagerPage {
 
     private void handleOrderStatusButton(ActionEvent actionEvent)
     {
-
+        StageManager statusOrderUsers = new StageManager();
+        statusOrderUsers.setStageOrderManager((Stage) orderStatusButton.getScene().getWindow(), manager);
     }
 
     private void handleUsersLibroCardsButton(ActionEvent actionEvent)

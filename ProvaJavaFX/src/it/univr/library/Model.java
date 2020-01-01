@@ -48,6 +48,12 @@ public interface Model
 
     public default ArrayList<Order> getOrders(User user){return null;};
 
+    public default ArrayList<String> getMailsOrders(){return null;};
+
+    public default ArrayList<Order> getAllOrders(){return null;};
+
     public default ArrayList<Order> getOrderNotRegisteresUser(String mailNotRegUser, String orderCode){return null;};
+
+    public default ArrayList<Order> getSpecificMailOrders(String mail){return null;};
 
 }

@@ -24,6 +24,8 @@ public class ModelDatabaseRegisteredUser implements Model
         return user;
     }
 
+
+
     private Client resultSetToUser(ResultSet rs)
     {
         Client user = null;
@@ -50,6 +52,8 @@ public class ModelDatabaseRegisteredUser implements Model
 
         return null;
     }
+
+
 
     public Manager getManager(User testUser)
     {
