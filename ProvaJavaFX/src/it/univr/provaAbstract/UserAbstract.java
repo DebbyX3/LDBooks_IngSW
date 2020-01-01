@@ -1,7 +1,5 @@
 package it.univr.provaAbstract;
 
-import it.univr.library.User;
-
 public abstract class UserAbstract
 {
     private String name;
@@ -49,5 +47,11 @@ public abstract class UserAbstract
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String toString()
+    {
+        return name + " " + surname + ", " + email + ", " + password;
     }
 }

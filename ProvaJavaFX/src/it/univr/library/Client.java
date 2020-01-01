@@ -1,6 +1,6 @@
-package it.univr.provaAbstract;
+package it.univr.library;
 
-public class Client extends UserAbstract
+public class Client extends User
 {
     private String phoneNumber;
 

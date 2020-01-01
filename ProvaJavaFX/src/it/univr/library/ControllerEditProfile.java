@@ -41,7 +41,7 @@ public class ControllerEditProfile {
 
     User user;
 
-    RegisteredUser regUser; //serve?
+    RegisteredClient regUser; //serve?
 
     private ArrayList<String> postalCodes;
 
@@ -95,7 +95,7 @@ public class ControllerEditProfile {
     public void populateUserInformations()
     {
         View viewInformationsUser = new ViewInformationsUser();
-        regUser = userToRegisteredUser(user);
+        regUser = userToRegisteredUser((Client) user);
         /*TODO creare lista di textfield e metterli come lista attributo, passare questa lista come
            oggetto alla view così il controller se la tiene per accedere ai campi successivamente
            e per creare un altro regUser di confronto
@@ -103,10 +103,10 @@ public class ControllerEditProfile {
         viewInformationsUser.buildInformationsEdit(regUser, nameTextField, surnameTextField, phoneTextField, mailLabel, addressVbox);
     }
 
-    private RegisteredUser userToRegisteredUser(User testuser)
+    private RegisteredClient userToRegisteredUser(Client testuser)
     {
         Model DBInformations = new ModelDatabaseUserInformations();
-        RegisteredUser regUser = DBInformations.getRegisteredUser(testuser);
+        RegisteredClient regUser = DBInformations.getRegisteredUser(testuser);
 
         regUser.setEmail(testuser.getEmail());
         regUser.setName(testuser.getName());

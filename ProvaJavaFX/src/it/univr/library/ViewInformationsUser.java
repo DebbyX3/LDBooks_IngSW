@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class ViewInformationsUser implements View
 {
-    public void buildInformations(RegisteredUser registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
+    public void buildInformations(RegisteredClient registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
     {
         nameLabel.setText(registeredUser.getName());
         surnameLabel.setText(registeredUser.getSurname());
@@ -121,7 +121,7 @@ public class ViewInformationsUser implements View
 
     }
 
-    public void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
+    public void buildInformationsEdit(RegisteredClient registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
     {
         nameTextField.setText(registeredUser.getName());
         surnameTextField.setText(registeredUser.getSurname());

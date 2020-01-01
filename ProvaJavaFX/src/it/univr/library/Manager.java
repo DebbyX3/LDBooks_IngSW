@@ -1,5 +1,6 @@
+//prima delle modifiche
 package it.univr.library;
-
+/*
 public class Manager {
     private String name;
     private String surname;
@@ -46,4 +47,17 @@ public class Manager {
     public void setPassword(String password) {
         this.password = password;
     }
+}
+*/
+//dopo le modifiche
+
+public class Manager extends User
+{
+    public Manager(String name, String surname, String email, String password)
+    {
+        super(name, surname, email, password);
+    }
+
+    public Manager()
+    {}
 }

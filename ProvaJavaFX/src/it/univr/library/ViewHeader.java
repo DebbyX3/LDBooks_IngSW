@@ -163,7 +163,6 @@ public class ViewHeader implements View
         nameSurnameHyperlink.setOnAction(e -> new ControllerHeader().handlerUserPageHyperlink(nameSurnameHyperlink, user));
         userInfoVBox.getChildren().add(nameSurnameHyperlink);
 
-
         return userInfoVBox;
     }
 
