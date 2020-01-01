@@ -8,9 +8,9 @@ public class ModelDatabaseUserInformations implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
-    public RegisteredUser getRegisteredUser(User testUser)
+    public RegisteredClient getRegisteredUser(User testUser)
     {
-        RegisteredUser regUser;
+        RegisteredClient regUser;
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
                             "FROM ship " +
@@ -23,9 +23,9 @@ public class ModelDatabaseUserInformations implements Model
         return regUser;
     }
 
-    private RegisteredUser resultSetToRegisteredUser(ResultSet rs)
+    private RegisteredClient resultSetToRegisteredUser(ResultSet rs)
     {
-        RegisteredUser regUser = new RegisteredUser();
+        RegisteredClient regUser = new RegisteredClient();
         Address address;
 
         try

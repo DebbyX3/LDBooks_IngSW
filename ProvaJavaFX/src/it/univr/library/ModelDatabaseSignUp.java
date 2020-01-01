@@ -79,7 +79,7 @@ public class ModelDatabaseSignUp implements Model
      *          false if the mail does not exist
      */
     @Override
-    public Boolean doesMailAlreadyExist(RegisteredUser user)
+    public Boolean doesMailAlreadyExist(RegisteredClient user)
     {
         boolean result = false;
 
@@ -120,22 +120,32 @@ public class ModelDatabaseSignUp implements Model
         return result;
     }
 
-    public void addUser(RegisteredUser testUser)
+    public void addUser(RegisteredClient testUser)
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
+        /*db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
                             "VALUES (?, ?, ?, ?, ?)",
                             List.of(testUser.getEmail(), testUser.getNameQuery(), testUser.getSurnameQuery(), testUser.getPhoneNumber(), testUser.getPassword()));
 
         System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
                 "VALUES ('" + testUser.getEmail() + "','" + testUser.getNameQuery() + "','" + testUser.getSurnameQuery()
                 + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
+        */
+
+        db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
+                        "VALUES (?, ?, ?, ?, ?)",
+                List.of(testUser.getEmail(), testUser.getName(), testUser.getSurname(), testUser.getPhoneNumber(), testUser.getPassword()));
+
+
+        System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
+                "VALUES ('" + testUser.getEmail() + "','" + testUser.getName() + "','" + testUser.getSurname()
+                + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
 
         db.DBCloseConnection();
     }
 
-    public void addAddress(RegisteredUser testUser)
+    public void addAddress(RegisteredClient testUser)
     {
        if(!addressAlreadyExists(testUser.getAddresses()))
        {
@@ -146,7 +156,7 @@ public class ModelDatabaseSignUp implements Model
         linkAddressToUser(testUser);
     }
 
-    private void linkAddressToUser(RegisteredUser testUser)
+    private void linkAddressToUser(RegisteredClient testUser)
     {
         Address a = new Address();
 
@@ -238,7 +248,7 @@ public class ModelDatabaseSignUp implements Model
         return result;
     }
 
-    public void createLibroCard(RegisteredUser testUser)
+    public void createLibroCard(RegisteredClient testUser)
     {
         Date unixTime = new Date(System.currentTimeMillis() / 1000L);
 

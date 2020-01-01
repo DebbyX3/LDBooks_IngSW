@@ -111,7 +111,7 @@ public class ControllerSignUp {
         if(!isAnyFieldNullOrEmpty())
         {
             //fetch user from the text field and create the object
-            RegisteredUser testUser = fetchUser(nameTextField.getText(), surnameTextField.getText(), streetTextField.getText(), houseNumberTextField.getText(),
+            RegisteredClient testUser = fetchUser(nameTextField.getText(), surnameTextField.getText(), streetTextField.getText(), houseNumberTextField.getText(),
                     getPostalCodeFromCombobox(), getCityFromCombobox(), phoneNumberTextField.getText(), mailTextField.getText(), pswPasswordField.getText());
 
             //normalize all the TextFields
@@ -159,7 +159,7 @@ public class ControllerSignUp {
         return postalCodes.get(citiesAndCapsComboBox.getSelectionModel().getSelectedIndex());
     }
 
-    private boolean areValidFields(RegisteredUser testUser, StringBuilder error)
+    private boolean areValidFields(RegisteredClient testUser, StringBuilder error)
     {
         if(!isAlpha(testUser.getName()))
             error.append("- Name must be only alphabetical\n");
@@ -173,7 +173,7 @@ public class ControllerSignUp {
         return error.toString().isEmpty();
     }
 
-    private void normalizeUser(RegisteredUser testUser)
+    private void normalizeUser(RegisteredClient testUser)
     {
         testUser.setName(testUser.getName().trim());
         testUser.setSurname(testUser.getSurname().trim());
@@ -207,14 +207,15 @@ public class ControllerSignUp {
                 || pswPasswordField == null || pswPasswordField.getText().isEmpty();
     }
 
-    private RegisteredUser fetchUser(String name, String surname, String street, String houseNumber, String postalCode, String city, String phoneNumber, String mail, String psw)
+    private RegisteredClient fetchUser(String name, String surname, String street, String houseNumber, String postalCode, String city, String phoneNumber, String mail, String psw)
     {
         Address address = new Address();
         address.setStreet(street);
         address.setHouseNumber(houseNumber);
         address.setPostalCode(postalCode);
         address.setCity(city);
-        RegisteredUser test = new RegisteredUser(address);
+
+        RegisteredClient test = new RegisteredClient(address);
         test.setName(name);
         test.setSurname(surname);
         test.setPhoneNumber(phoneNumber);

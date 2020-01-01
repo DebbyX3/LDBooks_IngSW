@@ -24,7 +24,6 @@ public class ControllerManagerPage {
 
     private User manager;
 
-
     @FXML
     private void initialize()
     {
@@ -35,13 +34,10 @@ public class ControllerManagerPage {
         usersLibroCardsButton.setOnAction(this::handleUsersLibroCardsButton);
     }
 
-
-
     public void setManager(User manager)
     {
         this.manager = manager;
     }
-
 
     public void setHeader()
     {
@@ -68,6 +64,4 @@ public class ControllerManagerPage {
     {
 
     }
-
-
 }

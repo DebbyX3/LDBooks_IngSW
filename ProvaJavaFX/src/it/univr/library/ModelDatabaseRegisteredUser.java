@@ -9,9 +9,9 @@ public class ModelDatabaseRegisteredUser implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
-    public User getUser(User testUser)
+    public Client getClient(User testUser)
     {
-        User user;
+        Client user;
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT name, surname, phoneNumber, email, password " +
                             "FROM registeredUsers " +
@@ -24,15 +24,15 @@ public class ModelDatabaseRegisteredUser implements Model
         return user;
     }
 
-    private User resultSetToUser(ResultSet rs)
+    private Client resultSetToUser(ResultSet rs)
     {
-        User user = null;
+        Client user = null;
 
         try
         {
             while (rs.next())
             {
-                user = new User();
+                user = new Client();
                 user.setName(db.getSQLString(rs, "name"));
                 user.setSurname(db.getSQLString(rs, "surname"));
                 user.setEmail(db.getSQLString(rs, "email"));
@@ -51,9 +51,9 @@ public class ModelDatabaseRegisteredUser implements Model
         return null;
     }
 
-    public User getManager(User testUser)
+    public Manager getManager(User testUser)
     {
-        User manager;
+        Manager manager;
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT email, name, surname, password " +
                         "FROM managers " +
@@ -66,20 +66,19 @@ public class ModelDatabaseRegisteredUser implements Model
         return manager;
     }
 
-    private User resultSetToManager(ResultSet rs)
+    private Manager resultSetToManager(ResultSet rs)
     {
-        User manager = null;
+        Manager manager = null;
 
         try
         {
             while (rs.next())
             {
-                manager = new User();
+                manager = new Manager();
                 manager.setName(db.getSQLString(rs, "name"));
                 manager.setSurname(db.getSQLString(rs, "surname"));
                 manager.setEmail(db.getSQLString(rs, "email"));
                 manager.setPassword(db.getSQLString(rs, "password"));
-                manager.setPhoneNumber(null);
             }
 
             return manager;
@@ -92,6 +91,4 @@ public class ModelDatabaseRegisteredUser implements Model
 
         return null;
     }
-
-
 }

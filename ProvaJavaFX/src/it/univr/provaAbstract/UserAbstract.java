@@ -1,19 +1,20 @@
-//prima delle modifiche
-package it.univr.library;
-/*
-public class Manager {
+package it.univr.provaAbstract;
+
+public abstract class UserAbstract
+{
     private String name;
     private String surname;
     private String email;
     private String password;
 
-    public Manager(){};
-
-    public Manager(String name, String surname, String email, String password) {
+    public UserAbstract(String name, String surname, String email, String password) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
+    }
+
+    protected UserAbstract() {
     }
 
     public String getName() {
@@ -47,17 +48,10 @@ public class Manager {
     public void setPassword(String password) {
         this.password = password;
     }
-}
-*/
-//dopo le modifiche
 
-public class Manager extends User
-{
-    public Manager(String name, String surname, String email, String password)
+    @Override
+    public String toString()
     {
-        super(name, surname, email, password);
+        return name + " " + surname + ", " + email + ", " + password;
     }
-
-    public Manager()
-    {}
 }

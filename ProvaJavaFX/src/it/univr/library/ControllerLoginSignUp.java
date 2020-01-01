@@ -51,10 +51,8 @@ public class ControllerLoginSignUp {
     {
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
-        User realUser = DBLogin.getUser(user);
-        User manager = DBLogin.getManager(user);
-
-
+        Client realUser = DBLogin.getClient(user);
+        Manager manager = DBLogin.getManager(user);
 
         if(realUser == null && manager == null || realUser != null && manager != null)
             displayAlert("Invalid mail or password!");
@@ -91,7 +89,7 @@ public class ControllerLoginSignUp {
 
     private User fetchUser()
     {
-        User u = new User();
+        Client u = new Client();
         u.setEmail(mailTextField.getText().toUpperCase());
         u.setPassword(pswField.getText());
 

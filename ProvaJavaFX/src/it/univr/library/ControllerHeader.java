@@ -10,7 +10,6 @@ public class ControllerHeader
 {
     public void createHeader(User user, HBox headerHBox)
     {
-
         ViewHeader createHeader = new ViewHeader();
         HBox rightHeaderHBox;
 
@@ -59,18 +58,18 @@ public class ControllerHeader
         loginStage.setStageLogin((Stage) loginSignUpButton.getScene().getWindow(), user);
     }
 
-    public void handlerUserPageHyperlink(Hyperlink nameSurnameHyperlink, User user) {
+    public void handlerUserPageHyperlink(Hyperlink nameSurnameHyperlink, User user)
+    {
         StageManager userPageStage = new StageManager();
 
-        //TODO change this if with something better
-        if(user.getPhoneNumber()!=null)
-            userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
-        else
+        if(user instanceof Manager)
             userPageStage.setStageManagerPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
+        else if (user instanceof Client || user instanceof RegisteredClient)
+            userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
     }
 
 
-    public void handlerEditButton(Button editProfile, RegisteredUser registeredUser) {
+    public void handlerEditButton(Button editProfile, RegisteredClient registeredUser) {
         StageManager EditProfilePage = new StageManager();
         EditProfilePage.setStageEditProfile((Stage) editProfile.getScene().getWindow(), registeredUser);
     }

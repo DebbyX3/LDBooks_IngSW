@@ -16,10 +16,10 @@ public interface View
     public default void buildCatalog(ArrayList<Book> books, VBox catalogVBox)
     {}
 
-    public default void buildInformations(RegisteredUser registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
+    public default void buildInformations(RegisteredClient registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
     {}
 
-    public default void buildInformationsEdit(RegisteredUser registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
+    public default void buildInformationsEdit(RegisteredClient registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
     {}
 
     public default void buildChart(ArrayList<Charts> charts, TableView chartsTableView, TableColumn<Charts, Integer> rankTableColumn,
