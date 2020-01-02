@@ -121,6 +121,7 @@ public class ViewOrders implements View {
         GridPane.setMargin(orderMadeHbox, new Insets(0,0,0,10));
 
         Label orderMadeFixLabel = new Label("dateLabel");
+        orderMadeFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         orderMadeFixLabel.setPrefWidth(72);
         orderMadeFixLabel.setPrefHeight(17);
         orderMadeFixLabel.setText("Order made:");
@@ -129,6 +130,7 @@ public class ViewOrders implements View {
         orderMadeFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label orderMadeLabel = new Label("dateOrder");
+        orderMadeLabel.setMinWidth(Region.USE_PREF_SIZE);
         orderMadeLabel.setPrefWidth(127);
         orderMadeLabel.setPrefHeight(17);
         orderMadeLabel.setText(order.UnixDateToString());
@@ -142,8 +144,8 @@ public class ViewOrders implements View {
         HBox sentToHbox = new HBox();
         sentToHbox.setAlignment(Pos.TOP_LEFT);
 
-
         Label sentToFixLabel = new Label("sentToFixLabel");
+        sentToFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         sentToFixLabel.setPrefWidth(49);
         sentToFixLabel.setPrefHeight(17);
         sentToFixLabel.setText("Sent to:");
@@ -152,6 +154,7 @@ public class ViewOrders implements View {
         sentToFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label sentToLabel = new Label("sentToLabel");
+        sentToLabel.setMinWidth(Region.USE_PREF_SIZE);
         sentToLabel.setPrefWidth(366);
         sentToLabel.setPrefHeight(17);
         sentToLabel.setText(order.getAddress().toString());
@@ -167,6 +170,7 @@ public class ViewOrders implements View {
         GridPane.setMargin(orderCodeHbox, new Insets(0,0,0,10));
 
         Label orderCodeFixLabel = new Label("orderCodeFixLabel");
+        orderCodeFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         orderCodeFixLabel.setPrefWidth(80);
         orderCodeFixLabel.setPrefHeight(17);
         orderCodeFixLabel.setText("Order Code:");
@@ -175,6 +179,7 @@ public class ViewOrders implements View {
         orderCodeFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label orderCodeLabel = new Label("orderCodeLabel");
+        orderCodeLabel.setMinWidth(Region.USE_PREF_SIZE);
         orderCodeLabel.setPrefWidth(145);
         orderCodeLabel.setPrefHeight(17);
         orderCodeLabel.setText(order.getCode());
@@ -190,6 +195,7 @@ public class ViewOrders implements View {
 
 
         Label totalPriceFixLabel = new Label("totalPriceFixLabel");
+        totalPriceFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalPriceFixLabel.setPrefWidth(96);
         totalPriceFixLabel.setPrefHeight(17);
         totalPriceFixLabel.setText("Total Price:");
@@ -199,6 +205,7 @@ public class ViewOrders implements View {
 
 
         Label totalPriceLabel = new Label("totalPriceLabel");
+        totalPriceLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalPriceLabel.setPrefWidth(201);
         totalPriceLabel.setPrefHeight(17);
         totalPriceLabel.setText(order.getTotalPrice().toString() + "€");
@@ -214,6 +221,7 @@ public class ViewOrders implements View {
 
 
         Label balancePointsFixLabel = new Label("balancePointsFixLabel");
+        balancePointsFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         balancePointsFixLabel.setPrefWidth(120);
         balancePointsFixLabel.setPrefHeight(17);
         balancePointsFixLabel.setText("Balance Points:");
@@ -223,6 +231,7 @@ public class ViewOrders implements View {
 
 
         Label balancePointsLabel = new Label("balancePointsLabel");
+        balancePointsLabel.setMinWidth(Region.USE_PREF_SIZE);
         balancePointsLabel.setPrefWidth(180);
         balancePointsLabel.setPrefHeight(17);
         balancePointsLabel.setText(Integer.toString(order.getBalancePoints()));
@@ -241,8 +250,6 @@ public class ViewOrders implements View {
 
     private void buildSingleBookInformation(Book book, GridPane orderGridPane)
     {
-
-
         addImageBook(orderGridPane, book);
 
         /* *** BOOK INFORMATIONS *** */
@@ -255,6 +262,7 @@ public class ViewOrders implements View {
         VBox.setMargin(titleHbox, new Insets(0,0,10,0));
 
         Label titleFixLabel = new Label("titleFixLabel");
+        titleFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         titleFixLabel.setPrefWidth(33);
         titleFixLabel.setPrefHeight(17);
         titleFixLabel.setText("Title:");
@@ -263,6 +271,7 @@ public class ViewOrders implements View {
         titleFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label titleLabel = new Label("titleLabel");
+        titleLabel.setMinWidth(Region.USE_PREF_SIZE);
         titleLabel.setPrefWidth(392);
         titleLabel.setPrefHeight(17);
         titleLabel.setText(book.getTitle());
@@ -280,6 +289,7 @@ public class ViewOrders implements View {
         VBox.setMargin(authorsHbox, new Insets(0,0,10,0));
 
         Label authorFixLabel = new Label("authorFixLabel");
+        authorFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         authorFixLabel.setPrefWidth(48);
         authorFixLabel.setPrefHeight(27);
         authorFixLabel.setText("Author:");
@@ -288,12 +298,14 @@ public class ViewOrders implements View {
         authorFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label authorLabel = new Label("authorLabel");
+        authorLabel.setMinWidth(Region.USE_PREF_SIZE);
         authorLabel.setPrefWidth(378);
         authorLabel.setPrefHeight(17);
-        for (String author: book.getAuthors())
-        {
+
+        for (String author: book.getAuthors()) {
             authorLabel.setText(author);
         }
+
         authorLabel.setAlignment(Pos.CENTER_LEFT);
         authorLabel.setContentDisplay(ContentDisplay.LEFT);
         authorLabel.setFont(new Font("System", 12.0));
@@ -308,6 +320,7 @@ public class ViewOrders implements View {
         VBox.setMargin(publisherHbox, new Insets(0,0,10,0));
 
         Label publisherFixLabel = new Label("publisherFixLabel");
+        publisherFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         publisherFixLabel.setPrefWidth(62);
         publisherFixLabel.setPrefHeight(17);
         publisherFixLabel.setText("Publisher:");
@@ -316,6 +329,7 @@ public class ViewOrders implements View {
         publisherFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label publisherLabel = new Label("publisherLabel");
+        publisherLabel.setMinWidth(Region.USE_PREF_SIZE);
         publisherLabel.setPrefWidth(367);
         publisherLabel.setPrefHeight(17);
         publisherLabel.setText(book.getPublishingHouse());
@@ -333,6 +347,7 @@ public class ViewOrders implements View {
         VBox.setMargin(isbnHbox, new Insets(0,0,10,0));
 
         Label isbnFixLabel = new Label("isbnFixLabel");
+        isbnFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         isbnFixLabel.setPrefWidth(43);
         isbnFixLabel.setPrefHeight(17);
         isbnFixLabel.setText("ISBN:");
@@ -341,6 +356,7 @@ public class ViewOrders implements View {
         isbnFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label isbnLabel = new Label("isbnLabel");
+        isbnLabel.setMinWidth(Region.USE_PREF_SIZE);
         isbnLabel.setPrefWidth(392);
         isbnLabel.setPrefHeight(17);
         isbnLabel.setText(book.getISBN());
@@ -358,6 +374,7 @@ public class ViewOrders implements View {
         VBox.setMargin(priceHbox, new Insets(0,0,10,0));
 
         Label priceFixLabel = new Label("priceFixLabel");
+        priceFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         priceFixLabel.setPrefWidth(93);
         priceFixLabel.setPrefHeight(17);
         priceFixLabel.setText("Price:");
@@ -366,6 +383,7 @@ public class ViewOrders implements View {
         priceFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label priceLabel = new Label("priceLabel");
+        priceLabel.setMinWidth(Region.USE_PREF_SIZE);
         priceLabel.setPrefWidth(414);
         priceLabel.setPrefHeight(17);
         priceLabel.setText(book.getPrice().toString() + "€");
@@ -383,6 +401,7 @@ public class ViewOrders implements View {
         VBox.setMargin(librocardPointsHbox, new Insets(0,0,10,0));
 
         Label librocardPointsFixLabel = new Label("librocardPointsFixLabel");
+        librocardPointsFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         librocardPointsFixLabel.setPrefWidth(121);
         librocardPointsFixLabel.setPrefHeight(17);
         librocardPointsFixLabel.setText("LibroCard points:");
@@ -391,6 +410,7 @@ public class ViewOrders implements View {
         librocardPointsFixLabel.setFont(new Font("System Bold", 12.0));
 
         Label librocardPointsLabel = new Label("librocardPointsLabel");
+        librocardPointsLabel.setMinWidth(Region.USE_PREF_SIZE);
         librocardPointsLabel.setPrefWidth(307);
         librocardPointsLabel.setPrefHeight(17);
         librocardPointsLabel.setText(book.getPoints().toString());
@@ -400,8 +420,6 @@ public class ViewOrders implements View {
 
         librocardPointsHbox.getChildren().addAll(librocardPointsFixLabel,librocardPointsLabel);
         bookInformationVbox.getChildren().add(librocardPointsHbox);
-
-
 
         GridPane.setConstraints(bookInformationVbox, 1, orderGridPane.getRowCount()-1);
         orderGridPane.getChildren().add(bookInformationVbox);
@@ -416,6 +434,7 @@ public class ViewOrders implements View {
         statusFixHbox.setPrefHeight(100);
 
         Label statusOrderFixLabel = new Label("statusOrderFixLabel");
+        statusOrderFixLabel.setMinWidth(Region.USE_PREF_SIZE);
         statusOrderFixLabel.setPrefWidth(206);
         statusOrderFixLabel.setPrefHeight(101);
         statusOrderFixLabel.setText("Status:");
@@ -426,7 +445,6 @@ public class ViewOrders implements View {
         statusFixHbox.getChildren().add(statusOrderFixLabel);
         orderGridPane.getChildren().add(statusFixHbox);
         GridPane.setConstraints(statusFixHbox,0,orderGridPane.getRowCount()-1);
-
 
         ProgressBar progressBarOrder = new ProgressBar();
         progressBarOrder.setPrefWidth(415);
@@ -443,8 +461,6 @@ public class ViewOrders implements View {
         orderGridPane.getChildren().add(progressBarOrder);
         GridPane.setConstraints(progressBarOrder, 1, orderGridPane.getRowCount()-1);
 
-
-
         HBox statusHbox = new HBox();
         statusHbox.setAlignment(Pos.CENTER);
         GridPane.setMargin(statusHbox, new Insets(0,  0, 0, 15));
@@ -452,6 +468,7 @@ public class ViewOrders implements View {
         statusHbox.setPrefHeight(100);
 
         Label statusOrderLabel = new Label("statusOrderLabel");
+        statusOrderLabel.setMinWidth(Region.USE_PREF_SIZE);
         statusOrderLabel.setPrefWidth(283);
         statusOrderLabel.setPrefHeight(17);
         statusOrderLabel.setText(order.getStatus());
@@ -473,7 +490,6 @@ public class ViewOrders implements View {
 
         try
         {
-
             bookImageView = new ImageView(new Image(book.getImagePath()));
         }
         catch(NullPointerException | IllegalArgumentException e)
