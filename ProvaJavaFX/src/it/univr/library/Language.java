@@ -28,7 +28,7 @@ public class Language
             return false;
 
         Language language = (Language) o;
-        return name.equals(language.getName());
+        return name.toUpperCase().equals(language.getName().toUpperCase());
     }
 
     @Override

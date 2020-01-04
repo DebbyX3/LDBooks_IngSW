@@ -21,6 +21,8 @@ public interface Model
 
     public default  ArrayList<Language> getLanguages(){ return null; }
 
+    public default void addNewLanguage(Language language){};
+
     public default Client getClient(User testUser){ return null;}
 
     public default Manager getManager(User testUser){return null;};
@@ -55,5 +57,10 @@ public interface Model
     public default ArrayList<Order> getOrderNotRegisteresUser(String mailNotRegUser, String orderCode){return null;};
 
     public default ArrayList<Order> getSpecificMailOrders(String mail){return null;};
+
+    public default  ArrayList<String> getAuthors(){return null;};
+
+    public default void addNewAuthor(String newNameAuthor, String newSurnameAuthor){};
+
 
 }

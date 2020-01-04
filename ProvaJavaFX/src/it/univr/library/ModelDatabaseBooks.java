@@ -7,36 +7,31 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.WeakHashMap;
 
-public class ModelDatabaseBooks implements Model
-{
+public class ModelDatabaseBooks implements Model {
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public ArrayList<Book> getBooks()
-    {
+    public ArrayList<Book> getBooks() {
         return getBooks(new Filter());
     }
 
     @Override
-    public ArrayList<Book> getBooks(Filter filter)
-    {
+    public ArrayList<Book> getBooks(Filter filter) {
         boolean isFirstInQuery = true;
         ArrayList<Book> books;
         ArrayList<Object> queryParameters = new ArrayList<>();
 
-        String query =  "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(name || ' ' || surname) AS nameSurnameAuthors " +
-                        "FROM books " +
-                        "JOIN write ON books.ISBN = write.ISBN " +
-                        "JOIN authors ON write.idAuthor = authors.idAuthor ";
+        String query = "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(name || ' ' || surname) AS nameSurnameAuthors " +
+                "FROM books " +
+                "JOIN write ON books.ISBN = write.ISBN " +
+                "JOIN authors ON write.idAuthor = authors.idAuthor ";
 
-        if (filter.isGenreSetted())
-        {
+        if (filter.isGenreSetted()) {
             queryParameters.add(filter.getGenre().getName());
             query += "WHERE genreName LIKE ? ";
             isFirstInQuery = false;
         }
-        if (filter.isLanguageSetted())
-        {
+        if (filter.isLanguageSetted()) {
             queryParameters.add(filter.getLanguage().getName());
             query += isFirstInQuery ? "WHERE " : "AND ";
             query += "languageName LIKE ? ";
@@ -44,7 +39,7 @@ public class ModelDatabaseBooks implements Model
         }
 
         query += "GROUP BY books.ISBN, title, languageName, formatName " +
-                 "ORDER By books.title, nameSurnameAuthors ASC ";
+                "ORDER By books.title, nameSurnameAuthors ASC ";
 
         db.DBOpenConnection();
         db.executeSQLQuery(query, queryParameters);
@@ -55,15 +50,12 @@ public class ModelDatabaseBooks implements Model
         return books;
     }
 
-    private ArrayList<Book> resultSetToArrayListBook(ResultSet rs)
-    {
+    private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
         ArrayList<Book> books = new ArrayList<>();
         Book singleBook;
 
-        try
-        {
-            while (rs.next())
-            {
+        try {
+            while (rs.next()) {
                 singleBook = new Book();
 
                 singleBook.setISBN(db.getSQLString(rs, "ISBN"));
@@ -85,6 +77,41 @@ public class ModelDatabaseBooks implements Model
             }
 
             return books;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
+    }
+
+    public ArrayList<String> getAuthors() {
+        ArrayList<String> authors;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery("SELECT name, surname " +
+                "FROM authors ");
+
+        authors = resultSetToAuthors(db.getResultSet());
+        db.DBCloseConnection();
+
+        return authors;
+    }
+
+    private ArrayList<String> resultSetToAuthors(ResultSet rs) {
+
+        ArrayList<String> authors = new ArrayList<>();
+        String name_surname;
+
+        try
+        {
+            while (rs.next())
+            {
+                name_surname = db.getSQLString(rs,"name") + " " + db.getSQLString(rs, "surname");
+                authors.add(name_surname);
+            }
+
+            return authors;
         }
         catch (SQLException e)
         {
@@ -93,5 +120,14 @@ public class ModelDatabaseBooks implements Model
         }
 
         return null;
+
     }
+
+    public void addNewAuthor(String newNameAuthor, String newSurnameAuthor)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO authors(name,surname) " +
+                    "VALUES (?, ?)",List.of(newNameAuthor, newSurnameAuthor));
+    }
+
 }

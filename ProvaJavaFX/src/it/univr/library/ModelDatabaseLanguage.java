@@ -3,6 +3,7 @@ package it.univr.library;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelDatabaseLanguage implements Model {
     private DatabaseConnection db = new DatabaseConnection();
@@ -42,5 +43,12 @@ public class ModelDatabaseLanguage implements Model {
         }
 
         return null;
+    }
+
+    public void addNewLanguage(Language language)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO languages(name) " +
+                "VALUES(?)", List.of(language.getName()));
     }
 }

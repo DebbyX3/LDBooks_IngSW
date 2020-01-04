@@ -181,8 +181,6 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderManager controllerOrderManager = fxmlLoader.getController();
             controllerOrderManager.setManager(manager);
-            //controllerOrderManager.populateMailUserFilter();
-            controllerOrderManager.populateOrderUsers();
             controllerOrderManager.setHeader();
 
             primaryStage.setTitle("OrderManager - LD Books");
@@ -194,6 +192,79 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageAddEditBooks(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editCatalog.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerEditCatalog controllerEditCatalog = fxmlLoader.getController();
+            controllerEditCatalog.setManager(manager);
+            controllerEditCatalog.setHeader();
+
+            primaryStage.setTitle("Edit Catalog - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setStageAddNewAuthor(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addAuthor.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerAddAuthor controllerAddAuthor = fxmlLoader.getController();
+            controllerAddAuthor.setManager(manager);
+            controllerAddAuthor.setHeader();
+
+            primaryStage.setTitle("Add new Author- LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void setStageAddNewLanguage(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addLanguage.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerAddLanguage controllerAddLanguage = fxmlLoader.getController();
+            controllerAddLanguage.setManager(manager);
+            controllerAddLanguage.setHeader();
+
+            primaryStage.setTitle("Add new Language - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void setStageSignUp(Stage primaryStage, User user)
     {
@@ -341,5 +412,6 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
 
 }

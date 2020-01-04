@@ -30,7 +30,7 @@ public class ControllerManagerPage {
     {
         //setto il listener
         orderStatusButton.setOnAction(this::handleOrderStatusButton);
-        addBooksButton.setOnAction(this::handleAddBooksButton);
+        addBooksButton.setOnAction(this::handleAddEditBooksButton);
         updateChartsButton.setOnAction(this::handleUpdateChartsButton);
         usersLibroCardsButton.setOnAction(this::handleUsersLibroCardsButton);
     }
@@ -62,8 +62,9 @@ public class ControllerManagerPage {
 
     }
 
-    private void handleAddBooksButton(ActionEvent actionEvent)
+    private void handleAddEditBooksButton(ActionEvent actionEvent)
     {
-
+        StageManager addEditBooks = new StageManager();
+        addEditBooks.setStageAddEditBooks((Stage) addBooksButton.getScene().getWindow(), manager);
     }
 }

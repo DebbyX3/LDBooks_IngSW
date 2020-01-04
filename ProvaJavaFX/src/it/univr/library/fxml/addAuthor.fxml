@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerAddAuthor">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -42,7 +42,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Add author">
+                              <Button fx:id="addNewAuthorButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Add new author">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -68,8 +68,8 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="nameAuthorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ListView fx:id="authorsListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="230.0" prefHeight="20.0" prefWidth="297.0" text="Existing Authors:" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -86,7 +86,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField layoutX="304.0" layoutY="266.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="surnameAuthorTextField" layoutX="304.0" layoutY="266.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />

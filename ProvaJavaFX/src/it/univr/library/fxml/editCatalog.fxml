@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerEditCatalog">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <VBox BorderPane.alignment="CENTER">
@@ -66,7 +66,7 @@
                         <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add" />
+                              <Button fx:id="addAuthorButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add Author" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -94,7 +94,7 @@
                         </VBox>
                         <HBox alignment="CENTER" layoutX="500.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add" />
+                              <Button fx:id="addLanguageButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add Language" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -136,7 +136,7 @@
                         </VBox>
                         <HBox alignment="CENTER" layoutX="270.0" layoutY="184.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add" />
+                              <Button fx:id="addFormatButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add Format" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -144,7 +144,7 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="270.0" layoutY="184.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add" />
+                              <Button fx:id="addGenreButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add Genre" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -160,7 +160,7 @@
                         <Separator layoutX="471.0" layoutY="308.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
                         <HBox alignment="CENTER" layoutX="230.0" layoutY="173.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add" />
+                              <Button fx:id="addPHouseButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add P. House" />
                            </children>
                            <opaqueInsets>
                               <Insets />
@@ -210,7 +210,16 @@
                         </VBox>
                         <HBox alignment="CENTER" layoutX="690.0" layoutY="173.0" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="6">
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #ffa939;" text="Add" />
+                              <VBox alignment="CENTER" prefHeight="127.0" prefWidth="227.0">
+                                 <children>
+                                    <Button fx:id="addNewBookButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Add new book">
+                                       <VBox.margin>
+                                          <Insets bottom="30.0" />
+                                       </VBox.margin>
+                                    </Button>
+                                    <Button fx:id="editBookButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Edit existing book" />
+                                 </children>
+                              </VBox>
                            </children>
                            <opaqueInsets>
                               <Insets />
