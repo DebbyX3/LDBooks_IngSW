@@ -11,33 +11,30 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class ControllerAddAuthor {
+public class ControllerAddGenre {
 
     @FXML
     private HBox headerHBox;
 
     @FXML
-    private Button addNewAuthorButton;
+    private Button addNewGenreButton;
 
     @FXML
-    private ListView<String> authorsListView;
-    private ObservableList<String> authors = FXCollections.observableArrayList();
+    private TextField newGenreTextField;
 
     @FXML
-    private TextField nameAuthorTextField;
-
-    @FXML
-    private TextField surnameAuthorTextField;
+    private ListView<Genre> genresListView;
+    private ObservableList<Genre> genres = FXCollections.observableArrayList();
 
     private User manager;
 
     @FXML
     private void initialize()
     {
-        populateAuthors();
-        authorsListView.setItems(authors);
+        populateGenres();
+        genresListView.setItems(genres);
 
-        addNewAuthorButton.setOnAction(this::handleAddNewAuthorButton);
+        addNewGenreButton.setOnAction(this::handleAddNewGenre);
     }
 
 
@@ -53,40 +50,41 @@ public class ControllerAddAuthor {
         controllerHeader.createHeader(manager, headerHBox);
     }
 
-    private void populateAuthors()
+    private void populateGenres()
     {
-        Model DBauthors = new ModelDatabaseBooks();
-        authors.addAll((DBauthors.getAuthors()));
+        Model DBgenres = new ModelDatabaseGenres();
+        genres.addAll(DBgenres.getGenres());
     }
 
-    private void handleAddNewAuthorButton(ActionEvent actionEvent)
+    private void handleAddNewGenre(ActionEvent actionEvent)
     {
-        String newNameAuthor = nameAuthorTextField.getText();
-        String newSurnameAuthor = surnameAuthorTextField.getText();
-        String nameSurnameNewAuthor = newNameAuthor + " " + newSurnameAuthor;
 
+
+        String newGenre = newGenreTextField.getText();
         boolean exist = false;
-        for (String authors: authors)
+
+        for (Genre genre: genres)
         {
-            if (authors.toUpperCase().equals(nameSurnameNewAuthor.toUpperCase()))
+            if (newGenre.toUpperCase().equals(genre.getName().toUpperCase()))
                 exist = true;
         }
 
         if(!exist)
         {
             //if the authors doesn't already exists so insert into db
-            Model DBinsertNewAuthor = new ModelDatabaseBooks();
-            DBinsertNewAuthor.addNewAuthor(newNameAuthor, newSurnameAuthor);
+            Model DBinsertNewGenre = new ModelDatabaseGenres();
+            DBinsertNewGenre.addNewGenre(newGenre);
 
             //change scene
             StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewAuthorButton.getScene().getWindow(), manager);
+            addEditBooks.setStageAddEditBooks((Stage) addNewGenreButton.getScene().getWindow(), manager);
         }
         else
         {
-            displayAlert("Author already exists!");
+            displayAlert("Genre already exists!");
         }
     }
+
 
     private void displayAlert(String s)
     {

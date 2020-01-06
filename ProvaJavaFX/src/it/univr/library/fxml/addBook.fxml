@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerAddBook">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <ScrollPane>
@@ -56,7 +56,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Add Book">
+                              <Button fx:id="addNewBookButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Add New Book">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -82,7 +82,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                        <TextField fx:id="imagePathTextField" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                         <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="302.0" prefHeight="20.0" prefWidth="297.0" text="Title:" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -203,20 +203,29 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField layoutX="301.0" layoutY="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <ComboBox layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                        <TextField layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                        <TextField layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                        <TextField layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                        <ComboBox layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ComboBox layoutX="301.0" layoutY="116.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <ComboBox layoutX="301.0" layoutY="201.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <ComboBox layoutX="301.0" layoutY="230.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <ComboBox layoutX="301.0" layoutY="258.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                        <TextArea prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="isbnTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox fx:id="authorComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField fx:id="publicationYearTextField" layoutX="301.0" layoutY="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox fx:id="publishingHouseComboBox" layoutX="301.0" layoutY="116.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="genreComboBox" layoutX="301.0" layoutY="201.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="formatComboBox" layoutX="301.0" layoutY="230.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="languageComboBox" layoutX="301.0" layoutY="258.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <TextField fx:id="pagesTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="priceTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="librocardPointsTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <ComboBox fx:id="availableQuantityComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <children>
+                              <Button fx:id="selectAuthorButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #ffa939;" text="Select Author">
+                                 <HBox.margin>
+                                    <Insets right="150.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="51.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </content>

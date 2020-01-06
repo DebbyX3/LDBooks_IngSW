@@ -3,6 +3,7 @@ package it.univr.library;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ModelDatabaseGenres implements Model
 {
@@ -45,5 +46,12 @@ public class ModelDatabaseGenres implements Model
         }
 
         return null;
+    }
+
+    public void addNewGenre(String newGenre)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO genres(name) " +
+                            "VALUES(?)",List.of(newGenre) );
     }
 }

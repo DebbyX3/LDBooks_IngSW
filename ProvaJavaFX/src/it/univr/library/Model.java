@@ -62,5 +62,21 @@ public interface Model
 
     public default void addNewAuthor(String newNameAuthor, String newSurnameAuthor){};
 
+    public default ArrayList<String> getPublishingHouses(){return null;};
+
+    public default ArrayList<String> getFormats(){return null;};
+
+    public default void addNewBookToDB(Book book){};
+
+    public default int getAuthorID(String authorName, String authorSurname){return 0;};
+
+    public default void linkBookToAuthors(int idAuthor, String isbn){};
+
+    public default void addNewPublishingHouse(String newPublishingHouse){};
+
+    public default void addNewFormat(String newFormat){};
+
+    public default void addNewGenre(String newGenre){};
+
 
 }

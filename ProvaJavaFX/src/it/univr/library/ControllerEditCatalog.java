@@ -61,7 +61,8 @@ public class ControllerEditCatalog {
 
     private void handleAddGenreButton(ActionEvent actionEvent)
     {
-
+        StageManager addGenre = new StageManager();
+        addGenre.setStageAddGenre((Stage) addGenreButton.getScene().getWindow(), manager);
     }
 
     private void handleAddLanguageButton(ActionEvent actionEvent)
@@ -72,12 +73,14 @@ public class ControllerEditCatalog {
 
     private void handleAddPHouseButton(ActionEvent actionEvent)
     {
-
+        StageManager addNewPHouse = new StageManager();
+        addNewPHouse.setStageAddNewPhouse((Stage) addPHouseButton.getScene().getWindow(), manager);
     }
 
     private void handleAddNewBookButton(ActionEvent actionEvent)
     {
-
+        StageManager addNewBook = new StageManager();
+        addNewBook.setStageAddNewBook((Stage) addNewBookButton.getScene().getWindow(), manager);
     }
 
     private void handleEditBookButton(ActionEvent actionEvent)
@@ -94,7 +97,8 @@ public class ControllerEditCatalog {
 
     private void handleAddFormatButton(ActionEvent actionEvent)
     {
-
+        StageManager addFormat = new StageManager();
+        addFormat.setStageAddFormat((Stage) addFormatButton.getScene().getWindow(), manager);
     }
 
 }

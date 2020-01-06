@@ -265,6 +265,29 @@ public class StageManager
 
     }
 
+    public void setStageAddNewBook(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addBook.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerAddBook controllerAddBook = fxmlLoader.getController();
+            controllerAddBook.setManager(manager);
+            controllerAddBook.setHeader();
+
+            primaryStage.setTitle("Add new Book - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     public void setStageSignUp(Stage primaryStage, User user)
     {
@@ -414,4 +437,72 @@ public class StageManager
     }
 
 
+    public void setStageAddNewPhouse(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addPublishingHouse.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerAddPublishingHouse controllerAddPublishingHouse = fxmlLoader.getController();
+            controllerAddPublishingHouse.setManager(manager);
+            controllerAddPublishingHouse.setHeader();
+
+            primaryStage.setTitle("Add new Publishing House - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStageAddFormat(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addFormat.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerAddFormat controllerAddFormat = fxmlLoader.getController();
+            controllerAddFormat.setManager(manager);
+            controllerAddFormat.setHeader();
+
+            primaryStage.setTitle("Add new Format - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStageAddGenre(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addGenre.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerAddGenre controllerAddGenre = fxmlLoader.getController();
+            controllerAddGenre.setManager(manager);
+            controllerAddGenre.setHeader();
+
+            primaryStage.setTitle("Add new Genre - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

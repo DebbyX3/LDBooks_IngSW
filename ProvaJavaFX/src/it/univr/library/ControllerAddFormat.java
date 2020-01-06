@@ -11,35 +11,31 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class ControllerAddAuthor {
+public class ControllerAddFormat {
 
     @FXML
     private HBox headerHBox;
 
     @FXML
-    private Button addNewAuthorButton;
+    private Button addNewFormatButton;
 
     @FXML
-    private ListView<String> authorsListView;
-    private ObservableList<String> authors = FXCollections.observableArrayList();
+    private TextField newFormatTextField;
 
     @FXML
-    private TextField nameAuthorTextField;
-
-    @FXML
-    private TextField surnameAuthorTextField;
+    private ListView<String> formatsListView;
+    private ObservableList<String> formats = FXCollections.observableArrayList();
 
     private User manager;
 
     @FXML
     private void initialize()
     {
-        populateAuthors();
-        authorsListView.setItems(authors);
+        populateFormats();
+        formatsListView.setItems(formats);
 
-        addNewAuthorButton.setOnAction(this::handleAddNewAuthorButton);
+        addNewFormatButton.setOnAction(this::handleAddNewFormat);
     }
-
 
 
     public void setManager(User manager)
@@ -53,40 +49,42 @@ public class ControllerAddAuthor {
         controllerHeader.createHeader(manager, headerHBox);
     }
 
-    private void populateAuthors()
+    private void populateFormats()
     {
-        Model DBauthors = new ModelDatabaseBooks();
-        authors.addAll((DBauthors.getAuthors()));
+        Model DBformats = new ModelDatabaseBooks();
+        formats.addAll(DBformats.getFormats());
     }
 
-    private void handleAddNewAuthorButton(ActionEvent actionEvent)
+    private void handleAddNewFormat(ActionEvent actionEvent)
     {
-        String newNameAuthor = nameAuthorTextField.getText();
-        String newSurnameAuthor = surnameAuthorTextField.getText();
-        String nameSurnameNewAuthor = newNameAuthor + " " + newSurnameAuthor;
 
+        String newFormat = newFormatTextField.getText();
         boolean exist = false;
-        for (String authors: authors)
+
+        for (String format: formats)
         {
-            if (authors.toUpperCase().equals(nameSurnameNewAuthor.toUpperCase()))
+            if (newFormat.toUpperCase().equals(format.toUpperCase()))
                 exist = true;
         }
 
         if(!exist)
         {
             //if the authors doesn't already exists so insert into db
-            Model DBinsertNewAuthor = new ModelDatabaseBooks();
-            DBinsertNewAuthor.addNewAuthor(newNameAuthor, newSurnameAuthor);
+            Model DBinsertNewFormat = new ModelDatabaseBooks();
+            DBinsertNewFormat.addNewFormat(newFormat);
 
             //change scene
             StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewAuthorButton.getScene().getWindow(), manager);
+            addEditBooks.setStageAddEditBooks((Stage) addNewFormatButton.getScene().getWindow(), manager);
         }
         else
         {
-            displayAlert("Author already exists!");
+            displayAlert("Format already exists!");
         }
     }
+
+
+
 
     private void displayAlert(String s)
     {

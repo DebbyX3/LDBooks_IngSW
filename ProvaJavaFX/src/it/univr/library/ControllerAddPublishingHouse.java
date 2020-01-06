@@ -11,35 +11,31 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class ControllerAddAuthor {
+public class ControllerAddPublishingHouse {
 
     @FXML
     private HBox headerHBox;
 
     @FXML
-    private Button addNewAuthorButton;
+    private Button addNewPublishingHouseButton;
 
     @FXML
-    private ListView<String> authorsListView;
-    private ObservableList<String> authors = FXCollections.observableArrayList();
+    private TextField newPublishingHouseTextFiled;
 
     @FXML
-    private TextField nameAuthorTextField;
-
-    @FXML
-    private TextField surnameAuthorTextField;
+    private ListView<String> publishingHousesListView;
+    private ObservableList<String> publishingHouses = FXCollections.observableArrayList();
 
     private User manager;
 
     @FXML
     private void initialize()
     {
-        populateAuthors();
-        authorsListView.setItems(authors);
+        populatePublishingHouse();
+        publishingHousesListView.setItems(publishingHouses);
 
-        addNewAuthorButton.setOnAction(this::handleAddNewAuthorButton);
+        addNewPublishingHouseButton.setOnAction(this::handleAddNewPublishingHouse);
     }
-
 
 
     public void setManager(User manager)
@@ -53,38 +49,37 @@ public class ControllerAddAuthor {
         controllerHeader.createHeader(manager, headerHBox);
     }
 
-    private void populateAuthors()
+    private void populatePublishingHouse()
     {
-        Model DBauthors = new ModelDatabaseBooks();
-        authors.addAll((DBauthors.getAuthors()));
+        Model DBPhouses = new ModelDatabaseBooks();
+        publishingHouses.addAll(DBPhouses.getPublishingHouses());
     }
 
-    private void handleAddNewAuthorButton(ActionEvent actionEvent)
+    private void handleAddNewPublishingHouse(ActionEvent actionEvent)
     {
-        String newNameAuthor = nameAuthorTextField.getText();
-        String newSurnameAuthor = surnameAuthorTextField.getText();
-        String nameSurnameNewAuthor = newNameAuthor + " " + newSurnameAuthor;
+        String newPublishingHouse = newPublishingHouseTextFiled.getText();
+
 
         boolean exist = false;
-        for (String authors: authors)
+        for (String pHouse: publishingHouses)
         {
-            if (authors.toUpperCase().equals(nameSurnameNewAuthor.toUpperCase()))
+            if (newPublishingHouse.toUpperCase().equals(pHouse.toUpperCase()))
                 exist = true;
         }
 
         if(!exist)
         {
             //if the authors doesn't already exists so insert into db
-            Model DBinsertNewAuthor = new ModelDatabaseBooks();
-            DBinsertNewAuthor.addNewAuthor(newNameAuthor, newSurnameAuthor);
+            Model DBinsertNewPublishingHouse = new ModelDatabaseBooks();
+            DBinsertNewPublishingHouse.addNewPublishingHouse(newPublishingHouse);
 
             //change scene
             StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewAuthorButton.getScene().getWindow(), manager);
+            addEditBooks.setStageAddEditBooks((Stage) addNewPublishingHouseButton.getScene().getWindow(), manager);
         }
         else
         {
-            displayAlert("Author already exists!");
+            displayAlert("Publishing House already exists!");
         }
     }
 
@@ -97,5 +92,5 @@ public class ControllerAddAuthor {
 
         alert.showAndWait();
     }
-
 }
+

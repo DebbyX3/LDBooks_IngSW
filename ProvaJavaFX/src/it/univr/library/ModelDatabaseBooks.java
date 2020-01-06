@@ -123,11 +123,162 @@ public class ModelDatabaseBooks implements Model {
 
     }
 
+
+
     public void addNewAuthor(String newNameAuthor, String newSurnameAuthor)
     {
         db.DBOpenConnection();
         db.executeSQLUpdate( "INSERT INTO authors(name,surname) " +
                     "VALUES (?, ?)",List.of(newNameAuthor, newSurnameAuthor));
+    }
+
+    public ArrayList<String> getPublishingHouses()
+    {
+        ArrayList<String> publishingHouses;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT name " +
+                "FROM publishingHouses ");
+
+        publishingHouses = resultSetToPublishingHouses(db.getResultSet());
+        db.DBCloseConnection();
+
+        return publishingHouses;
+    }
+
+    private ArrayList<String> resultSetToPublishingHouses(ResultSet rs)
+    {
+        ArrayList<String> publishingHouses = new ArrayList<>();
+        String publishingHouse;
+
+        try
+        {
+            while (rs.next())
+            {
+                publishingHouse = db.getSQLString(rs,"name");
+                publishingHouses.add(publishingHouse);
+            }
+
+            return publishingHouses;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
+
+
+    }
+
+    public int getAuthorID(String authorName, String authorSurname) {
+        int authorID;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery("SELECT authors.idAuthor " +
+                "FROM authors " +
+                "WHERE authors.name LIKE ? AND authors.surname LIKE ?", List.of(authorName,authorSurname));
+
+        authorID = resultSetToAuthorID(db.getResultSet());
+        db.DBCloseConnection();
+
+        return authorID;
+    }
+
+    private int resultSetToAuthorID(ResultSet rs)
+    {
+
+        int authorID = 0;
+
+        try
+        {
+            while (rs.next())
+            {
+                authorID = db.getSQLInt(rs,"idAuthor");
+            }
+
+            return authorID;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return Integer.parseInt(null);
+
+    }
+
+    public void linkBookToAuthors(int idAuthor, String isbn)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO write(idAuthor, ISBN) " +
+                "VALUES (?, ?)", List.of(idAuthor, isbn));
+    }
+
+    public ArrayList<String> getFormats()
+    {
+        ArrayList<String> formats;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT name " +
+                "FROM formats ");
+
+        formats = resultSetToformats(db.getResultSet());
+        db.DBCloseConnection();
+
+        return formats;
+    }
+
+    private ArrayList<String> resultSetToformats(ResultSet rs)
+    {
+        ArrayList<String> formats = new ArrayList<>();
+        String format;
+
+        try
+        {
+            while (rs.next())
+            {
+                format = db.getSQLString(rs,"name");
+                formats.add(format);
+            }
+
+            return formats;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
+
+    }
+
+    public void addNewBookToDB(Book book)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO books(ISBN, title, description, points, publicationYear, price, " +
+                                    "publishingHouseName, genreName, maxQuantity, pages, languageName, formatName, " +
+                                    "imagePath) " +
+                "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",List.of(book.getISBN(), book.getTitle(), book.getDescription(),
+                book.getPoints(), book.getPublicationYear(), book.getPrice(), book.getPublishingHouse(), book.getGenre(),
+                book.getMaxQuantity(), book.getPages(), book.getLanguage(), book.getFormat(), book.getImagePath()));
+    }
+
+    public void addNewPublishingHouse(String newPublishingHouse)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO publishingHouses(name) " +
+                            "VALUES(?)", List.of(newPublishingHouse));
+    }
+
+    public void addNewFormat(String newFormat)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO formats(name) " +
+                "VALUES(?)", List.of(newFormat));
     }
 
 }
