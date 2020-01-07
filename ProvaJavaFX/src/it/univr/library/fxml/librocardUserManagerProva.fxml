@@ -76,7 +76,7 @@
                                        </font>
                                     </Text>
                                     <Separator layoutX="14.0" layoutY="343.0" prefHeight="3.0" prefWidth="715.0" />
-                                    <Text fx:id="issueDateText1" layoutX="232.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" wrappingWidth="187.19998168945312">
+                                    <Text fx:id="issueDateText1" layoutX="232.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" wrappingWidth="187.19998168945312">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
@@ -91,7 +91,7 @@
                                           <Font size="14.0" />
                                        </font>
                                     </Text>
-                                    <Text fx:id="pointsText1" layoutX="209.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marzari" wrappingWidth="167.20004272460938">
+                                    <Text fx:id="pointsText1" layoutX="205.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Marzari" wrappingWidth="167.20004272460938">
                                        <font>
                                           <Font name="System Bold" size="14.0" />
                                        </font>

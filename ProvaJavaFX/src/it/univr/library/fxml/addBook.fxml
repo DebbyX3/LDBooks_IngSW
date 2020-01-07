@@ -205,17 +205,18 @@
                         </Label>
                         <TextField fx:id="isbnTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <ComboBox fx:id="authorComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="57.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox fx:id="authorComboBox" disable="true" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose an Author..." GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="publicationYearTextField" layoutX="301.0" layoutY="59.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <ComboBox fx:id="publishingHouseComboBox" layoutX="301.0" layoutY="116.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <ComboBox fx:id="genreComboBox" layoutX="301.0" layoutY="201.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                        <ComboBox fx:id="formatComboBox" layoutX="301.0" layoutY="230.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                        <ComboBox fx:id="languageComboBox" layoutX="301.0" layoutY="258.0" prefHeight="25.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <ComboBox fx:id="publishingHouseComboBox" layoutX="301.0" layoutY="116.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Publishing house..." GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="genreComboBox" layoutX="301.0" layoutY="201.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Genre..." GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="formatComboBox" layoutX="301.0" layoutY="230.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Format..." GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="languageComboBox" layoutX="301.0" layoutY="258.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Language..." GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <TextField fx:id="pagesTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                         <TextField fx:id="priceTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                         <TextField fx:id="librocardPointsTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                        <ComboBox fx:id="availableQuantityComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="62.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <ComboBox fx:id="availableQuantityComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="62.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="14" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                            <children>
                               <Button fx:id="selectAuthorButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #ffa939;" text="Select Author">
@@ -225,7 +226,6 @@
                               </Button>
                            </children>
                         </HBox>
-                        <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="51.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </content>

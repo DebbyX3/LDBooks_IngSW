@@ -83,35 +83,28 @@ public class ControllerAddBook {
     {
         populateNumbAuthorsComboBox();
         numberAuthorsComboBox.setItems(numberAuthors);
-        numberAuthorsComboBox.getSelectionModel().selectFirst();
         // take the value from comboBox to iterate ad take the number of authors selected in the combobox
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
-
+        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> authorComboBox.setDisable(false));
 
         popolateAuthors();
         authorComboBox.setItems(authors);
-        authorComboBox.getSelectionModel().select("Choose Author:");
-
 
         populatePublishingHouses();
         publishingHouseComboBox.setItems(publishingHouses);
-        publishingHouseComboBox.getSelectionModel().select("Choose Publishing House:");
 
         populateGenres();
         genreComboBox.setItems(genres);
-        genreComboBox.getSelectionModel().selectFirst();
 
         populateFormats();
         formatComboBox.setItems(formats);
-        formatComboBox.getSelectionModel().select("Choose Format:");
+
 
         populateLanguages();
         languageComboBox.setItems(languages);
-        languageComboBox.getSelectionModel().selectFirst();
 
         populateAvailableQuantityComboBox();
         availableQuantityComboBox.setItems(availableQuantity);
-        availableQuantityComboBox.getSelectionModel().selectFirst();
 
         selectAuthorButton.setOnAction(this::handleSelectAuthorButton);
         addNewBookButton.setOnAction(this::handleAddNewBookButton);
@@ -147,7 +140,10 @@ public class ControllerAddBook {
             System.out.println(authorsToLinkToBook.toString());
 
             if(numberOfAuthors == 1)
+            {
                 selectAuthorButton.setDisable(true);
+                authorComboBox.setDisable(true);
+            }
 
             numberOfAuthors--;
             displayAlertAddAuthor(numberOfAuthors);
