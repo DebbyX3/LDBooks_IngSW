@@ -87,6 +87,7 @@ public class ControllerAddBook {
         // take the value from comboBox to iterate ad take the number of authors selected in the combobox
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
 
+
         popolateAuthors();
         authorComboBox.setItems(authors);
         authorComboBox.getSelectionModel().select("Choose Author:");
@@ -131,6 +132,7 @@ public class ControllerAddBook {
 
     private void handleSelectAuthorButton(ActionEvent actionEvent)
     {
+        numberAuthorsComboBox.setDisable(true);
         String author = authorComboBox.getValue();
         boolean exists = false;
 
@@ -202,7 +204,6 @@ public class ControllerAddBook {
         addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager);
 
     }
-
 
 
     private void populateNumbAuthorsComboBox()

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -15,14 +16,14 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerLibroCardUser">
   <children>
-      <BorderPane prefHeight="575.0" prefWidth="900.0">
+      <BorderPane prefHeight="591.0" prefWidth="900.0">
          <top>
             <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <StackPane prefHeight="507.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <Pane prefHeight="504.0" prefWidth="900.0">
                      <children>
                         <Rectangle arcHeight="60.0" arcWidth="60.0" fill="WHITE" height="359.0" layoutX="166.0" layoutY="79.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="5.0" width="592.0" />
                         <Circle fill="WHITE" layoutX="211.0" layoutY="134.0" radius="100.0" stroke="#ffa939" strokeType="INSIDE" strokeWidth="5.0" />
@@ -74,6 +75,17 @@
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0">
+               <children>
+                  <Label prefHeight="17.0" prefWidth="243.0" text="© Developed by Deborah Pintani &amp; Luca Marzari " textFill="#b5b5b5">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </bottom>
       </BorderPane>
   </children>
 </VBox>

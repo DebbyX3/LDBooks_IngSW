@@ -29,32 +29,43 @@
                         </Label>
                         <VBox prefHeight="114.0" prefWidth="707.0">
                            <children>
-                              <Label alignment="CENTER" prefHeight="18.0" prefWidth="715.0" text="User email: xxxx@fff.com">
+                              <HBox>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="443.0" text="User email:" />
+                                    <Label prefHeight="17.0" prefWidth="461.0" text="prova@gmail.com">
+                                       <HBox.margin>
+                                          <Insets left="3.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                              </HBox>
+                              <HBox>
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin>
+                                 <children>
+                                    <Label text="Name: " />
+                                 </children>
+                              </HBox>
+                              <Label text="Surname: ">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Name: xxx">
+                              <Label prefHeight="17.0" prefWidth="27.0" text="ID: ">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="Surname: xxx">
+                              <Label text="Issue date: ">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label text="ID: 84156">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Issue date: dd/mm/yyyy">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Points: xxx">
+                              <Label text="Points:">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
@@ -65,43 +76,6 @@
                            </VBox.margin>
                         </VBox>
                         <Separator prefWidth="200.0" />
-                        <VBox layoutX="20.0" layoutY="45.0" prefHeight="114.0" prefWidth="707.0">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="18.0" prefWidth="715.0" text="User email: aaaa@bbbb.com">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Name: xxx">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Surname: xxx">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="ID: 84156">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Issue date: dd/mm/yyyy">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label text="Points: xxx">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" />
-                                 </VBox.margin>
-                              </Label>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="10.0" right="10.0" top="10.0" />
-                           </VBox.margin>
-                        </VBox>
                         <Separator layoutX="10.0" layoutY="180.0" prefWidth="200.0" />
                      </children>
                   </VBox>
