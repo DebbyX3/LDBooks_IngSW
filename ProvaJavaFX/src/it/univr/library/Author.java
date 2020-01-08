@@ -25,6 +25,7 @@ public class Author implements Comparable<Author>
 
     public String getSurname(){return surname;}
 
+    // maybe to delete
     public String getNameSurname(){return name + " " + surname;}
 
     public Integer getId(){return id;}
