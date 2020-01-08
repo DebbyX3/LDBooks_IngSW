@@ -259,7 +259,7 @@ public class ModelDatabaseOrder implements Model
     private void addBookToArrayList(ArrayList<Book> books, ResultSet rs)
     {
         Book book = new Book(db.getSQLString(rs, "ISBN"), db.getSQLString(rs, "title"),
-                db.getSQLStringArrayList(rs, "nameSurnameAuthors"), db.getSQLString(rs, "description"),
+                createArrayListAuthors(db.getSQLStringList(rs, "nameSurnameAuthors")), db.getSQLString(rs, "description"),
                 db.getSQLInt(rs, "points"), db.getSQLNumeric(rs, "price"), db.getSQLInt(rs, "publicationYear"),
                 db.getSQLString(rs, "publishingHouseName"), db.getSQLString(rs, "genreName"),
                 db.getSQLString(rs, "languageName"), db.getSQLInt(rs, "maxQuantity"),

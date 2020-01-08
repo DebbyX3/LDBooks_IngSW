@@ -9,7 +9,7 @@ public class Book
 {
     private String ISBN;
     private String title;
-    private List<String> authors;
+    private List<Author> authors;
     private String description;
     private Integer points;
     private BigDecimal price;
@@ -25,7 +25,7 @@ public class Book
 
     public Book(){}
 
-    public Book(String ISBN, String title, List<String> authors, String description, Integer points, BigDecimal price, Integer publicationYear, String publishingHouse, String genre, String language, Integer maxQuantity, Integer pages, String format, String imagePath) {
+    public Book(String ISBN, String title, List<Author> authors, String description, Integer points, BigDecimal price, Integer publicationYear, String publishingHouse, String genre, String language, Integer maxQuantity, Integer pages, String format, String imagePath) {
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
@@ -47,8 +47,8 @@ public class Book
     {
         StringBuilder result = new StringBuilder(ISBN + "\n" + title + "\n");
 
-        for (String element: authors)
-            result.append(element).append(", ");
+        for (Author element: authors)
+            result.append(element.getNameSurname()).append(", ");
 
         return  result + "\n" +
                 description + "\n" + points + "\n" + price + "\n" + publicationYear + "\n" + publishingHouse + "\n" +
@@ -71,11 +71,15 @@ public class Book
         this.title = title;
     }
 
-    public List<String> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<String> authors) {
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
+    }
+
+    public void setAuthors() {
         this.authors = authors;
     }
 

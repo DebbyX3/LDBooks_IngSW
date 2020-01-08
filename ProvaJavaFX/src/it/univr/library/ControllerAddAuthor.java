@@ -20,8 +20,8 @@ public class ControllerAddAuthor {
     private Button addNewAuthorButton;
 
     @FXML
-    private ListView<String> authorsListView;
-    private ObservableList<String> authors = FXCollections.observableArrayList();
+    private ListView<Author> authorsListView;
+    private ObservableList<Author> authors = FXCollections.observableArrayList();
 
     @FXML
     private TextField nameAuthorTextField;
@@ -36,11 +36,8 @@ public class ControllerAddAuthor {
     {
         populateAuthors();
         authorsListView.setItems(authors);
-
         addNewAuthorButton.setOnAction(this::handleAddNewAuthorButton);
     }
-
-
 
     public void setManager(User manager)
     {
@@ -55,28 +52,16 @@ public class ControllerAddAuthor {
 
     private void populateAuthors()
     {
-        Model DBauthors = new ModelDatabaseBooks();
+        Model DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
     }
 
     private void handleAddNewAuthorButton(ActionEvent actionEvent)
     {
-        String newNameAuthor = nameAuthorTextField.getText();
-        String newSurnameAuthor = surnameAuthorTextField.getText();
-        String nameSurnameNewAuthor = newNameAuthor + " " + newSurnameAuthor;
-
-        boolean exist = false;
-        for (String authors: authors)
+        if(!nameAuthorTextField.getText().equals("") || !surnameAuthorTextField.getText().equals(""))
         {
-            if (authors.toUpperCase().equals(nameSurnameNewAuthor.toUpperCase()))
-                exist = true;
-        }
-
-        if(!exist)
-        {
-            //if the authors doesn't already exists so insert into db
-            Model DBinsertNewAuthor = new ModelDatabaseBooks();
-            DBinsertNewAuthor.addNewAuthor(newNameAuthor, newSurnameAuthor);
+            Model DBinsertNewAuthor = new ModelDatabaseAuthor();
+            DBinsertNewAuthor.addNewAuthor(nameAuthorTextField.getText(), surnameAuthorTextField.getText());
 
             //change scene
             StageManager addEditBooks = new StageManager();
@@ -84,7 +69,7 @@ public class ControllerAddAuthor {
         }
         else
         {
-            displayAlert("Author already exists!");
+            displayAlert("Fill at least one field between name or surname!");
         }
     }
 
@@ -97,5 +82,4 @@ public class ControllerAddAuthor {
 
         alert.showAndWait();
     }
-
 }

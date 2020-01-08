@@ -21,7 +21,7 @@ public class ViewBooks implements View
     {
         List<String> formats = new ArrayList<>();
         List<BigDecimal> prices = new ArrayList<>();
-        Set<String> authors = new TreeSet<>();
+        Set<Author> authors = new TreeSet<>();
         String imagePath = null;
 
         Book originalBook = null;
@@ -61,8 +61,6 @@ public class ViewBooks implements View
             buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
     }
 
-
-
     //ci sto ancora pensando
     /*private void buildBook(VBox bookVBox, Book book)
     {
@@ -71,7 +69,7 @@ public class ViewBooks implements View
 
     /* TODO: 06/10/2019:  Dividere la funzione in pezzi e sistemare in modo che prenda tutti i libri, vedi commento funzione sopra
     */
-    private void buildBook(VBox bookVBox, String title, Set<String> authors, List<String> formats, List<BigDecimal> prices, String imagePath, String language)
+    private void buildBook(VBox bookVBox, String title, Set<Author> authors, List<String> formats, List<BigDecimal> prices, String imagePath, String language)
     {
         /* **** SETTING HBOX PANE **** */
         HBox bookHBox = new HBox();
@@ -176,10 +174,10 @@ public class ViewBooks implements View
         bookVBox.getChildren().addAll(bookHBox, separatorLine);
     }
 
-    private String setToString(Set<String> setStr)
+    private String setToString(Set<Author> setStr)
     {
         StringBuilder result = new StringBuilder();
-        Iterator<String> iter = setStr.iterator();
+        Iterator<Author> iter = setStr.iterator();
 
         while (iter.hasNext())
         {

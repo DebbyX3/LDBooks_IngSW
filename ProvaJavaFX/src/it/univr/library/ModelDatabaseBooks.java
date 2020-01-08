@@ -1,11 +1,8 @@
 package it.univr.library;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.WeakHashMap;
 
 public class ModelDatabaseBooks implements Model {
     private DatabaseConnection db = new DatabaseConnection();
@@ -21,7 +18,7 @@ public class ModelDatabaseBooks implements Model {
         ArrayList<Book> books;
         ArrayList<Object> queryParameters = new ArrayList<>();
 
-        String query = "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(name || ' ' || surname) AS nameSurnameAuthors " +
+        String query = "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors " +
                 "FROM books " +
                 "JOIN write ON books.ISBN = write.ISBN " +
                 "JOIN authors ON write.idAuthor = authors.idAuthor ";
@@ -39,7 +36,7 @@ public class ModelDatabaseBooks implements Model {
         }
 
         query += "GROUP BY books.ISBN, title, languageName, formatName " +
-                "ORDER By books.title, nameSurnameAuthors ASC ";
+                "ORDER By books.title, idNameSurnameAuthors ASC ";
 
         db.DBOpenConnection();
         db.executeSQLQuery(query, queryParameters);
@@ -51,6 +48,7 @@ public class ModelDatabaseBooks implements Model {
     }
 
     private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
+        Model authors = new ModelDatabaseAuthor();
         ArrayList<Book> books = new ArrayList<>();
         Book singleBook;
 
@@ -60,7 +58,8 @@ public class ModelDatabaseBooks implements Model {
 
                 singleBook.setISBN(db.getSQLString(rs, "ISBN"));
                 singleBook.setTitle(db.getSQLString(rs, "title"));
-                singleBook.setAuthors(db.getSQLStringArrayList(rs, "nameSurnameAuthors"));
+                singleBook.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
+                //singleBook.setAuthors(db.getSQLStringArrayList(rs, "nameSurnameAuthors"));
                 singleBook.setDescription(db.getSQLString(rs, "description"));
                 singleBook.setPoints(db.getSQLInt(rs, "points"));
                 singleBook.setPrice(db.getSQLNumeric(rs, "price"));
@@ -85,177 +84,6 @@ public class ModelDatabaseBooks implements Model {
         return null;
     }
 
-    public ArrayList<String> getAuthors() {
-        ArrayList<String> authors;
-
-        db.DBOpenConnection();
-        db.executeSQLQuery("SELECT name, surname " +
-                "FROM authors ");
-
-        authors = resultSetToAuthors(db.getResultSet());
-        db.DBCloseConnection();
-
-        return authors;
-    }
-
-    private ArrayList<String> resultSetToAuthors(ResultSet rs) {
-
-        ArrayList<String> authors = new ArrayList<>();
-        String name_surname;
-
-        try
-        {
-            while (rs.next())
-            {
-                name_surname = db.getSQLString(rs,"name") + " " + db.getSQLString(rs, "surname");
-                authors.add(name_surname);
-            }
-
-            return authors;
-        }
-        catch (SQLException e)
-        {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-        return null;
-
-    }
-
-
-
-    public void addNewAuthor(String newNameAuthor, String newSurnameAuthor)
-    {
-        db.DBOpenConnection();
-        db.executeSQLUpdate( "INSERT INTO authors(name,surname) " +
-                    "VALUES (?, ?)",List.of(newNameAuthor, newSurnameAuthor));
-    }
-
-    public ArrayList<String> getPublishingHouses()
-    {
-        ArrayList<String> publishingHouses;
-
-        db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT name " +
-                "FROM publishingHouses ");
-
-        publishingHouses = resultSetToPublishingHouses(db.getResultSet());
-        db.DBCloseConnection();
-
-        return publishingHouses;
-    }
-
-    private ArrayList<String> resultSetToPublishingHouses(ResultSet rs)
-    {
-        ArrayList<String> publishingHouses = new ArrayList<>();
-        String publishingHouse;
-
-        try
-        {
-            while (rs.next())
-            {
-                publishingHouse = db.getSQLString(rs,"name");
-                publishingHouses.add(publishingHouse);
-            }
-
-            return publishingHouses;
-        }
-        catch (SQLException e)
-        {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-        return null;
-
-
-    }
-
-    public int getAuthorID(String authorName, String authorSurname) {
-        int authorID;
-
-        db.DBOpenConnection();
-        db.executeSQLQuery("SELECT authors.idAuthor " +
-                "FROM authors " +
-                "WHERE authors.name LIKE ? AND authors.surname LIKE ?", List.of(authorName,authorSurname));
-
-        authorID = resultSetToAuthorID(db.getResultSet());
-        db.DBCloseConnection();
-
-        return authorID;
-    }
-
-    private int resultSetToAuthorID(ResultSet rs)
-    {
-
-        int authorID = 0;
-
-        try
-        {
-            while (rs.next())
-            {
-                authorID = db.getSQLInt(rs,"idAuthor");
-            }
-
-            return authorID;
-        }
-        catch (SQLException e)
-        {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-        return Integer.parseInt(null);
-
-    }
-
-    public void linkBookToAuthors(int idAuthor, String isbn)
-    {
-        db.DBOpenConnection();
-        db.executeSQLUpdate( "INSERT INTO write(idAuthor, ISBN) " +
-                "VALUES (?, ?)", List.of(idAuthor, isbn));
-    }
-
-    public ArrayList<String> getFormats()
-    {
-        ArrayList<String> formats;
-
-        db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT name " +
-                "FROM formats ");
-
-        formats = resultSetToformats(db.getResultSet());
-        db.DBCloseConnection();
-
-        return formats;
-    }
-
-    private ArrayList<String> resultSetToformats(ResultSet rs)
-    {
-        ArrayList<String> formats = new ArrayList<>();
-        String format;
-
-        try
-        {
-            while (rs.next())
-            {
-                format = db.getSQLString(rs,"name");
-                formats.add(format);
-            }
-
-            return formats;
-        }
-        catch (SQLException e)
-        {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-        return null;
-
-    }
-
     public void addNewBookToDB(Book book)
     {
         db.DBOpenConnection();
@@ -267,18 +95,8 @@ public class ModelDatabaseBooks implements Model {
                 book.getMaxQuantity(), book.getPages(), book.getLanguage(), book.getFormat(), book.getImagePath()));
     }
 
-    public void addNewPublishingHouse(String newPublishingHouse)
-    {
-        db.DBOpenConnection();
-        db.executeSQLUpdate( "INSERT INTO publishingHouses(name) " +
-                            "VALUES(?)", List.of(newPublishingHouse));
-    }
 
-    public void addNewFormat(String newFormat)
-    {
-        db.DBOpenConnection();
-        db.executeSQLUpdate( "INSERT INTO formats(name) " +
-                "VALUES(?)", List.of(newFormat));
-    }
+
+
 
 }

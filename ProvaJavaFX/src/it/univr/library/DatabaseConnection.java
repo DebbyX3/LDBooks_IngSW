@@ -175,7 +175,7 @@ public class DatabaseConnection
         }
     }
 
-    public List<String> getSQLStringArrayList(ResultSet rs, String name)
+    public List<String> getSQLStringList(ResultSet rs, String name)
     {
         try
         {

@@ -23,8 +23,8 @@ public class ControllerAddPublishingHouse {
     private TextField newPublishingHouseTextFiled;
 
     @FXML
-    private ListView<String> publishingHousesListView;
-    private ObservableList<String> publishingHouses = FXCollections.observableArrayList();
+    private ListView<PublishingHouse> publishingHousesListView;
+    private ObservableList<PublishingHouse> publishingHouses = FXCollections.observableArrayList();
 
     private User manager;
 
@@ -51,26 +51,26 @@ public class ControllerAddPublishingHouse {
 
     private void populatePublishingHouse()
     {
-        Model DBPhouses = new ModelDatabaseBooks();
+        Model DBPhouses = new ModelDatabasePublishingHouse();
         publishingHouses.addAll(DBPhouses.getPublishingHouses());
     }
 
     private void handleAddNewPublishingHouse(ActionEvent actionEvent)
     {
-        String newPublishingHouse = newPublishingHouseTextFiled.getText();
+        PublishingHouse newPublishingHouse = new PublishingHouse(newPublishingHouseTextFiled.getText());
 
 
         boolean exist = false;
-        for (String pHouse: publishingHouses)
+        for (PublishingHouse pHouse: publishingHouses)
         {
-            if (newPublishingHouse.toUpperCase().equals(pHouse.toUpperCase()))
+            if (newPublishingHouse.equals(pHouse))
                 exist = true;
         }
 
         if(!exist)
         {
             //if the authors doesn't already exists so insert into db
-            Model DBinsertNewPublishingHouse = new ModelDatabaseBooks();
+            Model DBinsertNewPublishingHouse = new ModelDatabasePublishingHouse();
             DBinsertNewPublishingHouse.addNewPublishingHouse(newPublishingHouse);
 
             //change scene

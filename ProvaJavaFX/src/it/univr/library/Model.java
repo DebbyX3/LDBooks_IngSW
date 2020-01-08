@@ -2,6 +2,7 @@ package it.univr.library;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface Model
 {
@@ -58,13 +59,13 @@ public interface Model
 
     public default ArrayList<Order> getSpecificMailOrders(String mail){return null;};
 
-    public default  ArrayList<String> getAuthors(){return null;};
+    public default  ArrayList<Author> getAuthors(){return null;};
 
     public default void addNewAuthor(String newNameAuthor, String newSurnameAuthor){};
 
-    public default ArrayList<String> getPublishingHouses(){return null;};
+    public default ArrayList<PublishingHouse> getPublishingHouses(){return null;};
 
-    public default ArrayList<String> getFormats(){return null;};
+    public default ArrayList<Format> getFormats(){return null;};
 
     public default void addNewBookToDB(Book book){};
 
@@ -72,11 +73,12 @@ public interface Model
 
     public default void linkBookToAuthors(int idAuthor, String isbn){};
 
-    public default void addNewPublishingHouse(String newPublishingHouse){};
+    public default void addNewPublishingHouse(PublishingHouse newPublishingHouse){};
 
-    public default void addNewFormat(String newFormat){};
+    public default void addNewFormat(Format newFormat){};
 
     public default void addNewGenre(String newGenre){};
 
+    public default ArrayList<Author> createArrayListAuthors(List<String> idNameSurnameAuthors){return null;};
 
 }

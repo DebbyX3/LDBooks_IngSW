@@ -47,7 +47,7 @@ public class ModelDatabaseCharts implements Model{
                 chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
                 chartRecord.setTitle(db.getSQLString(rs, "title"));
                 chartRecord.setGenre(db.getSQLString(rs, "genreName"));
-                chartRecord.setAuthors(db.getSQLStringArrayList(rs, "nameSurnameAuthors"));
+                chartRecord.setAuthors(db.getSQLStringList(rs, "nameSurnameAuthors"));
 
                 chart.add(chartRecord);
             }

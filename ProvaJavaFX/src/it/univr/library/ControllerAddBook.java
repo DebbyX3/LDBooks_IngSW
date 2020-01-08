@@ -26,8 +26,8 @@ public class ControllerAddBook {
     private TextField titleTextField;
 
     @FXML
-    private ComboBox<String> authorComboBox;
-    private ObservableList<String> authors = FXCollections.observableArrayList();
+    private ComboBox<Author> authorComboBox;
+    private ObservableList<Author> authors = FXCollections.observableArrayList();
 
     @FXML
     private TextArea descriptionTextArea;
@@ -36,16 +36,16 @@ public class ControllerAddBook {
     private TextField publicationYearTextField;
 
     @FXML
-    private ComboBox<String> publishingHouseComboBox;
-    private ObservableList<String> publishingHouses = FXCollections.observableArrayList();
+    private ComboBox<PublishingHouse> publishingHouseComboBox;
+    private ObservableList<PublishingHouse> publishingHouses = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<Genre> genreComboBox;
     private ObservableList<Genre> genres = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> formatComboBox;
-    private ObservableList<String> formats = FXCollections.observableArrayList();
+    private ComboBox<Format> formatComboBox;
+    private ObservableList<Format> formats = FXCollections.observableArrayList();
 
     @FXML
     private ComboBox<Language> languageComboBox;
@@ -76,7 +76,7 @@ public class ControllerAddBook {
 
     private User manager;
     private int numberOfAuthors = 0;
-    private ArrayList<String> authorsToLinkToBook = new ArrayList<>();
+    private ArrayList<Author> authorsToLinkToBook = new ArrayList<>();
 
     @FXML
     private void initialize()
@@ -126,10 +126,10 @@ public class ControllerAddBook {
     private void handleSelectAuthorButton(ActionEvent actionEvent)
     {
         numberAuthorsComboBox.setDisable(true);
-        String author = authorComboBox.getValue();
+        Author author = authorComboBox.getValue();
         boolean exists = false;
 
-        for (String authorToCheck: authorsToLinkToBook) {
+        for (Author authorToCheck: authorsToLinkToBook) {
             if(author.equals(authorToCheck))
                 exists = true;
         }
@@ -161,7 +161,7 @@ public class ControllerAddBook {
         Book book = new Book();
         book.setAuthors(authorsToLinkToBook);
         book.setDescription(descriptionTextArea.getText());
-        book.setFormat(formatComboBox.getValue());
+        book.setFormat(formatComboBox.getValue().getName());
         book.setGenre(genreComboBox.getValue().getName());
         book.setImagePath(imagePathTextField.getText());
         book.setISBN(isbnTextField.getText());
@@ -172,28 +172,15 @@ public class ControllerAddBook {
         book.setTitle(titleTextField.getText());
         book.setPrice(new BigDecimal(priceTextField.getText()));
         book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
-        book.setPublishingHouse(publishingHouseComboBox.getValue());
+        book.setPublishingHouse(publishingHouseComboBox.getValue().getName());
 
         Model DBbook = new ModelDatabaseBooks();
+        Model DBauthor = new ModelDatabaseAuthor();
         DBbook.addNewBookToDB(book);
-        int idAuthor;
 
-        for (String authorToLink: book.getAuthors())
-        {
-            //TODO fix this thing maybe create author Class? or a method for split name and surname author:
-            // the problem is, if the author doesn't have name or surname
-            if(authorToLink.trim().contains(" "))
-            {
-                String[] name_surname = authorToLink.split(" ");
-                idAuthor = DBbook.getAuthorID(name_surname[0], name_surname[1]);
-            }
-            else
-            {
-                idAuthor = DBbook.getAuthorID(authorToLink," ");
-            }
+        for (Author authorToLink: book.getAuthors())
+            DBauthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
 
-            DBbook.linkBookToAuthors(idAuthor, book.getISBN());
-        }
 
         //change scene
         StageManager addEditBooks = new StageManager();
@@ -210,13 +197,13 @@ public class ControllerAddBook {
 
     private void popolateAuthors()
     {
-        Model DBauthors = new ModelDatabaseBooks();
+        Model DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
     }
 
     private void populatePublishingHouses()
     {
-        Model DBpublishingHouse = new ModelDatabaseBooks();
+        Model DBpublishingHouse = new ModelDatabasePublishingHouse();
         publishingHouses.addAll(DBpublishingHouse.getPublishingHouses());
     }
 
@@ -227,7 +214,7 @@ public class ControllerAddBook {
     }
 
     private void populateFormats() {
-        Model DBformats = new ModelDatabaseBooks();
+        Model DBformats = new ModelDatabaseFormat();
         formats.addAll(DBformats.getFormats());
     }
 

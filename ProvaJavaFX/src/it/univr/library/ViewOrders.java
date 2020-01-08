@@ -302,8 +302,8 @@ public class ViewOrders implements View {
         authorLabel.setPrefWidth(378);
         authorLabel.setPrefHeight(17);
 
-        for (String author: book.getAuthors()) {
-            authorLabel.setText(author);
+        for (Author author: book.getAuthors()) {
+            authorLabel.setText(author.getNameSurname());
         }
 
         authorLabel.setAlignment(Pos.CENTER_LEFT);

@@ -23,8 +23,8 @@ public class ControllerAddFormat {
     private TextField newFormatTextField;
 
     @FXML
-    private ListView<String> formatsListView;
-    private ObservableList<String> formats = FXCollections.observableArrayList();
+    private ListView<Format> formatsListView;
+    private ObservableList<Format> formats = FXCollections.observableArrayList();
 
     private User manager;
 
@@ -51,27 +51,27 @@ public class ControllerAddFormat {
 
     private void populateFormats()
     {
-        Model DBformats = new ModelDatabaseBooks();
+        Model DBformats = new ModelDatabaseFormat();
         formats.addAll(DBformats.getFormats());
     }
 
     private void handleAddNewFormat(ActionEvent actionEvent)
     {
 
-        String newFormat = newFormatTextField.getText();
+        Format format =  new Format(newFormatTextField.getText());
         boolean exist = false;
 
-        for (String format: formats)
+        for (Format f: formats)
         {
-            if (newFormat.toUpperCase().equals(format.toUpperCase()))
+            if (f.equals(format))
                 exist = true;
         }
 
         if(!exist)
         {
             //if the authors doesn't already exists so insert into db
-            Model DBinsertNewFormat = new ModelDatabaseBooks();
-            DBinsertNewFormat.addNewFormat(newFormat);
+            Model DBinsertNewFormat = new ModelDatabaseFormat();
+            DBinsertNewFormat.addNewFormat(format);
 
             //change scene
             StageManager addEditBooks = new StageManager();
