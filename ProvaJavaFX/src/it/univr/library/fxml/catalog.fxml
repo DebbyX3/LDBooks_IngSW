@@ -24,7 +24,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <ScrollPane maxHeight="1.7976931348623157E308" prefHeight="474.0" prefWidth="744.0">
+                  <ScrollPane fx:id="catalogScrollPane" maxHeight="1.7976931348623157E308" prefHeight="474.0" prefWidth="744.0">
                      <content>
                         <VBox fx:id="catalogVBox" alignment="TOP_CENTER" prefHeight="563.0" prefWidth="728.0" />
                      </content>

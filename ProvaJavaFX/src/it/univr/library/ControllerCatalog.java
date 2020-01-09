@@ -38,6 +38,9 @@ public class ControllerCatalog {
     @FXML
     private HBox headerHBox;
 
+    @FXML
+    private ScrollPane catalogScrollPane;
+
     private User user;
 
     private Stage primaryStage;
@@ -99,9 +102,6 @@ public class ControllerCatalog {
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
-        Model DBBooks = new ModelDatabaseBooks();
-        View viewBooks = new ViewBooks();
-
         Filter filter = new Filter();
 
         Genre genre = (Genre) genreCombobox.getValue();
@@ -115,7 +115,15 @@ public class ControllerCatalog {
         //Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());
 
         catalogVBox.getChildren().clear();
-        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox);
+        populateCatalog(filter);
+    }
+
+    private void populateCatalog(Filter filter)
+    {
+        Model DBBooks = new ModelDatabaseBooks();
+        View viewBooks = new ViewBooks();
+
+        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox, catalogScrollPane);
     }
 
     private void populateCatalog()
@@ -123,7 +131,7 @@ public class ControllerCatalog {
         Model DBBooks = new ModelDatabaseBooks();
         View viewBooks = new ViewBooks();
 
-        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox);
+        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox, catalogScrollPane);
     }
 
     private void populateGenreFilter()

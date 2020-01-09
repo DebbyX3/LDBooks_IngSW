@@ -13,6 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ViewOrders implements View {
@@ -67,7 +68,6 @@ public class ViewOrders implements View {
             orderVBox.getChildren().add(line);
 
         }
-
     }
 
     private void createExternalLabel(GridPane orderGridPane, Order order)
@@ -302,9 +302,20 @@ public class ViewOrders implements View {
         authorLabel.setPrefWidth(378);
         authorLabel.setPrefHeight(17);
 
-        for (Author author: book.getAuthors()) {
-            authorLabel.setText(author.getNameSurname());
+        int authorsCurrentElementIndex = 0;
+        int authorsListSize = book.getAuthors().size();
+        StringBuilder authorsString = new StringBuilder();
+
+        for (Author author: book.getAuthors())
+        {
+            authorsCurrentElementIndex++;
+            authorsString.append(author.getNameSurname());
+
+            if(authorsCurrentElementIndex != authorsListSize)
+                authorsString.append(", ");
         }
+
+        authorLabel.setText(authorsString.toString());
 
         authorLabel.setAlignment(Pos.CENTER_LEFT);
         authorLabel.setContentDisplay(ContentDisplay.LEFT);

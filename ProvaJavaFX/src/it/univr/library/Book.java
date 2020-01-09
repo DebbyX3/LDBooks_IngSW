@@ -27,7 +27,7 @@ public class Book
 
     public Book(String ISBN, String title, List<Author> authors, String description, Integer points, BigDecimal price, Integer publicationYear, PublishingHouse publishingHouse, Genre genre, Language language, Integer maxQuantity, Integer pages, Format format, String imagePath) {
         this.ISBN = ISBN;
-        this.title = title;
+        this.title = title.trim();
         this.authors = authors;
         this.description = description;
         this.points = points;
@@ -68,7 +68,7 @@ public class Book
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.title = title.trim();
     }
 
     public List<Author> getAuthors() {
