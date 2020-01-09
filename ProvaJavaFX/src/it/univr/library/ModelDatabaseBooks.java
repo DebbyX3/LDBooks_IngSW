@@ -47,6 +47,46 @@ public class ModelDatabaseBooks implements Model {
         return books;
     }
 
+    public ArrayList<Book> getAllBooks()
+    {
+        ArrayList<Book> books;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT books.ISBN,GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
+                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
+                "books.publishingHouseName, books.title " +
+                "FROM books " +
+                "JOIN write ON books.ISBN = write.ISBN " +
+                "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                "GROUP BY books.ISBN, title, languageName, formatName " +
+                "ORDER By books.title, idNameSurnameAuthors ASC");
+        books = resultSetToArrayListBook(db.getResultSet());
+        db.DBCloseConnection();
+
+        return books;
+    }
+
+    public Book getSpecificBook(String isbn)
+    {
+        ArrayList<Book> b;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT books.ISBN,GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
+                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
+                "books.publishingHouseName, books.title " +
+                "FROM books " +
+                "JOIN write ON books.ISBN = write.ISBN " +
+                "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                "WHERE books.ISBN LIKE ? " +
+                "GROUP BY books.ISBN, title, languageName, formatName " +
+                "ORDER By books.title, idNameSurnameAuthors ASC", List.of(isbn));
+        b = resultSetToArrayListBook(db.getResultSet());
+        db.DBCloseConnection();
+
+        return b.get(0);
+    }
+
+
     private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
         Model authors = new ModelDatabaseAuthor();
         ArrayList<Book> books = new ArrayList<>();
@@ -64,12 +104,12 @@ public class ModelDatabaseBooks implements Model {
                 singleBook.setPoints(db.getSQLInt(rs, "points"));
                 singleBook.setPrice(db.getSQLNumeric(rs, "price"));
                 singleBook.setPublicationYear(db.getSQLInt(rs, "publicationYear"));
-                singleBook.setPublishingHouse(db.getSQLString(rs, "publishingHouseName"));
-                singleBook.setGenre(db.getSQLString(rs, "genreName"));
-                singleBook.setLanguage(db.getSQLString(rs, "languageName"));
+                singleBook.setPublishingHouse(new PublishingHouse(db.getSQLString(rs, "publishingHouseName")));
+                singleBook.setGenre(new Genre(db.getSQLString(rs, "genreName")));
+                singleBook.setLanguage(new Language(db.getSQLString(rs, "languageName")));
                 singleBook.setMaxQuantity(db.getSQLInt(rs, "maxQuantity"));
                 singleBook.setPages(db.getSQLInt(rs, "pages"));
-                singleBook.setFormat(db.getSQLString(rs, "formatName"));
+                singleBook.setFormat(new Format(db.getSQLString(rs, "formatName")));
                 singleBook.setImagePath(db.getSQLString(rs, "imagePath"));
 
                 books.add(singleBook);

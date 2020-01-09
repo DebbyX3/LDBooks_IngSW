@@ -68,7 +68,7 @@ public class ModelDatabaseOrder implements Model
                 "cityCAP, shipping, status, books.ISBN, books.description, books.formatName, books.genreName, " +
                 "books.imagePath, books.languageName, books.maxQuantity, books.pages, books.points, books.price," +
                 "books.publicationYear, books.publishingHouseName, books.title, " +
-                "GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors " +
+                "GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors " +
                 "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
                 "WHERE emailNotRegisteredUser LIKE ? OR emailRegisteredUser LIKE ? " +
@@ -264,9 +264,9 @@ public class ModelDatabaseOrder implements Model
         Book book = new Book(db.getSQLString(rs, "ISBN"), db.getSQLString(rs, "title"),
                 authors, db.getSQLString(rs, "description"),
                 db.getSQLInt(rs, "points"), db.getSQLNumeric(rs, "price"), db.getSQLInt(rs, "publicationYear"),
-                db.getSQLString(rs, "publishingHouseName"), db.getSQLString(rs, "genreName"),
-                db.getSQLString(rs, "languageName"), db.getSQLInt(rs, "maxQuantity"),
-                db.getSQLInt(rs, "pages"), db.getSQLString(rs, "formatName"),
+                new PublishingHouse(db.getSQLString(rs, "publishingHouseName")), new Genre(db.getSQLString(rs, "genreName")),
+                new Language(db.getSQLString(rs, "languageName")), db.getSQLInt(rs, "maxQuantity"),
+                db.getSQLInt(rs, "pages"), new Format(db.getSQLString(rs, "formatName")),
                 db.getSQLString(rs, "imagePath"));
 
         books.add(book);

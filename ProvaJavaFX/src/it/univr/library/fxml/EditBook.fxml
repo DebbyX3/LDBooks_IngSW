@@ -5,11 +5,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -18,230 +17,244 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerEditBook">
   <children>
-      <BorderPane prefHeight="591.0" prefWidth="900.0">
+      <BorderPane prefHeight="800.0" prefWidth="900.0">
+         <top>
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+         </top>
          <center>
             <ScrollPane>
                <content>
-                  <VBox fx:id="catalogVBox" alignment="TOP_CENTER" prefHeight="580.0" prefWidth="727.0">
+                  <GridPane alignment="CENTER" prefHeight="892.0" prefWidth="882.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.1999755859375" minWidth="10.0" percentWidth="28.0" prefWidth="281.000048828125" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="497.5999633789063" minWidth="10.0" percentWidth="33.0" prefWidth="300.99998779296874" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.199951171875" minWidth="10.0" percentWidth="38.0" prefWidth="269.8000122070313" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints maxHeight="280.19996643066406" minHeight="0.0" percentHeight="10.0" prefHeight="32.00000915527343" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="101.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="0.0" percentHeight="15.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="104.20000000000002" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="9.000021362304693" percentHeight="15.0" prefHeight="44.00000610351563" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" percentHeight="15.0" prefHeight="44.00000610351563" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" percentHeight="15.0" prefHeight="71.20001220703125" vgrow="SOMETIMES" />
+                    </rowConstraints>
                      <children>
-                        <Label contentDisplay="CENTER" text="Edit Book" textAlignment="CENTER">
+                        <HBox alignment="CENTER" prefHeight="68.0" prefWidth="287.0" GridPane.columnIndex="1" GridPane.rowIndex="17">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <children>
+                              <Button fx:id="editBookButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Edit Book">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Label alignment="CENTER" prefHeight="27.0" prefWidth="302.0" text="Edit Book:" underline="true" GridPane.columnIndex="1">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="9.0" layoutY="183.0" prefHeight="20.0" prefWidth="297.0" text="Author:" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                           <VBox.margin>
-                              <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-                           </VBox.margin>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
                         </Label>
-                        <GridPane maxHeight="1.7976931348623157E308" prefHeight="552.0" prefWidth="727.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.60003662109375" minWidth="10.0" percentWidth="25.0" prefWidth="213.40003662109376" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="385.59996337890624" minWidth="10.0" percentWidth="67.0" prefWidth="385.59996337890624" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.79997558593755" minWidth="10.0" percentWidth="8.0" prefWidth="284.79997558593755" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="473.9999755859375" minHeight="10.0" prefHeight="404.60003662109375" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="300.0" minHeight="10.0" prefHeight="56.99999999999994" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="300.0" minHeight="7.199987792968727" prefHeight="85.20000000000005" vgrow="SOMETIMES" />
-                           </rowConstraints>
+                        <TextField fx:id="imagePathTextField" GridPane.columnIndex="1" GridPane.rowIndex="16" />
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="302.0" prefHeight="20.0" prefWidth="297.0" text="Title:" GridPane.rowIndex="2">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="121.0" prefHeight="20.0" prefWidth="297.0" text="ISBN:" GridPane.rowIndex="1">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="121.0" prefHeight="20.0" prefWidth="297.0" text="Description:" GridPane.rowIndex="6">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="177.0" prefHeight="20.0" prefWidth="297.0" text="Publication year:" GridPane.rowIndex="7">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="232.0" prefHeight="20.0" prefWidth="297.0" text="Publishing house:" GridPane.rowIndex="8">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="257.0" prefHeight="20.0" prefWidth="297.0" text="Genre:" GridPane.rowIndex="9">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="276.0" prefHeight="20.0" prefWidth="297.0" text="Format:" GridPane.rowIndex="10">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="294.0" prefHeight="20.0" prefWidth="297.0" text="Pages:" GridPane.rowIndex="12">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="284.0" prefHeight="20.0" prefWidth="297.0" text="Price:" GridPane.rowIndex="13">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="338.0" prefHeight="20.0" prefWidth="297.0" text="LibroCard points:" GridPane.rowIndex="14">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="260.0" prefHeight="20.0" prefWidth="297.0" text="Language:" GridPane.rowIndex="11">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="374.0" prefHeight="20.0" prefWidth="297.0" text="Available quantity:" GridPane.rowIndex="15">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="402.0" prefHeight="20.0" prefWidth="297.0" text="Image path:" GridPane.rowIndex="16">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="90.0" prefHeight="20.0" prefWidth="297.0" GridPane.rowIndex="5">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="118.0" prefHeight="20.0" prefWidth="297.0" text="N° Authors:" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <Label fx:id="isbnLabel" prefHeight="17.0" prefWidth="292.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ListView fx:id="authorListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </ListView>
+                        <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="57.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="authorComboBox" disable="true" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose an Author..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="publicationYearTextField" layoutX="301.0" layoutY="59.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox fx:id="publishingHouseComboBox" layoutX="301.0" layoutY="116.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Publishing house..." GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <ComboBox fx:id="genreComboBox" layoutX="301.0" layoutY="201.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Genre..." GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <ComboBox fx:id="formatComboBox" layoutX="301.0" layoutY="230.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Format..." GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <ComboBox fx:id="languageComboBox" layoutX="301.0" layoutY="258.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose a Language..." GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <TextField fx:id="pagesTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <TextField fx:id="priceTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <TextField fx:id="librocardPointsTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <ComboBox fx:id="availableQuantityComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="62.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
-                              <VBox alignment="CENTER" prefHeight="182.0" prefWidth="172.0">
-                                 <GridPane.margin>
-                                    <Insets left="10.0" />
-                                 </GridPane.margin>
-                                 <children>
-                                    <ImageView fitHeight="276.0" fitWidth="144.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../images/signoreanelli.jpg" />
-                                       </image>
-                                    </ImageView>
-                                    <Button mnemonicParsing="false" style="-fx-background-color: #ffa939;" text="Change Image">
-                                       <VBox.margin>
-                                          <Insets top="25.0" />
-                                       </VBox.margin>
-                                    </Button>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER_LEFT" prefHeight="484.0" prefWidth="471.0" GridPane.columnIndex="1">
-                                 <children>
-                                    <HBox prefHeight="17.0" prefWidth="46.0">
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Label prefHeight="17.0" prefWidth="98.0" text="Title: ">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="17.0" prefWidth="456.0" text="Label" />
-                                       </children>
-                                    </HBox>
-                                    <HBox>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Label contentDisplay="CENTER" prefHeight="25.0" prefWidth="65.0" text="Author: ">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox prefHeight="25.0" prefWidth="346.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Label prefHeight="25.0" prefWidth="66.0" text="Publisher: ">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox prefHeight="25.0" prefWidth="346.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox>
-                                       <children>
-                                          <Label prefHeight="17.0" prefWidth="68.0" text="ISBN: ">
-                                             <font>
-                                                <Font name="System Bold" size="12.0" />
-                                             </font>
-                                          </Label>
-                                          <Label prefHeight="17.0" prefWidth="421.0" text="Label" />
-                                       </children>
-                                    </HBox>
-                                    <HBox>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" top="15.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Label prefHeight="25.0" prefWidth="66.0" text="Price: ">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField prefHeight="25.0" prefWidth="346.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox>
-                                       <VBox.margin>
-                                          <Insets bottom="10.0" />
-                                       </VBox.margin>
-                                       <children>
-                                          <Label prefHeight="25.0" prefWidth="122.0" text="LibroCard points: ">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <TextField prefHeight="25.0" prefWidth="290.0" />
-                                       </children>
-                                    </HBox>
-                                    <HBox prefHeight="133.0" prefWidth="487.0">
-                                       <children>
-                                          <Label prefHeight="136.0" prefWidth="80.0" text="Description:">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                             <HBox.margin>
-                                                <Insets right="5.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                          <ScrollPane prefHeight="133.0" prefWidth="326.0">
-                                             <content>
-                                                <TextArea prefHeight="133.0" prefWidth="309.0" />
-                                             </content>
-                                          </ScrollPane>
-                                       </children>
-                                    </HBox>
-                                    <HBox prefHeight="56.0" prefWidth="487.0">
-                                       <children>
-                                          <Label prefHeight="56.0" prefWidth="133.0" text="Quantity Available:">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox prefHeight="27.0" prefWidth="62.0">
-                                             <HBox.margin>
-                                                <Insets top="15.0" />
-                                             </HBox.margin>
-                                          </ComboBox>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <GridPane alignment="CENTER" GridPane.columnIndex="2">
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                                 <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.4000244140625" minWidth="10.0" prefWidth="58.20003280639648" />
-                                 </columnConstraints>
-                                 <rowConstraints>
-                                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                 </rowConstraints>
-                                 <children>
-                                    <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="1" />
-                                 </children>
-                              </GridPane>
-                              <HBox alignment="CENTER" prefHeight="117.0" prefWidth="487.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <children>
-                                    <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="105.0" style="-fx-background-color: #ffa939;" text="Edit Book">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                 </children>
-                              </HBox>
+                              <Button fx:id="selectAuthorButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #ffa939;" text="Select Author">
+                                 <HBox.margin>
+                                    <Insets right="150.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
-                        </GridPane>
+                        </HBox>
+                        <Label alignment="TOP_RIGHT" prefHeight="20.0" prefWidth="297.0" text="Author/s:" GridPane.rowIndex="3">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <children>
+                              <Button fx:id="deleteAuthorButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="99.0" style="-fx-background-color: #ffa939;" text="Delete Author">
+                                 <HBox.margin>
+                                    <Insets right="150.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
                      </children>
-                  </VBox>
+                  </GridPane>
                </content>
             </ScrollPane>
          </center>
-         <left>
-            <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
-               <children>
-                  <Label text="Filter">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="2.0" right="2.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <Label text="Books ">
-                     <VBox.margin>
-                        <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
-                     </VBox.margin>
-                  </Label>
-                  <ComboBox fx:id="genreCombobox" prefWidth="150.0">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="2.0" right="2.0" />
-                     </VBox.margin>
-                  </ComboBox>
-                  <Button mnemonicParsing="false" text="Filter">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
-                     </VBox.margin>
-                  </Button>
-               </children>
-               <BorderPane.margin>
-                  <Insets />
-               </BorderPane.margin>
-            </VBox>
-         </left>
-         <top>
-            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
-         </top>
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
@@ -256,6 +269,35 @@
          <VBox.margin>
             <Insets top="10.0" />
          </VBox.margin>
+         <left>
+            <VBox alignment="TOP_CENTER" prefHeight="479.0" prefWidth="151.0">
+               <children>
+                  <Label text="Filter">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="2.0" right="2.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Books ">
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="BookCombobox" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="2.0" right="2.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Button fx:id="filterButton" mnemonicParsing="false" text="Filter">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
       </BorderPane>
   </children>
 </VBox>

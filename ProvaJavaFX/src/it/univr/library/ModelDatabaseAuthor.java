@@ -22,6 +22,21 @@ public class ModelDatabaseAuthor implements Model {
         return authors;
     }
 
+    public ArrayList<Author> getAuthorsForSpecificBook(String isbn) {
+        ArrayList<Author> authorsForSpecificBook;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT authors.idAuthor, authors.name, authors.surname " +
+                            "FROM books JOIN write ON books.ISBN = write.ISBN " +
+                            "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                            "WHERE write.ISBN LIKE ?",List.of(isbn));
+
+        authorsForSpecificBook = resultSetToAuthors(db.getResultSet());
+        db.DBCloseConnection();
+
+        return authorsForSpecificBook;
+    }
+
     private ArrayList<Author> resultSetToAuthors(ResultSet rs) {
 
         ArrayList<Author> authors = new ArrayList<>();

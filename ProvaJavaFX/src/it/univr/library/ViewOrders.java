@@ -332,7 +332,7 @@ public class ViewOrders implements View {
         publisherLabel.setMinWidth(Region.USE_PREF_SIZE);
         publisherLabel.setPrefWidth(367);
         publisherLabel.setPrefHeight(17);
-        publisherLabel.setText(book.getPublishingHouse());
+        publisherLabel.setText(book.getPublishingHouse().getName());
         publisherLabel.setAlignment(Pos.CENTER_LEFT);
         publisherLabel.setContentDisplay(ContentDisplay.LEFT);
         publisherLabel.setFont(new Font("System", 12.0));
@@ -438,7 +438,7 @@ public class ViewOrders implements View {
         statusOrderFixLabel.setPrefWidth(206);
         statusOrderFixLabel.setPrefHeight(101);
         statusOrderFixLabel.setText("Status:");
-        statusOrderFixLabel.setAlignment(Pos.CENTER_RIGHT);
+        statusOrderFixLabel.setAlignment(Pos.CENTER);
         statusOrderFixLabel.setContentDisplay(ContentDisplay.LEFT);
         statusOrderFixLabel.setFont(new Font("System Bold", 12.0));
 
@@ -447,6 +447,7 @@ public class ViewOrders implements View {
         GridPane.setConstraints(statusFixHbox,0,orderGridPane.getRowCount()-1);
 
         ProgressBar progressBarOrder = new ProgressBar();
+        progressBarOrder.setMinWidth(Region.USE_COMPUTED_SIZE);
         progressBarOrder.setPrefWidth(415);
         progressBarOrder.setPrefHeight(18);
 

@@ -505,4 +505,27 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageEditBook(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editBook.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerEditBook controllerEditBook = fxmlLoader.getController();
+            controllerEditBook.setManager(manager);
+            controllerEditBook.setHeader();
+
+            primaryStage.setTitle("EditBook - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

@@ -14,18 +14,18 @@ public class Book
     private Integer points;
     private BigDecimal price;
     private Integer publicationYear;
-    private String publishingHouse;
+    private PublishingHouse publishingHouse;
     // TODO: 06/10/2019 : mettere Genre e non String (forse)
-    private String genre;
-    private String language;
+    private Genre genre;
+    private Language language;
     private Integer maxQuantity;
     private Integer pages;
-    private String format;
+    private Format format;
     private String imagePath;
 
     public Book(){}
 
-    public Book(String ISBN, String title, List<Author> authors, String description, Integer points, BigDecimal price, Integer publicationYear, String publishingHouse, String genre, String language, Integer maxQuantity, Integer pages, String format, String imagePath) {
+    public Book(String ISBN, String title, List<Author> authors, String description, Integer points, BigDecimal price, Integer publicationYear, PublishingHouse publishingHouse, Genre genre, Language language, Integer maxQuantity, Integer pages, Format format, String imagePath) {
         this.ISBN = ISBN;
         this.title = title;
         this.authors = authors;
@@ -115,27 +115,27 @@ public class Book
         this.publicationYear = publicationYear;
     }
 
-    public String getPublishingHouse() {
+    public PublishingHouse getPublishingHouse() {
         return publishingHouse;
     }
 
-    public void setPublishingHouse(String publishingHouse) {
+    public void setPublishingHouse(PublishingHouse publishingHouse) {
         this.publishingHouse = publishingHouse;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 
@@ -155,11 +155,11 @@ public class Book
         this.pages = pages;
     }
 
-    public String getFormat() {
+    public Format getFormat() {
         return format;
     }
 
-    public void setFormat(String format) {
+    public void setFormat(Format format) {
         this.format = format;
     }
 

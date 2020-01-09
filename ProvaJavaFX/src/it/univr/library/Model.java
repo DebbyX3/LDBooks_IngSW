@@ -8,6 +8,8 @@ public interface Model
 {
     public default ArrayList<Book> getBooks() { return null; }
 
+    public default ArrayList<Book> getAllBooks(){return null ;};
+
     public default ArrayList<Book> getBooks(Filter filter) { return null; }
 
     public default ArrayList<Object> getCharts()
@@ -61,6 +63,8 @@ public interface Model
 
     public default  ArrayList<Author> getAuthors(){return null;};
 
+    public default ArrayList<Author> getAuthorsForSpecificBook(String isbn){return null;};
+
     public default void addNewAuthor(String newNameAuthor, String newSurnameAuthor){};
 
     public default ArrayList<PublishingHouse> getPublishingHouses(){return null;};
@@ -80,5 +84,7 @@ public interface Model
     public default void addNewGenre(String newGenre){};
 
     public default ArrayList<Author> createArrayListAuthors(List<String> idNameSurnameAuthors){return null;};
+
+    public default Book getSpecificBook(String isbn){return null;};
 
 }

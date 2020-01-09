@@ -85,7 +85,8 @@ public class ControllerEditCatalog {
 
     private void handleEditBookButton(ActionEvent actionEvent)
     {
-
+        StageManager editBook = new StageManager();
+        editBook.setStageEditBook((Stage) editBookButton.getScene().getWindow(), manager);
     }
 
 

@@ -6,21 +6,20 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ControllerAddBook {
+public class ControllerEditBook {
 
     @FXML
     private HBox headerHBox;
 
     @FXML
-    private TextField imagePathTextField;
+    private Button editBookButton;
 
     @FXML
-    private TextField isbnTextField;
+    private Label isbnLabel;
 
     @FXML
     private TextField titleTextField;
@@ -28,6 +27,10 @@ public class ControllerAddBook {
     @FXML
     private ComboBox<Author> authorComboBox;
     private ObservableList<Author> authors = FXCollections.observableArrayList();
+
+    @FXML
+    private ListView<Author> authorListView;
+    private ObservableList<Author> oldAuthors = FXCollections.observableArrayList();
 
     @FXML
     private TextArea descriptionTextArea;
@@ -72,7 +75,17 @@ public class ControllerAddBook {
     private ObservableList<Integer> numberAuthors = FXCollections.observableArrayList();
 
     @FXML
-    private Button addNewBookButton;
+    private Button deleteAuthorButton;
+
+    @FXML
+    private ComboBox<String> BookCombobox;
+    private ObservableList<Book> books = FXCollections.observableArrayList();
+
+    @FXML
+    private TextField imagePathTextField;
+
+    @FXML
+    private Button filterButton;
 
     private User manager;
     private int numberOfAuthors = 0;
@@ -87,8 +100,9 @@ public class ControllerAddBook {
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> authorComboBox.setDisable(false));
 
-        popolateAuthors();
+        populateAuthors();
         authorComboBox.setItems(authors);
+        authorListView.setItems(oldAuthors);
 
         populatePublishingHouses();
         publishingHouseComboBox.setItems(publishingHouses);
@@ -99,18 +113,72 @@ public class ControllerAddBook {
         populateFormats();
         formatComboBox.setItems(formats);
 
-
         populateLanguages();
         languageComboBox.setItems(languages);
 
         populateAvailableQuantityComboBox();
         availableQuantityComboBox.setItems(availableQuantity);
 
+        populateBooks();
+        BookCombobox.setItems(bookIsbnAndTitle(books));
+        BookCombobox.getSelectionModel().selectFirst();
+        populateAllfield(books.get(0));
+
+        filterButton.setOnAction(this::handleFilterButton);
+        deleteAuthorButton.setOnAction(this::handleDeleteAuthorButton);
         selectAuthorButton.setOnAction(this::handleSelectAuthorButton);
-        addNewBookButton.setOnAction(this::handleAddNewBookButton);
+        editBookButton.setOnAction(this::handleEditBookButton);
 
     }
 
+    private void handleFilterButton(ActionEvent actionEvent)
+    {
+        Model DBSinglebook = new ModelDatabaseBooks();
+        String[] isbn_Title = BookCombobox.getValue().split(" ");
+        Book b = DBSinglebook.getSpecificBook(isbn_Title[0]);
+        populateAllfield(b);
+    }
+
+    private void populateAllfield(Book selectedBook)
+    {
+        isbnLabel.setText(selectedBook.getISBN());
+        titleTextField.setText(selectedBook.getTitle());
+        authorListView.setItems(arratListToObservableList(selectedBook.getAuthors()));
+        descriptionTextArea.setText(selectedBook.getDescription());
+        publicationYearTextField.setText(selectedBook.getPublicationYear().toString());
+        publishingHouseComboBox.getSelectionModel().select(selectedBook.getPublishingHouse());
+        genreComboBox.getSelectionModel().select(selectedBook.getGenre());
+        formatComboBox.getSelectionModel().select(selectedBook.getFormat());
+        languageComboBox.getSelectionModel().select(selectedBook.getLanguage());
+        pagesTextField.setText(selectedBook.getPages().toString());
+        priceTextField.setText(selectedBook.getPrice().toString());
+        librocardPointsTextField.setText(selectedBook.getPoints().toString());
+        imagePathTextField.setText(selectedBook.getImagePath());
+    }
+
+    private ObservableList<Author> arratListToObservableList(List<Author> authors)
+    {
+        ObservableList<Author> a = FXCollections.observableArrayList();
+        a.addAll(authors);
+        return a;
+    }
+
+    private ObservableList<String> bookIsbnAndTitle(ObservableList<Book> books) {
+        ObservableList<String> booksIsbnAndTitle = FXCollections.observableArrayList();
+        String finalBook;
+        for (Book b: books)
+        {
+            finalBook = b.getISBN() + " " + b.getTitle();
+            booksIsbnAndTitle.add(finalBook);
+        }
+        return booksIsbnAndTitle;
+    }
+
+    private void populateBooks()
+    {
+        Model DBbooks = new ModelDatabaseBooks();
+        books.addAll(DBbooks.getAllBooks());
+    }
 
     public void setManager(User manager)
     {
@@ -123,6 +191,17 @@ public class ControllerAddBook {
         controllerHeader.createHeader(manager, headerHBox);
     }
 
+    private void handleDeleteAuthorButton(ActionEvent actionEvent)
+    {
+
+    }
+
+
+    private void handleEditBookButton(ActionEvent actionEvent)
+    {
+
+    }
+
     private void handleSelectAuthorButton(ActionEvent actionEvent)
     {
         numberAuthorsComboBox.setDisable(true);
@@ -130,8 +209,10 @@ public class ControllerAddBook {
         boolean exists = false;
 
         for (Author authorToCheck: authorsToLinkToBook) {
-            if(author.equals(authorToCheck))
+            if (author.equals(authorToCheck)) {
                 exists = true;
+                break;
+            }
         }
 
         if(!exists)
@@ -150,41 +231,8 @@ public class ControllerAddBook {
         }
         else
         {
-           displayAlert("Author already selected, choose another one!");
+            displayAlert("Author already selected, choose another one!");
         }
-
-    }
-
-
-    private void handleAddNewBookButton(ActionEvent actionEvent)
-    {
-        Book book = new Book();
-        book.setAuthors(authorsToLinkToBook);
-        book.setDescription(descriptionTextArea.getText());
-        book.setFormat(formatComboBox.getValue());
-        book.setGenre(genreComboBox.getValue());
-        book.setImagePath(imagePathTextField.getText());
-        book.setISBN(isbnTextField.getText());
-        book.setLanguage(languageComboBox.getValue());
-        book.setMaxQuantity(availableQuantityComboBox.getValue());
-        book.setPages(Integer.parseInt(pagesTextField.getText()));
-        book.setPoints(Integer.parseInt(librocardPointsTextField.getText()));
-        book.setTitle(titleTextField.getText());
-        book.setPrice(new BigDecimal(priceTextField.getText()));
-        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
-        book.setPublishingHouse(publishingHouseComboBox.getValue());
-
-        Model DBbook = new ModelDatabaseBooks();
-        Model DBauthor = new ModelDatabaseAuthor();
-        DBbook.addNewBookToDB(book);
-
-        for (Author authorToLink: book.getAuthors())
-            DBauthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
-
-
-        //change scene
-        StageManager addEditBooks = new StageManager();
-        addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager);
 
     }
 
@@ -195,10 +243,11 @@ public class ControllerAddBook {
             numberAuthors.add(i);
     }
 
-    private void popolateAuthors()
+    private void populateAuthors()
     {
         Model DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
+        oldAuthors.addAll(DBauthors.getAuthorsForSpecificBook(isbnLabel.getText()));
     }
 
     private void populatePublishingHouses()
@@ -229,6 +278,7 @@ public class ControllerAddBook {
             availableQuantity.add(i);
     }
 
+
     private void displayAlertAddAuthor(int numberOfAuthors)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -251,4 +301,6 @@ public class ControllerAddBook {
 
         alert.showAndWait();
     }
+
+
 }

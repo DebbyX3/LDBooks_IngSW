@@ -19,7 +19,7 @@ public class ViewBooks implements View
     @Override
     public void buildCatalog(ArrayList<Book> books, VBox catalogVBox)
     {
-        List<String> formats = new ArrayList<>();
+        List<Format> formats = new ArrayList<>();
         List<BigDecimal> prices = new ArrayList<>();
         Set<Author> authors = new TreeSet<>();
         String imagePath = null;
@@ -69,7 +69,7 @@ public class ViewBooks implements View
 
     /* TODO: 06/10/2019:  Dividere la funzione in pezzi e sistemare in modo che prenda tutti i libri, vedi commento funzione sopra
     */
-    private void buildBook(VBox bookVBox, String title, Set<Author> authors, List<String> formats, List<BigDecimal> prices, String imagePath, String language)
+    private void buildBook(VBox bookVBox, String title, Set<Author> authors, List<Format> formats, List<BigDecimal> prices, String imagePath, Language language)
     {
         /* **** SETTING HBOX PANE **** */
         HBox bookHBox = new HBox();
@@ -138,7 +138,7 @@ public class ViewBooks implements View
         GridPane.setConstraints(bookAuthorsLabel, 0, 1); // label in column 0, row 1
 
         //Label bookLanguageLabel = new Label("Language: " + element.getLanguage());
-        Label bookLanguageLabel = new Label("Language: " + language);
+        Label bookLanguageLabel = new Label("Language: " + language.getName());
         bookLanguageLabel.setAlignment(Pos.CENTER);
         bookLanguageLabel.setContentDisplay(ContentDisplay.CENTER);
         GridPane.setConstraints(bookLanguageLabel, 0, 3); // label in column 0, row 3
@@ -146,7 +146,7 @@ public class ViewBooks implements View
         List<Label> bookFormatsPricesLabel = new ArrayList<>();
 
         for (int i = 0; i < formats.size(); i++) {
-            bookFormatsPricesLabel.add(new Label(prices.get(i) + "€ - " + formats.get(i)));
+            bookFormatsPricesLabel.add(new Label(prices.get(i) + "€ - " + formats.get(i).getName()));
 
             if (i >= bookGridPane.getRowCount())
                 bookGridPane.getRowConstraints().add(new RowConstraints(27.0, 27.0, Double.MAX_VALUE));
