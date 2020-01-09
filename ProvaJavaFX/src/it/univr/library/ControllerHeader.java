@@ -40,7 +40,6 @@ public class ControllerHeader
         }
     }
 
-
     public void handleCatalogButton(Button catalogButton, User user)
     {
         StageManager catalogStage = new StageManager();
@@ -68,7 +67,7 @@ public class ControllerHeader
             userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
     }
 
-
+    // TODO: 10/01/2020 questa funzione a che serve qua? 
     public void handlerEditButton(Button editProfile, RegisteredClient registeredUser) {
         StageManager EditProfilePage = new StageManager();
         EditProfilePage.setStageEditProfile((Stage) editProfile.getScene().getWindow(), registeredUser);

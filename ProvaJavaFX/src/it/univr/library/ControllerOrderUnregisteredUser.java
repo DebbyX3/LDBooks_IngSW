@@ -29,13 +29,11 @@ public class ControllerOrderUnregisteredUser {
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", Pattern.CASE_INSENSITIVE);
 
-
     @FXML
     private void initialize()
     {
         trackOrderButton.setOnAction(this::handleTrackOrderButton);
     }
-
 
     public void setUser(User user)
     {
@@ -56,34 +54,31 @@ public class ControllerOrderUnregisteredUser {
         String orderCode;
         ArrayList<Order> order = new ArrayList<>();
 
-        //first check if every field is compiled
+        //first, check if every field is compiled
         if(!isAnyFieldNullOrEmpty())
         {
-            //if everything's fine so take all text from textfields
+            //if everything's fine, take all text from textfields
             mailNotRegUser = mailTextField.getText();
             orderCode = trackingCodeTextField.getText();
 
             //if the mail is valid
             if(isMailValid(mailNotRegUser, error))
             {
-                //take the order from DB
-                try
-                {
-                    order = DBgetOrderUserNotReg.getOrderNotRegisteresUser(mailNotRegUser, orderCode);
-                }
-                catch (NullPointerException e)
-                {
-                    displayAlert("There is not Track Code associates to this mail!\n" +
-                                    "Check your inputs");
-                }
+                order = DBgetOrderUserNotReg.getOrderNotRegisteresUser(mailNotRegUser, orderCode);
 
-                //and show it
-                StageManager orderUnregisteredUserStage = new StageManager();
-                orderUnregisteredUserStage.setStageUnregOrderUserView((Stage) trackOrderButton.getScene().getWindow(), user, order);
+                if(order == null || order.isEmpty())
+                {
+                    displayAlert("There is not Track Code associates to this mail!\n" + "Check your inputs");
+                }
+                else //take the order from db
+                {
+                    //and show it
+                    StageManager orderUnregisteredUserStage = new StageManager();
+                    orderUnregisteredUserStage.setStageUnregOrderUserView((Stage) trackOrderButton.getScene().getWindow(), user, order);
+                }
             }
             else
                 displayAlert(error.toString());
-
         }
         else
             displayAlert("All text field must be filled!");
