@@ -15,7 +15,7 @@
   <children>
       <BorderPane prefHeight="575.0" prefWidth="900.0">
          <center>
-            <ScrollPane>
+            <ScrollPane fx:id="orderManagerScrollPane">
                <content>
                   <VBox fx:id="OrderVbox" alignment="TOP_CENTER" prefHeight="563.0" prefWidth="727.0">
                      <children>

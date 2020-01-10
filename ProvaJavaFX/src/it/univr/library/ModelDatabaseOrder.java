@@ -10,6 +10,7 @@ public class ModelDatabaseOrder implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public ArrayList<Order> getOrders(User user)
     {
         ArrayList<Order> orders;
@@ -36,6 +37,7 @@ public class ModelDatabaseOrder implements Model
         return orders;
     }
 
+    @Override
     public ArrayList<Order> getOrderNotRegisteresUser(String mailNotRegUser, String orderCode)
     {
         ArrayList<Order> order;
@@ -58,6 +60,7 @@ public class ModelDatabaseOrder implements Model
         return order;
     }
 
+    @Override
     public ArrayList<Order> getSpecificMailOrders(String mail)
     {
         ArrayList<Order> order;
@@ -126,6 +129,7 @@ public class ModelDatabaseOrder implements Model
         return null;
     }
 
+    @Override
     public ArrayList<String> getMailsOrders()
     {
         ArrayList<String> mails;
@@ -165,6 +169,7 @@ public class ModelDatabaseOrder implements Model
         return null;
     }
 
+    @Override
     public ArrayList<Order> getAllOrders()
     {
         ArrayList<Order> orders;

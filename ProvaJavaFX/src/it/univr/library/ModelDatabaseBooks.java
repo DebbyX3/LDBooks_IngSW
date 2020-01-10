@@ -47,6 +47,7 @@ public class ModelDatabaseBooks implements Model {
         return books;
     }
 
+    @Override
     public ArrayList<Book> getAllBooks()
     {
         ArrayList<Book> books;
@@ -66,6 +67,7 @@ public class ModelDatabaseBooks implements Model {
         return books;
     }
 
+    @Override
     public Book getSpecificBook(String isbn)
     {
         ArrayList<Book> b;
@@ -124,6 +126,7 @@ public class ModelDatabaseBooks implements Model {
         return null;
     }
 
+    @Override
     public void addNewBookToDB(Book book)
     {
         db.DBOpenConnection();
@@ -135,6 +138,7 @@ public class ModelDatabaseBooks implements Model {
                 book.getMaxQuantity(), book.getPages(), book.getLanguage(), book.getFormat(), book.getImagePath()));
     }
 
+    @Override
     public void updateBook(Book book)
     {
         db.DBOpenConnection();

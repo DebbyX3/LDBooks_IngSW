@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -21,6 +22,9 @@ public class ControllerOrderUser {
 
     @FXML
     private HBox headerHBox;
+
+    @FXML
+    private ScrollPane orderUserScrollPane;
 
     private User user;
 
@@ -40,30 +44,22 @@ public class ControllerOrderUser {
         controllerHeader.createHeader(user, headerHBox);
     }
 
-
-
     private void handleCartImageView(MouseEvent mouseEvent)
     {
 
     }
 
-
     public void populateOrderUser()
     {
-
         Model DBorders = new ModelDatabaseOrder();
         View viewOrders = new ViewOrders();
 
-        viewOrders.buildOrders(DBorders.getOrders(user), orderVBox);
-
+        viewOrders.buildOrders(DBorders.getOrders(user), orderVBox, orderUserScrollPane);
     }
 
-
-    public void populateOrderUnregisteredUser(ArrayList<Order> order)
+    public void populateOrderUser(ArrayList<Order> order)
     {
         View viewOrders = new ViewOrders();
-        viewOrders.buildOrders(order, orderVBox);
+        viewOrders.buildOrders(order, orderVBox, orderUserScrollPane);
     }
-
-
 }

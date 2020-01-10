@@ -45,6 +45,7 @@ public class ModelDatabaseLanguage implements Model {
         return null;
     }
 
+    @Override
     public void addNewLanguage(Language language)
     {
         db.DBOpenConnection();

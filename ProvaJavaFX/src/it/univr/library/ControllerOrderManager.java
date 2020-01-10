@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -24,6 +25,9 @@ public class ControllerOrderManager {
     @FXML
     private HBox headerHBox;
 
+    @FXML
+    private ScrollPane orderManagerScrollPane;
+
     private User manager;
 
     @FXML
@@ -37,10 +41,7 @@ public class ControllerOrderManager {
         filterButton.setOnAction(this::handleFilterButton);
 
         populateOrderUsers();
-
     }
-
-
 
     public void setManager(User manager)
     {
@@ -55,10 +56,10 @@ public class ControllerOrderManager {
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
-
         String mailFilter = mailUsersCombobox.getValue();
+
         if (mailFilter.contains(" "))
-                mailFilter = mailUsersCombobox.getValue().substring(0,mailUsersCombobox.getValue().indexOf(" "));
+                mailFilter = mailUsersCombobox.getValue().substring(0, mailUsersCombobox.getValue().indexOf(" "));
 
         if(!mailFilter.equals("All"))
         {
@@ -66,13 +67,11 @@ public class ControllerOrderManager {
             View viewMailOrder = new ViewOrders();
 
             OrderVbox.getChildren().clear();
-            viewMailOrder.buildOrders(DBMailOrders.getSpecificMailOrders(mailFilter), OrderVbox);
+            viewMailOrder.buildOrders(DBMailOrders.getSpecificMailOrders(mailFilter), OrderVbox, orderManagerScrollPane);
         }
         else
             populateOrderUsers();
-
     }
-
 
     public void populateMailUserFilter()
     {
@@ -86,6 +85,6 @@ public class ControllerOrderManager {
         Model DBAllOrders = new ModelDatabaseOrder();
         View viewAllOrder = new ViewOrders();
         OrderVbox.getChildren().clear();
-        viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox);
+        viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox, orderManagerScrollPane);
     }
 }

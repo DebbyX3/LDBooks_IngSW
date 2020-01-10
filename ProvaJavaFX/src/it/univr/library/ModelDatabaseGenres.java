@@ -48,6 +48,7 @@ public class ModelDatabaseGenres implements Model
         return null;
     }
 
+    @Override
     public void addNewGenre(String newGenre)
     {
         db.DBOpenConnection();

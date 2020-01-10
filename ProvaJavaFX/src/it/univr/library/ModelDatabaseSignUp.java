@@ -120,6 +120,7 @@ public class ModelDatabaseSignUp implements Model
         return result;
     }
 
+    @Override
     public void addUser(RegisteredClient testUser)
     {
         db.DBOpenConnection();
@@ -145,6 +146,7 @@ public class ModelDatabaseSignUp implements Model
         db.DBCloseConnection();
     }
 
+    @Override
     public void addAddress(RegisteredClient testUser)
     {
        if(!addressAlreadyExists(testUser.getAddresses()))
@@ -248,6 +250,7 @@ public class ModelDatabaseSignUp implements Model
         return result;
     }
 
+    @Override
     public void createLibroCard(RegisteredClient testUser)
     {
         Date unixTime = new Date(System.currentTimeMillis() / 1000L);

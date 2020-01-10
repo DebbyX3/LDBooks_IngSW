@@ -9,6 +9,7 @@ public class ModelDatabasePublishingHouse implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public ArrayList<PublishingHouse> getPublishingHouses()
     {
         ArrayList<PublishingHouse> publishingHouses;
@@ -46,6 +47,7 @@ public class ModelDatabasePublishingHouse implements Model
         return null;
     }
 
+    @Override
     public void addNewPublishingHouse(PublishingHouse newPublishingHouse)
     {
         db.DBOpenConnection();

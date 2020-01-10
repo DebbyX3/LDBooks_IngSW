@@ -9,6 +9,7 @@ public class ModelDatabaseFormat implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public ArrayList<Format> getFormats()
     {
         ArrayList<Format> formats;
@@ -47,6 +48,7 @@ public class ModelDatabaseFormat implements Model
         return null;
     }
 
+    @Override
     public void addNewFormat(Format newFormat)
     {
         db.DBOpenConnection();

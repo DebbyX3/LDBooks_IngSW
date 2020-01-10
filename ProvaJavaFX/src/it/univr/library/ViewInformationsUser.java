@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 public class ViewInformationsUser implements View
 {
+    @Override
     public void buildInformations(RegisteredClient registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
     {
         nameLabel.setText(registeredUser.getName());
@@ -121,6 +122,7 @@ public class ViewInformationsUser implements View
 
     }
 
+    @Override
     public void buildInformationsEdit(RegisteredClient registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
     {
         nameTextField.setText(registeredUser.getName());

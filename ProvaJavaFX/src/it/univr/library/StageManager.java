@@ -423,7 +423,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
             controllerOrderUser.setUser(user);
-            controllerOrderUser.populateOrderUnregisteredUser(order);
+            controllerOrderUser.populateOrderUser(order);
             controllerOrderUser.setHeader();
 
             primaryStage.setTitle("OrderUser - LD Books");

@@ -9,6 +9,7 @@ public class ModelDatabaseRegisteredUser implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public Client getClient(User testUser)
     {
         Client user;
@@ -53,8 +54,7 @@ public class ModelDatabaseRegisteredUser implements Model
         return null;
     }
 
-
-
+    @Override
     public Manager getManager(User testUser)
     {
         Manager manager;

@@ -3,10 +3,7 @@ package it.univr.library;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -18,9 +15,13 @@ import java.util.List;
 
 public class ViewOrders implements View {
 
-    public void buildOrders(ArrayList<Order> orders, VBox orderVBox)
+    @Override
+    public void buildOrders(ArrayList<Order> orders, VBox orderVBox, ScrollPane orderScrollPane)
     {
         GridPane orderGridPane;
+
+        //bring up the scrollpane
+        orderScrollPane.setVvalue(orderScrollPane.getVmin());
 
         for (Order order: orders)
         {

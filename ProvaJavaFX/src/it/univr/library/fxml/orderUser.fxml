@@ -13,7 +13,7 @@
   <children>
       <BorderPane prefHeight="834.0" prefWidth="900.0">
          <center>
-            <ScrollPane prefHeight="817.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <ScrollPane fx:id="orderUserScrollPane" prefHeight="817.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <content>
                   <VBox fx:id="orderVBox" alignment="TOP_CENTER" prefHeight="700.0" prefWidth="884.0">
                      <children>

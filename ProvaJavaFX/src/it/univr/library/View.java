@@ -31,6 +31,6 @@ public interface View
     public default void buildLibrocard(User user, Librocard librocard, Text nameSurnameText, Text pointsText, Text issueDateText, Text idText)
     {}
 
-    public default void buildOrders(ArrayList<Order> orders, VBox orderVBox)
+    public default void buildOrders(ArrayList<Order> orders, VBox orderVBox, ScrollPane orderScrollPane)
     {}
 }

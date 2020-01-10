@@ -8,6 +8,7 @@ public class ModelDatabaseUserInformations implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public RegisteredClient getRegisteredUser(User testUser)
     {
         RegisteredClient regUser;

@@ -1,8 +1,5 @@
 package it.univr.library;
 
-import it.univr.library.Address;
-import it.univr.library.Client;
-
 import java.util.ArrayList;
 
 public class RegisteredClient extends Client

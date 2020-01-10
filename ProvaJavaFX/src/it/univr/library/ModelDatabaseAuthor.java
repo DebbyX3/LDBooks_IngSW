@@ -8,6 +8,7 @@ import java.util.List;
 public class ModelDatabaseAuthor implements Model {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public ArrayList<Author> getAuthors() {
         ArrayList<Author> authors;
 
@@ -22,6 +23,7 @@ public class ModelDatabaseAuthor implements Model {
         return authors;
     }
 
+    @Override
     public ArrayList<Author> getAuthorsForSpecificBook(String isbn) {
         ArrayList<Author> authorsForSpecificBook;
 
@@ -61,6 +63,7 @@ public class ModelDatabaseAuthor implements Model {
         return null;
     }
 
+    @Override
     public void addNewAuthor(String newNameAuthor, String newSurnameAuthor)
     {
         db.DBOpenConnection();
@@ -69,6 +72,7 @@ public class ModelDatabaseAuthor implements Model {
     }
 
     // forse non serve più questo
+    @Override
     public int getAuthorID(String authorName, String authorSurname) {
         int authorID;
 
@@ -106,6 +110,7 @@ public class ModelDatabaseAuthor implements Model {
         return Integer.parseInt(null);
     }
 
+    @Override
     public void linkBookToAuthors(int idAuthor, String isbn)
     {
         db.DBOpenConnection();
@@ -113,6 +118,7 @@ public class ModelDatabaseAuthor implements Model {
                 "VALUES (?, ?)", List.of(idAuthor, isbn));
     }
 
+    @Override
     public void deleteLinkBookToAuthors(int idAuthor, String isbn)
     {
         db.DBOpenConnection();
@@ -120,7 +126,7 @@ public class ModelDatabaseAuthor implements Model {
                 "WHERE write.ISBN LIKE ? AND write.idAuthor LIKE ? ",List.of(isbn,idAuthor));
     }
 
-
+    @Override
     public ArrayList<Author> createArrayListAuthors(List<String> idNameSurnameAuthors) //1 luca mario$marzari,2 deb$pintani,3 culo$a;1 $marzari
     {
         ArrayList<Author> authors = new ArrayList<>();

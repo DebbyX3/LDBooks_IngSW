@@ -90,5 +90,4 @@ public interface Model
     public default void updateBook(Book book){};
 
     public default void deleteLinkBookToAuthors(int idAuthor, String isbn){};
-
 }
