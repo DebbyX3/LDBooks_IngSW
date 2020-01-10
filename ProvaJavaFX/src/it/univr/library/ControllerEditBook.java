@@ -6,7 +6,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -104,6 +106,7 @@ public class ControllerEditBook {
         populateAuthors();
         authorComboBox.setItems(authors);
         authorListView.setItems(oldAuthors);
+        authorListView.getSelectionModel().selectedItemProperty().addListener((v) -> deleteAuthorButton.setDisable(false));
 
         populatePublishingHouses();
         publishingHouseComboBox.setItems(publishingHouses);
@@ -197,11 +200,20 @@ public class ControllerEditBook {
         if(!authorListView.getItems().isEmpty())
         {
             Author authorToDelete = authorListView.getSelectionModel().getSelectedItem();
-            authorsToDelete.add(authorToDelete);
-            authorListView.getItems().remove(authorToDelete);
-            displayAlertDeleteAuthor("Author successfully removed!");
-            if(authorListView.getItems().isEmpty())
-                deleteAuthorButton.setDisable(true);
+            //todo check if some author is selected
+            if(authorToDelete == null)
+            {
+                authorsToDelete.add(authorToDelete);
+                authorListView.getItems().remove(authorToDelete);
+                displayAlertDeleteAuthor("Author successfully removed!");
+                if(authorListView.getItems().isEmpty())
+                    deleteAuthorButton.setDisable(true);
+            }
+            else
+            {
+                displayAlert("Select an author to delete!");
+            }
+
         }
         else
         {
@@ -213,7 +225,47 @@ public class ControllerEditBook {
 
     private void handleEditBookButton(ActionEvent actionEvent)
     {
+        //fetch all fields and create a new book to update the information of the existing book on db
+        Book book = fetchBookInformation();
 
+        //update db on writers, remove the authors take from authorsToDelete arrayList<>
+        Model DBdeleteAuthors = new ModelDatabaseAuthor();
+        for (Author authorTodelete: authorsToDelete) {
+            DBdeleteAuthors.deleteLinkBookToAuthors(authorTodelete.getId(),book.getISBN());
+        }
+
+        //make query to update book
+        Model DBupdateBook = new ModelDatabaseBooks();
+        DBupdateBook.updateBook(book);
+
+        //make query to link newAuthors
+        Model DBupdateLinkTobook = new ModelDatabaseAuthor();
+        for (Author authorToLink: book.getAuthors())
+            DBupdateLinkTobook.linkBookToAuthors(authorToLink.getId(), book.getISBN());
+
+        //change scene
+        StageManager addEditBooks = new StageManager();
+        addEditBooks.setStageAddEditBooks((Stage) editBookButton.getScene().getWindow(), manager);
+    }
+
+    private Book fetchBookInformation() {
+        Book book = new Book();
+        book.setAuthors(authorsToLinkToBook);
+        book.setDescription(descriptionTextArea.getText());
+        book.setFormat(formatComboBox.getValue());
+        book.setGenre(genreComboBox.getValue());
+        book.setImagePath(imagePathTextField.getText());
+        book.setISBN(isbnLabel.getText());
+        book.setLanguage(languageComboBox.getValue());
+        book.setMaxQuantity(availableQuantityComboBox.getValue());
+        book.setPages(Integer.parseInt(pagesTextField.getText()));
+        book.setPoints(Integer.parseInt(librocardPointsTextField.getText()));
+        book.setTitle(titleTextField.getText());
+        book.setPrice(new BigDecimal(priceTextField.getText()));
+        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
+        book.setPublishingHouse(publishingHouseComboBox.getValue());
+
+        return book;
     }
 
     private void handleSelectAuthorButton(ActionEvent actionEvent)
@@ -228,32 +280,52 @@ public class ControllerEditBook {
         else
         {
             boolean exists = false;
+            boolean alreadyAuthor = false;
 
-            for (Author authorToCheck: authorsToLinkToBook) {
-                if (author.equals(authorToCheck)) {
+            for (Author authorToCheck: authorsToLinkToBook)
+            {
+                if (author.equals(authorToCheck))
+                {
                     exists = true;
                     break;
                 }
             }
 
-            if(!exists)
+            for (Author authorToCheck: authorListView.getItems())
             {
-                authorsToLinkToBook.add(author);
-                System.out.println(authorsToLinkToBook.toString());
-
-                if(numberOfAuthors == 1)
+                if (author.equals(authorToCheck))
                 {
-                    selectAuthorButton.setDisable(true);
-                    authorComboBox.setDisable(true);
+                    alreadyAuthor = true;
+                    break;
                 }
+            }
 
-                numberOfAuthors--;
-                displayAlertAddAuthor(numberOfAuthors);
+            if(!alreadyAuthor)
+            {
+                if(!exists)
+                {
+                    authorsToLinkToBook.add(author);
+                    System.out.println(authorsToLinkToBook.toString());
+
+                    if(numberOfAuthors == 1)
+                    {
+                        selectAuthorButton.setDisable(true);
+                        authorComboBox.setDisable(true);
+                    }
+
+                    numberOfAuthors--;
+                    displayAlertAddAuthor(numberOfAuthors);
+                }
+                else
+                {
+                    displayAlert("Author already selected, choose another one!");
+                }
             }
             else
             {
-                displayAlert("Author already selected, choose another one!");
+                displayAlert("The author selected is already an author for this book, choose another one!");
             }
+
         }
     }
 

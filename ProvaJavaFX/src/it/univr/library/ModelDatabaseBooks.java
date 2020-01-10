@@ -135,6 +135,18 @@ public class ModelDatabaseBooks implements Model {
                 book.getMaxQuantity(), book.getPages(), book.getLanguage(), book.getFormat(), book.getImagePath()));
     }
 
+    public void updateBook(Book book)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate("UPDATE books " +
+                "SET title = ?, description = ?, points = ? , publicationYear = ?, price = ?, publishingHouseName = ?," +
+                "genreName = ?, maxQuantity = ?, pages = ?, languageName = ?, formatName = ?, imagePath= ? " +
+                "WHERE books.ISBN LIKE ?",List.of(book.getTitle(), book.getDescription(), book.getPoints(), book.getPublicationYear(),
+                book.getPrice(),book.getPublishingHouse().getName(),book.getGenre().getName(), book.getMaxQuantity(),
+                book.getPages(),book.getLanguage().getName(),book.getFormat().getName(),book.getImagePath(), book.getISBN()));
+    }
+
+
 
 
 

@@ -113,6 +113,14 @@ public class ModelDatabaseAuthor implements Model {
                 "VALUES (?, ?)", List.of(idAuthor, isbn));
     }
 
+    public void deleteLinkBookToAuthors(int idAuthor, String isbn)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "DELETE FROM write " +
+                "WHERE write.ISBN LIKE ? AND write.idAuthor LIKE ? ",List.of(isbn,idAuthor));
+    }
+
+
     public ArrayList<Author> createArrayListAuthors(List<String> idNameSurnameAuthors) //1 luca mario$marzari,2 deb$pintani,3 culo$a;1 $marzari
     {
         ArrayList<Author> authors = new ArrayList<>();

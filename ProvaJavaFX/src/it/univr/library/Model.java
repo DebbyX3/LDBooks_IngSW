@@ -87,4 +87,8 @@ public interface Model
 
     public default Book getSpecificBook(String isbn){return null;};
 
+    public default void updateBook(Book book){};
+
+    public default void deleteLinkBookToAuthors(int idAuthor, String isbn){};
+
 }
