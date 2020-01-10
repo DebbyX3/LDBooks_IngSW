@@ -127,32 +127,38 @@ public class ControllerAddBook {
     {
         numberAuthorsComboBox.setDisable(true);
         Author author = authorComboBox.getValue();
-        boolean exists = false;
-
-        for (Author authorToCheck: authorsToLinkToBook) {
-            if(author.equals(authorToCheck))
-                exists = true;
-        }
-
-        if(!exists)
+        if(author == null)
         {
-            authorsToLinkToBook.add(author);
-            System.out.println(authorsToLinkToBook.toString());
-
-            if(numberOfAuthors == 1)
-            {
-                selectAuthorButton.setDisable(true);
-                authorComboBox.setDisable(true);
-            }
-
-            numberOfAuthors--;
-            displayAlertAddAuthor(numberOfAuthors);
+            displayAlert("choose an Author!");
         }
         else
         {
-           displayAlert("Author already selected, choose another one!");
-        }
+            boolean exists = false;
 
+            for (Author authorToCheck: authorsToLinkToBook) {
+                if(author.equals(authorToCheck))
+                    exists = true;
+            }
+
+            if(!exists)
+            {
+                authorsToLinkToBook.add(author);
+                System.out.println(authorsToLinkToBook.toString());
+
+                if(numberOfAuthors == 1)
+                {
+                    selectAuthorButton.setDisable(true);
+                    authorComboBox.setDisable(true);
+                }
+
+                numberOfAuthors--;
+                displayAlertAddAuthor(numberOfAuthors);
+            }
+            else
+            {
+                displayAlert("Author already selected, choose another one!");
+            }
+        }
     }
 
 

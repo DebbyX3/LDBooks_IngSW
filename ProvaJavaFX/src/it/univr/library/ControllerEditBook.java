@@ -90,6 +90,7 @@ public class ControllerEditBook {
     private User manager;
     private int numberOfAuthors = 0;
     private ArrayList<Author> authorsToLinkToBook = new ArrayList<>();
+    private ArrayList<Author> authorsToDelete = new ArrayList<>();
 
     @FXML
     private void initialize()
@@ -143,7 +144,7 @@ public class ControllerEditBook {
     {
         isbnLabel.setText(selectedBook.getISBN());
         titleTextField.setText(selectedBook.getTitle());
-        authorListView.setItems(arratListToObservableList(selectedBook.getAuthors()));
+        authorListView.setItems(arrayListToObservableList(selectedBook.getAuthors()));
         descriptionTextArea.setText(selectedBook.getDescription());
         publicationYearTextField.setText(selectedBook.getPublicationYear().toString());
         publishingHouseComboBox.getSelectionModel().select(selectedBook.getPublishingHouse());
@@ -156,7 +157,7 @@ public class ControllerEditBook {
         imagePathTextField.setText(selectedBook.getImagePath());
     }
 
-    private ObservableList<Author> arratListToObservableList(List<Author> authors)
+    private ObservableList<Author> arrayListToObservableList(List<Author> authors)
     {
         ObservableList<Author> a = FXCollections.observableArrayList();
         a.addAll(authors);
@@ -193,6 +194,19 @@ public class ControllerEditBook {
 
     private void handleDeleteAuthorButton(ActionEvent actionEvent)
     {
+        if(!authorListView.getItems().isEmpty())
+        {
+            Author authorToDelete = authorListView.getSelectionModel().getSelectedItem();
+            authorsToDelete.add(authorToDelete);
+            authorListView.getItems().remove(authorToDelete);
+            displayAlertDeleteAuthor("Author successfully removed!");
+            if(authorListView.getItems().isEmpty())
+                deleteAuthorButton.setDisable(true);
+        }
+        else
+        {
+            displayAlert("Nobody author to delete!");
+        }
 
     }
 
@@ -206,34 +220,41 @@ public class ControllerEditBook {
     {
         numberAuthorsComboBox.setDisable(true);
         Author author = authorComboBox.getValue();
-        boolean exists = false;
 
-        for (Author authorToCheck: authorsToLinkToBook) {
-            if (author.equals(authorToCheck)) {
-                exists = true;
-                break;
-            }
-        }
-
-        if(!exists)
+        if(author == null)
         {
-            authorsToLinkToBook.add(author);
-            System.out.println(authorsToLinkToBook.toString());
-
-            if(numberOfAuthors == 1)
-            {
-                selectAuthorButton.setDisable(true);
-                authorComboBox.setDisable(true);
-            }
-
-            numberOfAuthors--;
-            displayAlertAddAuthor(numberOfAuthors);
+            displayAlert("choose an Author!");
         }
         else
         {
-            displayAlert("Author already selected, choose another one!");
-        }
+            boolean exists = false;
 
+            for (Author authorToCheck: authorsToLinkToBook) {
+                if (author.equals(authorToCheck)) {
+                    exists = true;
+                    break;
+                }
+            }
+
+            if(!exists)
+            {
+                authorsToLinkToBook.add(author);
+                System.out.println(authorsToLinkToBook.toString());
+
+                if(numberOfAuthors == 1)
+                {
+                    selectAuthorButton.setDisable(true);
+                    authorComboBox.setDisable(true);
+                }
+
+                numberOfAuthors--;
+                displayAlertAddAuthor(numberOfAuthors);
+            }
+            else
+            {
+                displayAlert("Author already selected, choose another one!");
+            }
+        }
     }
 
 
@@ -301,6 +322,17 @@ public class ControllerEditBook {
 
         alert.showAndWait();
     }
+
+    private void displayAlertDeleteAuthor(String s)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Successfully removed!");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        alert.showAndWait();
+    }
+
 
 
 }

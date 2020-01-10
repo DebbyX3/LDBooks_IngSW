@@ -23,6 +23,8 @@ public class Book
     private Format format;
     private String imagePath;
 
+
+
     public Book(){}
 
     public Book(String ISBN, String title, List<Author> authors, String description, Integer points, BigDecimal price, Integer publicationYear, PublishingHouse publishingHouse, Genre genre, Language language, Integer maxQuantity, Integer pages, Format format, String imagePath) {
