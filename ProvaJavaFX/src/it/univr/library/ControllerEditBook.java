@@ -10,7 +10,9 @@ import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Optional;
 
 public class ControllerEditBook {
 
@@ -243,7 +245,7 @@ public class ControllerEditBook {
     private void handleEditBookButton(ActionEvent actionEvent)
     {
         //fetch all fields and create a new book to update the information of the existing book on db
-        if(!isAnyFieldEmpty())
+        if(!isAnyFieldEmptyorNotValid())
         {
             Book book = fetchBookInformation();
 
@@ -269,23 +271,39 @@ public class ControllerEditBook {
         }
     }
 
-    private boolean isAnyFieldEmpty()
+    private boolean isAnyFieldEmptyorNotValid()
     {
         StringBuilder error = new StringBuilder();
 
         if(titleTextField.getText().trim().isEmpty())
             error.append("- Title must be filled!\n");
+
         if(descriptionTextArea.getText().trim().isEmpty())
             error.append("- Description must be filled!\n");
-        //todo check if description is alphabetical and numerical, and if pages,price,publication year ecc are numerical
+        if(isNumerical(descriptionTextArea.getText().trim()))
+            error.append("- Description must be at least alphabetic\n");
+
         if(publicationYearTextField.getText().trim().isEmpty())
             error.append("- Publication year must be filled\n");
+
+        if(!isNumerical(publicationYearTextField.getText().trim()))
+            error.append("- Publication year must be numerical\n");
+
+        int year = Calendar.getInstance().get(Calendar.YEAR);
+        if(Integer.parseInt(publicationYearTextField.getText().trim()) < 1800 || Integer.parseInt(publicationYearTextField.getText().trim()) > year)
+            error.append(String.format("- Publication year must be between 1800 and %d\n",year));
+
         if(pagesTextField.getText().trim().isEmpty())
             error.append("- Number of pages must be filled!\n");
-        if(priceTextField.getText().trim().isEmpty())
-            error.append("- Price must be filled!\n");
+        if(!isNumerical(pagesTextField.getText().trim()))
+            error.append("- Number of pages must be numerical!\n");
+
+
         if(librocardPointsTextField.getText().trim().isEmpty())
             error.append("- LibroCard Points must be filled!\n");
+        if(!isNumerical(librocardPointsTextField.getText().trim()))
+            error.append("- Librocard Points must be numerical!\n");
+
         if(imagePathTextField.getText().trim().isEmpty())
             error.append("- No imagePath specified!\n");
 
@@ -293,10 +311,28 @@ public class ControllerEditBook {
         if(authorListView.getItems().isEmpty() && authorsToLinkToBook.isEmpty())
             error.append("- Book needs at least one author!");
 
+        if(priceTextField.getText().trim().isEmpty())
+            error.append("- Price must be filled!\n");
+        if(!isNumerical(priceTextField.getText().trim()))
+            error.append("- Price must be numerical!\n");
+
+        Optional<ButtonType> result;
+        if(Float.parseFloat(priceTextField.getText().trim()) > 1000)
+        {
+            result = displayConfirmation().showAndWait();
+            if(result.get() != ButtonType.OK)
+            {
+                displayAlert("Ok select a new price!");
+                return true;
+            }
+        }
+
+        //displayConfirmation();
         if(!error.toString().isEmpty())
             displayAlert(error.toString());
 
         return !error.toString().isEmpty();
+
     }
 
     private Book fetchBookInformation() {
@@ -448,6 +484,17 @@ public class ControllerEditBook {
         alert.showAndWait();
     }
 
+    private Alert displayConfirmation()
+    {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Check Book price!");
+        alert.setContentText("The price that you insert is greater than 1000€, are you sure?\n");
+
+        return alert;
+    }
+
+
     private void displayAlertDeleteAuthor(String s)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -457,5 +504,10 @@ public class ControllerEditBook {
 
         alert.showAndWait();
     }
+
+    private boolean isNumerical(String s) {
+        return s.matches("[+-]?([0-9]*[.])?[0-9]+");
+    }
+
 
 }
