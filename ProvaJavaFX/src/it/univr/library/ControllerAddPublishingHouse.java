@@ -57,30 +57,39 @@ public class ControllerAddPublishingHouse {
 
     private void handleAddNewPublishingHouse(ActionEvent actionEvent)
     {
-        PublishingHouse newPublishingHouse = new PublishingHouse(newPublishingHouseTextFiled.getText());
+        PublishingHouse newPublishingHouse = new PublishingHouse(newPublishingHouseTextFiled.getText().trim());
 
-
-        boolean exist = false;
-        for (PublishingHouse pHouse: publishingHouses)
+        if(!newPublishingHouse.getName().isEmpty())
         {
-            if (newPublishingHouse.equals(pHouse))
-                exist = true;
-        }
+            boolean exist = false;
+            for (PublishingHouse pHouse: publishingHouses)
+            {
+                if (newPublishingHouse.equals(pHouse)) {
+                    exist = true;
+                    break;
+                }
+            }
 
-        if(!exist)
-        {
-            //if the authors doesn't already exists so insert into db
-            Model DBinsertNewPublishingHouse = new ModelDatabasePublishingHouse();
-            DBinsertNewPublishingHouse.addNewPublishingHouse(newPublishingHouse);
+            if(!exist)
+            {
+                //if the authors doesn't already exists so insert into db
+                Model DBinsertNewPublishingHouse = new ModelDatabasePublishingHouse();
+                DBinsertNewPublishingHouse.addNewPublishingHouse(newPublishingHouse);
 
-            //change scene
-            StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewPublishingHouseButton.getScene().getWindow(), manager);
+                //change scene
+                StageManager addEditBooks = new StageManager();
+                addEditBooks.setStageAddEditBooks((Stage) addNewPublishingHouseButton.getScene().getWindow(), manager);
+            }
+            else
+            {
+                displayAlert("Publishing House already exists!");
+            }
         }
         else
         {
-            displayAlert("Publishing House already exists!");
+            displayAlert("Publishing house name must be filled!");
         }
+
     }
 
     private void displayAlert(String s)

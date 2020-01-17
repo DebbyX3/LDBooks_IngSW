@@ -37,8 +37,6 @@ public class ControllerAddGenre {
         addNewGenreButton.setOnAction(this::handleAddNewGenre);
     }
 
-
-
     public void setManager(User manager)
     {
         this.manager = manager;
@@ -59,30 +57,39 @@ public class ControllerAddGenre {
     private void handleAddNewGenre(ActionEvent actionEvent)
     {
 
-
-        String newGenre = newGenreTextField.getText();
-        boolean exist = false;
-
-        for (Genre genre: genres)
+        Genre newGenre = new Genre(newGenreTextField.getText().trim());
+        if (!newGenre.getName().isEmpty())
         {
-            if (newGenre.toUpperCase().equals(genre.getName().toUpperCase()))
-                exist = true;
-        }
+            boolean exist = false;
 
-        if(!exist)
-        {
-            //if the authors doesn't already exists so insert into db
-            Model DBinsertNewGenre = new ModelDatabaseGenres();
-            DBinsertNewGenre.addNewGenre(newGenre);
+            for (Genre genre: genres)
+            {
+                if (newGenre.getName().toUpperCase().equals(genre.getName().toUpperCase())) {
+                    exist = true;
+                    break;
+                }
+            }
 
-            //change scene
-            StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewGenreButton.getScene().getWindow(), manager);
+            if(!exist)
+            {
+                //if the authors doesn't already exists so insert into db
+                Model DBinsertNewGenre = new ModelDatabaseGenres();
+                DBinsertNewGenre.addNewGenre(newGenre.getName());
+
+                //change scene
+                StageManager addEditBooks = new StageManager();
+                addEditBooks.setStageAddEditBooks((Stage) addNewGenreButton.getScene().getWindow(), manager);
+            }
+            else
+            {
+                displayAlert("Genre already exists!");
+            }
         }
         else
         {
-            displayAlert("Genre already exists!");
+            displayAlert("Genre name must be filled!");
         }
+
     }
 
 

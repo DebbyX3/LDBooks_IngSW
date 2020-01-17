@@ -59,29 +59,40 @@ public class ControllerAddLanguage {
 
     private void handleAddNewLanguageButton(ActionEvent actionEvent)
     {
-        Language newLanguage = new Language(newLanguageTextField.getText());
+        Language newLanguage = new Language(newLanguageTextField.getText().trim());
 
-        boolean exist = false;
-        for (Language language: languages)
+        if(!newLanguage.getName().isEmpty())
         {
-            if (language.equals(newLanguage))
-                exist = true;
-        }
+            boolean exist = false;
+            for (Language language: languages)
+            {
+                if (language.equals(newLanguage)) {
+                    exist = true;
+                    break;
+                }
+            }
 
-        if(!exist)
-        {
-            //if the authors doesn't already exists so insert into db
-            Model DBinsertNewLanguage = new ModelDatabaseLanguage();
-            DBinsertNewLanguage.addNewLanguage(newLanguage);
+            if(!exist)
+            {
+                //if the authors doesn't already exists so insert into db
+                Model DBinsertNewLanguage = new ModelDatabaseLanguage();
+                DBinsertNewLanguage.addNewLanguage(newLanguage);
 
-            //change scene
-            StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewLanguageButton.getScene().getWindow(), manager);
+                //change scene
+                StageManager addEditBooks = new StageManager();
+                addEditBooks.setStageAddEditBooks((Stage) addNewLanguageButton.getScene().getWindow(), manager);
+            }
+            else
+            {
+                displayAlert("Language already exists!");
+            }
         }
         else
         {
-            displayAlert("Language already exists!");
+            displayAlert("Language name must be filled!");
         }
+
+
     }
 
     private void displayAlert(String s)

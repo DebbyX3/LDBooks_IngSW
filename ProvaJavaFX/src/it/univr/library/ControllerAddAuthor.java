@@ -61,7 +61,7 @@ public class ControllerAddAuthor {
         if(!nameAuthorTextField.getText().equals("") || !surnameAuthorTextField.getText().equals(""))
         {
             Model DBinsertNewAuthor = new ModelDatabaseAuthor();
-            DBinsertNewAuthor.addNewAuthor(nameAuthorTextField.getText(), surnameAuthorTextField.getText());
+            DBinsertNewAuthor.addNewAuthor(nameAuthorTextField.getText().trim(), surnameAuthorTextField.getText().trim());
 
             //change scene
             StageManager addEditBooks = new StageManager();

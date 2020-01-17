@@ -57,30 +57,41 @@ public class ControllerAddFormat {
 
     private void handleAddNewFormat(ActionEvent actionEvent)
     {
+        Format format =  new Format(newFormatTextField.getText().trim());
 
-        Format format =  new Format(newFormatTextField.getText());
-        boolean exist = false;
-
-        for (Format f: formats)
+        if(!format.getName().isEmpty())
         {
-            if (f.equals(format))
-                exist = true;
-        }
+            boolean exist = false;
 
-        if(!exist)
-        {
-            //if the authors doesn't already exists so insert into db
-            Model DBinsertNewFormat = new ModelDatabaseFormat();
-            DBinsertNewFormat.addNewFormat(format);
+            for (Format f: formats)
+            {
+                if (f.equals(format)) {
+                    exist = true;
+                    break;
+                }
+                break;
+            }
 
-            //change scene
-            StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewFormatButton.getScene().getWindow(), manager);
+            if(!exist)
+            {
+                //if the authors doesn't already exists so insert into db
+                Model DBinsertNewFormat = new ModelDatabaseFormat();
+                DBinsertNewFormat.addNewFormat(format);
+
+                //change scene
+                StageManager addEditBooks = new StageManager();
+                addEditBooks.setStageAddEditBooks((Stage) addNewFormatButton.getScene().getWindow(), manager);
+            }
+            else
+            {
+                displayAlert("Format already exists!");
+            }
         }
         else
         {
-            displayAlert("Format already exists!");
+            displayAlert("Format name must be filled!");
         }
+
     }
 
 

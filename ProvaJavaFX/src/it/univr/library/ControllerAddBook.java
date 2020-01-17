@@ -166,18 +166,18 @@ public class ControllerAddBook {
     {
         Book book = new Book();
         book.setAuthors(authorsToLinkToBook);
-        book.setDescription(descriptionTextArea.getText());
+        book.setDescription(descriptionTextArea.getText().trim());
         book.setFormat(formatComboBox.getValue());
         book.setGenre(genreComboBox.getValue());
-        book.setImagePath(imagePathTextField.getText());
-        book.setISBN(isbnTextField.getText());
+        book.setImagePath(imagePathTextField.getText().trim());
+        book.setISBN(isbnTextField.getText().trim());
         book.setLanguage(languageComboBox.getValue());
         book.setMaxQuantity(availableQuantityComboBox.getValue());
-        book.setPages(Integer.parseInt(pagesTextField.getText()));
-        book.setPoints(Integer.parseInt(librocardPointsTextField.getText()));
-        book.setTitle(titleTextField.getText());
-        book.setPrice(new BigDecimal(priceTextField.getText()));
-        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText()));
+        book.setPages(Integer.parseInt(pagesTextField.getText().trim()));
+        book.setPoints(Integer.parseInt(librocardPointsTextField.getText().trim()));
+        book.setTitle(titleTextField.getText().trim());
+        book.setPrice(new BigDecimal(priceTextField.getText().trim()));
+        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText().trim()));
         book.setPublishingHouse(publishingHouseComboBox.getValue());
 
         Model DBbook = new ModelDatabaseBooks();
@@ -193,7 +193,6 @@ public class ControllerAddBook {
         addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager);
 
     }
-
 
     private void populateNumbAuthorsComboBox()
     {
