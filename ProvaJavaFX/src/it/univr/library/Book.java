@@ -3,6 +3,7 @@ package it.univr.library;
 import javafx.scene.image.Image;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class Book
@@ -22,8 +23,6 @@ public class Book
     private Integer pages;
     private Format format;
     private String imagePath;
-
-
 
     public Book(){}
 
@@ -102,7 +101,7 @@ public class Book
     }
 
     public BigDecimal getPrice() {
-        return price;
+        return price.setScale(2, RoundingMode.HALF_UP);
     }
 
     public void setPrice(BigDecimal price) {

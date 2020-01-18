@@ -136,7 +136,24 @@ public class ControllerEditBook {
         authorsToDelete.clear();
         authors.clear();
         authorComboBox.cancelEdit();
-        numberAuthorsComboBox.getSelectionModel().selectFirst();
+
+        /* TODO: 18/01/2020 c'è un problema: visto che quando si preme il bottone del filtro è anche chiamato
+            populateAllFields, succede che il combobox delle qtà viene riempito, ma è riempito sempre senza togliere
+            gli elementi che ci sono, perciò si accumulano ad ogni click del filtraggio. Ho messo mano al metodo
+            detto sopra, ma mi sono accorta che è anche quello che chiami all'inizio della schermata e quindi non
+            ho fatto niente per non fare casino.
+            Per risolvere temporaneamente la cosa ho messo un metodo che pulisce il combobox, però non è il massimo
+            visto che il combobox delle qtà deve stare fisso e non ha senso riempirlo ad ogni passaggio, perciò
+            dobbiamo trovare un modo per sistemare questa cosa. Un modo brutto sarebbe quello di mettere fuori
+            il riempimento del combobox così che è chiamato solo la prima volta, ma non mi piace. Possiamo forse
+            fare su fxml in modo che parta già con 10 elementi (boh) oppure fare un metodo separato per il riempimento
+            iniziale dei box e uno per quando si preme il bottone ma boh anche qua. è mezzanotte e non ho voglia di
+            pensarci troppo, magari domani mi viene l'idea. Intanto ho sistemato la cosa del placeholder (più
+            difficile del previsto comunque)
+         */
+        numberAuthorsComboBox.getItems().clear();
+        numberAuthorsComboBox.valueProperty().set(null);
+
         populateAllfield(b);
     }
 
@@ -168,6 +185,7 @@ public class ControllerEditBook {
 
         populateNumbAuthorsComboBox();
         numberAuthorsComboBox.setItems(numberAuthors);
+
         // take the value from comboBox to iterate ad take the number of authors selected in the combobox
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> authorComboBox.setDisable(false));
@@ -177,7 +195,6 @@ public class ControllerEditBook {
         authorComboBox.setItems(authors);
         authorListView.setItems(oldAuthors);
         authorListView.getSelectionModel().selectedItemProperty().addListener((v) -> deleteAuthorButton.setDisable(false));
-
     }
 
     private ObservableList<Author> arrayListToObservableList(List<Author> authors)
