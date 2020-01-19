@@ -68,8 +68,7 @@ public class ControllerEditBook {
     private TextField librocardPointsTextField;
 
     @FXML
-    private ComboBox<Integer> availableQuantityComboBox;
-    private ObservableList<Integer> availableQuantity = FXCollections.observableArrayList();
+    private Spinner<Integer> availableQuantitySpinner;
 
     @FXML
     private Button selectAuthorButton;
@@ -99,126 +98,39 @@ public class ControllerEditBook {
     @FXML
     private void initialize()
     {
-
+        //***************** FETCH AND POPULATE BOOK INFORMATION *****************//
         populateBooks();
         BookCombobox.setItems(bookIsbnAndTitle(books));
         BookCombobox.getSelectionModel().selectFirst();
 
-        populateAllfield(books.get(0));
-
+        //***************** FETCH AND POPULATE PUBLISHING HOUSE INFORMATION *****************//
         populatePublishingHouses();
         publishingHouseComboBox.setItems(publishingHouses);
 
+        //***************** FETCH AND POPULATE GENRE INFORMATION *****************//
         populateGenres();
         genreComboBox.setItems(genres);
 
+        //***************** FETCH AND POPULATE FORMAT INFORMATION *****************//
         populateFormats();
         formatComboBox.setItems(formats);
 
+        //***************** FETCH AND POPULATE LANGUAGE INFORMATION *****************//
         populateLanguages();
         languageComboBox.setItems(languages);
 
-        populateAvailableQuantityComboBox();
-        availableQuantityComboBox.setItems(availableQuantity);
+        //***************** FETCH AND POPULATE NUMBER OF AUTHORS *****************//
+        populateNumbAuthorsComboBox();
+        numberAuthorsComboBox.setItems(numberAuthors);
+
+        //***************** FETCH AND POPULATE THE FIELDS WITH THE FIRST BOOK OF CATALOG *****************//
+        populateAllfield(books.get(0));
 
         filterButton.setOnAction(this::handleFilterButton);
         deleteAuthorButton.setOnAction(this::handleDeleteAuthorButton);
         selectAuthorButton.setOnAction(this::handleSelectAuthorButton);
         editBookButton.setOnAction(this::handleEditBookButton);
 
-    }
-
-    private void handleFilterButton(ActionEvent actionEvent)
-    {
-        Model DBSinglebook = new ModelDatabaseBooks();
-        String[] isbn_Title = BookCombobox.getValue().split(" ");
-        Book b = DBSinglebook.getSpecificBook(isbn_Title[0]);
-        authorsToDelete.clear();
-        authors.clear();
-        authorComboBox.cancelEdit();
-
-        /* TODO: 18/01/2020 c'è un problema: visto che quando si preme il bottone del filtro è anche chiamato
-            populateAllFields, succede che il combobox delle qtà viene riempito, ma è riempito sempre senza togliere
-            gli elementi che ci sono, perciò si accumulano ad ogni click del filtraggio. Ho messo mano al metodo
-            detto sopra, ma mi sono accorta che è anche quello che chiami all'inizio della schermata e quindi non
-            ho fatto niente per non fare casino.
-            Per risolvere temporaneamente la cosa ho messo un metodo che pulisce il combobox, però non è il massimo
-            visto che il combobox delle qtà deve stare fisso e non ha senso riempirlo ad ogni passaggio, perciò
-            dobbiamo trovare un modo per sistemare questa cosa. Un modo brutto sarebbe quello di mettere fuori
-            il riempimento del combobox così che è chiamato solo la prima volta, ma non mi piace. Possiamo forse
-            fare su fxml in modo che parta già con 10 elementi (boh) oppure fare un metodo separato per il riempimento
-            iniziale dei box e uno per quando si preme il bottone ma boh anche qua. è mezzanotte e non ho voglia di
-            pensarci troppo, magari domani mi viene l'idea. Intanto ho sistemato la cosa del placeholder (più
-            difficile del previsto comunque)
-         */
-        numberAuthorsComboBox.getItems().clear();
-        numberAuthorsComboBox.valueProperty().set(null);
-
-        populateAllfield(b);
-    }
-
-    private void populateAllfield(Book selectedBook)
-    {
-        authorsToDelete.clear();
-        authorsToLinkToBook.clear();
-        oldAuthors.clear();
-        authorListView.setItems(oldAuthors);
-        numberAuthorsComboBox.setDisable(false);
-        deleteAuthorButton.setDisable(true);
-        authorComboBox.setDisable(true);
-        numberOfAuthors = 0;
-
-        isbnLabel.setText(selectedBook.getISBN());
-        titleTextField.setText(selectedBook.getTitle());
-        authorListView.setItems(arrayListToObservableList(selectedBook.getAuthors()));
-        descriptionTextArea.setText(selectedBook.getDescription());
-        publicationYearTextField.setText(selectedBook.getPublicationYear().toString());
-        publishingHouseComboBox.getSelectionModel().select(selectedBook.getPublishingHouse());
-        genreComboBox.getSelectionModel().select(selectedBook.getGenre());
-        formatComboBox.getSelectionModel().select(selectedBook.getFormat());
-        languageComboBox.getSelectionModel().select(selectedBook.getLanguage());
-        pagesTextField.setText(selectedBook.getPages().toString());
-        priceTextField.setText(selectedBook.getPrice().toString());
-        librocardPointsTextField.setText(selectedBook.getPoints().toString());
-        imagePathTextField.setText(selectedBook.getImagePath());
-        availableQuantityComboBox.getSelectionModel().select(selectedBook.getMaxQuantity());
-
-        populateNumbAuthorsComboBox();
-        numberAuthorsComboBox.setItems(numberAuthors);
-
-        // take the value from comboBox to iterate ad take the number of authors selected in the combobox
-        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
-        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> authorComboBox.setDisable(false));
-        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> numberAuthorsComboBox.setDisable(true));
-
-        populateAuthors();
-        authorComboBox.setItems(authors);
-        authorListView.setItems(oldAuthors);
-        authorListView.getSelectionModel().selectedItemProperty().addListener((v) -> deleteAuthorButton.setDisable(false));
-    }
-
-    private ObservableList<Author> arrayListToObservableList(List<Author> authors)
-    {
-        ObservableList<Author> a = FXCollections.observableArrayList();
-        a.addAll(authors);
-        return a;
-    }
-
-    private ObservableList<String> bookIsbnAndTitle(ObservableList<Book> books) {
-        ObservableList<String> booksIsbnAndTitle = FXCollections.observableArrayList();
-        String finalBook;
-        for (Book b: books)
-        {
-            finalBook = b.getISBN() + " " + b.getTitle();
-            booksIsbnAndTitle.add(finalBook);
-        }
-        return booksIsbnAndTitle;
-    }
-
-    private void populateBooks()
-    {
-        Model DBbooks = new ModelDatabaseBooks();
-        books.addAll(DBbooks.getAllBooks());
     }
 
     public void setManager(User manager)
@@ -232,12 +144,28 @@ public class ControllerEditBook {
         controllerHeader.createHeader(manager, headerHBox);
     }
 
+    private void handleFilterButton(ActionEvent actionEvent)
+    {
+        Model DBSinglebook = new ModelDatabaseBooks();
+        String[] isbn_Title = BookCombobox.getValue().split(" ");
+        Book b = DBSinglebook.getSpecificBook(isbn_Title[0]);
+        authors.clear();
+        populateAllfield(b);
+    }
+
+    /**
+     *
+     * @param actionEvent
+     * When click on delete author button, insert the author selected into an arrayList of authors.
+     * Check if is null, if everything's fine display message that author was deleted.
+     * If there're no more author to delete, just disable "delete author" button.
+     */
     private void handleDeleteAuthorButton(ActionEvent actionEvent)
     {
         if(!authorListView.getItems().isEmpty())
         {
             Author authorToDelete = authorListView.getSelectionModel().getSelectedItem();
-            //todo check if some author is selected
+
             if(authorToDelete != null)
             {
                 authorsToDelete.add(authorToDelete);
@@ -258,7 +186,15 @@ public class ControllerEditBook {
 
     }
 
-
+    /**
+     *
+     * @param actionEvent
+     * When click on Edit Book button, first of all check if there're empty or not valid fields.
+     * Then if everything's ok, fetch information and create a new book.
+     * Update DB for the single book and unlink the various authors to delete.
+     * Update information on DB for the single book and link the new author/s to the book.
+     *
+     */
     private void handleEditBookButton(ActionEvent actionEvent)
     {
         //fetch all fields and create a new book to update the information of the existing book on db
@@ -286,91 +222,6 @@ public class ControllerEditBook {
             StageManager addEditBooks = new StageManager();
             addEditBooks.setStageAddEditBooks((Stage) editBookButton.getScene().getWindow(), manager);
         }
-    }
-
-    private boolean isAnyFieldEmptyorNotValid()
-    {
-        StringBuilder error = new StringBuilder();
-
-        if(titleTextField.getText().trim().isEmpty())
-            error.append("- Title must be filled!\n");
-
-        if(descriptionTextArea.getText().trim().isEmpty())
-            error.append("- Description must be filled!\n");
-        if(isNumerical(descriptionTextArea.getText().trim()))
-            error.append("- Description must be at least alphabetic\n");
-
-        if(publicationYearTextField.getText().trim().isEmpty())
-            error.append("- Publication year must be filled\n");
-
-        if(!isNumerical(publicationYearTextField.getText().trim()))
-            error.append("- Publication year must be numerical\n");
-
-        int year = Calendar.getInstance().get(Calendar.YEAR);
-        if(Integer.parseInt(publicationYearTextField.getText().trim()) < 1800 || Integer.parseInt(publicationYearTextField.getText().trim()) > year)
-            error.append(String.format("- Publication year must be between 1800 and %d\n",year));
-
-        if(pagesTextField.getText().trim().isEmpty())
-            error.append("- Number of pages must be filled!\n");
-        if(!isNumerical(pagesTextField.getText().trim()))
-            error.append("- Number of pages must be numerical!\n");
-
-
-        if(librocardPointsTextField.getText().trim().isEmpty())
-            error.append("- LibroCard Points must be filled!\n");
-        if(!isNumerical(librocardPointsTextField.getText().trim()))
-            error.append("- Librocard Points must be numerical!\n");
-
-        if(imagePathTextField.getText().trim().isEmpty())
-            error.append("- No imagePath specified!\n");
-
-        //check if I've at least an author for the book
-        if(authorListView.getItems().isEmpty() && authorsToLinkToBook.isEmpty())
-            error.append("- Book needs at least one author!");
-
-        if(priceTextField.getText().trim().isEmpty())
-            error.append("- Price must be filled!\n");
-        if(!isNumerical(priceTextField.getText().trim()))
-            error.append("- Price must be numerical!\n");
-
-        Optional<ButtonType> result;
-        if(Float.parseFloat(priceTextField.getText().trim()) > 1000)
-        {
-            result = displayConfirmation().showAndWait();
-            if(result.get() != ButtonType.OK)
-            {
-                displayAlert("Ok select a new price!");
-                return true;
-            }
-        }
-
-        //displayConfirmation();
-        if(!error.toString().isEmpty())
-            displayAlert(error.toString());
-
-        return !error.toString().isEmpty();
-
-    }
-
-    private Book fetchBookInformation() {
-        Book book = new Book();
-
-        book.setAuthors(authorsToLinkToBook);
-        book.setDescription(descriptionTextArea.getText().trim());
-        book.setFormat(formatComboBox.getValue());
-        book.setGenre(genreComboBox.getValue());
-        book.setImagePath(imagePathTextField.getText().trim());
-        book.setISBN(isbnLabel.getText());
-        book.setLanguage(languageComboBox.getValue());
-        book.setMaxQuantity(availableQuantityComboBox.getValue());
-        book.setPages(Integer.parseInt(pagesTextField.getText().trim()));
-        book.setPoints(Integer.parseInt(librocardPointsTextField.getText().trim()));
-        book.setTitle(titleTextField.getText().trim());
-        book.setPrice(new BigDecimal(priceTextField.getText().trim()));
-        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText().trim()));
-        book.setPublishingHouse(publishingHouseComboBox.getValue());
-
-        return book;
     }
 
     private void handleSelectAuthorButton(ActionEvent actionEvent)
@@ -434,6 +285,115 @@ public class ControllerEditBook {
         }
     }
 
+    /**
+     *
+     * @param selectedBook
+     * This method take the book passed as parameter and set all the information in the various fields.
+     * First of all, clears old values and fills in fields with newer ones.
+     */
+    private void populateAllfield(Book selectedBook)
+    {
+        //**** CLEAR OLD VALUES ****//
+        authorsToDelete.clear();
+        authorsToLinkToBook.clear();
+        oldAuthors.clear();
+        authorListView.setItems(oldAuthors);
+        numberAuthorsComboBox.setValue(0);
+        numberAuthorsComboBox.setDisable(false);
+        deleteAuthorButton.setDisable(true);
+        authorComboBox.setDisable(true);
+        selectAuthorButton.setDisable(false);
+        numberOfAuthors = 0;
+
+        //**** SET NEW VALUES ****//
+        isbnLabel.setText(selectedBook.getISBN());
+        titleTextField.setText(selectedBook.getTitle());
+        authorListView.setItems(arrayListToObservableList(selectedBook.getAuthors()));
+        descriptionTextArea.setText(selectedBook.getDescription());
+        publicationYearTextField.setText(selectedBook.getPublicationYear().toString());
+        publishingHouseComboBox.getSelectionModel().select(selectedBook.getPublishingHouse());
+        genreComboBox.getSelectionModel().select(selectedBook.getGenre());
+        formatComboBox.getSelectionModel().select(selectedBook.getFormat());
+        languageComboBox.getSelectionModel().select(selectedBook.getLanguage());
+        pagesTextField.setText(selectedBook.getPages().toString());
+        priceTextField.setText(selectedBook.getPrice().toString());
+        librocardPointsTextField.setText(selectedBook.getPoints().toString());
+        imagePathTextField.setText(selectedBook.getImagePath());
+        availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, selectedBook.getMaxQuantity()));
+        availableQuantitySpinner.setEditable(true);
+
+        //**** SET LISTENER ON THE COMBOBOX ****//
+        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
+        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> authorComboBox.setDisable(false));
+        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> numberAuthorsComboBox.setDisable(true));
+
+        //**** SET AUTHORS IN THE COMBOBOX AND SET LISTENER ****//
+        populateAuthors();
+        authorComboBox.setItems(authors);
+        authorListView.setItems(oldAuthors);
+        authorListView.getSelectionModel().selectedItemProperty().addListener((v) -> deleteAuthorButton.setDisable(false));
+    }
+
+    private Book fetchBookInformation() {
+        Book book = new Book();
+
+        book.setAuthors(authorsToLinkToBook);
+        book.setDescription(descriptionTextArea.getText().trim());
+        book.setFormat(formatComboBox.getValue());
+        book.setGenre(genreComboBox.getValue());
+        book.setImagePath(imagePathTextField.getText().trim());
+        book.setISBN(isbnLabel.getText());
+        book.setLanguage(languageComboBox.getValue());
+        book.setMaxQuantity(availableQuantitySpinner.getValue());
+        book.setPages(Integer.parseInt(pagesTextField.getText().trim()));
+        book.setPoints(Integer.parseInt(librocardPointsTextField.getText().trim()));
+        book.setTitle(titleTextField.getText().trim());
+        book.setPrice(new BigDecimal(priceTextField.getText().trim()));
+        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText().trim()));
+        book.setPublishingHouse(publishingHouseComboBox.getValue());
+
+        return book;
+    }
+
+    /**
+     *
+     * @param authors
+     * @return an observable list of Author.
+     *
+     * This method just takes a List of authors and transforms it into an observableList.
+     */
+    private ObservableList<Author> arrayListToObservableList(List<Author> authors)
+    {
+        ObservableList<Author> a = FXCollections.observableArrayList();
+        a.addAll(authors);
+        return a;
+    }
+
+    /**
+     *
+     * @param books
+     * @return an observableList of string with ISBN and Title of single book.
+     *
+     * This method takes the various ISBN and Title from the single book and creates a string.
+     * This observableList is used to fill the BookComboBox.
+     */
+    private ObservableList<String> bookIsbnAndTitle(ObservableList<Book> books) {
+        ObservableList<String> booksIsbnAndTitle = FXCollections.observableArrayList();
+        String finalBook;
+        for (Book b: books)
+        {
+            finalBook = b.getISBN() + " " + b.getTitle();
+            booksIsbnAndTitle.add(finalBook);
+        }
+        return booksIsbnAndTitle;
+    }
+
+    private void populateBooks()
+    {
+        Model DBbooks = new ModelDatabaseBooks();
+        books.addAll(DBbooks.getAllBooks());
+    }
+
     private void populateNumbAuthorsComboBox()
     {
         for(int i=1; i<=10;i++)
@@ -471,12 +431,76 @@ public class ControllerEditBook {
         languages.addAll((DBlanguages.getLanguages()));
     }
 
-    private void populateAvailableQuantityComboBox()
+    private boolean isAnyFieldEmptyorNotValid()
     {
-        for(int i=1; i<=50;i++)
-            availableQuantity.add(i);
-    }
+        StringBuilder error = new StringBuilder();
 
+        if(titleTextField.getText().trim().isEmpty())
+            error.append("- Title must be filled!\n");
+
+        if(descriptionTextArea.getText().trim().isEmpty())
+            error.append("- Description must be filled!\n");
+        if(isNumerical(descriptionTextArea.getText().trim()))
+            error.append("- Description must be at least alphabetic\n");
+
+        if(publicationYearTextField.getText().trim().isEmpty())
+            error.append("- Publication year must be filled\n");
+
+        if(!isNumerical(publicationYearTextField.getText().trim()))
+        {
+            error.append("- Publication year must be numerical\n");
+        }
+        else
+        {
+            int year = Calendar.getInstance().get(Calendar.YEAR);
+            if(Integer.parseInt(publicationYearTextField.getText().trim()) < 1800 || Integer.parseInt(publicationYearTextField.getText().trim()) > year)
+                error.append(String.format("- Publication year must be between 1800 and %d\n",year));
+        }
+
+        if(pagesTextField.getText().trim().isEmpty())
+            error.append("- Number of pages must be filled!\n");
+        if(!isNumerical(pagesTextField.getText().trim()))
+            error.append("- Number of pages must be numerical!\n");
+
+
+        if(librocardPointsTextField.getText().trim().isEmpty())
+            error.append("- LibroCard Points must be filled!\n");
+        if(!isNumerical(librocardPointsTextField.getText().trim()))
+            error.append("- Librocard Points must be numerical!\n");
+
+        if(imagePathTextField.getText().trim().isEmpty())
+            error.append("- No imagePath specified!\n");
+
+        //check if I've at least an author for the book
+        if(authorListView.getItems().isEmpty() && authorsToLinkToBook.isEmpty())
+            error.append("- Book needs at least one author!");
+
+        if(priceTextField.getText().trim().isEmpty())
+            error.append("- Price must be filled!\n");
+        if(!isNumerical(priceTextField.getText().trim()))
+        {
+            error.append("- Price must be numerical!\n");
+        }
+        else
+        {
+            Optional<ButtonType> result;
+            if(Float.parseFloat(priceTextField.getText().trim()) > 1000)
+            {
+                result = displayConfirmation().showAndWait();
+                if(result.get() != ButtonType.OK)
+                {
+                    displayAlert("Ok select a new price!");
+                    return true;
+                }
+            }
+        }
+
+        //displayConfirmation();
+        if(!error.toString().isEmpty())
+            displayAlert(error.toString());
+
+        return !error.toString().isEmpty();
+    }
 
     private void displayAlertAddAuthor(int numberOfAuthors)
     {
@@ -511,7 +535,6 @@ public class ControllerEditBook {
         return alert;
     }
 
-
     private void displayAlertDeleteAuthor(String s)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -525,6 +548,4 @@ public class ControllerEditBook {
     private boolean isNumerical(String s) {
         return s.matches("[+-]?([0-9]*[.])?[0-9]+");
     }
-
-
 }

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -212,7 +213,7 @@
                               <Insets />
                            </GridPane.margin>
                         </ListView>
-                        <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="57.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="57.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <ComboBox fx:id="authorComboBox" disable="true" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose an Author..." GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextArea fx:id="descriptionTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="publicationYearTextField" layoutX="301.0" layoutY="59.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
@@ -223,7 +224,7 @@
                         <TextField fx:id="pagesTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="12" />
                         <TextField fx:id="priceTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                         <TextField fx:id="librocardPointsTextField" layoutX="301.0" layoutY="172.0" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                        <ComboBox fx:id="availableQuantityComboBox" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="62.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="15" />
+                        <Spinner fx:id="availableQuantitySpinner" GridPane.columnIndex="1" GridPane.rowIndex="15" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <children>
                               <Button fx:id="selectAuthorButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="102.0" style="-fx-background-color: #ffa939;" text="Select Author">
