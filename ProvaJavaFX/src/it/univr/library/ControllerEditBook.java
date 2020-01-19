@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -304,6 +305,25 @@ public class ControllerEditBook {
         authorComboBox.setDisable(true);
         selectAuthorButton.setDisable(false);
         numberOfAuthors = 0;
+        availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, selectedBook.getMaxQuantity()));
+        availableQuantitySpinner.setEditable(true);
+
+        // TODO fix catch exception!
+        availableQuantitySpinner.getEditor().textProperty().addListener((v) -> {
+            try
+            {
+                Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get());
+            }
+            catch (NumberFormatException e)
+            {
+
+                displayAlert("Available Quantity must be numerical!\n");
+                availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, selectedBook.getMaxQuantity()));
+            }
+        });
+
+
+
 
         //**** SET NEW VALUES ****//
         isbnLabel.setText(selectedBook.getISBN());
@@ -319,8 +339,7 @@ public class ControllerEditBook {
         priceTextField.setText(selectedBook.getPrice().toString());
         librocardPointsTextField.setText(selectedBook.getPoints().toString());
         imagePathTextField.setText(selectedBook.getImagePath());
-        availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, selectedBook.getMaxQuantity()));
-        availableQuantitySpinner.setEditable(true);
+
 
         //**** SET LISTENER ON THE COMBOBOX ****//
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
@@ -468,6 +487,27 @@ public class ControllerEditBook {
         if(!isNumerical(librocardPointsTextField.getText().trim()))
             error.append("- Librocard Points must be numerical!\n");
 
+        if(availableQuantitySpinner.getValue().toString().equals(""))
+            error.append("- Available Quantity must be filled!\n");
+        if(!isNumerical(availableQuantitySpinner.getValue().toString().trim()))
+        {
+            error.append("- Available Quantity must be numerical!\n");
+        }
+
+        else
+        {
+            Optional<ButtonType> result;
+            if(Float.parseFloat(availableQuantitySpinner.getValue().toString().trim()) > 100)
+            {
+                result = displayConfirmation("The quantity available is greater 100, are you sure?\n").showAndWait();
+                if(result.get() != ButtonType.OK)
+                {
+                    displayAlert("Ok select a new available quantity!");
+                    return true;
+                }
+            }
+        }
+
         if(imagePathTextField.getText().trim().isEmpty())
             error.append("- No imagePath specified!\n");
 
@@ -486,7 +526,7 @@ public class ControllerEditBook {
             Optional<ButtonType> result;
             if(Float.parseFloat(priceTextField.getText().trim()) > 1000)
             {
-                result = displayConfirmation().showAndWait();
+                result = displayConfirmation("The price that you insert is greater than 1000€, are you sure?\n").showAndWait();
                 if(result.get() != ButtonType.OK)
                 {
                     displayAlert("Ok select a new price!");
@@ -525,12 +565,12 @@ public class ControllerEditBook {
         alert.showAndWait();
     }
 
-    private Alert displayConfirmation()
+    private Alert displayConfirmation(String s)
     {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Check Book price!");
-        alert.setContentText("The price that you insert is greater than 1000€, are you sure?\n");
+        alert.setHeaderText("Check Book Information!");
+        alert.setContentText(s);
 
         return alert;
     }
