@@ -69,7 +69,7 @@ public class ControllerEditBook {
     private TextField librocardPointsTextField;
 
     @FXML
-    private Spinner<Integer> availableQuantitySpinner;
+    private Spinner availableQuantitySpinner;
 
     @FXML
     private Button selectAuthorButton;
@@ -124,13 +124,36 @@ public class ControllerEditBook {
         populateNumbAuthorsComboBox();
         numberAuthorsComboBox.setItems(numberAuthors);
 
-        //***************** FETCH AND POPULATE THE FIELDS WITH THE FIRST BOOK OF CATALOG *****************//
-        populateAllfield(books.get(0));
-
         filterButton.setOnAction(this::handleFilterButton);
         deleteAuthorButton.setOnAction(this::handleDeleteAuthorButton);
         selectAuthorButton.setOnAction(this::handleSelectAuthorButton);
         editBookButton.setOnAction(this::handleEditBookButton);
+
+        availableQuantitySpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
+
+        //if the user inserts a letter (or a non numerical), then set the spinner to 0
+
+        // maybe using the try-catch is not the best, but for now let's keep this (sometimes? a mysterious
+        // ilegalargumentexception exception is thrown).
+        try {
+            Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get());
+        }
+        // illegalargumentexception is a superclass for numberformatexception, but we need to catch even the
+        // ilegalargumentexception
+        catch (IllegalArgumentException e)
+        {
+            availableQuantitySpinner.getEditor().textProperty().set("0");
+        }
+
+        // instead of using the try-catch, we can probably use this, but there's a mysterious ilegalargumentexception
+        // that sometimes
+        //if the user inserts a letter (or a non numerical), then set the spinner to 0
+            /*if(!isNumerical(newValue))
+                availableQuantitySpinner.getEditor().textProperty().set("0");*/
+        });
+
+        //***************** FETCH AND POPULATE THE FIELDS WITH THE FIRST BOOK OF CATALOG *****************//
+        populateAllfield(books.get(0));
 
     }
 
@@ -305,25 +328,9 @@ public class ControllerEditBook {
         authorComboBox.setDisable(true);
         selectAuthorButton.setDisable(false);
         numberOfAuthors = 0;
-        availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, selectedBook.getMaxQuantity()));
+
+        availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, selectedBook.getMaxQuantity()));
         availableQuantitySpinner.setEditable(true);
-
-        // TODO fix catch exception!
-        availableQuantitySpinner.getEditor().textProperty().addListener((v) -> {
-            try
-            {
-                Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get());
-            }
-            catch (NumberFormatException e)
-            {
-
-                displayAlert("Available Quantity must be numerical!\n");
-                availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, selectedBook.getMaxQuantity()));
-            }
-        });
-
-
-
 
         //**** SET NEW VALUES ****//
         isbnLabel.setText(selectedBook.getISBN());
@@ -339,7 +346,6 @@ public class ControllerEditBook {
         priceTextField.setText(selectedBook.getPrice().toString());
         librocardPointsTextField.setText(selectedBook.getPoints().toString());
         imagePathTextField.setText(selectedBook.getImagePath());
-
 
         //**** SET LISTENER ON THE COMBOBOX ****//
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
@@ -363,7 +369,7 @@ public class ControllerEditBook {
         book.setImagePath(imagePathTextField.getText().trim());
         book.setISBN(isbnLabel.getText());
         book.setLanguage(languageComboBox.getValue());
-        book.setMaxQuantity(availableQuantitySpinner.getValue());
+        book.setMaxQuantity(Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get()));
         book.setPages(Integer.parseInt(pagesTextField.getText().trim()));
         book.setPoints(Integer.parseInt(librocardPointsTextField.getText().trim()));
         book.setTitle(titleTextField.getText().trim());
@@ -453,6 +459,7 @@ public class ControllerEditBook {
     private boolean isAnyFieldEmptyorNotValid()
     {
         StringBuilder error = new StringBuilder();
+        Optional<ButtonType> result;
 
         if(titleTextField.getText().trim().isEmpty())
             error.append("- Title must be filled!\n");
@@ -481,27 +488,25 @@ public class ControllerEditBook {
         if(!isNumerical(pagesTextField.getText().trim()))
             error.append("- Number of pages must be numerical!\n");
 
-
         if(librocardPointsTextField.getText().trim().isEmpty())
             error.append("- LibroCard Points must be filled!\n");
         if(!isNumerical(librocardPointsTextField.getText().trim()))
             error.append("- Librocard Points must be numerical!\n");
 
-        if(availableQuantitySpinner.getValue().toString().equals(""))
-            error.append("- Available Quantity must be filled!\n");
-        if(!isNumerical(availableQuantitySpinner.getValue().toString().trim()))
+        //this 'if' should never happen, but let's keep it for stability
+        if(     !isNumerical(availableQuantitySpinner.getEditor().textProperty().get().trim()) ||
+                availableQuantitySpinner.getValue() == null ||
+                availableQuantitySpinner.getEditor().textProperty().get().trim().equals(""))
         {
             error.append("- Available Quantity must be numerical!\n");
+            availableQuantitySpinner.getEditor().textProperty().set("0");
         }
-
         else
         {
-            Optional<ButtonType> result;
-            if(Float.parseFloat(availableQuantitySpinner.getValue().toString().trim()) > 100)
-            {
+            if (Integer.parseInt(availableQuantitySpinner.getValue().toString().trim()) > 100) {
                 result = displayConfirmation("The quantity available is greater 100, are you sure?\n").showAndWait();
-                if(result.get() != ButtonType.OK)
-                {
+
+                if (result.get() != ButtonType.OK) {
                     displayAlert("Ok select a new available quantity!");
                     return true;
                 }
@@ -517,13 +522,13 @@ public class ControllerEditBook {
 
         if(priceTextField.getText().trim().isEmpty())
             error.append("- Price must be filled!\n");
+
         if(!isNumerical(priceTextField.getText().trim()))
         {
             error.append("- Price must be numerical!\n");
         }
         else
         {
-            Optional<ButtonType> result;
             if(Float.parseFloat(priceTextField.getText().trim()) > 1000)
             {
                 result = displayConfirmation("The price that you insert is greater than 1000€, are you sure?\n").showAndWait();
