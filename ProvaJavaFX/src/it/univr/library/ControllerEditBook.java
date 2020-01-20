@@ -197,7 +197,6 @@ public class ControllerEditBook {
         {
             displayAlert("No author to delete!");
         }
-
     }
 
     /**
@@ -302,7 +301,6 @@ public class ControllerEditBook {
             {
                 displayAlert("The author selected is already an author for this book, choose another one!");
             }
-
         }
     }
 
@@ -347,7 +345,6 @@ public class ControllerEditBook {
         //**** SET LISTENER ON THE COMBOBOX ****//
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v, oldValue, newValue) -> numberOfAuthors = newValue );
         numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> authorComboBox.setDisable(false));
-        numberAuthorsComboBox.getSelectionModel().selectedItemProperty().addListener((v) -> numberAuthorsComboBox.setDisable(true));
 
         //**** SET AUTHORS IN THE COMBOBOX AND SET LISTENER ****//
         populateAuthors();
