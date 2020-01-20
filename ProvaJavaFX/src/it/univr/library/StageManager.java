@@ -6,10 +6,12 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StageManager
 {
-    public void setStageHomepage(Stage primaryStage) {
+    public void setStageHomepage(Stage primaryStage)
+    {
         Parent root;
 
         try
@@ -27,6 +29,30 @@ public class StageManager
         {
             e.printStackTrace();
         }
+    }
+
+    public void setStageSpecificBook(Stage primaryStage, User user, List<String> ISBNList)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/specificBook.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerSpecificBook controllerSpecificBook = fxmlLoader.getController();
+            controllerSpecificBook.setUser(user);
+            controllerSpecificBook.setHeader();
+
+            primaryStage.setTitle("Book - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
     }
 
     public void setStageCharts(Stage primaryStage, User user)

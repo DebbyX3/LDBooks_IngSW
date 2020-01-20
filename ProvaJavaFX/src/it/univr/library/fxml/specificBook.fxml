@@ -21,15 +21,15 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerSpecificBook">
   <children>
       <BorderPane prefHeight="575.0" prefWidth="900.0">
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" prefHeight="565.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="catalogVBox" alignment="TOP_CENTER" prefHeight="493.0" prefWidth="883.0">
+                  <VBox fx:id="bookInfoVBox" alignment="TOP_CENTER" prefHeight="493.0" prefWidth="883.0">
                      <children>
-                        <HBox fx:id="book1" alignment="CENTER" layoutX="10.0" layoutY="460.0" prefHeight="106.0" prefWidth="743.0">
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="460.0" prefHeight="106.0" prefWidth="743.0">
                            <VBox.margin>
                               <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
                            </VBox.margin>
@@ -291,7 +291,7 @@
             </ScrollPane>
          </center>
          <top>
-            <HBox alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
          </top>
          <bottom>
             <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" BorderPane.alignment="CENTER">

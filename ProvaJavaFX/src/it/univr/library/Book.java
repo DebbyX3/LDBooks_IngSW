@@ -16,7 +16,6 @@ public class Book
     private BigDecimal price;
     private Integer publicationYear;
     private PublishingHouse publishingHouse;
-    // TODO: 06/10/2019 : mettere Genre e non String (forse)
     private Genre genre;
     private Language language;
     private Integer maxQuantity;

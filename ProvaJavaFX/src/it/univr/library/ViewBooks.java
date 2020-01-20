@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -9,6 +11,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
@@ -18,44 +23,52 @@ import java.util.*;
 public class ViewBooks implements View
 {
     @Override
-    public void buildCatalog(ArrayList<Book> books, VBox catalogVBox, ScrollPane catalogScrollPane)
+    public void buildCatalog(ArrayList<Book> books, VBox catalogVBox, ScrollPane catalogScrollPane, ControllerCatalog controllerCatalog)
     {
         List<Format> formats = new ArrayList<>();
         List<BigDecimal> prices = new ArrayList<>();
         Set<Author> authors = new TreeSet<>();
         String imagePath = null;
         Book originalBook = null;
+        HBox bookHBox = null;
+        List<String> ISBNList = new ArrayList<>();
 
-        //bring up the scrollpane
+        // Bring up the ScrollPane
         catalogScrollPane.setVvalue(catalogScrollPane.getVmin());
 
-        if(!books.isEmpty()) //books to show
+        if(!books.isEmpty()) // Books to show
         {
             originalBook = books.get(0);
 
             for (Book currentBook : books)
             {
-                //if the book has NOT the same title, NOT a common author and NOT the same lang
-                //then, the book is NOT the same, it's a new book
+                // If the book has NOT the same title, NOT a common author and NOT the same lang
+                // then, the book is NOT the same, it's a new book
                 if(! (currentBook.getTitle().equals(originalBook.getTitle()) &&
                         !Collections.disjoint(currentBook.getAuthors(), originalBook.getAuthors()) && //true if list1 contains at least one element from list2
                         currentBook.getLanguage().equals(originalBook.getLanguage()))) {
 
-                    buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
+                    bookHBox = buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
+
+                    // Add listener to the Book HBox calling a method in ControllerCatalog and passing the ISBN List
+                    // Note that we call a method from the same controllerCatalog object (passed as an argument)
+                    bookHBox.setOnMouseClicked(mouseEvent -> controllerCatalog.changeSceneToSpecificBook(ISBNList));
 
                     formats.clear();
                     prices.clear();
                     authors.clear();
+                    ISBNList.clear();
                     imagePath = null;
 
                     originalBook = currentBook;
                 }
 
-                //if the book has the same title, at least 1 equals author and same lang
-                //then, it's the same book!
+                // If the book has the same title, at least 1 equals author and same lang
+                // then, it's the same book!
                 formats.add(currentBook.getFormat());
                 prices.add(currentBook.getPrice());
                 authors.addAll(currentBook.getAuthors());  //no duplicates
+                ISBNList.add(currentBook.getISBN());
 
                 if(imagePath == null)
                     imagePath = currentBook.getImagePath();
@@ -63,7 +76,7 @@ public class ViewBooks implements View
 
             buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
         }
-        else //no books to show
+        else // No books to show
         {
             Label messageNoBooksFound = new Label("No books found!");
             catalogVBox.setMargin(messageNoBooksFound, new Insets(50)); //Insets(double top, double right, double bottom, double left)
@@ -79,7 +92,7 @@ public class ViewBooks implements View
 
     /* TODO: 06/10/2019:  Dividere la funzione in pezzi e sistemare in modo che prenda tutti i libri, vedi commento funzione sopra
     */
-    private void buildBook(VBox bookVBox, String title, Set<Author> authors, List<Format> formats, List<BigDecimal> prices, String imagePath, Language language)
+    private HBox buildBook(VBox bookVBox, String title, Set<Author> authors, List<Format> formats, List<BigDecimal> prices, String imagePath, Language language)
     {
         /* **** SETTING HBOX PANE **** */
         HBox bookHBox = new HBox();
@@ -182,6 +195,8 @@ public class ViewBooks implements View
 
         /* **** ADDING HBOX AND LINE TO VBOX **** */
         bookVBox.getChildren().addAll(bookHBox, separatorLine);
+
+        return bookHBox;
     }
 
     private String setToString(Set<Author> setStr)

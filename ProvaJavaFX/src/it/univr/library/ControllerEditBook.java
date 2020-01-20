@@ -131,15 +131,15 @@ public class ControllerEditBook {
 
         //***************** SPINNER AVAILABLE QUANTITY *****************//
         availableQuantitySpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-        try
-        {
-            Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get());
-        }
-        catch (IllegalArgumentException e)
-        {
-            availableQuantitySpinner.getEditor().textProperty().set("0");
-            displayAlert("Available quantity must be numerical!\n");
-        }
+            try
+            {
+                Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get());
+            }
+            catch (IllegalArgumentException e)
+            {
+                availableQuantitySpinner.getEditor().textProperty().set("0");
+                displayAlert("Available quantity must be numerical!\n");
+            }
         });
 
         //***************** FETCH AND POPULATE THE FIELDS WITH THE FIRST BOOK OF CATALOG *****************//

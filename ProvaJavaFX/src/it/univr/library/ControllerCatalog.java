@@ -10,6 +10,8 @@ import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.util.List;
+
 /*------------------------ IMPORTANTE! ----------------------
 In a few words: The constructor is called first, then any @FXML annotated fields are populated,
 then initialize() is called. So the constructor does NOT have access to @FXML fields referring
@@ -29,8 +31,8 @@ public class ControllerCatalog {
     private ComboBox languageCombobox;
     private ObservableList<Language> languageComboboxData = FXCollections.observableArrayList();
 
-    @FXML
-    private HBox book1;
+    //@FXML
+    //private HBox book1;
 
     @FXML
     private VBox catalogVBox;
@@ -47,28 +49,29 @@ public class ControllerCatalog {
 
     public ControllerCatalog()
     {
-        // Riempio il genere
-        populateGenreFilter();
-
-        //riempio la lingua
-        populateLanguageFilter();
     }
 
     @FXML
     private void initialize()
     {
-        populateCatalog();
+        // Fill the genre ComboBox
+        populateGenreFilter();
 
-        //Setta listener bottoni
+        // Fill the language ComboBox
+        populateLanguageFilter();
+
+        // Set listener for filter button
         filterButton.setOnAction(this::handleFilterButton);
 
-        //Inizializza combobox Genre
+        // Initialize genre ComboBox
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
 
-        //Inizializza combobox Language
+        // Initialize language ComboBox
         languageCombobox.setItems(languageComboboxData);    //setto il combobox del genere con i dati messi in languagecomboboxdata
         languageCombobox.getSelectionModel().selectFirst();
+
+        populateCatalog();
 
         //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
     }
@@ -83,7 +86,6 @@ public class ControllerCatalog {
         ControllerHeader controllerHeader = new ControllerHeader();
         controllerHeader.createHeader(user, headerHBox);
     }
-
 
     //@FXML
     /*  oppure se metto il tag @FXML posso usare direttamente il nome del metodo nell'fxml che si chiama, senza dover dichiarare
@@ -123,7 +125,7 @@ public class ControllerCatalog {
         Model DBBooks = new ModelDatabaseBooks();
         View viewBooks = new ViewBooks();
 
-        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox, catalogScrollPane);
+        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox, catalogScrollPane, this);
     }
 
     private void populateCatalog()
@@ -131,7 +133,7 @@ public class ControllerCatalog {
         Model DBBooks = new ModelDatabaseBooks();
         View viewBooks = new ViewBooks();
 
-        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox, catalogScrollPane);
+        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox, catalogScrollPane, this);
     }
 
     private void populateGenreFilter()
@@ -146,5 +148,11 @@ public class ControllerCatalog {
         Model DBLanguage = new ModelDatabaseLanguage();
         languageComboboxData.add(new Language("All"));
         languageComboboxData.addAll(DBLanguage.getLanguages());
+    }
+
+    public void changeSceneToSpecificBook(List<String> ISBNList)
+    {
+        StageManager specificBookScene = new StageManager();
+        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, ISBNList);
     }
 }

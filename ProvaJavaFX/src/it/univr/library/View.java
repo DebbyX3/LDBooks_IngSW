@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface View
 {
-    public default void buildCatalog(ArrayList<Book> books, VBox catalogVBox, ScrollPane catalogScrollPane)
+    public default void buildCatalog(ArrayList<Book> books, VBox catalogVBox, ScrollPane catalogScrollPane, ControllerCatalog controllerCatalog)
     {}
 
     public default void buildInformations(RegisteredClient registeredUser, Label nameLabel, Label surnameLabel, Label phoneLabel, Label emailLabel, VBox addressVbox)
