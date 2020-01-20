@@ -11,6 +11,15 @@ public class Librocard
     private Long issueDate;
     private String email;
 
+    public Librocard(){}
+
+    public Librocard(String numberID, Integer totalPoints, Long issueDate, String email) {
+        this.numberID = numberID;
+        this.totalPoints = totalPoints;
+        this.issueDate = issueDate;
+        this.email = email;
+    }
+
     public String getNumberID() {
         return numberID;
     }

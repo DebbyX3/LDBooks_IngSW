@@ -314,6 +314,28 @@ public class StageManager
         }
     }
 
+    public void setStageLibroCardManager(Stage primaryStage, User manager) {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/librocardManager.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerLibroCardsManager controllerLibroCardsManager = fxmlLoader.getController();
+            controllerLibroCardsManager.setUser(manager);
+            controllerLibroCardsManager.setHeader();
+
+            primaryStage.setTitle("LibroCard Manager- LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 
     public void setStageSignUp(Stage primaryStage, User user)
     {

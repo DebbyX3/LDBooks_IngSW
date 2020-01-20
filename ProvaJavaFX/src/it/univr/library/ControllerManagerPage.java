@@ -54,7 +54,8 @@ public class ControllerManagerPage {
 
     private void handleUsersLibroCardsButton(ActionEvent actionEvent)
     {
-
+        StageManager libroCardManager = new StageManager();
+        libroCardManager.setStageLibroCardManager((Stage) usersLibroCardsButton.getScene().getWindow(), manager);
     }
 
     private void handleUpdateChartsButton(ActionEvent actionEvent)

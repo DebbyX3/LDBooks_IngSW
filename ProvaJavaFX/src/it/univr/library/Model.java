@@ -90,4 +90,10 @@ public interface Model
     public default void updateBook(Book book){};
 
     public default void deleteLinkBookToAuthors(int idAuthor, String isbn){};
+
+    public default ArrayList<String> getMailsLibroCards(){return null;};
+
+    public default ArrayList<Librocard> getAllLibroCards(){return null;};
+
+    public default ArrayList<Librocard> getSpecificLibroCard(String mail){return null;};
 }
