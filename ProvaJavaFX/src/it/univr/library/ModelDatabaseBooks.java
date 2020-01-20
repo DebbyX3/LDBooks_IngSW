@@ -134,8 +134,8 @@ public class ModelDatabaseBooks implements Model {
                                     "publishingHouseName, genreName, maxQuantity, pages, languageName, formatName, " +
                                     "imagePath) " +
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",List.of(book.getISBN(), book.getTitle(), book.getDescription(),
-                book.getPoints(), book.getPublicationYear(), book.getPrice(), book.getPublishingHouse(), book.getGenre(),
-                book.getMaxQuantity(), book.getPages(), book.getLanguage(), book.getFormat(), book.getImagePath()));
+                book.getPoints(), book.getPublicationYear(), book.getPrice(), book.getPublishingHouse().getName(), book.getGenre().getName(),
+                book.getMaxQuantity(), book.getPages(), book.getLanguage().getName(), book.getFormat().getName(), book.getImagePath()));
     }
 
     @Override

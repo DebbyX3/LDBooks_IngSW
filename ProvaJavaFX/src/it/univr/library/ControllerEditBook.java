@@ -129,27 +129,17 @@ public class ControllerEditBook {
         selectAuthorButton.setOnAction(this::handleSelectAuthorButton);
         editBookButton.setOnAction(this::handleEditBookButton);
 
+        //***************** SPINNER AVAILABLE QUANTITY *****************//
         availableQuantitySpinner.getEditor().textProperty().addListener((obs, oldValue, newValue) -> {
-
-        //if the user inserts a letter (or a non numerical), then set the spinner to 0
-
-        // maybe using the try-catch is not the best, but for now let's keep this (sometimes? a mysterious
-        // ilegalargumentexception exception is thrown).
-        try {
+        try
+        {
             Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get());
         }
-        // illegalargumentexception is a superclass for numberformatexception, but we need to catch even the
-        // ilegalargumentexception
         catch (IllegalArgumentException e)
         {
             availableQuantitySpinner.getEditor().textProperty().set("0");
+            displayAlert("Available quantity must be numerical!\n");
         }
-
-        // instead of using the try-catch, we can probably use this, but there's a mysterious ilegalargumentexception
-        // that sometimes
-        //if the user inserts a letter (or a non numerical), then set the spinner to 0
-            /*if(!isNumerical(newValue))
-                availableQuantitySpinner.getEditor().textProperty().set("0");*/
         });
 
         //***************** FETCH AND POPULATE THE FIELDS WITH THE FIRST BOOK OF CATALOG *****************//
@@ -248,6 +238,13 @@ public class ControllerEditBook {
         }
     }
 
+    /**
+     *
+     * @param actionEvent
+     * When click on select author, check if it's not null and if there's not already in the arrayList.
+     *If everything's fine add to arrayList authorsToLinkToBook.
+     * Check also how many author, user can insert.
+     */
     private void handleSelectAuthorButton(ActionEvent actionEvent)
     {
         numberAuthorsComboBox.setDisable(true);
@@ -479,7 +476,7 @@ public class ControllerEditBook {
         else
         {
             int year = Calendar.getInstance().get(Calendar.YEAR);
-            if(Integer.parseInt(publicationYearTextField.getText().trim()) < 1800 || Integer.parseInt(publicationYearTextField.getText().trim()) > year)
+            if(Integer.parseInt(publicationYearTextField.getText().trim()) < 1000 || Integer.parseInt(publicationYearTextField.getText().trim()) > year)
                 error.append(String.format("- Publication year must be between 1800 and %d\n",year));
         }
 
