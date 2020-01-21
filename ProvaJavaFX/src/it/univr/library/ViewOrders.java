@@ -189,9 +189,36 @@ public class ViewOrders implements View {
         orderCodeHbox.getChildren().addAll(orderCodeFixLabel, orderCodeLabel);
         GridPane.setConstraints(orderCodeHbox, 0,1);
 
+        HBox mailOrderHBox = new HBox();
+        mailOrderHBox.setAlignment(Pos.TOP_LEFT);
+
+        Label mailOrderFixLabel = new Label("mailOrderFixLabel");
+        mailOrderFixLabel.setMinWidth(Region.USE_PREF_SIZE);
+        mailOrderFixLabel.setPrefHeight(17);
+        mailOrderFixLabel.setText("Mail:");
+        mailOrderFixLabel.setAlignment(Pos.CENTER_LEFT);
+        mailOrderFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        mailOrderFixLabel.setFont(new Font("System Bold", 12.0));
+        //TODO set margin
+
+        Label mailOrderLabel = new Label("mailOrderLabel");
+        mailOrderLabel.setMinWidth(Region.USE_PREF_SIZE);
+        mailOrderLabel.setPrefHeight(17);
+        if(order.getEmailNotRegisteredUser() != null)
+        {
+            mailOrderLabel.setText(order.getEmailNotRegisteredUser());
+        }
+        else
+            mailOrderLabel.setText(order.getEmailRegisteredUser());
+        mailOrderLabel.setAlignment(Pos.CENTER_LEFT);
+        mailOrderLabel.setContentDisplay(ContentDisplay.LEFT);
+        mailOrderLabel.setFont(new Font("System", 12.0));
+
+        mailOrderHBox.getChildren().addAll(mailOrderFixLabel, mailOrderLabel);
+        GridPane.setConstraints(mailOrderHBox, 1,1);
+
         HBox totalPriceHbox = new HBox();
         totalPriceHbox.setAlignment(Pos.TOP_LEFT);
-
 
         Label totalPriceFixLabel = new Label("totalPriceFixLabel");
         totalPriceFixLabel.setMinWidth(Region.USE_PREF_SIZE);
@@ -243,7 +270,7 @@ public class ViewOrders implements View {
 
         /* *** ADD ALL THE LABELS TO GRID PANE */
 
-        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,totalPriceHbox,balancePointsHbox);
+        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,mailOrderHBox,totalPriceHbox,balancePointsHbox);
 
     }
 

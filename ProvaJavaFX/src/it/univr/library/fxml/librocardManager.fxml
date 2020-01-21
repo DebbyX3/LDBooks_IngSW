@@ -14,7 +14,7 @@
   <children>
       <BorderPane prefHeight="591.0" prefWidth="900.0">
          <center>
-            <ScrollPane>
+            <ScrollPane fx:id="LibroCardScrollPane">
                <content>
                   <VBox fx:id="LibroCardVBox" alignment="TOP_CENTER" prefHeight="573.0" prefWidth="727.0" />
                </content>

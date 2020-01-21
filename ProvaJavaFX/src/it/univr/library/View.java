@@ -34,5 +34,8 @@ public interface View
     public default void buildOrders(ArrayList<Order> orders, VBox orderVBox, ScrollPane orderScrollPane)
     {}
 
-    public default void buildLibroCard(ArrayList<Librocard> librocards, VBox LibrocardVBox){}
+    public default void buildLibroCard(ArrayList<Librocard> librocards, VBox LibrocardVBox, ScrollPane LibroCardScrollPane){};
+
+
+
 }

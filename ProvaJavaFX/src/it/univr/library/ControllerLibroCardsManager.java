@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -18,7 +19,8 @@ public class ControllerLibroCardsManager
     private ComboBox<String> userMailCombobox;
     private ObservableList<String> mailUsersComboboxData = FXCollections.observableArrayList();
 
-
+    @FXML
+    private ScrollPane LibroCardScrollPane;
     @FXML
     private Button filterButton;
 
@@ -31,6 +33,7 @@ public class ControllerLibroCardsManager
     private void initialize()
     {
         populateMailFilter();
+        populateUsersLibroCard();
         userMailCombobox.setItems(mailUsersComboboxData);
         userMailCombobox.getSelectionModel().selectFirst();
 
@@ -58,7 +61,7 @@ public class ControllerLibroCardsManager
             View viewMailLibroCard = new ViewLibrocard();
 
             LibroCardVBox.getChildren().clear();
-            viewMailLibroCard.buildLibroCard(DBMailLibroCard.getSpecificLibroCard(mailFilter), LibroCardVBox);
+            viewMailLibroCard.buildLibroCard(DBMailLibroCard.getSpecificLibroCard(mailFilter), LibroCardVBox, LibroCardScrollPane);
         }
         else
             populateUsersLibroCard();
@@ -69,7 +72,7 @@ public class ControllerLibroCardsManager
         Model DBAllLibroCards = new ModelDatabaseLibrocard();
         View viewAllLibroCards = new ViewLibrocard();
         LibroCardVBox.getChildren().clear();
-        viewAllLibroCards.buildLibroCard(DBAllLibroCards.getAllLibroCards(), LibroCardVBox);
+        viewAllLibroCards.buildLibroCard(DBAllLibroCards.getAllLibroCards(), LibroCardVBox, LibroCardScrollPane);
     }
 
     private void populateMailFilter()
