@@ -16,7 +16,7 @@ public class ModelDatabaseCharts implements Model{
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery( "SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.name || ' ' || authors.surname) AS nameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery( "SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                             "FROM charts " +
                             "JOIN books ON books.ISBN = charts.ISBN " +
                             "JOIN write ON write.ISBN = books.ISBN " +
@@ -34,6 +34,7 @@ public class ModelDatabaseCharts implements Model{
     private ArrayList<Charts> resultSetToArrayListCharts(ResultSet rs)
     {
         ArrayList<Charts> chart = new ArrayList<>();
+        Model authors = new ModelDatabaseAuthor();
         Charts chartRecord;
 
         try
@@ -46,8 +47,8 @@ public class ModelDatabaseCharts implements Model{
                 chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
                 chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
                 chartRecord.setTitle(db.getSQLString(rs, "title"));
-                chartRecord.setGenre(db.getSQLString(rs, "genreName"));
-                chartRecord.setAuthors(db.getSQLStringList(rs, "nameSurnameAuthors"));
+                chartRecord.setGenre(new Genre(db.getSQLString(rs, "genreName")));
+                chartRecord.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
 
                 chart.add(chartRecord);
             }

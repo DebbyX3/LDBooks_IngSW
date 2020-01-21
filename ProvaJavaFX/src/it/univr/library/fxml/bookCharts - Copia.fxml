@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -25,6 +26,14 @@
                      </VBox.margin>
                   </Label>
                   <TableView fx:id="chartsTableView" prefHeight="470.0" prefWidth="726.0">
+                    <columns>
+                        <TableColumn fx:id="rankTableColumn" editable="false" prefWidth="75.99996948242188" text="Rank" />
+                      <TableColumn fx:id="ISBNTableColumn" editable="false" prefWidth="140.79998779296875" text="ISBN" />
+                      <TableColumn fx:id="titleTableColumn" editable="false" prefWidth="145.6000213623047" text="Title" />
+                        <TableColumn fx:id="authorsTableColumn" editable="false" prefWidth="120.0" text="Authors" />
+                        <TableColumn fx:id="genreTableColumn" editable="false" prefWidth="90.4000244140625" text="Genre" />
+                        <TableColumn fx:id="weeksInTableColumn" editable="false" prefWidth="142.4000244140625" text="Weeks In" />
+                    </columns>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

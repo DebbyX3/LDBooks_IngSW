@@ -22,10 +22,7 @@ public interface View
     public default void buildInformationsEdit(RegisteredClient registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVbox)
     {}
 
-    public default void buildChart(ArrayList<Charts> charts, TableView chartsTableView, TableColumn<Charts, Integer> rankTableColumn,
-                           TableColumn<Charts, String> ISBNTableColumn, TableColumn<Charts, String> titleTableColumn,
-                           TableColumn<Charts, List<String>> authorsTableColumn, TableColumn<Charts, String> genreTableColumn,
-                           TableColumn<Charts, Integer> weeksInTableColumn)
+    public default void buildChart(TableView chartsTableView, ArrayList<Charts> charts)
     {}
 
     public default void buildLibrocard(User user, Librocard librocard, Text nameSurnameText, Text pointsText, Text issueDateText, Text idText)

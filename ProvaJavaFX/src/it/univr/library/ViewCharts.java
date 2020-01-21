@@ -1,5 +1,6 @@
 package it.univr.library;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.Chart;
 import javafx.scene.control.TableColumn;
@@ -12,19 +13,31 @@ import java.util.List;
 public class ViewCharts implements View
 {
     @Override
-    public void buildChart(ArrayList<Charts> charts, TableView chartsTableView, TableColumn<Charts, Integer> rankTableColumn,
-                                   TableColumn<Charts, String> ISBNTableColumn, TableColumn<Charts, String> titleTableColumn,
-                                   TableColumn<Charts, List<String>> authorsTableColumn, TableColumn<Charts, String> genreTableColumn,
-                                   TableColumn<Charts, Integer> weeksInTableColumn)
+    public void buildChart(TableView chartsTableView, ArrayList<Charts> charts)
     {
-        rankTableColumn.setCellValueFactory(new PropertyValueFactory<Charts, Integer>("id   "));
-        //ISBNTableColumn.setCellValueFactory(new PropertyValueFactory<Charts, String>("name"));
-        //titleTableColumn.setCellValueFactory(new PropertyValueFactory<Charts, String>("active"));
-       // authorsTableColumn.setCellValueFactory(new PropertyValueFactory<Charts, List<String>>("id"));
-        ////genreTableColumn.setCellValueFactory(new PropertyValueFactory<Charts, String>("name"));
-       // weeksInTableColumn.setCellValueFactory(new PropertyValueFactory<Charts, Integer>("active"));
+        TableColumn Rank = new TableColumn("Rank");
+        TableColumn ISBN = new TableColumn("ISBN");
+        TableColumn Title = new TableColumn("Title");
+        TableColumn Authors = new TableColumn("Authors");
+        TableColumn Genre = new TableColumn("Genre");
+        TableColumn WeeksIn = new TableColumn("WeeksIn");
+        chartsTableView.getColumns().addAll(Rank, ISBN, Title, Authors, Genre, WeeksIn);
 
-        chartsTableView.getItems().setAll(charts);
+        final ObservableList<Charts> chart = FXCollections.observableArrayList();
+        for (Charts c: charts)
+        {
+           chart.add(c);
+        }
+
+        Rank.setCellValueFactory(new PropertyValueFactory<Chart,String>("Rank"));
+        ISBN.setCellValueFactory(new PropertyValueFactory<Chart,String>("ISBN"));
+        Title.setCellValueFactory(new PropertyValueFactory<Chart,String>("Title"));
+        Authors.setCellValueFactory(new PropertyValueFactory<Chart,String>("Authors"));
+        Genre.setCellValueFactory(new PropertyValueFactory<Chart,String>("Genre"));
+        WeeksIn.setCellValueFactory(new PropertyValueFactory<Chart,String>("WeeksIn"));
+
+        chartsTableView.setItems(chart);
+
     }
 
 }

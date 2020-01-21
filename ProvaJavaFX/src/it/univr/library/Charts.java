@@ -5,12 +5,11 @@ import java.util.List;
 public class Charts
 {
     private Integer rank;
-    private Integer weeksIn;
     private String ISBN;
     private String title;
-    private List<String> authors;
-    // TODO: 09/10/2019 : mettere forse genre in oggetto Genre 
-    private String genre;
+    private List<Author> authors;
+    private Genre genre;
+    private Integer weeksIn;
 
     public Integer getRank() {
         return rank;
@@ -44,19 +43,19 @@ public class Charts
         this.title = title;
     }
 
-    public List<String> getAuthors() {
+    public List<Author> getAuthors() {
         return authors;
     }
 
-    public void setAuthors(List<String> authors) {
+    public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 
-    public String getGenre() {
+    public Genre getGenre() {
         return genre;
     }
 
-    public void setGenre(String genre) {
+    public void setGenre(Genre genre) {
         this.genre = genre;
     }
 }

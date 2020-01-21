@@ -30,24 +30,6 @@ public class ControllerCharts {
     @FXML
     private TableView<User> chartsTableView;
 
-    @FXML
-    private TableColumn<Charts, Integer> rankTableColumn;
-
-    @FXML
-    private TableColumn<Charts, String> ISBNTableColumn;
-
-    @FXML
-    private TableColumn<Charts, String> titleTableColumn;
-
-    @FXML
-    private TableColumn<Charts, List<String>> authorsTableColumn;
-
-    @FXML
-    private TableColumn<Charts, String> genreTableColumn;
-
-    @FXML
-    private TableColumn<Charts, Integer> weeksInTableColumn;
-
     private User user;
 
     public ControllerCharts()
@@ -63,9 +45,11 @@ public class ControllerCharts {
         genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
 
+        populateCharts();
         //handler bottone filtra
         filterButton.setOnAction(this::handleFilterButton);
     }
+
 
     public void setUser(User user)
     {
@@ -76,6 +60,15 @@ public class ControllerCharts {
     {
         ControllerHeader controllerHeader = new ControllerHeader();
         controllerHeader.createHeader(user, headerHBox);
+    }
+
+    private void populateCharts()
+    {
+        Model DBCharts = new ModelDatabaseCharts();
+        View viewCharts = new ViewCharts();
+        Filter filter = new Filter((Genre) genreCombobox.getValue());
+        chartsTableView.getColumns().clear();
+        viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
     }
 
     private void populateGenreFilter()
@@ -90,8 +83,8 @@ public class ControllerCharts {
         View viewCharts = new ViewCharts();
         Filter filter = new Filter((Genre) genreCombobox.getValue());
 
-        //chartsTableView.getChildren().clear();
-        viewCharts.buildChart(DBCharts.getCharts(filter), chartsTableView, rankTableColumn, ISBNTableColumn, titleTableColumn, authorsTableColumn,
-                genreTableColumn, weeksInTableColumn);
+
+        chartsTableView.getColumns().clear();
+        viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
     }
 }
