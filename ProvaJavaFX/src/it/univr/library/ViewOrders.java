@@ -115,22 +115,20 @@ public class ViewOrders implements View {
         /* *** ADD BASIC LABELS *** */
         HBox orderMadeHbox = new HBox();
         orderMadeHbox.setAlignment(Pos.TOP_LEFT);
-        orderMadeHbox.setPrefWidth(223);
         orderMadeHbox.setPrefHeight(24);
         GridPane.setMargin(orderMadeHbox, new Insets(0,0,0,10));
 
         Label orderMadeFixLabel = new Label("dateLabel");
         orderMadeFixLabel.setMinWidth(Region.USE_PREF_SIZE);
-        orderMadeFixLabel.setPrefWidth(72);
         orderMadeFixLabel.setPrefHeight(17);
         orderMadeFixLabel.setText("Order made:");
         orderMadeFixLabel.setAlignment(Pos.CENTER_LEFT);
         orderMadeFixLabel.setContentDisplay(ContentDisplay.LEFT);
         orderMadeFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(orderMadeFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
 
         Label orderMadeLabel = new Label("dateOrder");
         orderMadeLabel.setMinWidth(Region.USE_PREF_SIZE);
-        orderMadeLabel.setPrefWidth(127);
         orderMadeLabel.setPrefHeight(17);
         orderMadeLabel.setText(order.UnixDateToString());
         orderMadeLabel.setAlignment(Pos.CENTER_LEFT);
@@ -145,16 +143,15 @@ public class ViewOrders implements View {
 
         Label sentToFixLabel = new Label("sentToFixLabel");
         sentToFixLabel.setMinWidth(Region.USE_PREF_SIZE);
-        sentToFixLabel.setPrefWidth(49);
         sentToFixLabel.setPrefHeight(17);
         sentToFixLabel.setText("Sent to:");
         sentToFixLabel.setAlignment(Pos.CENTER_LEFT);
         sentToFixLabel.setContentDisplay(ContentDisplay.LEFT);
         sentToFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(sentToFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
 
         Label sentToLabel = new Label("sentToLabel");
         sentToLabel.setMinWidth(Region.USE_PREF_SIZE);
-        sentToLabel.setPrefWidth(366);
         sentToLabel.setPrefHeight(17);
         sentToLabel.setText(order.getAddress().toString());
         sentToLabel.setAlignment(Pos.CENTER_LEFT);
@@ -170,16 +167,15 @@ public class ViewOrders implements View {
 
         Label orderCodeFixLabel = new Label("orderCodeFixLabel");
         orderCodeFixLabel.setMinWidth(Region.USE_PREF_SIZE);
-        orderCodeFixLabel.setPrefWidth(80);
         orderCodeFixLabel.setPrefHeight(17);
         orderCodeFixLabel.setText("Order Code:");
         orderCodeFixLabel.setAlignment(Pos.CENTER_LEFT);
         orderCodeFixLabel.setContentDisplay(ContentDisplay.LEFT);
         orderCodeFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(orderCodeFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
 
         Label orderCodeLabel = new Label("orderCodeLabel");
         orderCodeLabel.setMinWidth(Region.USE_PREF_SIZE);
-        orderCodeLabel.setPrefWidth(145);
         orderCodeLabel.setPrefHeight(17);
         orderCodeLabel.setText(order.getCode());
         orderCodeLabel.setAlignment(Pos.CENTER_LEFT);
@@ -190,6 +186,7 @@ public class ViewOrders implements View {
         GridPane.setConstraints(orderCodeHbox, 0,1);
 
         HBox mailOrderHBox = new HBox();
+
         mailOrderHBox.setAlignment(Pos.TOP_LEFT);
 
         Label mailOrderFixLabel = new Label("mailOrderFixLabel");
@@ -199,6 +196,8 @@ public class ViewOrders implements View {
         mailOrderFixLabel.setAlignment(Pos.CENTER_LEFT);
         mailOrderFixLabel.setContentDisplay(ContentDisplay.LEFT);
         mailOrderFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(mailOrderFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
+
         //TODO set margin
 
         Label mailOrderLabel = new Label("mailOrderLabel");
@@ -222,17 +221,16 @@ public class ViewOrders implements View {
 
         Label totalPriceFixLabel = new Label("totalPriceFixLabel");
         totalPriceFixLabel.setMinWidth(Region.USE_PREF_SIZE);
-        totalPriceFixLabel.setPrefWidth(96);
         totalPriceFixLabel.setPrefHeight(17);
         totalPriceFixLabel.setText("Total Price:");
         totalPriceFixLabel.setAlignment(Pos.CENTER_LEFT);
         totalPriceFixLabel.setContentDisplay(ContentDisplay.LEFT);
         totalPriceFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(totalPriceFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
 
 
         Label totalPriceLabel = new Label("totalPriceLabel");
         totalPriceLabel.setMinWidth(Region.USE_PREF_SIZE);
-        totalPriceLabel.setPrefWidth(201);
         totalPriceLabel.setPrefHeight(17);
         totalPriceLabel.setText(order.getTotalPrice().toString() + "€");
         totalPriceLabel.setAlignment(Pos.CENTER_LEFT);
@@ -248,17 +246,16 @@ public class ViewOrders implements View {
 
         Label balancePointsFixLabel = new Label("balancePointsFixLabel");
         balancePointsFixLabel.setMinWidth(Region.USE_PREF_SIZE);
-        balancePointsFixLabel.setPrefWidth(120);
         balancePointsFixLabel.setPrefHeight(17);
         balancePointsFixLabel.setText("Balance Points:");
         balancePointsFixLabel.setAlignment(Pos.CENTER_LEFT);
         balancePointsFixLabel.setContentDisplay(ContentDisplay.LEFT);
         balancePointsFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(balancePointsFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
 
 
         Label balancePointsLabel = new Label("balancePointsLabel");
         balancePointsLabel.setMinWidth(Region.USE_PREF_SIZE);
-        balancePointsLabel.setPrefWidth(180);
         balancePointsLabel.setPrefHeight(17);
         balancePointsLabel.setText(Integer.toString(order.getBalancePoints()));
         balancePointsLabel.setAlignment(Pos.CENTER_LEFT);

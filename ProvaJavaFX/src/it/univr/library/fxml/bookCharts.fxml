@@ -13,7 +13,7 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCharts">
   <children>
-      <BorderPane prefHeight="575.0" prefWidth="900.0">
+      <BorderPane prefHeight="592.0" prefWidth="900.0">
          <center>
             <VBox fx:id="catalogVBox" alignment="TOP_CENTER" prefHeight="563.0" prefWidth="727.0">
                <children>
@@ -25,7 +25,7 @@
                         <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                      </VBox.margin>
                   </Label>
-                  <TableView fx:id="chartsTableView" prefHeight="445.0" prefWidth="727.0">
+                  <TableView fx:id="chartsTableView" prefHeight="470.0" prefWidth="726.0">
                     <columns>
                         <TableColumn fx:id="rankTableColumn" editable="false" prefWidth="75.99996948242188" text="Rank" />
                       <TableColumn fx:id="ISBNTableColumn" editable="false" prefWidth="140.79998779296875" text="ISBN" />
