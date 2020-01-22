@@ -5,25 +5,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseCharts implements Model{
+public class ModelDatabaseCharts implements Model {
 
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public ArrayList<Charts> getCharts(Filter filter)
-    {
+    public ArrayList<Charts> getCharts(Filter filter) {
         ArrayList<Charts> chart;
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery( "SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
-                            "FROM charts " +
-                            "JOIN books ON books.ISBN = charts.ISBN " +
-                            "JOIN write ON write.ISBN = books.ISBN " +
-                            "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                            "WHERE genreName LIKE ? " +
-                            "GROUP BY books.ISBN " +
-                            "ORDER BY rank", List.of(filter.getGenre().getName()));
+        db.executeSQLQuery("SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+                "FROM charts " +
+                "JOIN books ON books.ISBN = charts.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN " +
+                "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE genreName LIKE ? " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY rank", List.of(filter.getGenre().getName()));
 
         chart = resultSetToArrayListCharts(db.getResultSet());
         db.DBCloseConnection();
@@ -31,16 +30,13 @@ public class ModelDatabaseCharts implements Model{
         return chart;
     }
 
-    private ArrayList<Charts> resultSetToArrayListCharts(ResultSet rs)
-    {
+    private ArrayList<Charts> resultSetToArrayListCharts(ResultSet rs) {
         ArrayList<Charts> chart = new ArrayList<>();
         Model authors = new ModelDatabaseAuthor();
         Charts chartRecord;
 
-        try
-        {
-            while (rs.next())
-            {
+        try {
+            while (rs.next()) {
                 chartRecord = new Charts();
 
                 chartRecord.setRank(db.getSQLInt(rs, "rank"));
@@ -54,9 +50,7 @@ public class ModelDatabaseCharts implements Model{
             }
 
             return chart;
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
@@ -64,13 +58,3 @@ public class ModelDatabaseCharts implements Model{
         return null;
     }
 }
-
-
-/*SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.name || ' ' || authors.surname), books.genreName
-FROM charts
-JOIN books ON books.ISBN = charts.ISBN
-JOIN write ON write.ISBN = books.ISBN
-JOIN authors ON authors.idAuthor = write.idAuthor
-WHERE genreName LIKE "Sci-Fi"
-GROUP BY books.ISBN
-ORDER BY rank*/

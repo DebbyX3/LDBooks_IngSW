@@ -576,4 +576,27 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageUpdateCharts(Stage primaryStage, User manager)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/bookChartsManager.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerUpdateChartsManager controllerUpdateChartsManager = fxmlLoader.getController();
+            controllerUpdateChartsManager.setManager(manager);
+            controllerUpdateChartsManager.setHeader();
+
+            primaryStage.setTitle("UpdateCharts - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

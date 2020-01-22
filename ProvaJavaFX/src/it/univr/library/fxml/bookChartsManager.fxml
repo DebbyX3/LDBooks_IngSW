@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerUpdateChartsManager">
+  <children>
+      <BorderPane prefHeight="592.0" prefWidth="900.0">
+         <center>
+            <VBox fx:id="chartsVBox" alignment="TOP_CENTER" prefHeight="487.0" prefWidth="746.0">
+               <children>
+                  <Label contentDisplay="CENTER" text="Charts" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TableView fx:id="chartsTableView" prefHeight="320.0" prefWidth="736.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <VBox.margin>
+                        <Insets bottom="12.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </TableView>
+                  <VBox>
+                     <children>
+                        <HBox prefHeight="36.0" prefWidth="746.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="39.0" text="Rank:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="rankTextField" prefHeight="25.0" prefWidth="56.0">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </TextField>
+                              <Label prefHeight="27.0" prefWidth="36.0" text="ISBN:">
+                                 <HBox.margin>
+                                    <Insets left="30.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="isbnLabel" prefHeight="27.0" prefWidth="105.0">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Label layoutX="115.0" layoutY="10.0" prefHeight="27.0" prefWidth="46.0" text="Title:">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="titleLabel" layoutX="150.0" layoutY="10.0" prefHeight="27.0" prefWidth="422.0">
+                                 <HBox.margin>
+                                    <Insets left="10.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                        <HBox prefHeight="44.0" prefWidth="746.0">
+                           <children>
+                              <Label prefHeight="27.0" prefWidth="57.0" text="Authors:">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="authorsLabel" prefHeight="27.0" prefWidth="216.0" />
+                              <Label layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="52.0" text="Genre:">
+                                 <HBox.margin>
+                                    <Insets left="5.0" />
+                                 </HBox.margin>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="genreLabel" layoutX="62.0" layoutY="10.0" prefHeight="27.0" prefWidth="127.0" />
+                              <Label prefHeight="27.0" prefWidth="62.0" text="Weeks In: ">
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="weekInTextField" prefHeight="25.0" prefWidth="72.0" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <Button fx:id="insertBookButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" style="-fx-background-color: #ffa939;" text="Insert/Update Book to Chart">
+                                 <HBox.margin>
+                                    <Insets left="150.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="deleteBookButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="134.0" style="-fx-background-color: #ffa939;" text="Delete Book to Chart">
+                                 <HBox.margin>
+                                    <Insets left="150.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+         <left>
+            <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Filter">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="2.0" right="2.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Genre">
+                     <VBox.margin>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="genreCombobox" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="2.0" right="2.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Button fx:id="filterButton" mnemonicParsing="false" text="Refresh">
+                     <VBox.margin>
+                        <Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label layoutX="71.0" layoutY="56.0" text="Book">
+                     <VBox.margin>
+                        <Insets top="80.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="BookCombobox" layoutX="12.0" layoutY="75.0" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="8.0" top="8.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Button fx:id="selectBookButton" layoutX="59.0" layoutY="116.0" mnemonicParsing="false" text="Select">
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </VBox>
+         </left>
+         <top>
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="62.0" prefWidth="746.0" BorderPane.alignment="CENTER" />
+         </top>
+         <bottom>
+            <HBox alignment="CENTER_RIGHT" prefHeight="24.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="243.0" text="© Developed by Deborah Pintani &amp; Luca Marzari " textFill="#b5b5b5">
+                     <font>
+                        <Font name="System Italic" size="11.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+         </bottom>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
+      </BorderPane>
+  </children>
+</VBox>

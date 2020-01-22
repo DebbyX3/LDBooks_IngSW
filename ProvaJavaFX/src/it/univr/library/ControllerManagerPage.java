@@ -60,7 +60,8 @@ public class ControllerManagerPage {
 
     private void handleUpdateChartsButton(ActionEvent actionEvent)
     {
-
+        StageManager updateCharts = new StageManager();
+        updateCharts.setStageUpdateCharts((Stage) updateChartsButton.getScene().getWindow(), manager);
     }
 
     private void handleAddEditBooksButton(ActionEvent actionEvent)
