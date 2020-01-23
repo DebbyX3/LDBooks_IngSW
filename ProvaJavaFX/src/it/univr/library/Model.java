@@ -96,4 +96,10 @@ public interface Model
     public default ArrayList<Librocard> getAllLibroCards(){return null;};
 
     public default ArrayList<Librocard> getSpecificLibroCard(String mail){return null;};
+
+    public default void updateCharts(Charts bookToInsertToCharts){};
+
+    public default void insertBookOnTheCharts(Charts bookToInsertOnTheCharts){};
+
+    public default void deleteBookFromCharts(String isbn){};
 }

@@ -198,7 +198,7 @@ public class ViewOrders implements View {
         mailOrderFixLabel.setFont(new Font("System Bold", 12.0));
         HBox.setMargin(mailOrderFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
 
-        //TODO set margin
+
 
         Label mailOrderLabel = new Label("mailOrderLabel");
         mailOrderLabel.setMinWidth(Region.USE_PREF_SIZE);

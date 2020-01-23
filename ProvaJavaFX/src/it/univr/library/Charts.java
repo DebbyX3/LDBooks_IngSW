@@ -4,12 +4,21 @@ import java.util.List;
 
 public class Charts
 {
+    private Integer Id;
     private Integer rank;
     private String ISBN;
     private String title;
     private List<Author> authors;
     private Genre genre;
     private Integer weeksIn;
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 
     public Integer getRank() {
         return rank;

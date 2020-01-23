@@ -15,7 +15,7 @@ public class ModelDatabaseCharts implements Model {
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
@@ -39,6 +39,7 @@ public class ModelDatabaseCharts implements Model {
             while (rs.next()) {
                 chartRecord = new Charts();
 
+                chartRecord.setId(db.getSQLInt(rs,"idChart"));
                 chartRecord.setRank(db.getSQLInt(rs, "rank"));
                 chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
                 chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
@@ -57,4 +58,32 @@ public class ModelDatabaseCharts implements Model {
 
         return null;
     }
+
+
+    @Override
+    public void updateCharts(Charts bookToUpdateInCharts)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate("UPDATE charts " +
+                "SET rank = ?, weeksIn = ?, ISBN = ? " +
+                "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
+                bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getId()));
+    }
+
+    @Override
+    public void insertBookOnTheCharts(Charts bookToInsertOnTheCharts)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN) " +
+                "VALUES(?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN()));
+    }
+
+    @Override
+    public void deleteBookFromCharts(String isbn)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "DELETE from charts " +
+                                    "WHERE ISBN LIKE ?",List.of(isbn));
+    }
+
 }
