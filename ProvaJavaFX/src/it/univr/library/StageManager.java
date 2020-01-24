@@ -599,4 +599,26 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageUserCart(Stage primaryStage, User user) {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/cart.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerCart controllerCart = fxmlLoader.getController();
+            controllerCart.setUser(user);
+            controllerCart.setHeader();
+
+            primaryStage.setTitle("UserCart - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }

@@ -182,7 +182,7 @@ public class ViewHeader implements View
     }
 
     // TODO: 11/10/2019 manca il settaggio dell'handler
-    public void createCartImageView(HBox rightHeaderHBox)
+    public void createCartImageView(HBox rightHeaderHBox, User user)
     {
         ImageView cartImageView = new ImageView("/images/cart.png");
 
@@ -194,6 +194,7 @@ public class ViewHeader implements View
         rightHeaderHBox.setMargin(cartImageView, new Insets(0, 20.0, 0, 0));  //top, right, bottom, left
         cartImageView.setCursor(Cursor.HAND);
 
+        cartImageView.setOnMouseClicked(e -> new ControllerHeader().handleCartClicked(cartImageView, user));
         rightHeaderHBox.getChildren().add(cartImageView);
     }
 }

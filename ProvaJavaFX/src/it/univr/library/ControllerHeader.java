@@ -2,6 +2,7 @@ package it.univr.library;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ public class ControllerHeader
         rightHeaderHBox = createHeader.createRightHeaderHBox(headerHBox);
         checkHeader(user, rightHeaderHBox); //puts the right button in the rightHeaderHBox
 
-        createHeader.createCartImageView(rightHeaderHBox);
+        createHeader.createCartImageView(rightHeaderHBox, user);
         headerHBox.getChildren().add(rightHeaderHBox);
     }
 
@@ -67,11 +68,7 @@ public class ControllerHeader
             userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user);
     }
 
-    // TODO: 10/01/2020 questa funzione a che serve qua? 
-    public void handlerEditButton(Button editProfile, RegisteredClient registeredUser) {
-        StageManager EditProfilePage = new StageManager();
-        EditProfilePage.setStageEditProfile((Stage) editProfile.getScene().getWindow(), registeredUser);
-    }
+
 
     public void handleLogOutButton(Button logoutButton) {
         //todo svuotare il carrello
@@ -85,5 +82,12 @@ public class ControllerHeader
         StageManager orderStatusUnregUser = new StageManager();
         orderStatusUnregUser.setStageOrderUnregUser((Stage)orderStatusUnregisteredUser.getScene().getWindow(), user);
 
+    }
+
+    //TODO: pass ArrayList<Book> cart to handleCartClicked here?
+    public void handleCartClicked(ImageView cartImageView, User user)
+    {
+        StageManager userCart = new StageManager();
+        userCart.setStageUserCart((Stage)cartImageView.getScene().getWindow(), user);
     }
 }
