@@ -6,11 +6,9 @@ import java.util.List;
 
 public interface Model
 {
-    public default ArrayList<Book> getBooks() { return null; }
+    public default ArrayList<Book> getAllBooks() { return null; }
 
-    public default ArrayList<Book> getAllBooks(){return null ;};
-
-    public default ArrayList<Book> getBooks(Filter filter) { return null; }
+    public default ArrayList<Book> getAllBooks(Filter filter) { return null; }
 
     public default ArrayList<Object> getCharts()
     {

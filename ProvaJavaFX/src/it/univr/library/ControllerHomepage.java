@@ -14,7 +14,7 @@ public class ControllerHomepage {
     @FXML
     private void initialize()
     {
-        //Setta listener bottoni
+        // Setta listener bottone
         enterButton.setOnAction(this::handleEnterButton);
     }
 

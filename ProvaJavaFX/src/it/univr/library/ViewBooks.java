@@ -1,14 +1,13 @@
 package it.univr.library;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -16,6 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -25,9 +25,10 @@ public class ViewBooks implements View
     /* TODO: 06/10/2019:  Dividere la funzione in pezzi
     */
     @Override
-    public void buildBook(VBox catalogVBox, List<BookGroup> bookGroups, ControllerCatalog controllerCatalog)
+    public void buildBookForCatalog(VBox catalogVBox, List<BookGroup> bookGroups, ControllerCatalog controllerCatalog)
     {
         HBox bookHBox;
+        HBox imageHBox;
         ImageView bookImageView;
         GridPane bookGridPane;
         ColumnConstraints bookGridPaneColumn1;
@@ -35,6 +36,7 @@ public class ViewBooks implements View
         Label bookTitleLabel;
         Label bookAuthorsLabel;
         Label bookLanguageLabel;
+        Label bookGenreLabel;
         Separator separatorLine;
         Set<Author> authors;
         List<Label> bookFormatsPricesLabel;
@@ -49,10 +51,13 @@ public class ViewBooks implements View
             VBox.setMargin(bookHBox, new Insets(4, 4, 4, 4));
 
             /* **** SETTING IMAGEVIEW PANE **** */
+            imageHBox = new HBox();
+            imageHBox.setAlignment(Pos.CENTER);
+
             bookImageView = new ImageView();
 
-            bookImageView.setFitHeight(100);
-            bookImageView.setFitWidth(100);
+            bookImageView.setFitHeight(115);
+            bookImageView.setFitWidth(115);
             bookImageView.setPickOnBounds(true);
             bookImageView.setPreserveRatio(true);
 
@@ -78,7 +83,7 @@ public class ViewBooks implements View
 
             /* **** ROWS **** */
             //manca il vgrow sometimes
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 5; i++)
                 bookGridPane.getRowConstraints().add(new RowConstraints(27.0, 27.0, Double.MAX_VALUE));
 
             HBox.setMargin(bookGridPane, new Insets(0, 0, 0, 8));
@@ -100,6 +105,11 @@ public class ViewBooks implements View
             bookLanguageLabel.setContentDisplay(ContentDisplay.CENTER);
             GridPane.setConstraints(bookLanguageLabel, 0, 3); // label in column 0, row 3
 
+            bookGenreLabel = new Label("Genre: " + bookGroup.getBooks().get(0).getGenre());
+            bookGenreLabel.setAlignment(Pos.CENTER);
+            bookGenreLabel.setContentDisplay(ContentDisplay.CENTER);
+            GridPane.setConstraints(bookGenreLabel, 0, 4); // label in column 0, row 3
+
             bookFormatsPricesLabel = new ArrayList<>();
             authors = new TreeSet<>();
 
@@ -120,14 +130,12 @@ public class ViewBooks implements View
                 GridPane.setConstraints(bookFormatsPricesLabel.get(i), 1, i);
 
                 /* **** IMAGE **** */
-                if(!currentBook.getImagePath().equals("") && currentBook.getImagePath() != null)
+                if(!currentBook.getImagePath().trim().equals("") && currentBook.getImagePath() != null)
                 {
-                    try
-                    {
+                    try {
                         bookImageView.setImage(new Image(currentBook.getImagePath()));
                     }
-                    catch (NullPointerException | IllegalArgumentException e)
-                    {}
+                    catch (NullPointerException | IllegalArgumentException e) {}
                 }
 
                 i++;
@@ -147,12 +155,15 @@ public class ViewBooks implements View
             /* **** SETTING HBOXCURSOR **** */
             bookHBox.setCursor(Cursor.HAND);
 
-            /* **** ADDING AUTHORS TO LABEL AND ADDING LABELS TO GRIDPANE**** */
+            /* **** ADDING AUTHORS TO LABEL AND ADDING LABELS TO GRIDPANE **** */
             bookAuthorsLabel.setText("by " + setToString(authors));
-            bookGridPane.getChildren().addAll(bookTitleLabel, bookAuthorsLabel, bookLanguageLabel);
+            bookGridPane.getChildren().addAll(bookTitleLabel, bookAuthorsLabel, bookLanguageLabel, bookGenreLabel);
 
-            /* **** ADDING IMAGE TO HBOX **** */
-            bookHBox.getChildren().add(bookImageView);
+            /* **** ADDING IMAGE TO IMAGEHBOX **** */
+            imageHBox.getChildren().add(bookImageView);
+
+            /* **** ADDING IMAGEHBOX TO HBOX **** */
+            bookHBox.getChildren().add(imageHBox);
 
             /* *** ADDING GRIDPANE TO HBOX **** */
             bookHBox.getChildren().add(bookGridPane);
@@ -163,7 +174,244 @@ public class ViewBooks implements View
             // Add listener to the Book HBox calling a method in ControllerCatalog and passing the ISBN List
             // Note that we call a method from the same controllerCatalog object (passed as an argument)
             bookHBox.setOnMouseClicked(mouseEvent ->
-                    controllerCatalog.changeSceneToSpecificBook(new ArrayList<String>(bookGroup.getBooksISBN())));
+                    controllerCatalog.changeSceneToSpecificBook(new BookGroup(bookGroup)));
+        }
+    }
+
+    public void buildBookForSpecificBook(VBox bookInfoVBox, Label titleLabel, Label languageLabel, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook)
+    {
+        buildTitleAndLanguageBookForSpecificBook(titleLabel, languageLabel, bookGroup);
+        buildBookInformation(bookInfoVBox, bookGroup);
+    }
+
+    private void buildTitleAndLanguageBookForSpecificBook(Label titleLabel, Label languageLabel,BookGroup bookGroup)
+    {
+        titleLabel.setText(bookGroup.getBooks().get(0).getTitle());
+        languageLabel.setText("Language: " + bookGroup.getBooks().get(0).getLanguage());
+    }
+
+    private void  buildBookInformation(VBox bookInfoVBox, BookGroup bookGroup)
+    {
+        //build hbox
+
+        HBox singleBookHBox;
+
+        ImageView bookImageView;
+
+        VBox bookSpecificationVBox;
+        Label ISBNLabel;
+        Label authorsLabel;
+        Label genreLabel;
+        Label publicationYearLabel;
+        Label publishingHouseLabel;
+        Label pagesLabel;
+        Label librocardPointsLabel;
+        Accordion descriptionAccordion;
+        TitledPane descriptionTitledPane;
+        TextArea descriptionTextArea;
+
+        VBox buyingOptionsVBox;
+        Label formatLabel;
+        FlowPane buyFlowPane;
+        Button cartButton;
+        ImageView cartImageView;
+        Label priceLabel;
+        Label quantityLabel;
+        ComboBox quantityComboBox;
+        ObservableList<Genre> quantityComboBoxData;// = FXCollections.observableArrayList();
+        Label availableQuantityLabel;
+
+        Separator lineSeparator;
+
+        for (Book currentBook: bookGroup.getBooks())
+        {
+            /* **** SETTING HBOX **** */
+            singleBookHBox = new HBox();
+            singleBookHBox.setPrefHeight(202.0);
+            VBox.setMargin(singleBookHBox, new Insets(8, 8, 8, 8)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING IMAGE **** */
+            bookImageView = new ImageView();
+            bookImageView.setFitHeight(150.0);
+            bookImageView.setFitWidth(117.0);
+            bookImageView.setPickOnBounds(true);
+            bookImageView.setPreserveRatio(true);
+
+            if(!currentBook.getImagePath().trim().equals("") && currentBook.getImagePath() != null)
+            {
+                try {
+                    bookImageView.setImage(new Image(currentBook.getImagePath()));
+                }
+                catch (NullPointerException | IllegalArgumentException e){
+                    bookImageView.setImage(new Image("/images/coverNotAvailable.png"));
+                }
+            }
+            else
+                bookImageView.setImage(new Image("/images/coverNotAvailable.png"));
+
+            /* **** SETTING BOOK SPECIFICATIONS VBOX **** */
+            bookSpecificationVBox = new VBox();
+            bookSpecificationVBox.prefHeight(182.0);
+            HBox.setMargin(bookSpecificationVBox, new Insets(0, 8.0, 0, 15.0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING ISBN LABEL **** */
+            ISBNLabel = new Label("ISBN: " + currentBook.getISBN());
+            ISBNLabel.prefHeight(18.0);
+            ISBNLabel.prefWidth(456.0);
+            ISBNLabel.setLayoutX(10.0);
+            ISBNLabel.setLayoutY(10.0);
+            VBox.setMargin(ISBNLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING AUTHORS LABEL **** */
+            authorsLabel = new Label("Authors: " + setToString(new TreeSet<Author>(currentBook.getAuthors()))); // sorted!
+            authorsLabel.prefHeight(18.0);
+            authorsLabel.prefWidth(456.0);
+            authorsLabel.setLayoutX(10.0);
+            authorsLabel.setLayoutY(10.0);
+            VBox.setMargin(authorsLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING GENRE LABEL **** */
+            genreLabel = new Label("Genre: " + currentBook.getGenre());
+            genreLabel.prefHeight(18.0);
+            genreLabel.prefWidth(456.0);
+            genreLabel.setLayoutX(10.0);
+            genreLabel.setLayoutY(10.0);
+            VBox.setMargin(genreLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING PUBLICATION YEAR LABEL **** */
+            publicationYearLabel = new Label("Publication Year: " + currentBook.getPublicationYear());
+            publicationYearLabel.prefHeight(18.0);
+            publicationYearLabel.prefWidth(456.0);
+            publicationYearLabel.setLayoutX(10.0);
+            publicationYearLabel.setLayoutY(10.0);
+            VBox.setMargin(publicationYearLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING PUBLISHING HOUSE LABEL **** */
+            publishingHouseLabel = new Label("Publishing House: " + currentBook.getPublishingHouse());
+            publishingHouseLabel.prefHeight(18.0);
+            publishingHouseLabel.prefWidth(456.0);
+            publishingHouseLabel.setLayoutX(10.0);
+            publishingHouseLabel.setLayoutY(10.0);
+            VBox.setMargin(publishingHouseLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING PAGES LABEL **** */
+            pagesLabel = new Label("Pages: " + currentBook.getPages());
+            pagesLabel.prefHeight(18.0);
+            pagesLabel.prefWidth(456.0);
+            pagesLabel.setLayoutX(10.0);
+            pagesLabel.setLayoutY(10.0);
+            VBox.setMargin(pagesLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING LIBROCARD POINTS LABEL **** */
+            librocardPointsLabel = new Label("Librocards Point: " + currentBook.getPages());
+            librocardPointsLabel.prefHeight(18.0);
+            librocardPointsLabel.prefWidth(456.0);
+            librocardPointsLabel.setLayoutX(10.0);
+            librocardPointsLabel.setLayoutY(10.0);
+            VBox.setMargin(librocardPointsLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING DESCRIPTION ACCORDION **** */
+            descriptionTextArea = new TextArea(currentBook.getDescription());
+            descriptionTextArea.setWrapText(true);
+
+            descriptionAccordion = new Accordion();
+            descriptionTitledPane = new TitledPane("Description", descriptionTextArea);
+
+            descriptionTitledPane.setAnimated(true);
+            descriptionTitledPane.prefHeight(127.0);
+            descriptionTitledPane.prefWidth(456.0);
+
+            /* **** SETTING VBOX BUYING OPTIONS **** */
+            buyingOptionsVBox = new VBox();
+
+            buyingOptionsVBox.setAlignment(Pos.CENTER);
+            buyingOptionsVBox.setPrefHeight(234.0);
+
+            /* **** SETTING FORMAT LABEL **** */
+            formatLabel = new Label(currentBook.getFormat().toString());
+            formatLabel.setAlignment(Pos.CENTER);
+            formatLabel.setContentDisplay(ContentDisplay.CENTER);
+            formatLabel.setTextAlignment(TextAlignment.CENTER);
+            formatLabel.setPrefHeight(20.0);
+            formatLabel.setPrefWidth(315.0);
+            formatLabel.setFont(new Font(14.0));
+
+            /* **** SETTING BUY FLOWPANE **** */
+            buyFlowPane = new FlowPane();
+            buyFlowPane.setAlignment(Pos.CENTER);
+            buyFlowPane.setPrefHeight(82.0);
+            buyFlowPane.setPrefWidth(329.0);
+
+            /* **** SET CART BUTTON **** */
+            cartButton = new Button();
+            cartButton.setPrefWidth(88.0);
+            cartButton.setPrefHeight(47.0);
+            cartButton.setStyle("-fx-background-color: #ffa939;");
+            cartButton.setCursor(Cursor.HAND);
+            FlowPane.setMargin(cartButton, new Insets(0, 0, 0, 10)); //Insets(top, right, bottom, left)
+
+            cartImageView = new ImageView();
+            cartImageView.setFitWidth(48.0);
+            cartImageView.setFitHeight(32.0);
+            cartImageView.setPickOnBounds(true);
+            cartImageView.setPreserveRatio(true);
+
+            try {
+                cartImageView.setImage(new Image("/images/cart.png"));
+                cartButton.setGraphic(cartImageView);
+            }
+            catch (NullPointerException | IllegalArgumentException e){
+                cartButton.setText("Buy it!");
+            }
+
+            /* **** SETTING PRICE LABEL **** */
+            priceLabel = new Label(currentBook.getPrice().toString() + "€");
+            priceLabel.setAlignment(Pos.CENTER);
+            priceLabel.setContentDisplay(ContentDisplay.CENTER);
+            priceLabel.setTextAlignment(TextAlignment.CENTER);
+            priceLabel.setPrefWidth(94.0);
+            priceLabel.setPrefHeight(34.0);
+            priceLabel.setFont(new Font(23.0));
+            FlowPane.setMargin(priceLabel, new Insets(0, 5, 0, 5)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING QUANTITY LABEL **** */
+            quantityLabel = new Label("Qty ");
+            FlowPane.setMargin(quantityLabel, new Insets(0, 0, 0, 10)); //Insets(top, right, bottom, left)
+
+            /* **** SETTING QUANTITY COMBOBOX **** */
+            // TODO: 24/01/2020 riempire combobox con le quantità
+            quantityComboBox = new ComboBox();
+
+            /* **** SETTING AVAILABLE QUANTITY LABEL **** */
+            availableQuantityLabel = new Label("Available quantity: " + currentBook.getMaxQuantity());
+            availableQuantityLabel.setAlignment(Pos.CENTER);
+            availableQuantityLabel.setContentDisplay(ContentDisplay.CENTER);
+            availableQuantityLabel.setTextAlignment(TextAlignment.CENTER);
+            availableQuantityLabel.setPrefHeight(18.0);
+            availableQuantityLabel.setPrefWidth(315.0);
+
+            /* **** SETTING SEPARATOR LINE **** */
+            lineSeparator = new Separator();
+            lineSeparator.prefWidth(200.0);
+
+            /* **** ADDING TITLEDPANE TO ACCORDION **** */
+            descriptionAccordion.getPanes().add(descriptionTitledPane);
+
+            /* **** ADDING LABELS AND ACCORDION TO BOOK SPECIFICATION VBOX **** */
+            bookSpecificationVBox.getChildren().addAll(ISBNLabel, authorsLabel, genreLabel, publicationYearLabel,
+                    publishingHouseLabel, pagesLabel, librocardPointsLabel, descriptionAccordion);
+
+            /* **** ADDING CART BUTTON, PRICE, QTY LABEL AND COMBOBOX TO BUY FLOWPANE **** */
+            buyFlowPane.getChildren().addAll(cartButton, priceLabel, quantityLabel, quantityComboBox);
+
+            /* *** ADDING FORMAT LABEL, BUY FLOWPANE AND AVAIL QTY LABEL **** */
+            buyingOptionsVBox.getChildren().addAll(formatLabel, buyFlowPane, availableQuantityLabel);
+
+            /* **** ADDING IMAGE, BOOK SPECIFICATIONS AND BUYING OPTIONS TO SINGLE BOOK HBOX **** */
+            singleBookHBox.getChildren().addAll(bookImageView, bookSpecificationVBox, buyingOptionsVBox);
+
+            /* **** ADD A SINGLE BOOK AND A SEPARATOR LINE TO THE BOOKS INFORMATION VBOX **** */
+            bookInfoVBox.getChildren().addAll(singleBookHBox, lineSeparator);
         }
     }
 

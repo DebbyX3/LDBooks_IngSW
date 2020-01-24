@@ -2,23 +2,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TitledPane?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerSpecificBook">
@@ -29,34 +20,29 @@
                <content>
                   <VBox fx:id="bookInfoVBox" alignment="TOP_CENTER" prefHeight="493.0" prefWidth="883.0">
                      <children>
-                        <HBox alignment="CENTER" layoutX="10.0" layoutY="460.0" prefHeight="106.0" prefWidth="743.0">
+                        <HBox alignment="CENTER" layoutX="10.0" layoutY="460.0" maxHeight="99.0" minHeight="90.0" prefHeight="91.0" prefWidth="835.0">
                            <VBox.margin>
-                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+                              <Insets bottom="8.0" left="16.0" right="16.0" top="8.0" />
                            </VBox.margin>
                            <children>
-                              <ImageView fitHeight="182.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../images/istituto.jpg" />
-                                 </image>
-                              </ImageView>
-                              <GridPane alignment="TOP_CENTER" prefHeight="156.0" prefWidth="788.0">
+                              <GridPane alignment="TOP_CENTER" prefHeight="65.0" prefWidth="834.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="715.8000183105469" minWidth="10.0" prefWidth="626.2000427246094" />
+                                  <ColumnConstraints hgrow="SOMETIMES" percentWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                  <RowConstraints maxHeight="55.79999008178711" minHeight="10.0" prefHeight="36.000004577636716" vgrow="SOMETIMES" />
-                                  <RowConstraints maxHeight="121.4" minHeight="10.0" prefHeight="100.59998779296873" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="75.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="121.4" minHeight="10.0" prefHeight="39.80000190734862" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label alignment="CENTER" text="L'istituto">
+                                    <Label fx:id="titleLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="86.0" minHeight="32.0" prefHeight="86.0" prefWidth="834.0" textAlignment="CENTER" wrapText="true">
                                        <font>
-                                          <Font size="24.0" />
+                                          <Font size="23.0" />
                                        </font>
                                     </Label>
-                                    <Label alignment="TOP_LEFT" contentDisplay="TOP" text="Language: italian" GridPane.rowIndex="1" />
+                                    <Label fx:id="languageLabel" alignment="CENTER" contentDisplay="TOP" maxHeight="18.0" minHeight="18.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="18.0" prefWidth="834.0" GridPane.rowIndex="1" />
                                  </children>
                                  <HBox.margin>
-                                    <Insets left="8.0" right="8.0" />
+                                    <Insets />
                                  </HBox.margin>
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
@@ -64,227 +50,6 @@
                               </GridPane>
                            </children>
                         </HBox>
-                        <HBox prefHeight="202.0" prefWidth="867.0">
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../images/istituto.jpg" />
-                                 </image>
-                              </ImageView>
-                              <VBox prefHeight="182.0" prefWidth="702.0">
-                                 <HBox.margin>
-                                    <Insets left="15.0" right="8.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label layoutX="10.0" layoutY="10.0" text="ISBN: 5845214523695">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Authors: Stephen King">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Genre: Fantasy">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Publication Year: 2019">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Publishing House: Mondadori">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Pages: 523">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Librocard Points: 15">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Accordion>
-                                      <panes>
-                                        <TitledPane animated="false" text="Description">
-                                             <content>
-                                                <TextArea minHeight="100.0" prefHeight="100.0" text="È notte fonda a Minneapolis, quando un misterioso gruppo di persone si introduce in casa di Luke Ellis, uccide i suoi genitori e lo porta via in un SUV nero. Bastano due minuti, sprofondati nel silenzio irreale di una tranquilla strada di periferia, per sconvolgere la vita di Luke, per sempre. Quando si sveglia, il ragazzo si trova in una camera del tutto simile alla sua, ma senza finestre, nel famigerato Istituto dove sono rinchiusi altri bambini come lui. Dietro porte tutte uguali, lungo corridoi illuminati da luci spettrali, si trovano piccoli geni con poteri speciali - telepatia, telecinesi. Appena arrivati, sono destinati alla Prima Casa, dove Luke trova infatti i compagni Kalisha, Nick, George, Iris e Avery Dixon, che ha solo dieci anni. Poi, qualcuno finisce nella Seconda Casa. «È come il motel di un film dell'orrore», dice Kalisha. «Chi prende una stanza non ne esce più.» Sono le regole della feroce signora Sigsby, direttrice dell'Istituto, convinta di poter estrarre i loro doni: con qualunque mezzo, a qualunque costo. Chi non si adegua subisce punizioni implacabili. E così, uno alla volta, i compagni di Luke spariscono, mentre lui cerca disperatamente una via d'uscita. Solo che nessuno, finora, è mai riuscito a evadere dall'Istituto." wrapText="true" />
-                                             </content>
-                                          </TitledPane>
-                                      </panes>
-                                    </Accordion>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER" prefHeight="234.0" prefWidth="563.0">
-                                 <children>
-                                    <Label text="Hardcover">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <FlowPane alignment="CENTER" prefHeight="82.0" prefWidth="329.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: #ffa939;">
-                                             <FlowPane.margin>
-                                                <Insets left="10.0" right="10.0" />
-                                             </FlowPane.margin>
-                                             <graphic>
-                                                <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../../../images/cart.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor></Button>
-                                          <Label text="15.90€">
-                                             <font>
-                                                <Font size="23.0" />
-                                             </font>
-                                             <FlowPane.margin>
-                                                <Insets left="10.0" right="10.0" />
-                                             </FlowPane.margin>
-                                          </Label>
-                                          <Label text="Qty">
-                                             <FlowPane.margin>
-                                                <Insets left="10.0" />
-                                             </FlowPane.margin>
-                                          </Label>
-                                          <ComboBox prefHeight="26.0" prefWidth="23.0">
-                                             <FlowPane.margin>
-                                                <Insets left="5.0" right="10.0" />
-                                             </FlowPane.margin>
-                                          </ComboBox>
-                                       </children>
-                                    </FlowPane>
-                                    <Label text="Available quantity: 9" />
-                                 </children>
-                              </VBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <Line startX="850.0" stroke="#a7a7a7" />
-                        <HBox layoutX="18.0" layoutY="214.0" prefHeight="202.0" prefWidth="867.0">
-                           <children>
-                              <ImageView fitHeight="150.0" fitWidth="117.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../../../images/istituto.jpg" />
-                                 </image>
-                              </ImageView>
-                              <VBox prefHeight="150.0" prefWidth="702.0">
-                                 <HBox.margin>
-                                    <Insets left="15.0" right="8.0" />
-                                 </HBox.margin>
-                                 <children>
-                                    <Label layoutX="10.0" layoutY="10.0" text="ISBN: 5845214523695">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Authors: Stephen King">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Genre: Fantasy">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Publication Year: 2019">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Publishing House: Mondadori">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Pages: 523">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label text="Librocard Points: 15">
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Accordion>
-                                       <panes>
-                                          <TitledPane animated="false" text="Description">
-                                             <content>
-                                                <TextArea minHeight="100.0" prefHeight="100.0" text="È notte fonda a Minneapolis, quando un misterioso gruppo di persone si introduce in casa di Luke Ellis, uccide i suoi genitori e lo porta via in un SUV nero. Bastano due minuti, sprofondati nel silenzio irreale di una tranquilla strada di periferia, per sconvolgere la vita di Luke, per sempre. Quando si sveglia, il ragazzo si trova in una camera del tutto simile alla sua, ma senza finestre, nel famigerato Istituto dove sono rinchiusi altri bambini come lui. Dietro porte tutte uguali, lungo corridoi illuminati da luci spettrali, si trovano piccoli geni con poteri speciali - telepatia, telecinesi. Appena arrivati, sono destinati alla Prima Casa, dove Luke trova infatti i compagni Kalisha, Nick, George, Iris e Avery Dixon, che ha solo dieci anni. Poi, qualcuno finisce nella Seconda Casa. «È come il motel di un film dell'orrore», dice Kalisha. «Chi prende una stanza non ne esce più.» Sono le regole della feroce signora Sigsby, direttrice dell'Istituto, convinta di poter estrarre i loro doni: con qualunque mezzo, a qualunque costo. Chi non si adegua subisce punizioni implacabili. E così, uno alla volta, i compagni di Luke spariscono, mentre lui cerca disperatamente una via d'uscita. Solo che nessuno, finora, è mai riuscito a evadere dall'Istituto." wrapText="true" />
-                                             </content>
-                                          </TitledPane>
-                                       </panes>
-                                    </Accordion>
-                                 </children>
-                              </VBox>
-                              <VBox alignment="CENTER" prefHeight="234.0" prefWidth="563.0">
-                                 <children>
-                                    <Label text="Hardcover">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                    <FlowPane alignment="CENTER" prefHeight="82.0" prefWidth="329.0">
-                                       <children>
-                                          <Button mnemonicParsing="false" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: #ffa939;">
-                                             <FlowPane.margin>
-                                                <Insets left="10.0" right="10.0" />
-                                             </FlowPane.margin>
-                                             <graphic>
-                                                <ImageView fitHeight="32.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                      <Image url="@../../../../images/cart.png" />
-                                                   </image>
-                                                </ImageView>
-                                             </graphic>
-                                             <cursor>
-                                                <Cursor fx:constant="HAND" />
-                                             </cursor>
-                                          </Button>
-                                          <Label text="15.90€">
-                                             <font>
-                                                <Font size="23.0" />
-                                             </font>
-                                             <FlowPane.margin>
-                                                <Insets left="10.0" right="10.0" />
-                                             </FlowPane.margin>
-                                          </Label>
-                                          <Label text="Qty">
-                                             <FlowPane.margin>
-                                                <Insets left="10.0" />
-                                             </FlowPane.margin>
-                                          </Label>
-                                          <ComboBox prefHeight="26.0" prefWidth="23.0">
-                                             <FlowPane.margin>
-                                                <Insets left="5.0" right="10.0" />
-                                             </FlowPane.margin>
-                                          </ComboBox>
-                                       </children>
-                                    </FlowPane>
-                                    <Label text="Available quantity: 9" />
-                                 </children>
-                              </VBox>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <Line layoutX="27.0" layoutY="425.0" startX="850.0" stroke="#a7a7a7" />
                      </children>
                   </VBox>
                </content>

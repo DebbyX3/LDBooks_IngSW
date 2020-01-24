@@ -6,12 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /*------------------------ IMPORTANTE! ----------------------
@@ -33,9 +31,6 @@ public class ControllerCatalog {
     private ComboBox languageCombobox;
     private ObservableList<Language> languageComboboxData = FXCollections.observableArrayList();
 
-    //@FXML
-    //private HBox book1;
-
     @FXML
     private VBox catalogVBox;
 
@@ -46,8 +41,6 @@ public class ControllerCatalog {
     private ScrollPane catalogScrollPane;
 
     private User user;
-
-    private Stage primaryStage;
 
     public ControllerCatalog()
     {
@@ -66,16 +59,14 @@ public class ControllerCatalog {
         filterButton.setOnAction(this::handleFilterButton);
 
         // Initialize genre ComboBox
-        genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
+        genreCombobox.setItems(genreComboboxData);    // setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
 
         // Initialize language ComboBox
-        languageCombobox.setItems(languageComboboxData);    //setto il combobox del genere con i dati messi in languagecomboboxdata
+        languageCombobox.setItems(languageComboboxData);    // setto il combobox del genere con i dati messi in languagecomboboxdata
         languageCombobox.getSelectionModel().selectFirst();
 
         populateCatalog();
-
-        //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
     }
 
     public void setUser(User user)
@@ -89,10 +80,10 @@ public class ControllerCatalog {
         controllerHeader.createHeader(user, headerHBox);
     }
 
-    public void changeSceneToSpecificBook(List<String> ISBNList)
+    public void changeSceneToSpecificBook(BookGroup bookList)
     {
         StageManager specificBookScene = new StageManager();
-        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, ISBNList);
+        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, bookList);
     }
 
     //@FXML
@@ -108,9 +99,9 @@ public class ControllerCatalog {
         Genre genre = (Genre) genreCombobox.getValue();
         Language language = (Language) languageCombobox.getValue();
 
-        if(!genre.equals(new Genre("All"))) //if the genre is not "all", add the genre to the filter
+        if(!genre.equals(new Genre("All"))) // if the genre is not "all", add the genre to the filter
             filter.setGenre(genre);
-        if(!language.equals(new Language("All"))) //if the lang is not "all", add the lang to the filter
+        if(!language.equals(new Language("All"))) // if the lang is not "all", add the lang to the filter
             filter.setLanguage(language);
 
         //Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());
@@ -122,13 +113,13 @@ public class ControllerCatalog {
     private void populateCatalog(Filter filter)
     {
         Model DBBooks = new ModelDatabaseBooks();
-        buildCatalog(DBBooks.getBooks(filter));
+        buildCatalog(DBBooks.getAllBooks(filter));
     }
 
     private void populateCatalog()
     {
         Model DBBooks = new ModelDatabaseBooks();
-        buildCatalog(DBBooks.getBooks());
+        buildCatalog(DBBooks.getAllBooks());
     }
 
     private void populateGenreFilter()
@@ -151,8 +142,6 @@ public class ControllerCatalog {
         BookGroup bookGroup = null;
         List<BookGroup> bookGroups = new ArrayList<>();
 
-        //List<String> ISBNList = new ArrayList<>();
-
         View viewBooks = new ViewBooks();
 
         // Bring up the ScrollPane
@@ -165,27 +154,28 @@ public class ControllerCatalog {
 
             for (Book currentBook : books)
             {
-                // If the book has NOT the same title, NOT a common author and NOT the same lang
-                // then, the book is NOT the same, it's a new book
-                if(! (currentBook.getTitle().equals(originalBook.getTitle()) &&
+                // If the book has NOT the same title, NOT a common author, NOT the same genre and NOT the same lang
+                // then, the book is NOT the same, it's a new book.
+                // If so, add the current group of books to the list of group books,
+                // then create a new Group of Books (bookGroup)
+                if(!    (currentBook.getTitle().equals(originalBook.getTitle()) &&
                         !Collections.disjoint(currentBook.getAuthors(), originalBook.getAuthors()) && //true if list1 contains at least one element from list2
-                        currentBook.getLanguage().equals(originalBook.getLanguage()))) {
+                        currentBook.getLanguage().equals(originalBook.getLanguage()) &&
+                        currentBook.getGenre().equals(originalBook.getGenre()))
+                ) {
 
                     bookGroups.add(bookGroup);
                     bookGroup = new BookGroup();
 
-                    // Add listener to the Book HBox calling a method in ControllerCatalog and passing the ISBN List
-                    // Note that we call a method from the same controllerCatalog object (passed as an argument)
-                    //bookHBox.setOnMouseClicked(mouseEvent -> this.changeSceneToSpecificBook(ISBNList));
-
                     originalBook = currentBook;
                 }
 
+                // add the current book to the list of books contained in a book group
                 bookGroup.addBook(currentBook);
             }
 
-            viewBooks.buildBook(catalogVBox, bookGroups, this);
-
+            bookGroups.add(bookGroup);
+            viewBooks.buildBookForCatalog(catalogVBox, bookGroups, this);
         }
         else // No books to show
         {

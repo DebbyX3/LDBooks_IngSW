@@ -13,9 +13,15 @@ public class BookGroup
         this.books = books;
     }
 
+    public BookGroup(BookGroup books)
+    {
+        this.books = new ArrayList<>();
+        this.books.addAll(books.getBooks());
+    }
+
     public BookGroup()
     {
-        books = new ArrayList<>();
+        this.books = new ArrayList<>();
     }
 
     public boolean addBook(Book book)

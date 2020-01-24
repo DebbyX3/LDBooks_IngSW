@@ -8,17 +8,20 @@ public class ModelDatabaseBooks implements Model {
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public ArrayList<Book> getBooks() {
-        return getBooks(new Filter());
+    public ArrayList<Book> getAllBooks() {
+        return getAllBooks(new Filter());
     }
 
     @Override
-    public ArrayList<Book> getBooks(Filter filter) {
+    public ArrayList<Book> getAllBooks(Filter filter) {
         boolean isFirstInQuery = true;
         ArrayList<Book> books;
         ArrayList<Object> queryParameters = new ArrayList<>();
 
-        String query = "SELECT books.ISBN, title, price, languageName, formatName, imagePath,  GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors " +
+        String query = "SELECT books.ISBN,GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
+                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
+                "books.publishingHouseName, books.title " +
                 "FROM books " +
                 "JOIN write ON books.ISBN = write.ISBN " +
                 "JOIN authors ON write.idAuthor = authors.idAuthor ";
@@ -48,31 +51,11 @@ public class ModelDatabaseBooks implements Model {
     }
 
     @Override
-    public ArrayList<Book> getAllBooks()
-    {
-        ArrayList<Book> books;
-        db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT books.ISBN,GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
-                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
-                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
-                "books.publishingHouseName, books.title " +
-                "FROM books " +
-                "JOIN write ON books.ISBN = write.ISBN " +
-                "JOIN authors ON write.idAuthor = authors.idAuthor " +
-                "GROUP BY books.ISBN, title, languageName, formatName " +
-                "ORDER By books.title, idNameSurnameAuthors ASC");
-        books = resultSetToArrayListBook(db.getResultSet());
-        db.DBCloseConnection();
-
-        return books;
-    }
-
-    @Override
     public Book getSpecificBook(String isbn)
     {
         ArrayList<Book> b;
         db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT books.ISBN,GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+        db.executeSQLQuery( "SELECT books.ISBN, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
                 "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
                 "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
                 "books.publishingHouseName, books.title " +
