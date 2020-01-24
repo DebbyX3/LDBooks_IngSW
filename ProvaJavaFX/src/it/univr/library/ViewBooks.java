@@ -22,181 +22,149 @@ import java.util.*;
 
 public class ViewBooks implements View
 {
-    @Override
-    public void buildCatalog(ArrayList<Book> books, VBox catalogVBox, ScrollPane catalogScrollPane, ControllerCatalog controllerCatalog)
-    {
-        List<Format> formats = new ArrayList<>();
-        List<BigDecimal> prices = new ArrayList<>();
-        Set<Author> authors = new TreeSet<>();
-        String imagePath = null;
-        Book originalBook = null;
-        HBox bookHBox = null;
-        List<String> ISBNList = new ArrayList<>();
-
-        // Bring up the ScrollPane
-        catalogScrollPane.setVvalue(catalogScrollPane.getVmin());
-
-        if(!books.isEmpty()) // Books to show
-        {
-            originalBook = books.get(0);
-
-            for (Book currentBook : books)
-            {
-                // If the book has NOT the same title, NOT a common author and NOT the same lang
-                // then, the book is NOT the same, it's a new book
-                if(! (currentBook.getTitle().equals(originalBook.getTitle()) &&
-                        !Collections.disjoint(currentBook.getAuthors(), originalBook.getAuthors()) && //true if list1 contains at least one element from list2
-                        currentBook.getLanguage().equals(originalBook.getLanguage()))) {
-
-                    bookHBox = buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
-
-                    // Add listener to the Book HBox calling a method in ControllerCatalog and passing the ISBN List
-                    // Note that we call a method from the same controllerCatalog object (passed as an argument)
-                    bookHBox.setOnMouseClicked(mouseEvent -> controllerCatalog.changeSceneToSpecificBook(ISBNList));
-
-                    formats.clear();
-                    prices.clear();
-                    authors.clear();
-                    ISBNList.clear();
-                    imagePath = null;
-
-                    originalBook = currentBook;
-                }
-
-                // If the book has the same title, at least 1 equals author and same lang
-                // then, it's the same book!
-                formats.add(currentBook.getFormat());
-                prices.add(currentBook.getPrice());
-                authors.addAll(currentBook.getAuthors());  //no duplicates
-                ISBNList.add(currentBook.getISBN());
-
-                if(imagePath == null)
-                    imagePath = currentBook.getImagePath();
-            }
-
-            buildBook(catalogVBox, originalBook.getTitle(), authors, formats, prices, imagePath, originalBook.getLanguage());
-        }
-        else // No books to show
-        {
-            Label messageNoBooksFound = new Label("No books found!");
-            catalogVBox.setMargin(messageNoBooksFound, new Insets(50)); //Insets(double top, double right, double bottom, double left)
-            catalogVBox.getChildren().add(messageNoBooksFound);
-        }
-    }
-
-    //ci sto ancora pensando
-    /*private void buildBook(VBox bookVBox, Book book)
-    {
-
-    }*/
-
-    /* TODO: 06/10/2019:  Dividere la funzione in pezzi e sistemare in modo che prenda tutti i libri, vedi commento funzione sopra
+    /* TODO: 06/10/2019:  Dividere la funzione in pezzi
     */
-    private HBox buildBook(VBox bookVBox, String title, Set<Author> authors, List<Format> formats, List<BigDecimal> prices, String imagePath, Language language)
+    @Override
+    public void buildBook(VBox catalogVBox, List<BookGroup> bookGroups, ControllerCatalog controllerCatalog)
     {
-        /* **** SETTING HBOX PANE **** */
-        HBox bookHBox = new HBox();
-        bookHBox.setPrefHeight(106.0);
-        bookHBox.setPrefWidth(743.0);
-
-        VBox.setMargin(bookHBox, new Insets(4, 4, 4, 4));
-
-        /* **** SETTING IMAGEVIEW PANE **** */
+        HBox bookHBox;
         ImageView bookImageView;
+        GridPane bookGridPane;
+        ColumnConstraints bookGridPaneColumn1;
+        ColumnConstraints bookGridPaneColumn2;
+        Label bookTitleLabel;
+        Label bookAuthorsLabel;
+        Label bookLanguageLabel;
+        Separator separatorLine;
+        Set<Author> authors;
+        List<Label> bookFormatsPricesLabel;
 
-        try
+        for (BookGroup bookGroup: bookGroups)
         {
-            //bookImageView = new ImageView(new Image(element.getImagePath()));
-            bookImageView = new ImageView(new Image(imagePath));
-        }
-        catch(NullPointerException | IllegalArgumentException e)
-        {
-            bookImageView = new ImageView(new Image("/images/coverNotAvailable.png"));
-        }
+            /* **** STARTING HBOX **** */
+            bookHBox = new HBox();
+            bookHBox.setPrefHeight(106.0);
+            bookHBox.setPrefWidth(743.0);
 
-        bookImageView.setFitHeight(100);
-        bookImageView.setFitWidth(100);
-        bookImageView.setPickOnBounds(true);
-        bookImageView.setPreserveRatio(true);
+            VBox.setMargin(bookHBox, new Insets(4, 4, 4, 4));
 
-        bookHBox.setMargin(bookImageView, new Insets(4.0, 2.0, 2.0, 2.0));
+            /* **** SETTING IMAGEVIEW PANE **** */
+            bookImageView = new ImageView();
 
-        /* **** SETTING GRID PANE **** */
-        GridPane bookGridPane = new GridPane();
+            bookImageView.setFitHeight(100);
+            bookImageView.setFitWidth(100);
+            bookImageView.setPickOnBounds(true);
+            bookImageView.setPreserveRatio(true);
 
-        bookGridPane.setAlignment(Pos.CENTER);
-        bookGridPane.setPrefHeight(108.0);
-        bookGridPane.setPrefWidth(718.0);
+            HBox.setMargin(bookImageView, new Insets(4.0, 2.0, 2.0, 2.0));
 
-        /* **** COLUMNS **** */
-        ColumnConstraints bookGridPaneColumn1 = new ColumnConstraints();
-        bookGridPaneColumn1.setPercentWidth(70);
-        bookGridPaneColumn1.setHgrow(Priority.SOMETIMES);
+            /* **** SETTING GRID PANE **** */
+            bookGridPane = new GridPane();
 
-        ColumnConstraints bookGridPaneColumn2 = new ColumnConstraints();
-        bookGridPaneColumn2.setPercentWidth(30);
-        bookGridPaneColumn2.setHgrow(Priority.SOMETIMES);
+            bookGridPane.setAlignment(Pos.CENTER);
+            bookGridPane.setPrefHeight(108.0);
+            bookGridPane.setPrefWidth(718.0);
 
-        bookGridPane.getColumnConstraints().addAll(bookGridPaneColumn1, bookGridPaneColumn2);
+            /* **** COLUMNS **** */
+            bookGridPaneColumn1 = new ColumnConstraints();
+            bookGridPaneColumn1.setPercentWidth(70);
+            bookGridPaneColumn1.setHgrow(Priority.SOMETIMES);
 
-        /* **** ROWS **** */
-        //manca il vgrow sometimes
-        for (int i = 0; i < 4; i++)
-            bookGridPane.getRowConstraints().add(new RowConstraints(27.0, 27.0, Double.MAX_VALUE));
+            bookGridPaneColumn2 = new ColumnConstraints();
+            bookGridPaneColumn2.setPercentWidth(30);
+            bookGridPaneColumn2.setHgrow(Priority.SOMETIMES);
 
-        bookHBox.setMargin(bookGridPane, new Insets(0, 0, 0, 8));
+            bookGridPane.getColumnConstraints().addAll(bookGridPaneColumn1, bookGridPaneColumn2);
 
-        /* **** SETTING LABELS **** */
-        //Label bookTitleLabel = new Label(element.getTitle());
-        Label bookTitleLabel = new Label(title);
-        bookTitleLabel.setAlignment(Pos.CENTER);
-        bookTitleLabel.setContentDisplay(ContentDisplay.CENTER);
-        bookTitleLabel.setFont(new Font("System Bold", 14.0));
-        GridPane.setConstraints(bookTitleLabel, 0, 0); // label in column 0, row 0
-
-        //Label bookAuthorsLabel = new Label("by " + Arrays.toString(element.getAuthors()));
-        Label bookAuthorsLabel = new Label("by " + setToString(authors));
-        bookAuthorsLabel.setAlignment(Pos.CENTER);
-        bookAuthorsLabel.setContentDisplay(ContentDisplay.CENTER);
-        GridPane.setConstraints(bookAuthorsLabel, 0, 1); // label in column 0, row 1
-
-        //Label bookLanguageLabel = new Label("Language: " + element.getLanguage());
-        Label bookLanguageLabel = new Label("Language: " + language.getName());
-        bookLanguageLabel.setAlignment(Pos.CENTER);
-        bookLanguageLabel.setContentDisplay(ContentDisplay.CENTER);
-        GridPane.setConstraints(bookLanguageLabel, 0, 3); // label in column 0, row 3
-
-        List<Label> bookFormatsPricesLabel = new ArrayList<>();
-
-        for (int i = 0; i < formats.size(); i++) {
-            bookFormatsPricesLabel.add(new Label(prices.get(i) + "€ - " + formats.get(i).getName()));
-
-            if (i >= bookGridPane.getRowCount())
+            /* **** ROWS **** */
+            //manca il vgrow sometimes
+            for (int i = 0; i < 4; i++)
                 bookGridPane.getRowConstraints().add(new RowConstraints(27.0, 27.0, Double.MAX_VALUE));
 
-            GridPane.setConstraints(bookFormatsPricesLabel.get(i), 1, i);
+            HBox.setMargin(bookGridPane, new Insets(0, 0, 0, 8));
+
+            /* **** SETTING LABELS **** */
+            bookTitleLabel = new Label(bookGroup.getBooks().get(0).getTitle());
+            bookTitleLabel.setAlignment(Pos.CENTER);
+            bookTitleLabel.setContentDisplay(ContentDisplay.CENTER);
+            bookTitleLabel.setFont(new Font("System Bold", 14.0));
+            GridPane.setConstraints(bookTitleLabel, 0, 0); // label in column 0, row 0
+
+            bookAuthorsLabel = new Label();
+            bookAuthorsLabel.setAlignment(Pos.CENTER);
+            bookAuthorsLabel.setContentDisplay(ContentDisplay.CENTER);
+            GridPane.setConstraints(bookAuthorsLabel, 0, 1); // label in column 0, row 1
+
+            bookLanguageLabel = new Label("Language: " + bookGroup.getBooks().get(0).getLanguage());
+            bookLanguageLabel.setAlignment(Pos.CENTER);
+            bookLanguageLabel.setContentDisplay(ContentDisplay.CENTER);
+            GridPane.setConstraints(bookLanguageLabel, 0, 3); // label in column 0, row 3
+
+            bookFormatsPricesLabel = new ArrayList<>();
+            authors = new TreeSet<>();
+
+            int i = 0;
+
+            for (Book currentBook : bookGroup.getBooks())
+            {
+                /* **** AUTHORS **** */
+                authors.addAll(currentBook.getAuthors());
+
+                /* **** PRICES AND FORMAT **** */
+                bookFormatsPricesLabel.add(new Label(currentBook.getPrice() + "€ - " + currentBook.getFormat()));
+
+                // add a row to the gridpane
+                if(i >= bookGroup.groupSize())
+                    bookGridPane.getRowConstraints().add(new RowConstraints(27.0, 27.0, Double.MAX_VALUE));
+
+                GridPane.setConstraints(bookFormatsPricesLabel.get(i), 1, i);
+
+                /* **** IMAGE **** */
+                if(!currentBook.getImagePath().equals("") && currentBook.getImagePath() != null)
+                {
+                    try
+                    {
+                        bookImageView.setImage(new Image(currentBook.getImagePath()));
+                    }
+                    catch (NullPointerException | IllegalArgumentException e)
+                    {}
+                }
+
+                i++;
+            }
+
+            /* **** CHECK IF IMAGE IS EXISTING **** */
+            if(bookImageView.getImage() == null)
+                bookImageView.setImage(new Image("/images/coverNotAvailable.png"));
+
+            /* **** ADDING FORMATS AND PRICES TO GRIDPANE **** */
+            bookGridPane.getChildren().addAll(bookFormatsPricesLabel);
+
+            /* **** SETTING LINE SEPARATOR **** */
+            separatorLine = new Separator();
+            separatorLine.setPrefWidth(200.0);
+
+            /* **** SETTING HBOXCURSOR **** */
+            bookHBox.setCursor(Cursor.HAND);
+
+            /* **** ADDING AUTHORS TO LABEL AND ADDING LABELS TO GRIDPANE**** */
+            bookAuthorsLabel.setText("by " + setToString(authors));
+            bookGridPane.getChildren().addAll(bookTitleLabel, bookAuthorsLabel, bookLanguageLabel);
+
+            /* **** ADDING IMAGE TO HBOX **** */
+            bookHBox.getChildren().add(bookImageView);
+
+            /* *** ADDING GRIDPANE TO HBOX **** */
+            bookHBox.getChildren().add(bookGridPane);
+
+            /* **** ADDING HBOX AND LINE TO VBOX **** */
+            catalogVBox.getChildren().addAll(bookHBox, separatorLine);
+
+            // Add listener to the Book HBox calling a method in ControllerCatalog and passing the ISBN List
+            // Note that we call a method from the same controllerCatalog object (passed as an argument)
+            bookHBox.setOnMouseClicked(mouseEvent ->
+                    controllerCatalog.changeSceneToSpecificBook(new ArrayList<String>(bookGroup.getBooksISBN())));
         }
-
-        bookGridPane.getChildren().addAll(bookFormatsPricesLabel);
-
-        /* **** SETTING LINE SEPARATOR **** */
-        Separator separatorLine = new Separator();
-        separatorLine.setPrefWidth(200.0);
-
-        /* **** SETTING HBOXCURSOR **** */
-        bookHBox.setCursor(Cursor.HAND);
-
-        /* **** ADDING LABELS TO GRIDPANE **** */
-        bookGridPane.getChildren().addAll(bookTitleLabel, bookAuthorsLabel, bookLanguageLabel);
-
-        /* **** ADDING IMAGE AND GRIDPANE TO HBOX  **** */
-        bookHBox.getChildren().add(bookImageView);
-        bookHBox.getChildren().add(bookGridPane);
-
-        /* **** ADDING HBOX AND LINE TO VBOX **** */
-        bookVBox.getChildren().addAll(bookHBox, separatorLine);
-
-        return bookHBox;
     }
 
     private String setToString(Set<Author> setStr)

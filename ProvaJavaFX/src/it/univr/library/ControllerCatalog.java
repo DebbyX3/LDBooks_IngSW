@@ -4,13 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 /*------------------------ IMPORTANTE! ----------------------
 In a few words: The constructor is called first, then any @FXML annotated fields are populated,
@@ -87,20 +89,17 @@ public class ControllerCatalog {
         controllerHeader.createHeader(user, headerHBox);
     }
 
+    public void changeSceneToSpecificBook(List<String> ISBNList)
+    {
+        StageManager specificBookScene = new StageManager();
+        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, ISBNList);
+    }
+
     //@FXML
     /*  oppure se metto il tag @FXML posso usare direttamente il nome del metodo nell'fxml che si chiama, senza dover dichiarare
     *   l'oggetto sul quale usarlo (book1) e senza fare il book1.setOnMouseClicked(this::bookClicked). Ricorda però che nell'fxml
     *   si deve specificare come si chiama il metodo per l'azione che si vuole fare (onMouseClicked="#bookClicked" appunto)
     *   */
-    private void bookClicked(MouseEvent mouseEvent)
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Libro cliccato");
-
-        alert.showAndWait();
-    }
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
@@ -123,17 +122,13 @@ public class ControllerCatalog {
     private void populateCatalog(Filter filter)
     {
         Model DBBooks = new ModelDatabaseBooks();
-        View viewBooks = new ViewBooks();
-
-        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox, catalogScrollPane, this);
+        buildCatalog(DBBooks.getBooks(filter));
     }
 
     private void populateCatalog()
     {
         Model DBBooks = new ModelDatabaseBooks();
-        View viewBooks = new ViewBooks();
-
-        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox, catalogScrollPane, this);
+        buildCatalog(DBBooks.getBooks());
     }
 
     private void populateGenreFilter()
@@ -150,9 +145,53 @@ public class ControllerCatalog {
         languageComboboxData.addAll(DBLanguage.getLanguages());
     }
 
-    public void changeSceneToSpecificBook(List<String> ISBNList)
+    private void buildCatalog(ArrayList<Book> books)
     {
-        StageManager specificBookScene = new StageManager();
-        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, ISBNList);
+        Book originalBook = null;
+        BookGroup bookGroup = null;
+        List<BookGroup> bookGroups = new ArrayList<>();
+
+        //List<String> ISBNList = new ArrayList<>();
+
+        View viewBooks = new ViewBooks();
+
+        // Bring up the ScrollPane
+        catalogScrollPane.setVvalue(catalogScrollPane.getVmin());
+
+        if(!books.isEmpty()) // Books to show
+        {
+            originalBook = books.get(0);
+            bookGroup = new BookGroup();
+
+            for (Book currentBook : books)
+            {
+                // If the book has NOT the same title, NOT a common author and NOT the same lang
+                // then, the book is NOT the same, it's a new book
+                if(! (currentBook.getTitle().equals(originalBook.getTitle()) &&
+                        !Collections.disjoint(currentBook.getAuthors(), originalBook.getAuthors()) && //true if list1 contains at least one element from list2
+                        currentBook.getLanguage().equals(originalBook.getLanguage()))) {
+
+                    bookGroups.add(bookGroup);
+                    bookGroup = new BookGroup();
+
+                    // Add listener to the Book HBox calling a method in ControllerCatalog and passing the ISBN List
+                    // Note that we call a method from the same controllerCatalog object (passed as an argument)
+                    //bookHBox.setOnMouseClicked(mouseEvent -> this.changeSceneToSpecificBook(ISBNList));
+
+                    originalBook = currentBook;
+                }
+
+                bookGroup.addBook(currentBook);
+            }
+
+            viewBooks.buildBook(catalogVBox, bookGroups, this);
+
+        }
+        else // No books to show
+        {
+            Label messageNoBooksFound = new Label("No books found!");
+            catalogVBox.setMargin(messageNoBooksFound, new Insets(50)); //Insets(double top, double right, double bottom, double left)
+            catalogVBox.getChildren().add(messageNoBooksFound);
+        }
     }
 }
