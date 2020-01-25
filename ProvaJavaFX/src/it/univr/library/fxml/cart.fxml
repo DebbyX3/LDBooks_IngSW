@@ -29,6 +29,16 @@
                               <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                            </VBox.margin>
                         </Label>
+                        <GridPane prefHeight="201.0" prefWidth="694.0">
+                          <columnConstraints>
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="227.5999755859375" minWidth="10.0" prefWidth="128.80001220703124" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="392.8000076293945" minWidth="10.0" prefWidth="320.40004272460936" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.79995727539062" minWidth="10.0" prefWidth="208.79995727539062" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                        </GridPane>
                      </children>
                   </VBox>
                </content>
