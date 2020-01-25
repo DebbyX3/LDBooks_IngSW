@@ -4,13 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.util.List;
+import java.util.*;
 
 /*------------------------ IMPORTANTE! ----------------------
 In a few words: The constructor is called first, then any @FXML annotated fields are populated,
@@ -31,9 +31,6 @@ public class ControllerCatalog {
     private ComboBox languageCombobox;
     private ObservableList<Language> languageComboboxData = FXCollections.observableArrayList();
 
-    //@FXML
-    //private HBox book1;
-
     @FXML
     private VBox catalogVBox;
 
@@ -44,8 +41,6 @@ public class ControllerCatalog {
     private ScrollPane catalogScrollPane;
 
     private User user;
-
-    private Stage primaryStage;
 
     public ControllerCatalog()
     {
@@ -64,16 +59,14 @@ public class ControllerCatalog {
         filterButton.setOnAction(this::handleFilterButton);
 
         // Initialize genre ComboBox
-        genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
+        genreCombobox.setItems(genreComboboxData);    // setto il combobox del genere con i dati messi in generecomboboxdata
         genreCombobox.getSelectionModel().selectFirst();
 
         // Initialize language ComboBox
-        languageCombobox.setItems(languageComboboxData);    //setto il combobox del genere con i dati messi in languagecomboboxdata
+        languageCombobox.setItems(languageComboboxData);    // setto il combobox del genere con i dati messi in languagecomboboxdata
         languageCombobox.getSelectionModel().selectFirst();
 
         populateCatalog();
-
-        //book1.setOnMouseClicked(this::bookClicked); // vedi annotazione sulla funzione
     }
 
     public void setUser(User user)
@@ -87,20 +80,17 @@ public class ControllerCatalog {
         controllerHeader.createHeader(user, headerHBox);
     }
 
+    public void changeSceneToSpecificBook(BookGroup bookList)
+    {
+        StageManager specificBookScene = new StageManager();
+        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, bookList);
+    }
+
     //@FXML
     /*  oppure se metto il tag @FXML posso usare direttamente il nome del metodo nell'fxml che si chiama, senza dover dichiarare
     *   l'oggetto sul quale usarlo (book1) e senza fare il book1.setOnMouseClicked(this::bookClicked). Ricorda però che nell'fxml
     *   si deve specificare come si chiama il metodo per l'azione che si vuole fare (onMouseClicked="#bookClicked" appunto)
     *   */
-    private void bookClicked(MouseEvent mouseEvent)
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("Libro cliccato");
-
-        alert.showAndWait();
-    }
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
@@ -109,9 +99,9 @@ public class ControllerCatalog {
         Genre genre = (Genre) genreCombobox.getValue();
         Language language = (Language) languageCombobox.getValue();
 
-        if(!genre.equals(new Genre("All"))) //if the genre is not "all", add the genre to the filter
+        if(!genre.equals(new Genre("All"))) // if the genre is not "all", add the genre to the filter
             filter.setGenre(genre);
-        if(!language.equals(new Language("All"))) //if the lang is not "all", add the lang to the filter
+        if(!language.equals(new Language("All"))) // if the lang is not "all", add the lang to the filter
             filter.setLanguage(language);
 
         //Filter filter = new Filter((Genre) genreCombobox.getValue(), (Language) languageCombobox.getValue());
@@ -123,17 +113,13 @@ public class ControllerCatalog {
     private void populateCatalog(Filter filter)
     {
         Model DBBooks = new ModelDatabaseBooks();
-        View viewBooks = new ViewBooks();
-
-        viewBooks.buildCatalog(DBBooks.getBooks(filter), catalogVBox, catalogScrollPane, this);
+        buildCatalog(DBBooks.getAllBooks(filter));
     }
 
     private void populateCatalog()
     {
         Model DBBooks = new ModelDatabaseBooks();
-        View viewBooks = new ViewBooks();
-
-        viewBooks.buildCatalog(DBBooks.getBooks(), catalogVBox, catalogScrollPane, this);
+        buildCatalog(DBBooks.getAllBooks());
     }
 
     private void populateGenreFilter()
@@ -150,9 +136,52 @@ public class ControllerCatalog {
         languageComboboxData.addAll(DBLanguage.getLanguages());
     }
 
-    public void changeSceneToSpecificBook(List<String> ISBNList)
+    private void buildCatalog(ArrayList<Book> books)
     {
-        StageManager specificBookScene = new StageManager();
-        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, ISBNList);
+        Book originalBook = null;
+        BookGroup bookGroup = null;
+        List<BookGroup> bookGroups = new ArrayList<>();
+
+        View viewBooks = new ViewBooks();
+
+        // Bring up the ScrollPane
+        catalogScrollPane.setVvalue(catalogScrollPane.getVmin());
+
+        if(!books.isEmpty()) // Books to show
+        {
+            originalBook = books.get(0);
+            bookGroup = new BookGroup();
+
+            for (Book currentBook : books)
+            {
+                // If the book has NOT the same title, NOT a common author, NOT the same genre and NOT the same lang
+                // then, the book is NOT the same, it's a new book.
+                // If so, add the current group of books to the list of group books,
+                // then create a new Group of Books (bookGroup)
+                if(!    (currentBook.getTitle().equals(originalBook.getTitle()) &&
+                        !Collections.disjoint(currentBook.getAuthors(), originalBook.getAuthors()) && //true if list1 contains at least one element from list2
+                        currentBook.getLanguage().equals(originalBook.getLanguage()) &&
+                        currentBook.getGenre().equals(originalBook.getGenre()))
+                ) {
+
+                    bookGroups.add(bookGroup);
+                    bookGroup = new BookGroup();
+
+                    originalBook = currentBook;
+                }
+
+                // add the current book to the list of books contained in a book group
+                bookGroup.addBook(currentBook);
+            }
+
+            bookGroups.add(bookGroup);
+            viewBooks.buildBookForCatalog(catalogVBox, bookGroups, this);
+        }
+        else // No books to show
+        {
+            Label messageNoBooksFound = new Label("No books found!");
+            catalogVBox.setMargin(messageNoBooksFound, new Insets(50)); //Insets(double top, double right, double bottom, double left)
+            catalogVBox.getChildren().add(messageNoBooksFound);
+        }
     }
 }
