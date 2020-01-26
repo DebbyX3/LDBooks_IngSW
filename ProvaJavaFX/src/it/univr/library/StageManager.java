@@ -31,7 +31,7 @@ public class StageManager
         }
     }
 
-    public void setStageSpecificBook(Stage primaryStage, User user, List<String> ISBNList)
+    public void setStageSpecificBook(Stage primaryStage, User user, BookGroup bookGroup)
     {
         Parent root;
 
@@ -43,6 +43,8 @@ public class StageManager
             ControllerSpecificBook controllerSpecificBook = fxmlLoader.getController();
             controllerSpecificBook.setUser(user);
             controllerSpecificBook.setHeader();
+            controllerSpecificBook.setGroupBook(bookGroup);
+            controllerSpecificBook.populateBookInfo();
 
             primaryStage.setTitle("Book - LD Books");
             primaryStage.setScene(new Scene(root));
