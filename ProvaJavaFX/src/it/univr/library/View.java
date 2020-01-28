@@ -36,7 +36,7 @@ public interface View
 
     public default void buildLibroCard(ArrayList<Librocard> librocards, VBox LibrocardVBox, ScrollPane LibroCardScrollPane){};
 
-    public default void buildCart(ArrayList<Book> books, VBox cartVBox, ScrollPane cartScrollPane){};
+    public default void buildCart(ArrayList<Book> books, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart){};
 
 
 }

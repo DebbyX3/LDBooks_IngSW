@@ -2,7 +2,7 @@ package it.univr.library;
 
 import java.util.Objects;
 
-public class Genre
+public class Genre implements Comparable<Genre>
 {
     private String name;
 
@@ -34,5 +34,10 @@ public class Genre
     public int hashCode()
     {
         return name.hashCode();
+    }
+
+    @Override
+    public int compareTo(Genre o) {
+        return name.compareTo(o.name);
     }
 }

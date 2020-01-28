@@ -41,6 +41,7 @@ public class ControllerCatalog {
     private ScrollPane catalogScrollPane;
 
     private User user;
+    private Map<Book,Integer> cart;
 
     public ControllerCatalog()
     {
@@ -183,5 +184,9 @@ public class ControllerCatalog {
             catalogVBox.setMargin(messageNoBooksFound, new Insets(50)); //Insets(double top, double right, double bottom, double left)
             catalogVBox.getChildren().add(messageNoBooksFound);
         }
+    }
+
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
     }
 }

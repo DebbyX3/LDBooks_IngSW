@@ -6,10 +6,14 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class ControllerHomepage {
 
     @FXML
     private Button enterButton;
+
 
     @FXML
     private void initialize()
@@ -20,7 +24,7 @@ public class ControllerHomepage {
 
     private void handleEnterButton(ActionEvent actionEvent) {
         StageManager catalogStage = new StageManager();
-        catalogStage.setStageCatalog((Stage) enterButton.getScene().getWindow(), null);
+        catalogStage.setStageCatalog((Stage) enterButton.getScene().getWindow(), null, new HashMap<Book,Integer>());
     }
 
 }

@@ -6,7 +6,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StageManager
 {
@@ -81,7 +83,7 @@ public class StageManager
         }
     }
 
-    public void setStageCatalog(Stage primaryStage, User user)
+    public void setStageCatalog(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -92,6 +94,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerCatalog controllerCatalog = fxmlLoader.getController();
             controllerCatalog.setUser(user);
+            controllerCatalog.setCart(cart);
             controllerCatalog.setHeader();
 
             primaryStage.setTitle("Catalog - LD Books");

@@ -39,42 +39,41 @@ public class ControllerCart {
     private ArrayList<Book> books = fetchBooks();
 
 
-
     @FXML
-    private void initialize()
-    {
+    private void initialize() {
         populateCart(books);
     }
 
-    private void populateCart(ArrayList<Book> books)
-    {
+    private void populateCart(ArrayList<Book> books) {
         View viewCartUser = new ViewCart();
         cartVBox.getChildren().clear();
-        viewCartUser.buildCart(books, cartVBox, cartScrollPane);
+        viewCartUser.buildCart(books, cartVBox, cartScrollPane, this);
     }
 
-    public void setUser(User user)
-    {
+    public void setUser(User user) {
         this.user = user;
     }
 
-    public void setHeader()
-    {
+    public void setHeader() {
         ControllerHeader controllerHeader = new ControllerHeader();
         controllerHeader.createHeader(user, headerHBox);
     }
 
-    private ArrayList<Book> fetchBooks()
-    {
+    private ArrayList<Book> fetchBooks() {
         ArrayList<Book> all;
         ArrayList<Book> ret = new ArrayList<>();
         Model fetch = new ModelDatabaseBooks();
         all = fetch.getAllBooks();
-        for (Book b: all) {
+        for (Book b : all) {
             ret.add(b);
             break;
         }
-        return ret;
+        return all;
     }
 
+    public void handleRemoveBookFromCart(Book book)
+    {
+        books.remove(book);
+        populateCart(books);
+    }
 }

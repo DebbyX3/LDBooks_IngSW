@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 
 public class ViewCart implements View {
     @Override
-    public void buildCart(ArrayList<Book> books, VBox cartVBox, ScrollPane cartScrollPane)
+    public void buildCart(ArrayList<Book> books, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart)
     {
         GridPane cartGridPane;
         //bring up the scrollpane
@@ -26,7 +28,7 @@ public class ViewCart implements View {
             cartVBox.setPadding(new Insets(40, 0, 0, 0));
             VBox.setMargin(cartGridPane, new Insets(15,0,15,0));
 
-            createCartforSingleBook(cartVBox,cartGridPane,book);
+            createCartforSingleBook(cartVBox,cartGridPane,book, controllerCart);
 
             //separator for the new order or for last order
             Separator line = new Separator();
@@ -37,7 +39,7 @@ public class ViewCart implements View {
 
     }
 
-    private void createCartforSingleBook(VBox cartVBox, GridPane cartGridPane, Book book)
+    private void createCartforSingleBook(VBox cartVBox, GridPane cartGridPane, Book book, ControllerCart controllerCart)
     {
         /* **** COLUMNS **** */
         ColumnConstraints cartGridPaneColumn1 = new ColumnConstraints();
@@ -388,10 +390,12 @@ public class ViewCart implements View {
         removeButton.setPrefWidth(122);
         removeButton.setText("Remove from cart");
         removeButton.setFont(new Font("System Italic", 12.0));
+        removeButton.setOnAction(actionEvent -> controllerCart.handleRemoveBookFromCart(new Book(book)));
 
         removeButtonHbox.getChildren().add(removeButton);
 
         //TODO: put handler on this button
+
 
         bookFinalInformationVbox.getChildren().addAll(formatHbox, quantityHbox,totalLibroCardPointsHbox,totalPricesHbox,removeButtonHbox);
         GridPane.setConstraints(bookFinalInformationVbox, 2, 0);
