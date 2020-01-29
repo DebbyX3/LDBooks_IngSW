@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ControllerEditProfile {
 
@@ -46,6 +47,7 @@ public class ControllerEditProfile {
     private ArrayList<String> postalCodes;
 
     private ArrayList<String> cities;
+    private Map<Book, Integer> cart;
 
     public ControllerEditProfile()
     {}
@@ -65,10 +67,14 @@ public class ControllerEditProfile {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox, cart);
     }
 
     private void handleAddAddressButton(ActionEvent actionEvent)
@@ -116,5 +122,6 @@ public class ControllerEditProfile {
 
         return regUser;
     }
+
 
 }

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 import java.util.Optional;
 
 public class ControllerAddBook {
@@ -79,6 +80,7 @@ public class ControllerAddBook {
     private User manager;
     private int numberOfAuthors = 0;
     private ArrayList<Author> authorsToLinkToBook = new ArrayList<>();
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -130,10 +132,14 @@ public class ControllerAddBook {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void handleSelectAuthorButton(ActionEvent actionEvent)
@@ -190,7 +196,7 @@ public class ControllerAddBook {
 
             //change scene
             StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager);
+            addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager, cart);
         }
     }
 
@@ -387,4 +393,6 @@ public class ControllerAddBook {
     private boolean isISBNvalid(String s){ return s.matches("^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})" +
             "[- 0-9X]{13}$|97[89]-[0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)" +
             "(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$");}
+
+
 }

@@ -10,6 +10,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Map;
+
 public class ControllerLibroCardsManager
 {
     @FXML
@@ -28,6 +30,7 @@ public class ControllerLibroCardsManager
     private HBox headerHBox;
 
     private User manager;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -45,10 +48,14 @@ public class ControllerLibroCardsManager
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void handleFilterButton(ActionEvent actionEvent)
@@ -81,5 +88,6 @@ public class ControllerLibroCardsManager
         mailUsersComboboxData.add("All");
         mailUsersComboboxData.addAll((DBmailLibroCardUsers.getMailsLibroCards()));
     }
+
 
 }

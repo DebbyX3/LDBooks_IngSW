@@ -350,11 +350,14 @@ public class ViewBooks implements View
             cartButton.setCursor(Cursor.HAND);
             FlowPane.setMargin(cartButton, new Insets(0, 0, 0, 10)); //Insets(top, right, bottom, left)
 
+            //TODO handler cart button
+
             cartImageView = new ImageView();
             cartImageView.setFitWidth(48.0);
             cartImageView.setFitHeight(32.0);
             cartImageView.setPickOnBounds(true);
             cartImageView.setPreserveRatio(true);
+
 
             try {
                 cartImageView.setImage(new Image("/images/cart.png"));
@@ -379,9 +382,14 @@ public class ViewBooks implements View
             FlowPane.setMargin(quantityLabel, new Insets(0, 0, 0, 10)); //Insets(top, right, bottom, left)
 
             /* **** SETTING QUANTITY COMBOBOX **** */
-            // TODO: 24/01/2020 riempire combobox con le quantità
             quantityComboBox = new ComboBox();
+            ObservableList<Integer> quantity = FXCollections.observableArrayList();
 
+            for(int i = 1; i <= currentBook.getMaxQuantity(); i++)
+               quantity.add(i);
+
+            quantityComboBox.setItems(quantity);
+            quantityComboBox.setValue(1);
             /* **** SETTING AVAILABLE QUANTITY LABEL **** */
             availableQuantityLabel = new Label("Available quantity: " + currentBook.getMaxQuantity());
             availableQuantityLabel.setAlignment(Pos.CENTER);

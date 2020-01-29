@@ -8,6 +8,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerViewProfile
 {
     @FXML
@@ -35,6 +37,7 @@ public class ControllerViewProfile
     private Button editProfileButton;
 
     User user;
+    private Map<Book, Integer> cart;
 
     public ControllerViewProfile()
     {
@@ -53,16 +56,20 @@ public class ControllerViewProfile
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     private void handleEditProfileButton(ActionEvent actionEvent)
     {
         StageManager EditProfileStage = new StageManager();
-        EditProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user);
+        EditProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user, cart);
     }
 
     public void populateUserInformations()
@@ -86,4 +93,6 @@ public class ControllerViewProfile
 
         return regUser;
     }
+
+
 }

@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerAddPublishingHouse {
 
     @FXML
@@ -27,6 +29,7 @@ public class ControllerAddPublishingHouse {
     private ObservableList<PublishingHouse> publishingHouses = FXCollections.observableArrayList();
 
     private User manager;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -43,10 +46,14 @@ public class ControllerAddPublishingHouse {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox, cart);
     }
 
     private void populatePublishingHouse()
@@ -78,7 +85,7 @@ public class ControllerAddPublishingHouse {
 
                 //change scene
                 StageManager addEditBooks = new StageManager();
-                addEditBooks.setStageAddEditBooks((Stage) addNewPublishingHouseButton.getScene().getWindow(), manager);
+                addEditBooks.setStageAddEditBooks((Stage) addNewPublishingHouseButton.getScene().getWindow(), manager, cart);
             }
             else
             {
@@ -101,5 +108,7 @@ public class ControllerAddPublishingHouse {
 
         alert.showAndWait();
     }
+
+
 }
 

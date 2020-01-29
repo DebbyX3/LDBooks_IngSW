@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Map;
+
 public class ControllerSpecificBook
 {
     @FXML
@@ -21,6 +23,7 @@ public class ControllerSpecificBook
 
     User user;
     BookGroup bookGroup;
+    private Map<Book, Integer> cart;
 
     private void initialize()
     {
@@ -31,10 +34,14 @@ public class ControllerSpecificBook
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     public void setGroupBook(BookGroup bookGroup)

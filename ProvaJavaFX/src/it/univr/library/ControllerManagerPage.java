@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerManagerPage {
 
     @FXML
@@ -24,6 +26,7 @@ public class ControllerManagerPage {
     private Button usersLibroCardsButton;
 
     private User manager;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -40,33 +43,39 @@ public class ControllerManagerPage {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void handleOrderStatusButton(ActionEvent actionEvent)
     {
         StageManager statusOrderUsers = new StageManager();
-        statusOrderUsers.setStageOrderManager((Stage) orderStatusButton.getScene().getWindow(), manager);
+        statusOrderUsers.setStageOrderManager((Stage) orderStatusButton.getScene().getWindow(), manager, cart);
     }
 
     private void handleUsersLibroCardsButton(ActionEvent actionEvent)
     {
         StageManager libroCardManager = new StageManager();
-        libroCardManager.setStageLibroCardManager((Stage) usersLibroCardsButton.getScene().getWindow(), manager);
+        libroCardManager.setStageLibroCardManager((Stage) usersLibroCardsButton.getScene().getWindow(), manager, cart);
     }
 
     private void handleUpdateChartsButton(ActionEvent actionEvent)
     {
         StageManager updateCharts = new StageManager();
-        updateCharts.setStageUpdateCharts((Stage) updateChartsButton.getScene().getWindow(), manager);
+        updateCharts.setStageUpdateCharts((Stage) updateChartsButton.getScene().getWindow(), manager, cart);
     }
 
     private void handleAddEditBooksButton(ActionEvent actionEvent)
     {
         StageManager addEditBooks = new StageManager();
-        addEditBooks.setStageAddEditBooks((Stage) addBooksButton.getScene().getWindow(), manager);
+        addEditBooks.setStageAddEditBooks((Stage) addBooksButton.getScene().getWindow(), manager, cart);
     }
+
+
 }

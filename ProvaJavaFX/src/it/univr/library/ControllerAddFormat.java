@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerAddFormat {
 
     @FXML
@@ -27,6 +29,7 @@ public class ControllerAddFormat {
     private ObservableList<Format> formats = FXCollections.observableArrayList();
 
     private User manager;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -43,10 +46,14 @@ public class ControllerAddFormat {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void populateFormats()
@@ -80,7 +87,7 @@ public class ControllerAddFormat {
 
                 //change scene
                 StageManager addEditBooks = new StageManager();
-                addEditBooks.setStageAddEditBooks((Stage) addNewFormatButton.getScene().getWindow(), manager);
+                addEditBooks.setStageAddEditBooks((Stage) addNewFormatButton.getScene().getWindow(), manager, cart);
             }
             else
             {
@@ -106,5 +113,6 @@ public class ControllerAddFormat {
 
         alert.showAndWait();
     }
+
 
 }

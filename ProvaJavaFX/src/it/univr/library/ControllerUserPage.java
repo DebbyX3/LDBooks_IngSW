@@ -9,6 +9,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerUserPage
 {
     @FXML
@@ -27,6 +29,7 @@ public class ControllerUserPage
     private HBox headerHBox;
 
     private User user;
+    private Map<Book, Integer> cart;
 
 
     @FXML
@@ -44,23 +47,27 @@ public class ControllerUserPage
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart=cart;
+    }
+
 
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     private void handleMyLibroCardButton(ActionEvent actionEvent)
     {
         StageManager viewLibroCard = new StageManager();
-        viewLibroCard.setStageViewLibroCard((Stage) myLibroCardButton.getScene().getWindow(), user);
+        viewLibroCard.setStageViewLibroCard((Stage) myLibroCardButton.getScene().getWindow(), user, cart);
     }
 
     private void handleViewProfileButton(ActionEvent actionEvent)
     {
         StageManager viewProfileStage = new StageManager();
-        viewProfileStage.setStageViewProfile((Stage) viewProfileButton.getScene().getWindow(), user);
+        viewProfileStage.setStageViewProfile((Stage) viewProfileButton.getScene().getWindow(), user,cart);
     }
 
     private void handleEditProfileButton(ActionEvent actionEvent)
@@ -71,8 +78,9 @@ public class ControllerUserPage
     private void handleMyOrdersButton(ActionEvent actionEvent)
     {
         StageManager orderUserStage = new StageManager();
-        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), user);
+        orderUserStage.setStageOrderUser((Stage) myOrdersButton.getScene().getWindow(), user, cart);
     }
 
 
+   
 }

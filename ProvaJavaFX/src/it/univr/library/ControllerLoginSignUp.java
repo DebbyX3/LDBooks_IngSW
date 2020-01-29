@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerLoginSignUp {
 
     @FXML
@@ -28,6 +30,8 @@ public class ControllerLoginSignUp {
 
     private User user;
 
+    private Map<Book, Integer> cart;
+
     @FXML
     private void initialize()
     {
@@ -41,10 +45,14 @@ public class ControllerLoginSignUp {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     private void handleLoginButton(ActionEvent actionEvent)
@@ -61,12 +69,12 @@ public class ControllerLoginSignUp {
             if(realUser != null) //user page
             {
                 StageManager loginStage = new StageManager();
-                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser);
+                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser, cart);
             }
             else //manager page
             {
                 StageManager loginStage = new StageManager();
-                loginStage.setStageManagerPage((Stage) loginButton.getScene().getWindow(), manager);
+                loginStage.setStageManagerPage((Stage) loginButton.getScene().getWindow(), manager, cart);
             }
 
         }
@@ -75,7 +83,7 @@ public class ControllerLoginSignUp {
     private void handleSignUpButton(ActionEvent actionEvent)
     {
         StageManager signUpStage = new StageManager();
-        signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), user);
+        signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), user, cart);
     }
 
     private void displayAlert(String s) {
@@ -95,6 +103,7 @@ public class ControllerLoginSignUp {
 
         return u;
     }
+
 
 
 }

@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Map;
+
 public class ViewHeader implements View
 {
     public void createLogo(HBox headerHBox)
@@ -27,7 +29,7 @@ public class ViewHeader implements View
         headerHBox.getChildren().add(logoImageView);
     }
 
-    public void createCatalogButton(HBox headerHBox, User user) {
+    public void createCatalogButton(HBox headerHBox, User user, Map<Book,Integer> cart) {
         Button catalogButton = new Button();
         HBox imageTextHBox = new HBox();
         ImageView homeImageView = new ImageView("/images/home.png");
@@ -65,13 +67,13 @@ public class ViewHeader implements View
         catalogButton.setGraphic(imageTextHBox);
 
         // *** setting button handler
-        catalogButton.setOnAction(e -> new ControllerHeader().handleCatalogButton(catalogButton, user));
+        catalogButton.setOnAction(e -> new ControllerHeader().handleCatalogButton(catalogButton, user,cart));
 
         // *** adding button to headerHBox
         headerHBox.getChildren().add(catalogButton);
     }
 
-    public void createChartsButton(HBox headerHBox, User user)
+    public void createChartsButton(HBox headerHBox, User user, Map<Book,Integer> cart)
     {
         Button chartsButton = new Button();
 
@@ -87,7 +89,7 @@ public class ViewHeader implements View
         chartsButton.setCursor(Cursor.HAND);
         headerHBox.setMargin(chartsButton, new Insets(0, 0, 0, 10.0));  //top, right, bottom, left
 
-        chartsButton.setOnAction(e -> new ControllerHeader().handleChartsButton(chartsButton, user));
+        chartsButton.setOnAction(e -> new ControllerHeader().handleChartsButton(chartsButton, user, cart));
 
         headerHBox.getChildren().add(chartsButton);
     }
@@ -103,7 +105,7 @@ public class ViewHeader implements View
         return rightHeaderHBox;
     }
 
-    public void createLoginSignupButton(HBox rightHeaderHbox, User user)
+    public void createLoginSignupButton(HBox rightHeaderHbox, User user, Map<Book,Integer> cart)
     {
         Button loginSignUpButton = new Button();
 
@@ -120,13 +122,13 @@ public class ViewHeader implements View
         loginSignUpButton.setCursor(Cursor.HAND);
         rightHeaderHbox.setMargin(loginSignUpButton, new Insets(0, 10.0, 0, 0));  //top, right, bottom, left
 
-        loginSignUpButton.setOnAction(e -> new ControllerHeader().handleLoginSignUpButton(loginSignUpButton, user));
+        loginSignUpButton.setOnAction(e -> new ControllerHeader().handleLoginSignUpButton(loginSignUpButton, user, cart));
 
         rightHeaderHbox.getChildren().add(loginSignUpButton);
     }
 
 
-    public void createOrderStatusButton(HBox rightHeaderHbox, User user)
+    public void createOrderStatusButton(HBox rightHeaderHbox, User user, Map<Book,Integer> cart)
     {
         Button orderStatusUnregisteredUserButton = new Button();
 
@@ -143,12 +145,12 @@ public class ViewHeader implements View
         orderStatusUnregisteredUserButton.setCursor(Cursor.HAND);
         rightHeaderHbox.setMargin(orderStatusUnregisteredUserButton, new Insets(0, 15.0, 0, 0));  //top, right, bottom, left
 
-        orderStatusUnregisteredUserButton.setOnAction(e -> new ControllerHeader().handleOrderStatusUnregisteredUser(orderStatusUnregisteredUserButton, user));
+        orderStatusUnregisteredUserButton.setOnAction(e -> new ControllerHeader().handleOrderStatusUnregisteredUser(orderStatusUnregisteredUserButton, user, cart));
 
         rightHeaderHbox.getChildren().add(orderStatusUnregisteredUserButton);
     }
 
-    public VBox createUserHyperlink(User user, HBox rightHeaderHBox)
+    public VBox createUserHyperlink(User user, HBox rightHeaderHBox, Map<Book,Integer> cart)
     {
         VBox userInfoVBox = new VBox();
         Hyperlink nameSurnameHyperlink = new Hyperlink();
@@ -160,13 +162,13 @@ public class ViewHeader implements View
         nameSurnameHyperlink.setText("Hello " + user.getName() + " " + user.getSurname() + ",");
         nameSurnameHyperlink.setFont(new Font("System Italic", 14.0));
 
-        nameSurnameHyperlink.setOnAction(e -> new ControllerHeader().handlerUserPageHyperlink(nameSurnameHyperlink, user));
+        nameSurnameHyperlink.setOnAction(e -> new ControllerHeader().handlerUserPageHyperlink(nameSurnameHyperlink, user, cart));
         userInfoVBox.getChildren().add(nameSurnameHyperlink);
 
         return userInfoVBox;
     }
 
-    public void createLogOutButton(VBox userInfoVBox, HBox rightHeaderHBox, User user)
+    public void createLogOutButton(VBox userInfoVBox, HBox rightHeaderHBox, User user, Map<Book,Integer> cart)
     {
         Button logoutButton = new Button();
 
@@ -175,14 +177,14 @@ public class ViewHeader implements View
         logoutButton.setText("Log Out");
         logoutButton.setCursor(Cursor.HAND);
 
-        logoutButton.setOnAction(e -> new ControllerHeader().handleLogOutButton(logoutButton));
+        logoutButton.setOnAction(e -> new ControllerHeader().handleLogOutButton(logoutButton,cart));
         userInfoVBox.getChildren().add(logoutButton);
 
         rightHeaderHBox.getChildren().add(userInfoVBox);
     }
 
-    // TODO: 11/10/2019 manca il settaggio dell'handler
-    public void createCartImageView(HBox rightHeaderHBox, User user)
+
+    public void createCartImageView(HBox rightHeaderHBox, User user, Map<Book,Integer> cart)
     {
         ImageView cartImageView = new ImageView("/images/cart.png");
 
@@ -194,7 +196,7 @@ public class ViewHeader implements View
         rightHeaderHBox.setMargin(cartImageView, new Insets(0, 20.0, 0, 0));  //top, right, bottom, left
         cartImageView.setCursor(Cursor.HAND);
 
-        cartImageView.setOnMouseClicked(e -> new ControllerHeader().handleCartClicked(cartImageView, user));
+        cartImageView.setOnMouseClicked(e -> new ControllerHeader().handleCartClicked(cartImageView, user, cart));
         rightHeaderHBox.getChildren().add(cartImageView);
     }
 }

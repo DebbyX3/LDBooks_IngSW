@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 public class ViewCart implements View {
     @Override

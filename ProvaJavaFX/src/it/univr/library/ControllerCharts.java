@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.List;
+import java.util.Map;
 
 public class ControllerCharts {
 
@@ -31,6 +32,8 @@ public class ControllerCharts {
     private TableView<User> chartsTableView;
 
     private User user;
+
+    private Map<Book,Integer> cart;
 
     public ControllerCharts()
     {
@@ -56,10 +59,14 @@ public class ControllerCharts {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     private void populateCharts()
@@ -87,4 +94,6 @@ public class ControllerCharts {
         chartsTableView.getColumns().clear();
         viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
     }
+
+
 }

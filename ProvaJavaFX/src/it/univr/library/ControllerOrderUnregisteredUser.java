@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,6 +29,7 @@ public class ControllerOrderUnregisteredUser {
 
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", Pattern.CASE_INSENSITIVE);
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -40,10 +42,14 @@ public class ControllerOrderUnregisteredUser {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     private void handleTrackOrderButton(ActionEvent actionEvent)
@@ -74,7 +80,7 @@ public class ControllerOrderUnregisteredUser {
                 {
                     //and show it
                     StageManager orderUnregisteredUserStage = new StageManager();
-                    orderUnregisteredUserStage.setStageUnregOrderUserView((Stage) trackOrderButton.getScene().getWindow(), user, order);
+                    orderUnregisteredUserStage.setStageUnregOrderUserView((Stage) trackOrderButton.getScene().getWindow(), user, order, cart);
                 }
             }
             else

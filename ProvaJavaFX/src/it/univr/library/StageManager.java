@@ -33,7 +33,7 @@ public class StageManager
         }
     }
 
-    public void setStageSpecificBook(Stage primaryStage, User user, BookGroup bookGroup)
+    public void setStageSpecificBook(Stage primaryStage, User user, BookGroup bookGroup, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -44,6 +44,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerSpecificBook controllerSpecificBook = fxmlLoader.getController();
             controllerSpecificBook.setUser(user);
+            controllerSpecificBook.setCart(cart);
             controllerSpecificBook.setHeader();
             controllerSpecificBook.setGroupBook(bookGroup);
             controllerSpecificBook.populateBookInfo();
@@ -59,7 +60,7 @@ public class StageManager
 
     }
 
-    public void setStageCharts(Stage primaryStage, User user)
+    public void setStageCharts(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -69,8 +70,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerCharts controllerCharts = fxmlLoader.getController();
-
             controllerCharts.setUser(user);
+            controllerCharts.setCart(cart);
             controllerCharts.setHeader();
 
             primaryStage.setTitle("Charts - LD Books");
@@ -107,7 +108,7 @@ public class StageManager
         }
     }
 
-    public void setStageLogin(Stage primaryStage, User user)
+    public void setStageLogin(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -118,6 +119,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerLoginSignUp controllerLoginSignUp = fxmlLoader.getController();
             controllerLoginSignUp.setUser(user);
+            controllerLoginSignUp.setCart(cart);
             controllerLoginSignUp.setHeader();
 
 
@@ -131,7 +133,7 @@ public class StageManager
         }
     }
 
-    public void setStageUserPage(Stage primaryStage, User user)
+    public void setStageUserPage(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -142,6 +144,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerUserPage controllerUserPage = fxmlLoader.getController();
             controllerUserPage.setUser(user);
+            controllerUserPage.setCart(cart);
             controllerUserPage.setHeader();
 
             primaryStage.setTitle("UserPage - LD Books");
@@ -154,7 +157,7 @@ public class StageManager
         }
     }
 
-    public void setStageManagerPage(Stage primaryStage, User manager)
+    public void setStageManagerPage(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -165,6 +168,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerManagerPage controllerManagerPage = fxmlLoader.getController();
             controllerManagerPage.setManager(manager);
+            controllerManagerPage.setCart(cart);
             controllerManagerPage.setHeader();
 
             primaryStage.setTitle("ManagerPage - LD Books");
@@ -177,7 +181,7 @@ public class StageManager
         }
     }
 
-    public void setStageOrderUser(Stage primaryStage, User user)
+    public void setStageOrderUser(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -188,6 +192,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
             controllerOrderUser.setUser(user);
+            controllerOrderUser.setCart(cart);
             controllerOrderUser.populateOrderUser();
             controllerOrderUser.setHeader();
 
@@ -201,7 +206,7 @@ public class StageManager
         }
     }
 
-    public void setStageOrderManager(Stage primaryStage, User manager)
+    public void setStageOrderManager(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -212,6 +217,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderManager controllerOrderManager = fxmlLoader.getController();
             controllerOrderManager.setManager(manager);
+            controllerOrderManager.setCart(cart);
             controllerOrderManager.setHeader();
 
             primaryStage.setTitle("OrderManager - LD Books");
@@ -224,7 +230,7 @@ public class StageManager
         }
     }
 
-    public void setStageAddEditBooks(Stage primaryStage, User manager)
+    public void setStageAddEditBooks(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -235,6 +241,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerEditCatalog controllerEditCatalog = fxmlLoader.getController();
             controllerEditCatalog.setManager(manager);
+            controllerEditCatalog.setCart(cart);
             controllerEditCatalog.setHeader();
 
             primaryStage.setTitle("Edit Catalog - LD Books");
@@ -248,7 +255,7 @@ public class StageManager
 
     }
 
-    public void setStageAddNewAuthor(Stage primaryStage, User manager)
+    public void setStageAddNewAuthor(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -259,6 +266,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerAddAuthor controllerAddAuthor = fxmlLoader.getController();
             controllerAddAuthor.setManager(manager);
+            controllerAddAuthor.setCart(cart);
             controllerAddAuthor.setHeader();
 
             primaryStage.setTitle("Add new Author- LD Books");
@@ -272,7 +280,7 @@ public class StageManager
 
     }
 
-    public void setStageAddNewLanguage(Stage primaryStage, User manager)
+    public void setStageAddNewLanguage(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -283,6 +291,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerAddLanguage controllerAddLanguage = fxmlLoader.getController();
             controllerAddLanguage.setManager(manager);
+            controllerAddLanguage.setCart(cart);
             controllerAddLanguage.setHeader();
 
             primaryStage.setTitle("Add new Language - LD Books");
@@ -296,7 +305,7 @@ public class StageManager
 
     }
 
-    public void setStageAddNewBook(Stage primaryStage, User manager)
+    public void setStageAddNewBook(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -307,6 +316,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerAddBook controllerAddBook = fxmlLoader.getController();
             controllerAddBook.setManager(manager);
+            controllerAddBook.setCart(cart);
             controllerAddBook.setHeader();
 
             primaryStage.setTitle("Add new Book - LD Books");
@@ -319,7 +329,7 @@ public class StageManager
         }
     }
 
-    public void setStageLibroCardManager(Stage primaryStage, User manager) {
+    public void setStageLibroCardManager(Stage primaryStage, User manager, Map<Book,Integer> cart) {
         Parent root;
 
         try
@@ -329,6 +339,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerLibroCardsManager controllerLibroCardsManager = fxmlLoader.getController();
             controllerLibroCardsManager.setUser(manager);
+            controllerLibroCardsManager.setCart(cart);
             controllerLibroCardsManager.setHeader();
 
             primaryStage.setTitle("LibroCard Manager- LD Books");
@@ -342,7 +353,7 @@ public class StageManager
     }
 
 
-    public void setStageSignUp(Stage primaryStage, User user)
+    public void setStageSignUp(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -353,6 +364,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerSignUp controllerSignUp = fxmlLoader.getController();
             controllerSignUp.setUser(user);
+            controllerSignUp.setCart(cart);
             controllerSignUp.setHeader();
 
 
@@ -367,7 +379,7 @@ public class StageManager
 
     }
 
-    public void setStageViewProfile(Stage primaryStage, User user)
+    public void setStageViewProfile(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -378,6 +390,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerViewProfile controllerViewProfile = fxmlLoader.getController();
             controllerViewProfile.setUser(user);
+            controllerViewProfile.setCart(cart);
             controllerViewProfile.populateUserInformations();
             controllerViewProfile.setHeader();
 
@@ -392,7 +405,7 @@ public class StageManager
 
     }
 
-    public void setStageEditProfile(Stage primaryStage, User user) {
+    public void setStageEditProfile(Stage primaryStage, User user, Map<Book,Integer> cart) {
         Parent root;
 
         try
@@ -402,6 +415,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerEditProfile controllerEditProfile = fxmlLoader.getController();
             controllerEditProfile.setUser(user);
+            controllerEditProfile.setCart(cart);
             controllerEditProfile.populateUserInformations();
             controllerEditProfile.setHeader();
 
@@ -418,7 +432,7 @@ public class StageManager
 
     }
 
-    public void setStageViewLibroCard(Stage primaryStage, User user) {
+    public void setStageViewLibroCard(Stage primaryStage, User user, Map<Book,Integer> cart) {
         Parent root;
 
         try
@@ -428,6 +442,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerLibroCardUser controllerLibroCardUser = fxmlLoader.getController();
             controllerLibroCardUser.setUser(user);
+            controllerLibroCardUser.setCart(cart);
             controllerLibroCardUser.populateUserLibroCard();
             controllerLibroCardUser.setHeader();
 
@@ -442,7 +457,7 @@ public class StageManager
     }
 
 
-    public void setStageOrderUnregUser(Stage primaryStage, User user)
+    public void setStageOrderUnregUser(Stage primaryStage, User user, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -453,6 +468,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderUnregisteredUser controllerOrderUnregisteredUser = fxmlLoader.getController();
             controllerOrderUnregisteredUser.setUser(user);
+            controllerOrderUnregisteredUser.setCart(cart);
             controllerOrderUnregisteredUser.setHeader();
 
             primaryStage.setTitle("Order Status Unregistered User - LD Books");
@@ -465,7 +481,7 @@ public class StageManager
         }
     }
 
-    public void setStageUnregOrderUserView(Stage primaryStage, User user, ArrayList<Order> order)
+    public void setStageUnregOrderUserView(Stage primaryStage, User user, ArrayList<Order> order, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -476,6 +492,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
             controllerOrderUser.setUser(user);
+            controllerOrderUser.setCart(cart);
             controllerOrderUser.populateOrderUser(order);
             controllerOrderUser.setHeader();
 
@@ -490,7 +507,7 @@ public class StageManager
     }
 
 
-    public void setStageAddNewPhouse(Stage primaryStage, User manager)
+    public void setStageAddNewPhouse(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -501,6 +518,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerAddPublishingHouse controllerAddPublishingHouse = fxmlLoader.getController();
             controllerAddPublishingHouse.setManager(manager);
+            controllerAddPublishingHouse.setCart(cart);
             controllerAddPublishingHouse.setHeader();
 
             primaryStage.setTitle("Add new Publishing House - LD Books");
@@ -513,7 +531,7 @@ public class StageManager
         }
     }
 
-    public void setStageAddFormat(Stage primaryStage, User manager)
+    public void setStageAddFormat(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -524,6 +542,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerAddFormat controllerAddFormat = fxmlLoader.getController();
             controllerAddFormat.setManager(manager);
+            controllerAddFormat.setCart(cart);
             controllerAddFormat.setHeader();
 
             primaryStage.setTitle("Add new Format - LD Books");
@@ -536,7 +555,7 @@ public class StageManager
         }
     }
 
-    public void setStageAddGenre(Stage primaryStage, User manager)
+    public void setStageAddGenre(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -547,6 +566,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerAddGenre controllerAddGenre = fxmlLoader.getController();
             controllerAddGenre.setManager(manager);
+            controllerAddGenre.setCart(cart);
             controllerAddGenre.setHeader();
 
             primaryStage.setTitle("Add new Genre - LD Books");
@@ -559,7 +579,7 @@ public class StageManager
         }
     }
 
-    public void setStageEditBook(Stage primaryStage, User manager)
+    public void setStageEditBook(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -570,6 +590,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerEditBook controllerEditBook = fxmlLoader.getController();
             controllerEditBook.setManager(manager);
+            controllerEditBook.setCart(cart);
             controllerEditBook.setHeader();
 
             primaryStage.setTitle("EditBook - LD Books");
@@ -582,7 +603,7 @@ public class StageManager
         }
     }
 
-    public void setStageUpdateCharts(Stage primaryStage, User manager)
+    public void setStageUpdateCharts(Stage primaryStage, User manager, Map<Book,Integer> cart)
     {
         Parent root;
 
@@ -593,6 +614,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerUpdateChartsManager controllerUpdateChartsManager = fxmlLoader.getController();
             controllerUpdateChartsManager.setManager(manager);
+            controllerUpdateChartsManager.setCart(cart);
             controllerUpdateChartsManager.setHeader();
 
             primaryStage.setTitle("UpdateCharts - LD Books");
@@ -605,7 +627,7 @@ public class StageManager
         }
     }
 
-    public void setStageUserCart(Stage primaryStage, User user) {
+    public void setStageUserCart(Stage primaryStage, User user, Map<Book,Integer> cart) {
         Parent root;
 
         try
@@ -615,6 +637,7 @@ public class StageManager
             root = fxmlLoader.load();
             ControllerCart controllerCart = fxmlLoader.getController();
             controllerCart.setUser(user);
+            controllerCart.setCart(cart);
             controllerCart.setHeader();
 
             primaryStage.setTitle("UserCart - LD Books");

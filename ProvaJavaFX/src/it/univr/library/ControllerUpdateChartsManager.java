@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ControllerUpdateChartsManager {
 
@@ -60,6 +61,8 @@ public class ControllerUpdateChartsManager {
     private HBox headerHBox;
 
     private User manager;
+    private Map<Book, Integer> cart;
+
 
     @FXML
     private void initialize()
@@ -90,10 +93,14 @@ public class ControllerUpdateChartsManager {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void populateCharts() {
@@ -265,4 +272,6 @@ public class ControllerUpdateChartsManager {
     private boolean isNumerical(String s) {
         return s.matches("[+-]?([0-9]*[.])?[0-9]+");
     }
+
+
 }

@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ControllerCart {
 
@@ -37,6 +38,7 @@ public class ControllerCart {
 
     private User user;
     private ArrayList<Book> books = fetchBooks();
+    private Map<Book, Integer> cart;
 
 
     @FXML
@@ -54,9 +56,13 @@ public class ControllerCart {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader() {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox, cart);
     }
 
     private ArrayList<Book> fetchBooks() {
@@ -73,7 +79,8 @@ public class ControllerCart {
 
     public void handleRemoveBookFromCart(Book book)
     {
-        books.remove(book);
-        populateCart(books);
+        cart.keySet().remove(book);
     }
+
+
 }

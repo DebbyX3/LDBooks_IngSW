@@ -78,13 +78,13 @@ public class ControllerCatalog {
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     public void changeSceneToSpecificBook(BookGroup bookList)
     {
         StageManager specificBookScene = new StageManager();
-        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, bookList);
+        specificBookScene.setStageSpecificBook((Stage) catalogScrollPane.getScene().getWindow(), user, bookList, cart);
     }
 
     //@FXML

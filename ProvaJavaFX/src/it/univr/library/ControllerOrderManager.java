@@ -10,6 +10,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Map;
+
 public class ControllerOrderManager {
 
     @FXML
@@ -29,6 +31,7 @@ public class ControllerOrderManager {
     private ScrollPane orderManagerScrollPane;
 
     private User manager;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -48,10 +51,14 @@ public class ControllerOrderManager {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void handleFilterButton(ActionEvent actionEvent)
@@ -87,4 +94,6 @@ public class ControllerOrderManager {
         OrderVbox.getChildren().clear();
         viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox, orderManagerScrollPane);
     }
+
+
 }

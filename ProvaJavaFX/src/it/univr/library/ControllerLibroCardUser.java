@@ -5,6 +5,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
 import java.util.List;
+import java.util.Map;
 
 public class ControllerLibroCardUser {
 
@@ -24,16 +25,21 @@ public class ControllerLibroCardUser {
     private Text idText;
 
     private User user;
+    private Map<Book, Integer> cart;
 
     public void setUser(User user)
     {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
 
@@ -45,4 +51,6 @@ public class ControllerLibroCardUser {
 
         viewInformationsUserLibrocard.buildLibrocard(user, DBUserLibroCard.getLibrocardInformation(user), nameSurnameText, pointsText, issueDateText, idText);
     }
+
+
 }

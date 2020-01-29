@@ -10,10 +10,7 @@ import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class ControllerEditBook {
 
@@ -95,6 +92,7 @@ public class ControllerEditBook {
     private int numberOfAuthors = 0;
     private ArrayList<Author> authorsToLinkToBook = new ArrayList<>();
     private ArrayList<Author> authorsToDelete = new ArrayList<>();
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -152,10 +150,14 @@ public class ControllerEditBook {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void handleFilterButton(ActionEvent actionEvent)
@@ -233,7 +235,7 @@ public class ControllerEditBook {
 
             //change scene
             StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) editBookButton.getScene().getWindow(), manager);
+            addEditBooks.setStageAddEditBooks((Stage) editBookButton.getScene().getWindow(), manager, cart);
         }
     }
 
@@ -587,4 +589,6 @@ public class ControllerEditBook {
     private boolean isNumerical(String s) {
         return s.matches("[+-]?([0-9]*[.])?[0-9]+");
     }
+
+
 }

@@ -14,6 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ControllerOrderUser {
 
@@ -27,6 +28,7 @@ public class ControllerOrderUser {
     private ScrollPane orderUserScrollPane;
 
     private User user;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -38,10 +40,14 @@ public class ControllerOrderUser {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(user, headerHBox);
+        controllerHeader.createHeader(user, headerHBox,cart);
     }
 
     private void handleCartImageView(MouseEvent mouseEvent)
@@ -62,4 +68,6 @@ public class ControllerOrderUser {
         View viewOrders = new ViewOrders();
         viewOrders.buildOrders(order, orderVBox, orderUserScrollPane);
     }
+
+
 }

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,6 +59,7 @@ public class ControllerSignUp {
 
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", Pattern.CASE_INSENSITIVE);
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -76,10 +78,14 @@ public class ControllerSignUp {
         this.regUser = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(regUser, headerHBox);
+        controllerHeader.createHeader(regUser, headerHBox,cart);
     }
 
     private void populateCitiesAndCAPsCombobox()
@@ -134,7 +140,7 @@ public class ControllerSignUp {
 
                     //if everything's ok change scene
                     StageManager loginStage = new StageManager();
-                    loginStage.setStageUserPage((Stage) signUpButton.getScene().getWindow(), testUser);
+                    loginStage.setStageUserPage((Stage) signUpButton.getScene().getWindow(), testUser, cart);
                 }
                 else
                     displayAlert("Mail already exists");
@@ -248,4 +254,6 @@ public class ControllerSignUp {
 
         alert.showAndWait();
     }
+
+
 }

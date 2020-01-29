@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.util.Map;
+
 public class ControllerAddAuthor {
 
     @FXML
@@ -30,6 +32,7 @@ public class ControllerAddAuthor {
     private TextField surnameAuthorTextField;
 
     private User manager;
+    private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
@@ -44,10 +47,14 @@ public class ControllerAddAuthor {
         this.manager = manager;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
-        controllerHeader.createHeader(manager, headerHBox);
+        controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
     private void populateAuthors()
@@ -65,7 +72,7 @@ public class ControllerAddAuthor {
 
             //change scene
             StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewAuthorButton.getScene().getWindow(), manager);
+            addEditBooks.setStageAddEditBooks((Stage) addNewAuthorButton.getScene().getWindow(), manager, cart);
         }
         else
         {
@@ -82,4 +89,6 @@ public class ControllerAddAuthor {
 
         alert.showAndWait();
     }
+
+
 }
