@@ -1,9 +1,11 @@
 package it.univr.library;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.Map;
 
@@ -53,6 +55,13 @@ public class ControllerSpecificBook
     {
         View buildSpecificBook = new ViewBooks();
         buildSpecificBook.buildBookForSpecificBook(bookInfoVBox, titleLabel, languageLabel, bookGroup, this);
+    }
+
+
+    public void handleAddBookToCart(Book book, Integer quantity, Button cartButton) {
+        cart.put(book, quantity);
+        StageManager catalogView = new StageManager();
+        catalogView.setStageCatalog((Stage) cartButton.getScene().getWindow(), user, cart);
     }
 
 

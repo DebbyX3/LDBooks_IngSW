@@ -6,9 +6,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 
 public class ControllerCart {
 
@@ -37,19 +39,18 @@ public class ControllerCart {
     private Button checkOutButton;
 
     private User user;
-    private ArrayList<Book> books = fetchBooks();
     private Map<Book, Integer> cart;
 
 
     @FXML
-    private void initialize() {
-        populateCart(books);
+    private void initialize()
+    {
     }
 
-    private void populateCart(ArrayList<Book> books) {
+    public void populateCart(Map<Book,Integer> cart) {
         View viewCartUser = new ViewCart();
         cartVBox.getChildren().clear();
-        viewCartUser.buildCart(books, cartVBox, cartScrollPane, this);
+        viewCartUser.buildCart(cart, cartVBox, cartScrollPane, this,subTotalLabel, shippingCostLabel, TotalPriceLabel, libroCardPointsLabel);
     }
 
     public void setUser(User user) {
@@ -65,21 +66,13 @@ public class ControllerCart {
         controllerHeader.createHeader(user, headerHBox, cart);
     }
 
-    private ArrayList<Book> fetchBooks() {
-        ArrayList<Book> all;
-        ArrayList<Book> ret = new ArrayList<>();
-        Model fetch = new ModelDatabaseBooks();
-        all = fetch.getAllBooks();
-        for (Book b : all) {
-            ret.add(b);
-            break;
-        }
-        return all;
-    }
 
-    public void handleRemoveBookFromCart(Book book)
+
+    public void handleRemoveBookFromCart(Book book, Button removeBookButton)
     {
         cart.keySet().remove(book);
+        StageManager newCartView = new StageManager();
+        newCartView.setStageUserCart((Stage) removeBookButton.getScene().getWindow(), user, cart);
     }
 
 

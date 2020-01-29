@@ -181,7 +181,7 @@ public class ViewBooks implements View
     public void buildBookForSpecificBook(VBox bookInfoVBox, Label titleLabel, Label languageLabel, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook)
     {
         buildTitleAndLanguageBookForSpecificBook(titleLabel, languageLabel, bookGroup);
-        buildBookInformation(bookInfoVBox, bookGroup);
+        buildBookInformation(bookInfoVBox, bookGroup, controllerSpecificBook);
     }
 
     private void buildTitleAndLanguageBookForSpecificBook(Label titleLabel, Label languageLabel,BookGroup bookGroup)
@@ -190,7 +190,7 @@ public class ViewBooks implements View
         languageLabel.setText("Language: " + bookGroup.getBooks().get(0).getLanguage());
     }
 
-    private void  buildBookInformation(VBox bookInfoVBox, BookGroup bookGroup)
+    private void  buildBookInformation(VBox bookInfoVBox, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook)
     {
         //build hbox
 
@@ -350,7 +350,8 @@ public class ViewBooks implements View
             cartButton.setCursor(Cursor.HAND);
             FlowPane.setMargin(cartButton, new Insets(0, 0, 0, 10)); //Insets(top, right, bottom, left)
 
-            //TODO handler cart button
+
+
 
             cartImageView = new ImageView();
             cartImageView.setFitWidth(48.0);
@@ -390,6 +391,11 @@ public class ViewBooks implements View
 
             quantityComboBox.setItems(quantity);
             quantityComboBox.setValue(1);
+            //TODO handler cart button
+            ComboBox finalQuantityComboBox = quantityComboBox;
+            Button finalCartButton = cartButton;
+            cartButton.setOnAction(actionEvent -> controllerSpecificBook.handleAddBookToCart(new Book(currentBook), (Integer) finalQuantityComboBox.getValue(), finalCartButton));
+
             /* **** SETTING AVAILABLE QUANTITY LABEL **** */
             availableQuantityLabel = new Label("Available quantity: " + currentBook.getMaxQuantity());
             availableQuantityLabel.setAlignment(Pos.CENTER);

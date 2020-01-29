@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public interface View
@@ -37,7 +38,7 @@ public interface View
 
     public default void buildLibroCard(ArrayList<Librocard> librocards, VBox LibrocardVBox, ScrollPane LibroCardScrollPane){};
 
-    public default void buildCart(ArrayList<Book> books, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart){};
+    public default void buildCart(Map<Book, Integer> cart, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart, Label subTotalLabel, Label shippingCostLabel, Label TotalPriceLabel, Label libroCardPointsLabel){};
 
 
 }

@@ -75,6 +75,10 @@ public class ControllerCatalog {
         this.user = user;
     }
 
+    public void setCart(Map<Book, Integer> cart) {
+        this.cart = cart;
+    }
+
     public void setHeader()
     {
         ControllerHeader controllerHeader = new ControllerHeader();
@@ -186,7 +190,5 @@ public class ControllerCatalog {
         }
     }
 
-    public void setCart(Map<Book, Integer> cart) {
-        this.cart = cart;
-    }
+
 }

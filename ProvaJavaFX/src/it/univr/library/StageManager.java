@@ -43,8 +43,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerSpecificBook controllerSpecificBook = fxmlLoader.getController();
-            controllerSpecificBook.setUser(user);
             controllerSpecificBook.setCart(cart);
+            controllerSpecificBook.setUser(user);
             controllerSpecificBook.setHeader();
             controllerSpecificBook.setGroupBook(bookGroup);
             controllerSpecificBook.populateBookInfo();
@@ -70,8 +70,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerCharts controllerCharts = fxmlLoader.getController();
-            controllerCharts.setUser(user);
             controllerCharts.setCart(cart);
+            controllerCharts.setUser(user);
             controllerCharts.setHeader();
 
             primaryStage.setTitle("Charts - LD Books");
@@ -94,8 +94,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerCatalog controllerCatalog = fxmlLoader.getController();
-            controllerCatalog.setUser(user);
             controllerCatalog.setCart(cart);
+            controllerCatalog.setUser(user);
             controllerCatalog.setHeader();
 
             primaryStage.setTitle("Catalog - LD Books");
@@ -118,8 +118,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerLoginSignUp controllerLoginSignUp = fxmlLoader.getController();
-            controllerLoginSignUp.setUser(user);
             controllerLoginSignUp.setCart(cart);
+            controllerLoginSignUp.setUser(user);
             controllerLoginSignUp.setHeader();
 
 
@@ -143,8 +143,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerUserPage controllerUserPage = fxmlLoader.getController();
-            controllerUserPage.setUser(user);
             controllerUserPage.setCart(cart);
+            controllerUserPage.setUser(user);
             controllerUserPage.setHeader();
 
             primaryStage.setTitle("UserPage - LD Books");
@@ -167,8 +167,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerManagerPage controllerManagerPage = fxmlLoader.getController();
-            controllerManagerPage.setManager(manager);
             controllerManagerPage.setCart(cart);
+            controllerManagerPage.setManager(manager);
             controllerManagerPage.setHeader();
 
             primaryStage.setTitle("ManagerPage - LD Books");
@@ -191,8 +191,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
-            controllerOrderUser.setUser(user);
             controllerOrderUser.setCart(cart);
+            controllerOrderUser.setUser(user);
             controllerOrderUser.populateOrderUser();
             controllerOrderUser.setHeader();
 
@@ -216,8 +216,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerOrderManager controllerOrderManager = fxmlLoader.getController();
-            controllerOrderManager.setManager(manager);
             controllerOrderManager.setCart(cart);
+            controllerOrderManager.setManager(manager);
             controllerOrderManager.setHeader();
 
             primaryStage.setTitle("OrderManager - LD Books");
@@ -240,8 +240,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerEditCatalog controllerEditCatalog = fxmlLoader.getController();
-            controllerEditCatalog.setManager(manager);
             controllerEditCatalog.setCart(cart);
+            controllerEditCatalog.setManager(manager);
             controllerEditCatalog.setHeader();
 
             primaryStage.setTitle("Edit Catalog - LD Books");
@@ -265,8 +265,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerAddAuthor controllerAddAuthor = fxmlLoader.getController();
-            controllerAddAuthor.setManager(manager);
             controllerAddAuthor.setCart(cart);
+            controllerAddAuthor.setManager(manager);
             controllerAddAuthor.setHeader();
 
             primaryStage.setTitle("Add new Author- LD Books");
@@ -290,8 +290,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerAddLanguage controllerAddLanguage = fxmlLoader.getController();
-            controllerAddLanguage.setManager(manager);
             controllerAddLanguage.setCart(cart);
+            controllerAddLanguage.setManager(manager);
             controllerAddLanguage.setHeader();
 
             primaryStage.setTitle("Add new Language - LD Books");
@@ -315,8 +315,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerAddBook controllerAddBook = fxmlLoader.getController();
-            controllerAddBook.setManager(manager);
             controllerAddBook.setCart(cart);
+            controllerAddBook.setManager(manager);
             controllerAddBook.setHeader();
 
             primaryStage.setTitle("Add new Book - LD Books");
@@ -338,8 +338,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerLibroCardsManager controllerLibroCardsManager = fxmlLoader.getController();
-            controllerLibroCardsManager.setUser(manager);
             controllerLibroCardsManager.setCart(cart);
+            controllerLibroCardsManager.setUser(manager);
             controllerLibroCardsManager.setHeader();
 
             primaryStage.setTitle("LibroCard Manager- LD Books");
@@ -363,8 +363,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerSignUp controllerSignUp = fxmlLoader.getController();
-            controllerSignUp.setUser(user);
             controllerSignUp.setCart(cart);
+            controllerSignUp.setUser(user);
             controllerSignUp.setHeader();
 
 
@@ -389,8 +389,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerViewProfile controllerViewProfile = fxmlLoader.getController();
-            controllerViewProfile.setUser(user);
             controllerViewProfile.setCart(cart);
+            controllerViewProfile.setUser(user);
             controllerViewProfile.populateUserInformations();
             controllerViewProfile.setHeader();
 
@@ -414,8 +414,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerEditProfile controllerEditProfile = fxmlLoader.getController();
-            controllerEditProfile.setUser(user);
             controllerEditProfile.setCart(cart);
+            controllerEditProfile.setUser(user);
             controllerEditProfile.populateUserInformations();
             controllerEditProfile.setHeader();
 
@@ -441,8 +441,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerLibroCardUser controllerLibroCardUser = fxmlLoader.getController();
-            controllerLibroCardUser.setUser(user);
             controllerLibroCardUser.setCart(cart);
+            controllerLibroCardUser.setUser(user);
             controllerLibroCardUser.populateUserLibroCard();
             controllerLibroCardUser.setHeader();
 
@@ -467,8 +467,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerOrderUnregisteredUser controllerOrderUnregisteredUser = fxmlLoader.getController();
-            controllerOrderUnregisteredUser.setUser(user);
             controllerOrderUnregisteredUser.setCart(cart);
+            controllerOrderUnregisteredUser.setUser(user);
             controllerOrderUnregisteredUser.setHeader();
 
             primaryStage.setTitle("Order Status Unregistered User - LD Books");
@@ -491,8 +491,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
-            controllerOrderUser.setUser(user);
             controllerOrderUser.setCart(cart);
+            controllerOrderUser.setUser(user);
             controllerOrderUser.populateOrderUser(order);
             controllerOrderUser.setHeader();
 
@@ -517,8 +517,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerAddPublishingHouse controllerAddPublishingHouse = fxmlLoader.getController();
-            controllerAddPublishingHouse.setManager(manager);
             controllerAddPublishingHouse.setCart(cart);
+            controllerAddPublishingHouse.setManager(manager);
             controllerAddPublishingHouse.setHeader();
 
             primaryStage.setTitle("Add new Publishing House - LD Books");
@@ -541,8 +541,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerAddFormat controllerAddFormat = fxmlLoader.getController();
-            controllerAddFormat.setManager(manager);
             controllerAddFormat.setCart(cart);
+            controllerAddFormat.setManager(manager);
             controllerAddFormat.setHeader();
 
             primaryStage.setTitle("Add new Format - LD Books");
@@ -565,8 +565,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerAddGenre controllerAddGenre = fxmlLoader.getController();
-            controllerAddGenre.setManager(manager);
             controllerAddGenre.setCart(cart);
+            controllerAddGenre.setManager(manager);
             controllerAddGenre.setHeader();
 
             primaryStage.setTitle("Add new Genre - LD Books");
@@ -589,9 +589,10 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerEditBook controllerEditBook = fxmlLoader.getController();
-            controllerEditBook.setManager(manager);
             controllerEditBook.setCart(cart);
+            controllerEditBook.setManager(manager);
             controllerEditBook.setHeader();
+
 
             primaryStage.setTitle("EditBook - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -613,8 +614,8 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerUpdateChartsManager controllerUpdateChartsManager = fxmlLoader.getController();
-            controllerUpdateChartsManager.setManager(manager);
             controllerUpdateChartsManager.setCart(cart);
+            controllerUpdateChartsManager.setManager(manager);
             controllerUpdateChartsManager.setHeader();
 
             primaryStage.setTitle("UpdateCharts - LD Books");
@@ -636,9 +637,13 @@ public class StageManager
 
             root = fxmlLoader.load();
             ControllerCart controllerCart = fxmlLoader.getController();
-            controllerCart.setUser(user);
             controllerCart.setCart(cart);
+            controllerCart.setUser(user);
             controllerCart.setHeader();
+            controllerCart.populateCart(cart);
+
+
+
 
             primaryStage.setTitle("UserCart - LD Books");
             primaryStage.setScene(new Scene(root));

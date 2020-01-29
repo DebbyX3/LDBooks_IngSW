@@ -2,6 +2,7 @@ package it.univr.library;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -9,38 +10,60 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 public class ViewCart implements View {
     @Override
-    public void buildCart(ArrayList<Book> books, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart)
+    public void buildCart(Map<Book, Integer> cart, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart, Label subTotalLabel, Label shippingCostLabel, Label TotalPriceLabel, Label libroCardPointsLabel)
     {
         GridPane cartGridPane;
         //bring up the scrollpane
         cartScrollPane.setVvalue(cartScrollPane.getVmin());
+        double subtotal = 0;
+        double shippingCost;
+        if(cart.isEmpty())
+            shippingCost = 0;
+        else
+            shippingCost = 5.99;
 
-        for (Book book: books)
+        double totalPrice = 0;
+        double libroCardPoints = 0;
+
+        for (Book book: cart.keySet())
         {
+
             cartGridPane = new GridPane();
             cartGridPane.setPrefWidth(695);
             cartGridPane.setPrefHeight(229);
             cartVBox.setPadding(new Insets(40, 0, 0, 0));
             VBox.setMargin(cartGridPane, new Insets(15,0,15,0));
 
-            createCartforSingleBook(cartVBox,cartGridPane,book, controllerCart);
+            createCartforSingleBook(cartVBox,cartGridPane,book, controllerCart,cart);
 
             //separator for the new order or for last order
             Separator line = new Separator();
             line.setPrefHeight(200);
             //VBox.setMargin(line, new Insets(0,10 , 0, 0));
             cartVBox.getChildren().add(line);
+            subtotal += book.getPrice().doubleValue();
+            libroCardPoints += book.getPoints().doubleValue();
         }
+
+        totalPrice = subtotal + shippingCost;
+
+        subTotalLabel.setText(subtotal + "€");
+        shippingCostLabel.setText(shippingCost + "€");
+        TotalPriceLabel.setText(String.format("%.2f €",totalPrice));
+        libroCardPointsLabel.setText(String.valueOf(libroCardPoints));
+
 
     }
 
-    private void createCartforSingleBook(VBox cartVBox, GridPane cartGridPane, Book book, ControllerCart controllerCart)
+    private void createCartforSingleBook(VBox cartVBox, GridPane cartGridPane, Book book, ControllerCart controllerCart, Map<Book,Integer> cart)
     {
         /* **** COLUMNS **** */
         ColumnConstraints cartGridPaneColumn1 = new ColumnConstraints();
@@ -317,8 +340,7 @@ public class ViewCart implements View {
         quantityLabel.setMinWidth(Region.USE_PREF_SIZE);
         quantityLabel.setPrefWidth(175);
         quantityLabel.setPrefHeight(17);
-        Integer quantity = 2;
-        quantityLabel.setText(quantity.toString());
+        quantityLabel.setText(String.valueOf(cart.get(book)));
         quantityLabel.setAlignment(Pos.CENTER_LEFT);
         quantityLabel.setContentDisplay(ContentDisplay.LEFT);
         quantityLabel.setFont(new Font("System", 12.0));
@@ -344,7 +366,7 @@ public class ViewCart implements View {
         totalLibroCardPointsLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalLibroCardPointsLabel.setPrefWidth(175);
         totalLibroCardPointsLabel.setPrefHeight(17);
-        Integer totalLibroCardPoints = quantity * book.getPoints();
+        Integer totalLibroCardPoints = cart.get(book) * book.getPoints();
         totalLibroCardPointsLabel.setText(totalLibroCardPoints.toString());
         totalLibroCardPointsLabel.setAlignment(Pos.CENTER_LEFT);
         totalLibroCardPointsLabel.setContentDisplay(ContentDisplay.LEFT);
@@ -371,8 +393,8 @@ public class ViewCart implements View {
         totalPriceLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalPriceLabel.setPrefWidth(175);
         totalPriceLabel.setPrefHeight(17);
-        Integer totalPrice = quantity * book.getPrice().intValue();
-        totalPriceLabel.setText(totalPrice.toString()+" €");
+        Integer totalPriceL = cart.get(book) * book.getPrice().intValue();
+        totalPriceLabel.setText(totalPriceL.toString()+" €");
         totalPriceLabel.setAlignment(Pos.CENTER_LEFT);
         totalPriceLabel.setContentDisplay(ContentDisplay.LEFT);
         totalPriceLabel.setFont(new Font("System", 12.0));
@@ -391,19 +413,17 @@ public class ViewCart implements View {
         removeButton.setPrefWidth(122);
         removeButton.setText("Remove from cart");
         removeButton.setFont(new Font("System Italic", 12.0));
-        removeButton.setOnAction(actionEvent -> controllerCart.handleRemoveBookFromCart(new Book(book)));
+        StageManager cartView = new StageManager();
+        removeButton.setOnAction(actionEvent -> controllerCart.handleRemoveBookFromCart(new Book(book), removeButton));
 
         removeButtonHbox.getChildren().add(removeButton);
-
-        //TODO: put handler on this button
-
 
         bookFinalInformationVbox.getChildren().addAll(formatHbox, quantityHbox,totalLibroCardPointsHbox,totalPricesHbox,removeButtonHbox);
         GridPane.setConstraints(bookFinalInformationVbox, 2, 0);
         cartGridPane.getChildren().add(bookFinalInformationVbox);
-
-
         cartVBox.getChildren().add(cartGridPane);
+
+
     }
 }
 
