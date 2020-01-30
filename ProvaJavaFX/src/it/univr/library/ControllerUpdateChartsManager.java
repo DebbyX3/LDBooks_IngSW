@@ -44,8 +44,13 @@ public class ControllerUpdateChartsManager {
     private Button deleteBookButton;
 
     @FXML
-    private ComboBox<Genre> genreCombobox;
+    private ComboBox<Genre> genreComboBox;
     private ObservableList<Genre> genreComboboxData = FXCollections.observableArrayList();
+
+    @FXML
+    private ComboBox<String> categoryComboBox;
+    private ObservableList<String> categoryComboboxData = FXCollections.observableArrayList();
+
 
     @FXML
     private Button filterButton;
@@ -56,6 +61,12 @@ public class ControllerUpdateChartsManager {
 
     @FXML
     private Button selectBookButton;
+
+    @FXML
+    private Button categoryFilterButton;
+
+    @FXML
+    private TextField categoryTextField;
 
     @FXML
     private HBox headerHBox;
@@ -70,8 +81,12 @@ public class ControllerUpdateChartsManager {
 
         //Inizializza combobox Genre
         populateGenreFilter();
-        genreCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
-        genreCombobox.getSelectionModel().selectFirst();
+        genreComboBox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
+        genreComboBox.getSelectionModel().selectFirst();
+
+        populateCategory();
+        categoryComboBox.setItems(categoryComboboxData);
+
 
         populateBooks();
         BookCombobox.setItems(bookIsbnAndTitle(books));
@@ -81,10 +96,19 @@ public class ControllerUpdateChartsManager {
         populateCharts();
         //handler bottone filtra
         filterButton.setOnAction(this::handleFilterButton);
+        categoryFilterButton.setOnAction(this::handleCategoryFilterButton);
         selectBookButton.setOnAction(this::handleSelectBookButton);
         deleteBookButton.setOnAction(this::handleDeleteBookButton);
         insertBookButton.setOnAction(this::handleInsertUpdateBookButton);
 
+    }
+
+
+
+    private void populateCategory()
+    {
+        Model DBCategory = new ModelDatabaseCharts();
+        categoryComboboxData.addAll(DBCategory.getCategory());
     }
 
 
@@ -104,7 +128,7 @@ public class ControllerUpdateChartsManager {
     }
 
     private void populateCharts() {
-        updateChartView(new Filter(genreCombobox.getValue()));
+        updateChartView(new Filter(genreComboBox.getValue()));
     }
 
     private void populateGenreFilter()
@@ -117,11 +141,21 @@ public class ControllerUpdateChartsManager {
     {
         Model DBCharts = new ModelDatabaseCharts();
         View viewCharts = new ViewCharts();
-        Filter filter = new Filter(genreCombobox.getValue());
+        Filter filter = new Filter(genreComboBox.getValue());
 
 
         chartsTableView.getColumns().clear();
         viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
+    }
+
+    private void handleCategoryFilterButton(ActionEvent actionEvent)
+    {
+        Model DBCharts = new ModelDatabaseCharts();
+        View viewCharts = new ViewCharts();
+
+        chartsTableView.getColumns().clear();
+        viewCharts.buildChart(chartsTableView, DBCharts.getChartsForCategory(categoryComboBox.getValue()));
+
     }
 
     private void handleSelectBookButton(ActionEvent actionEvent)
@@ -147,6 +181,7 @@ public class ControllerUpdateChartsManager {
             {
                 rankTextField.setText(chart.getRank().toString());
                 weekInTextField.setText(chart.getWeeksIn().toString());
+                categoryTextField.setText(chart.getCategory());
             }
 
         }
@@ -190,7 +225,7 @@ public class ControllerUpdateChartsManager {
                 ModelDatabaseCharts insertToCharts = new ModelDatabaseCharts();
                 insertToCharts.insertBookOnTheCharts(bookToInsertOnTheCharts);
 
-                updateChartView(new Filter(genreCombobox.getValue()));
+                updateChartView(new Filter(genreComboBox.getValue()));
             }
         }
     }
@@ -237,7 +272,7 @@ public class ControllerUpdateChartsManager {
     {
         Model DBCharts = new ModelDatabaseCharts();
         View viewCharts = new ViewCharts();
-        genreCombobox.setValue(filter.getGenre());
+        genreComboBox.setValue(filter.getGenre());
         chartsTableView.getColumns().clear();
         viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
     }

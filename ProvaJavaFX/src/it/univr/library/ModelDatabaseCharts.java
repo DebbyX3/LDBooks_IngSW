@@ -15,7 +15,7 @@ public class ModelDatabaseCharts implements Model {
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn,Category, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
@@ -43,6 +43,7 @@ public class ModelDatabaseCharts implements Model {
                 chartRecord.setRank(db.getSQLInt(rs, "rank"));
                 chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
                 chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
+                chartRecord.setCategory(db.getSQLString(rs,"Category"));
                 chartRecord.setTitle(db.getSQLString(rs, "title"));
                 chartRecord.setGenre(new Genre(db.getSQLString(rs, "genreName")));
                 chartRecord.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
@@ -85,5 +86,94 @@ public class ModelDatabaseCharts implements Model {
         db.executeSQLUpdate( "DELETE from charts " +
                                     "WHERE ISBN LIKE ?",List.of(isbn));
     }
+
+
+    @Override
+    public ArrayList<String> getCategory() {
+        ArrayList<String> categories;
+
+        db.DBOpenConnection();
+
+        db.executeSQLQuery("SELECT DISTINCT charts.Category " +
+                "FROM charts " +
+                "WHERE Category IS NOT NULL");
+
+        categories = resultSetToArrayListCategories(db.getResultSet());
+        db.DBCloseConnection();
+
+        return categories;
+    }
+
+    private ArrayList<String> resultSetToArrayListCategories(ResultSet rs) {
+        ArrayList<String> categories = new ArrayList<>();
+       String category;
+
+        try {
+            while (rs.next()) {
+               category = db.getSQLString(rs,"Category");
+               categories.add(category);
+            }
+
+            return categories;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
+    }
+
+    public ArrayList<Charts> getChartsForCategory(String category){
+        ArrayList<Charts> chart;
+
+        db.DBOpenConnection();
+
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+                "FROM charts " +
+                "JOIN books ON books.ISBN = charts.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN " +
+                "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE Category LIKE ? " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY rank", List.of(category));
+
+        chart = resultSetToArrayListChartsCategory(db.getResultSet());
+        db.DBCloseConnection();
+
+        return chart;
+    }
+
+    private ArrayList<Charts> resultSetToArrayListChartsCategory(ResultSet rs) {
+        ArrayList<Charts> chart = new ArrayList<>();
+        Model authors = new ModelDatabaseAuthor();
+        Charts chartRecord;
+
+        try {
+            while (rs.next()) {
+                chartRecord = new Charts();
+
+                chartRecord.setId(db.getSQLInt(rs,"idChart"));
+                chartRecord.setRank(db.getSQLInt(rs, "rank"));
+                chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
+                chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
+                chartRecord.setCategory(db.getSQLString(rs,"Category"));
+                chartRecord.setTitle(db.getSQLString(rs, "title"));
+                chartRecord.setGenre(new Genre(db.getSQLString(rs, "genreName")));
+                chartRecord.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
+
+                chart.add(chartRecord);
+            }
+
+            return chart;
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return null;
+    }
+
+
+
 
 }

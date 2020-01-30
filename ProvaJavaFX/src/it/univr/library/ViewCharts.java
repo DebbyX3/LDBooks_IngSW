@@ -1,5 +1,6 @@
 package it.univr.library;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.Chart;
@@ -21,7 +22,9 @@ public class ViewCharts implements View
         TableColumn Authors = new TableColumn("Authors");
         TableColumn Genre = new TableColumn("Genre");
         TableColumn WeeksIn = new TableColumn("WeeksIn");
-        chartsTableView.getColumns().addAll(Rank, ISBN, Title, Authors, Genre, WeeksIn);
+        TableColumn Category = new TableColumn("Category");
+
+        chartsTableView.getColumns().addAll(Rank, ISBN, Title, Authors, Genre, WeeksIn,Category);
 
         final ObservableList<Charts> chart = FXCollections.observableArrayList();
         for (Charts c: charts)
@@ -35,6 +38,7 @@ public class ViewCharts implements View
         Authors.setCellValueFactory(new PropertyValueFactory<Chart,String>("Authors"));
         Genre.setCellValueFactory(new PropertyValueFactory<Chart,String>("Genre"));
         WeeksIn.setCellValueFactory(new PropertyValueFactory<Chart,String>("WeeksIn"));
+        Category.setCellValueFactory(new PropertyValueFactory<Chart,String>("Category"));
 
         chartsTableView.setItems(chart);
 

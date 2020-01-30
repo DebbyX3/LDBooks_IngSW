@@ -11,6 +11,9 @@ public class Charts
     private List<Author> authors;
     private Genre genre;
     private Integer weeksIn;
+    private String category;
+
+
 
     public Integer getId() {
         return Id;
@@ -18,6 +21,14 @@ public class Charts
 
     public void setId(Integer id) {
         Id = id;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public Integer getRank() {
