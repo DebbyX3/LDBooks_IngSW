@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import javafx.scene.chart.Chart;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,19 +12,38 @@ public class ModelDatabaseCharts implements Model {
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public ArrayList<Charts> getCharts(Filter filter) {
+    public ArrayList<Charts> getCharts(){return getCharts(new ChartFilter());}
+
+    @Override
+    public ArrayList<Charts> getCharts(ChartFilter filter) {
+        boolean isFirstInQuery = true;
         ArrayList<Charts> chart;
+        ArrayList<Object> queryParameters = new ArrayList<>();
 
-        db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn,Category, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        String query = "SELECT idChart, rank, weeksIn,Category, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
-                "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE genreName LIKE ? " +
-                "GROUP BY books.ISBN " +
-                "ORDER BY rank", List.of(filter.getGenre().getName()));
+                "JOIN authors ON authors.idAuthor = write.idAuthor ";
+
+        if (filter.isGenreSetted()) {
+            queryParameters.add(filter.getGenre().getName());
+            query += "WHERE genreName LIKE ? ";
+            isFirstInQuery = false;
+        }
+        if (filter.isCategorySetted()) {
+            queryParameters.add(filter.getCategory());
+            query += isFirstInQuery ? "WHERE " : "AND ";
+            query += "Category LIKE ? ";
+            isFirstInQuery = false;
+        }
+
+        query += "GROUP BY books.ISBN " +
+                "ORDER BY rank";
+
+        db.DBOpenConnection();
+        db.executeSQLQuery(query, queryParameters);
 
         chart = resultSetToArrayListCharts(db.getResultSet());
         db.DBCloseConnection();
@@ -61,12 +82,13 @@ public class ModelDatabaseCharts implements Model {
     }
 
 
+
     @Override
     public void updateCharts(Charts bookToUpdateInCharts)
     {
         db.DBOpenConnection();
         db.executeSQLUpdate("UPDATE charts " +
-                "SET rank = ?, weeksIn = ?, ISBN = ? " +
+                "SET rank = ?, weeksIn = ?, ISBN = ?" +
                 "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
                 bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getId()));
     }
@@ -75,8 +97,8 @@ public class ModelDatabaseCharts implements Model {
     public void insertBookOnTheCharts(Charts bookToInsertOnTheCharts)
     {
         db.DBOpenConnection();
-        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN) " +
-                "VALUES(?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN()));
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, category) " +
+                "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory()));
     }
 
     @Override
@@ -106,12 +128,11 @@ public class ModelDatabaseCharts implements Model {
 
     private ArrayList<String> resultSetToArrayListCategories(ResultSet rs) {
         ArrayList<String> categories = new ArrayList<>();
-       String category;
 
         try {
             while (rs.next()) {
-               category = db.getSQLString(rs,"Category");
-               categories.add(category);
+
+               categories.add(  db.getSQLString(rs,"Category"));
             }
 
             return categories;

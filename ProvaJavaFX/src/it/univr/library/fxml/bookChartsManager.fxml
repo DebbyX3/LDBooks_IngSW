@@ -36,7 +36,7 @@
                   </TableView>
                   <Separator prefWidth="200.0">
                      <VBox.margin>
-                        <Insets bottom="9.0" top="14.0" />
+                        <Insets bottom="9.0" top="13.0" />
                      </VBox.margin>
                   </Separator>
                   <VBox prefHeight="106.0" prefWidth="737.0">
@@ -168,11 +168,6 @@
                         <Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button fx:id="filterButton" mnemonicParsing="false" text="Refresh">
-                     <VBox.margin>
-                        <Insets bottom="8.0" left="2.0" right="2.0" top="8.0" />
-                     </VBox.margin>
-                  </Button>
                   <Label layoutX="63.0" layoutY="56.0" text="Category">
                      <VBox.margin>
                         <Insets top="20.0" />
@@ -183,14 +178,14 @@
                         <Insets top="8.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button fx:id="categoryFilterButton" layoutX="59.0" layoutY="116.0" mnemonicParsing="false" text="Refresh">
+                  <Button fx:id="filterButton" layoutX="59.0" layoutY="116.0" mnemonicParsing="false" text="Refresh">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </Button>
                   <Separator prefWidth="200.0">
                      <VBox.margin>
-                        <Insets top="69.0" />
+                        <Insets top="110.0" />
                      </VBox.margin>
                   </Separator>
                   <Label layoutX="71.0" layoutY="56.0" text="Book">

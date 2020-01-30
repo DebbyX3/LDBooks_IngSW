@@ -39,7 +39,7 @@ public class ModelDatabaseBooks implements Model {
         }
 
         query += "GROUP BY books.ISBN, title, languageName, formatName " +
-                "ORDER By books.title, idNameSurnameAuthors ASC ";
+                "ORDER BY books.title, idNameSurnameAuthors ASC ";
 
         db.DBOpenConnection();
         db.executeSQLQuery(query, queryParameters);

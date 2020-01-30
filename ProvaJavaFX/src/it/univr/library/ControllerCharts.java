@@ -41,7 +41,7 @@ public class ControllerCharts {
         categoryCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
         categoryCombobox.getSelectionModel().selectFirst();
 
-        populateCharts();
+        //populateCharts();
         //handler bottone filtra
         filterButton.setOnAction(this::handleFilterButton);
     }
@@ -66,9 +66,9 @@ public class ControllerCharts {
     {
         Model DBCharts = new ModelDatabaseCharts();
         View viewCharts = new ViewCharts();
-        Filter filter = new Filter((Genre) categoryCombobox.getValue());
+        //ChartFilter filter = new ChartFilter(new Filter((Genre) categoryCombobox.getValue()),"null");
         chartsTableView.getColumns().clear();
-        viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
+        //viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
     }
 
     private void populateGenreFilter()
@@ -85,7 +85,7 @@ public class ControllerCharts {
 
 
         chartsTableView.getColumns().clear();
-        viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
+        //viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
     }
 
 

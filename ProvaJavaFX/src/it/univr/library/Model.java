@@ -10,10 +10,7 @@ public interface Model
 
     public default ArrayList<Book> getAllBooks(Filter filter) { return null; }
 
-    public default ArrayList<Object> getCharts()
-    {
-        return null;
-    }
+    public default ArrayList<Charts> getCharts(){return null;}
 
     public default ArrayList<Genre> getGenres()
     {
@@ -28,7 +25,7 @@ public interface Model
 
     public default Manager getManager(User testUser){return null;};
 
-    public default ArrayList<Charts> getCharts(Filter filter)
+    public default ArrayList<Charts> getCharts(ChartFilter filter)
     {
         return null;
     }
