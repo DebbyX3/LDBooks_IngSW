@@ -41,6 +41,7 @@ public class ViewCharts implements View
         Category.setCellValueFactory(new PropertyValueFactory<Chart,String>("Category"));
 
         chartsTableView.setItems(chart);
+        chartsTableView.getSortOrder().add(Rank);
 
     }
 

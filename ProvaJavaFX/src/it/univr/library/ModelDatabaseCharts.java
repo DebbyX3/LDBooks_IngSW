@@ -88,9 +88,9 @@ public class ModelDatabaseCharts implements Model {
     {
         db.DBOpenConnection();
         db.executeSQLUpdate("UPDATE charts " +
-                "SET rank = ?, weeksIn = ?, ISBN = ?" +
+                "SET rank = ?, weeksIn = ?, ISBN = ?, Category = ?" +
                 "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
-                bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getId()));
+                bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getCategory(), bookToUpdateInCharts.getId()));
     }
 
     @Override
