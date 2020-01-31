@@ -98,7 +98,7 @@ public interface Model
 
     public default void insertBookOnTheCharts(Charts bookToInsertOnTheCharts){};
 
-    public default void deleteBookFromCharts(String isbn){};
+    public default void deleteBookFromCharts(String isbn, String category){};
 
     public default ArrayList<String> getCategory(){return  null;};
 

@@ -142,8 +142,7 @@ public class ControllerUpdateChartsManager {
 
          */
         filter.setGenre(genre);
-        if(!category.equals("All")) // if the lang is not "all", add the category to the filter
-            filter.setCategory(category);
+        filter.setCategory(category);
 
         chartsTableView.getColumns().clear();
         populateCharts(filter);
@@ -176,14 +175,7 @@ public class ControllerUpdateChartsManager {
         genreLabel.setText(b.getGenre().toString());
 
         // change chartView based on book selected
-        Model charts = new ModelDatabaseCharts();
-        ArrayList<Charts> c;
-        if(categoryComboBox.getValue().equals("All"))
-            c = getChartFromGenre(new ChartFilter(b.getGenre(), null));
-        else
-            c = getChartFromGenre(new ChartFilter(b.getGenre(),categoryComboBox.getValue()));
-
-
+        ArrayList<Charts> c = getChartFromGenre(new ChartFilter(b.getGenre(),categoryComboBox.getValue()));
 
         for (Charts chart: c) {
             if(chart.getISBN().equals(b.getISBN()))
@@ -198,9 +190,10 @@ public class ControllerUpdateChartsManager {
 
     private void handleInsertUpdateBookButton(ActionEvent actionEvent)
     {
+        ArrayList<Charts> chartsInView;
 
+        chartsInView = getChartFromGenre(new ChartFilter(genreComboBox.getValue(),categoryComboBox.getValue()));
 
-        ArrayList<Charts> chartsInView = getChartFromGenre(new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue()));
         Charts bookToUpdateInCharts = null;
 
         if (isValidField())
@@ -248,14 +241,22 @@ public class ControllerUpdateChartsManager {
                 }
 
                 bookToUpdateInCharts.setWeeksIn(Integer.parseInt(weekInTextField.getText()));
-                bookToUpdateInCharts.setCategory(categoryComboBox.getValue());
+                if(categoryComboBox.getValue().equals("All"))
+                    bookToUpdateInCharts.setCategory("All");
+                else
+                    bookToUpdateInCharts.setCategory(categoryComboBox.getValue());
 
+                System.out.println(bookToUpdateInCharts.getCategory());
 
                 modified.add(bookToUpdateInCharts);
                 ModelDatabaseCharts updateDB = new ModelDatabaseCharts();
 
                 for (Charts updateChartDB: modified)
+                {
+                    updateChartDB.setCategory(categoryComboBox.getValue());
                     updateDB.updateCharts(updateChartDB);
+                }
+
 
                 updateChartsView(chartsInView);
             }
@@ -268,8 +269,12 @@ public class ControllerUpdateChartsManager {
                 bookToInsertOnTheCharts.setISBN(isbnLabel.getText());
                 bookToInsertOnTheCharts.setRank(Integer.parseInt(rankTextField.getText()));
                 bookToInsertOnTheCharts.setWeeksIn(Integer.parseInt(weekInTextField.getText()));
-                bookToInsertOnTheCharts.setCategory(categoryComboBox.getValue());
+                if(categoryComboBox.getValue().equals("All"))
+                    bookToInsertOnTheCharts.setCategory("All");
+                else
+                    bookToInsertOnTheCharts.setCategory(categoryComboBox.getValue());
 
+                System.out.println(bookToInsertOnTheCharts.getCategory());
 
 
 
@@ -309,11 +314,16 @@ public class ControllerUpdateChartsManager {
                 insertToCharts.insertBookOnTheCharts(bookToInsertOnTheCharts);
                 chartsInView.add(bookToInsertOnTheCharts);
 
+
                 //insert new book to charts
                 ModelDatabaseCharts updateDB = new ModelDatabaseCharts();
 
                 for (Charts updateChartDB: modified)
+                {
+                    updateChartDB.setCategory(categoryComboBox.getValue());
                     updateDB.updateCharts(updateChartDB);
+                }
+
 
                 updateChartsView(chartsInView);
             }
@@ -339,7 +349,11 @@ public class ControllerUpdateChartsManager {
         if(isValidField())
         {
             ModelDatabaseCharts deleteBookFromCharts = new ModelDatabaseCharts();
-            deleteBookFromCharts.deleteBookFromCharts(isbnLabel.getText());
+            if(categoryComboBox.getValue().equals("All"))
+                deleteBookFromCharts.deleteBookFromCharts(isbnLabel.getText(),"All");
+            else
+                deleteBookFromCharts.deleteBookFromCharts(isbnLabel.getText(),categoryComboBox.getValue());
+
             // UPDATE RANK
             ArrayList<Charts> chartsInView = getChartFromGenre(new ChartFilter(genreComboBox.getValue()));
             for (Charts c: chartsInView)
@@ -355,7 +369,11 @@ public class ControllerUpdateChartsManager {
             ModelDatabaseCharts updateDB = new ModelDatabaseCharts();
 
             for (Charts updateChartDB: modified)
+            {
+                updateChartDB.setCategory(categoryComboBox.getValue());
                 updateDB.updateCharts(updateChartDB);
+            }
+
 
             updateChartsView(chartsInView);
         }

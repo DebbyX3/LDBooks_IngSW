@@ -32,10 +32,21 @@ public class ModelDatabaseCharts implements Model {
             query += "WHERE genreName LIKE ? ";
             isFirstInQuery = false;
         }
+
         if (filter.isCategorySetted()) {
-            queryParameters.add(filter.getCategory());
-            query += isFirstInQuery ? "WHERE " : "AND ";
-            query += "Category LIKE ? ";
+            if(!filter.getCategory().equals("All"))
+            {
+                queryParameters.add(filter.getCategory());
+                query += isFirstInQuery ? "WHERE " : "AND ";
+                query += "Category LIKE ? ";
+            }
+            else
+            {
+                query += isFirstInQuery ? "WHERE " : "AND ";
+                query += "Category ISNULL ";
+            }
+
+
             isFirstInQuery = false;
         }
 
@@ -129,11 +140,20 @@ public class ModelDatabaseCharts implements Model {
     }
 
     @Override
-    public void deleteBookFromCharts(String isbn)
+    public void deleteBookFromCharts(String isbn, String category)
     {
         db.DBOpenConnection();
-        db.executeSQLUpdate( "DELETE from charts " +
-                                    "WHERE ISBN LIKE ?",List.of(isbn));
+        if(category.equals("All"))
+        {
+            db.executeSQLUpdate( "DELETE from charts " +
+                    "WHERE ISBN LIKE ? ",List.of(isbn));
+        }
+        else
+        {
+            db.executeSQLUpdate( "DELETE from charts " +
+                    "WHERE ISBN LIKE ? AND Category LIKE ?",List.of(isbn,category));
+        }
+
     }
 
 
