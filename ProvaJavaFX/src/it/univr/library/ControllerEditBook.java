@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -164,7 +163,7 @@ public class ControllerEditBook {
     {
         Model DBSinglebook = new ModelDatabaseBooks();
         String[] isbn_Title = BookCombobox.getValue().split(" ");
-        Book b = DBSinglebook.getSpecificBook(isbn_Title[0]);
+        Book b = DBSinglebook.getSpecificBooksForGenre(isbn_Title[0]);
         authors.clear();
         populateAllfield(b);
     }

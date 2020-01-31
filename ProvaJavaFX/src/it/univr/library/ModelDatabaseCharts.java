@@ -87,18 +87,45 @@ public class ModelDatabaseCharts implements Model {
     public void updateCharts(Charts bookToUpdateInCharts)
     {
         db.DBOpenConnection();
-        db.executeSQLUpdate("UPDATE charts " +
-                "SET rank = ?, weeksIn = ?, ISBN = ?, Category = ?" +
-                "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
-                bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getCategory(), bookToUpdateInCharts.getId()));
+
+
+        if(!bookToUpdateInCharts.getCategory().equals("All"))
+        {
+            db.executeSQLUpdate("UPDATE charts " +
+                    "SET rank = ?, weeksIn = ?, ISBN = ?, Category = ?" +
+                    "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
+                    bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getCategory(), bookToUpdateInCharts.getId()));
+        }
+        else
+        {
+            db.executeSQLUpdate("UPDATE charts " +
+                    "SET rank = ?, weeksIn = ?, ISBN = ? " +
+                    "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
+                    bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getId()));
+        }
+
+
     }
 
     @Override
     public void insertBookOnTheCharts(Charts bookToInsertOnTheCharts)
     {
         db.DBOpenConnection();
-        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, category) " +
-                "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory()));
+
+
+        if(!bookToInsertOnTheCharts.getCategory().equals("All"))
+        {
+            db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, category) " +
+                    "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory()));
+        }
+        else
+        {
+            db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN) " +
+                    "VALUES(?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN()));
+        }
+
+
+
     }
 
     @Override

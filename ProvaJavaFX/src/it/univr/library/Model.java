@@ -10,6 +10,8 @@ public interface Model
 
     public default ArrayList<Book> getAllBooks(Filter filter) { return null; }
 
+    public default ArrayList<Book> getSpecificBooksForGenre(Genre genre){return null;}
+
     public default ArrayList<Charts> getCharts(){return null;}
 
     public default ArrayList<Genre> getGenres()
@@ -80,7 +82,7 @@ public interface Model
 
     public default ArrayList<Author> createArrayListAuthors(List<String> idNameSurnameAuthors){return null;};
 
-    public default Book getSpecificBook(String isbn){return null;};
+    public default Book getSpecificBooksForGenre(String isbn){return null;};
 
     public default void updateBook(Book book){};
 

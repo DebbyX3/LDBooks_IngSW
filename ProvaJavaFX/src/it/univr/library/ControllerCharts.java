@@ -12,8 +12,12 @@ import java.util.Map;
 public class ControllerCharts {
 
     @FXML
-    private ComboBox categoryCombobox;
+    private ComboBox genreComboBox;
     private ObservableList<Genre> genreComboboxData = FXCollections.observableArrayList();
+
+    @FXML
+    private ComboBox categoryComboBox;
+    private ObservableList<String> categoryComboboxData = FXCollections.observableArrayList();
 
     @FXML
     private HBox headerHBox;
@@ -37,12 +41,14 @@ public class ControllerCharts {
     @FXML
     private void initialize()
     {
-        //Inizializza combobox Genre
-        categoryCombobox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
-        categoryCombobox.getSelectionModel().selectFirst();
+        populateGenreFilter();
+        genreComboBox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
+        genreComboBox.getSelectionModel().selectFirst();
 
-        //populateCharts();
-        //handler bottone filtra
+        populateCategory();
+        categoryComboBox.setItems(categoryComboboxData);
+        categoryComboBox.getSelectionModel().selectFirst();
+
         filterButton.setOnAction(this::handleFilterButton);
     }
 
@@ -62,31 +68,44 @@ public class ControllerCharts {
         controllerHeader.createHeader(user, headerHBox,cart);
     }
 
-    private void populateCharts()
-    {
-        Model DBCharts = new ModelDatabaseCharts();
-        View viewCharts = new ViewCharts();
-        //ChartFilter filter = new ChartFilter(new Filter((Genre) categoryCombobox.getValue()),"null");
-        chartsTableView.getColumns().clear();
-        //viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
-    }
-
     private void populateGenreFilter()
     {
         Model DBGenres = new ModelDatabaseGenres();
+        genreComboboxData.add(new Genre("All"));
         genreComboboxData.addAll(DBGenres.getGenres());
+    }
+
+    private void populateCategory()
+    {
+        Model DBCategory = new ModelDatabaseCharts();
+        categoryComboboxData.add("All");
+        categoryComboboxData.addAll(DBCategory.getCategory());
     }
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
-        Model DBCharts = new ModelDatabaseCharts();
-        View viewCharts = new ViewCharts();
-        Filter filter = new Filter((Genre) categoryCombobox.getValue());
 
+        ChartFilter filter = new ChartFilter();
+        Genre genre = (Genre) genreComboBox.getValue();
+        String category = (String) categoryComboBox.getValue();
+
+        if(!genre.equals(new Genre("All"))) // if the genre is not "all", add the genre to the filter
+            filter.setGenre(genre);
+        if(!category.equals("All")) // if the lang is not "all", add the lang to the filter
+            filter.setCategory(category);
 
         chartsTableView.getColumns().clear();
-        //viewCharts.buildChart(chartsTableView, DBCharts.getCharts(filter));
+        populateCharts(filter);
     }
+
+    private void populateCharts(ChartFilter filter) {
+        Model DBCharts = new ModelDatabaseCharts();
+        View viewCharts = new ViewCharts();
+        chartsTableView.getColumns().clear();
+        viewCharts.buildChart(chartsTableView,DBCharts.getCharts(filter));
+    }
+
+
 
 
 }

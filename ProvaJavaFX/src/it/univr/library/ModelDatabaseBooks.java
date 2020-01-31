@@ -51,7 +51,7 @@ public class ModelDatabaseBooks implements Model {
     }
 
     @Override
-    public Book getSpecificBook(String isbn)
+    public Book getSpecificBooksForGenre(String isbn)
     {
         ArrayList<Book> b;
         db.DBOpenConnection();
@@ -69,6 +69,27 @@ public class ModelDatabaseBooks implements Model {
         db.DBCloseConnection();
 
         return b.get(0);
+    }
+
+    @Override
+    public ArrayList<Book> getSpecificBooksForGenre(Genre genre)
+    {
+        ArrayList<Book> booksForGenre;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT books.ISBN, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
+                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
+                "books.publishingHouseName, books.title " +
+                "FROM books " +
+                "JOIN write ON books.ISBN = write.ISBN " +
+                "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                "WHERE books.genreName LIKE ? " +
+                "GROUP BY books.ISBN, title, languageName, formatName " +
+                "ORDER By books.title, idNameSurnameAuthors ASC", List.of(genre.getName()));
+        booksForGenre = resultSetToArrayListBook(db.getResultSet());
+        db.DBCloseConnection();
+
+        return booksForGenre;
     }
 
 
