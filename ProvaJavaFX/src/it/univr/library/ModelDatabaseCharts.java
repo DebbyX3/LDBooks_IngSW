@@ -11,56 +11,95 @@ public class ModelDatabaseCharts implements Model {
 
     private DatabaseConnection db = new DatabaseConnection();
 
-    @Override
-    public ArrayList<Charts> getCharts(){return getCharts(new ChartFilter());}
 
     @Override
-    public ArrayList<Charts> getCharts(ChartFilter filter) {
-        boolean isFirstInQuery = true;
+    public ArrayList<Charts> getGeneralCharts()
+    {
         ArrayList<Charts> chart;
-        ArrayList<Object> queryParameters = new ArrayList<>();
 
+        db.DBOpenConnection();
 
-        String query = "SELECT idChart, rank, weeksIn,Category, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
-                "JOIN authors ON authors.idAuthor = write.idAuthor ";
-
-        if (filter.isGenreSetted()) {
-            queryParameters.add(filter.getGenre().getName());
-            query += "WHERE genreName LIKE ? ";
-            isFirstInQuery = false;
-        }
-
-        if (filter.isCategorySetted()) {
-            if(!filter.getCategory().equals("All"))
-            {
-                queryParameters.add(filter.getCategory());
-                query += isFirstInQuery ? "WHERE " : "AND ";
-                query += "Category LIKE ? ";
-            }
-            else
-            {
-                query += isFirstInQuery ? "WHERE " : "AND ";
-                query += "Category ISNULL ";
-            }
-
-
-            isFirstInQuery = false;
-        }
-
-        query += "GROUP BY books.ISBN " +
-                "ORDER BY rank";
-
-        db.DBOpenConnection();
-        db.executeSQLQuery(query, queryParameters);
+                "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE Category ISNULL AND Genre ISNULL " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY rank " );
 
         chart = resultSetToArrayListCharts(db.getResultSet());
         db.DBCloseConnection();
 
         return chart;
     }
+
+
+    @Override
+    public ArrayList<Charts> getChartsForGenre(ChartFilter filter)
+    {
+        ArrayList<Charts> chart;
+
+        db.DBOpenConnection();
+
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+                "FROM charts " +
+                "JOIN books ON books.ISBN = charts.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN " +
+                "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE Category ISNULL AND Genre LIKE ? " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY rank ", List.of(filter.getGenre().getName()));
+
+        chart = resultSetToArrayListCharts(db.getResultSet());
+        db.DBCloseConnection();
+
+        return chart;
+    }
+
+    @Override
+    public ArrayList<Charts> getChartsForCategory(ChartFilter filter){
+        ArrayList<Charts> chart;
+
+        db.DBOpenConnection();
+
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+                "FROM charts " +
+                "JOIN books ON books.ISBN = charts.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN " +
+                "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE Category LIKE ? AND Genre ISNULL " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY rank", List.of(filter.getCategory().getName()));
+
+        chart = resultSetToArrayListCharts(db.getResultSet());
+        db.DBCloseConnection();
+
+        return chart;
+    }
+
+    @Override
+    public ArrayList<Charts> getChartsForCategoryAndGenre(ChartFilter filter){
+        ArrayList<Charts> chart;
+
+        db.DBOpenConnection();
+
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+                "FROM charts " +
+                "JOIN books ON books.ISBN = charts.ISBN " +
+                "JOIN write ON write.ISBN = books.ISBN " +
+                "JOIN authors ON authors.idAuthor = write.idAuthor " +
+                "WHERE Category LIKE ? AND Genre LIKE ? " +
+                "GROUP BY books.ISBN " +
+                "ORDER BY rank ", List.of(filter.getCategory().getName(), filter.getGenre().getName()));
+
+        chart = resultSetToArrayListCharts(db.getResultSet());
+        db.DBCloseConnection();
+
+        return chart;
+    }
+
+
 
     private ArrayList<Charts> resultSetToArrayListCharts(ResultSet rs) {
         ArrayList<Charts> chart = new ArrayList<>();
@@ -75,9 +114,10 @@ public class ModelDatabaseCharts implements Model {
                 chartRecord.setRank(db.getSQLInt(rs, "rank"));
                 chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
                 chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
-                chartRecord.setCategory(db.getSQLString(rs,"Category"));
+                chartRecord.setCategory(new Category(db.getSQLString(rs,"Category")));
                 chartRecord.setTitle(db.getSQLString(rs, "title"));
-                chartRecord.setGenre(new Genre(db.getSQLString(rs, "genreName")));
+                chartRecord.setGenreChart(db.getSQLString(rs, "Genre"));
+                chartRecord.setGenre(new Genre(db.getSQLString(rs,"genreName")));
                 chartRecord.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
 
                 chart.add(chartRecord);
@@ -91,7 +131,6 @@ public class ModelDatabaseCharts implements Model {
 
         return null;
     }
-
 
 
     @Override
@@ -158,14 +197,13 @@ public class ModelDatabaseCharts implements Model {
 
 
     @Override
-    public ArrayList<String> getCategory() {
-        ArrayList<String> categories;
+    public ArrayList<Category> getCategory() {
+        ArrayList<Category> categories;
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT DISTINCT charts.Category " +
-                "FROM charts " +
-                "WHERE Category IS NOT NULL");
+        db.executeSQLQuery("SELECT name " +
+                "FROM Category " );
 
         categories = resultSetToArrayListCategories(db.getResultSet());
         db.DBCloseConnection();
@@ -173,75 +211,27 @@ public class ModelDatabaseCharts implements Model {
         return categories;
     }
 
-    private ArrayList<String> resultSetToArrayListCategories(ResultSet rs) {
-        ArrayList<String> categories = new ArrayList<>();
+    private ArrayList<Category> resultSetToArrayListCategories(ResultSet rs)
+    {
+        ArrayList<Category> categories = new ArrayList<>();
+        Category c;
 
-        try {
+        try
+        {
             while (rs.next()) {
 
-               categories.add(  db.getSQLString(rs,"Category"));
+                c = new Category(db.getSQLString(rs,"name"));
+               categories.add(c);
             }
 
             return categories;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
         return null;
     }
-
-    public ArrayList<Charts> getChartsForCategory(String category){
-        ArrayList<Charts> chart;
-
-        db.DBOpenConnection();
-
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
-                "FROM charts " +
-                "JOIN books ON books.ISBN = charts.ISBN " +
-                "JOIN write ON write.ISBN = books.ISBN " +
-                "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE Category LIKE ? " +
-                "GROUP BY books.ISBN " +
-                "ORDER BY rank", List.of(category));
-
-        chart = resultSetToArrayListChartsCategory(db.getResultSet());
-        db.DBCloseConnection();
-
-        return chart;
-    }
-
-    private ArrayList<Charts> resultSetToArrayListChartsCategory(ResultSet rs) {
-        ArrayList<Charts> chart = new ArrayList<>();
-        Model authors = new ModelDatabaseAuthor();
-        Charts chartRecord;
-
-        try {
-            while (rs.next()) {
-                chartRecord = new Charts();
-
-                chartRecord.setId(db.getSQLInt(rs,"idChart"));
-                chartRecord.setRank(db.getSQLInt(rs, "rank"));
-                chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
-                chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
-                chartRecord.setCategory(db.getSQLString(rs,"Category"));
-                chartRecord.setTitle(db.getSQLString(rs, "title"));
-                chartRecord.setGenre(new Genre(db.getSQLString(rs, "genreName")));
-                chartRecord.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
-
-                chart.add(chartRecord);
-            }
-
-            return chart;
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            System.exit(0);
-        }
-
-        return null;
-    }
-
-
-
-
 }

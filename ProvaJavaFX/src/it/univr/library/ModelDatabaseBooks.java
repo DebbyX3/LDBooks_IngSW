@@ -51,6 +51,39 @@ public class ModelDatabaseBooks implements Model {
     }
 
     @Override
+    public ArrayList<Book> getAllBooks(ChartFilter filter) {
+        boolean isFirstInQuery = true;
+        ArrayList<Book> books;
+        ArrayList<Object> queryParameters = new ArrayList<>();
+
+        String query = "SELECT books.ISBN,GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
+                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
+                "books.publishingHouseName, books.title " +
+                "FROM books " +
+                "JOIN write ON books.ISBN = write.ISBN " +
+                "JOIN authors ON write.idAuthor = authors.idAuthor ";
+
+        if (filter.isGenreSetted()) {
+            queryParameters.add(filter.getGenre().getName());
+            query += "WHERE genreName LIKE ? ";
+            isFirstInQuery = false;
+        }
+
+
+        query += "GROUP BY books.ISBN, title, languageName, formatName " +
+                "ORDER BY books.title, idNameSurnameAuthors ASC ";
+
+        db.DBOpenConnection();
+        db.executeSQLQuery(query, queryParameters);
+        books = resultSetToArrayListBook(db.getResultSet());
+        db.DBCloseConnection();
+
+        System.out.println(books);
+        return books;
+    }
+
+    @Override
     public Book getSpecificBooksForGenre(String isbn)
     {
         ArrayList<Book> b;

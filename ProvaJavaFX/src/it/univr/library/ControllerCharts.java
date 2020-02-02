@@ -17,7 +17,7 @@ public class ControllerCharts {
 
     @FXML
     private ComboBox categoryComboBox;
-    private ObservableList<String> categoryComboboxData = FXCollections.observableArrayList();
+    private ObservableList<Category> categoryComboboxData = FXCollections.observableArrayList();
 
     @FXML
     private HBox headerHBox;
@@ -78,7 +78,7 @@ public class ControllerCharts {
     private void populateCategory()
     {
         Model DBCategory = new ModelDatabaseCharts();
-        categoryComboboxData.add("All");
+        categoryComboboxData.add(new Category("All"));
         categoryComboboxData.addAll(DBCategory.getCategory());
     }
 
@@ -87,7 +87,7 @@ public class ControllerCharts {
 
         ChartFilter filter = new ChartFilter();
         Genre genre = (Genre) genreComboBox.getValue();
-        String category = (String) categoryComboBox.getValue();
+        Category category = (Category) categoryComboBox.getValue();
 
         if(!genre.equals(new Genre("All"))) // if the genre is not "all", add the genre to the filter
             filter.setGenre(genre);
@@ -102,7 +102,7 @@ public class ControllerCharts {
         Model DBCharts = new ModelDatabaseCharts();
         View viewCharts = new ViewCharts();
         chartsTableView.getColumns().clear();
-        viewCharts.buildChart(chartsTableView,DBCharts.getCharts(filter));
+        //viewCharts.buildChart(chartsTableView,DBCharts.getCharts(filter));
     }
 
 

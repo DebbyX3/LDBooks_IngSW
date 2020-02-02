@@ -12,7 +12,6 @@ public interface Model
 
     public default ArrayList<Book> getSpecificBooksForGenre(Genre genre){return null;}
 
-    public default ArrayList<Charts> getCharts(){return null;}
 
     public default ArrayList<Genre> getGenres()
     {
@@ -27,10 +26,6 @@ public interface Model
 
     public default Manager getManager(User testUser){return null;};
 
-    public default ArrayList<Charts> getCharts(ChartFilter filter)
-    {
-        return null;
-    }
 
     public default RegisteredClient getRegisteredUser(User testUser){ return null;}
 
@@ -100,9 +95,17 @@ public interface Model
 
     public default void deleteBookFromCharts(String isbn, String category){};
 
-    public default ArrayList<String> getCategory(){return  null;};
+    public default ArrayList<Charts> getChartsForGenre(ChartFilter filter){return null;};
 
-    public default ArrayList<Charts> getChartsForCategory(String value){return null;};
+    public default ArrayList<Charts> getChartsForCategoryAndGenre(ChartFilter filter){return null;};
+
+    public default  ArrayList<Book> getAllBooks(ChartFilter filter) {return null;};
+
+    public default ArrayList<Category> getCategory(){return null;};
+
+    public default ArrayList<Charts> getGeneralCharts(){return null;};
+
+    public default ArrayList<Charts> getChartsForCategory(ChartFilter filter){return null;};
 
 
 }

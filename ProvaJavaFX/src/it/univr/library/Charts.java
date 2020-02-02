@@ -10,8 +10,11 @@ public class Charts
     private String title;
     private List<Author> authors;
     private Genre genre;
+    private String genreChart;
+
+
     private Integer weeksIn;
-    private String category;
+    private Category category;
 
 
 
@@ -23,11 +26,11 @@ public class Charts
         Id = id;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
@@ -77,5 +80,13 @@ public class Charts
 
     public void setGenre(Genre genre) {
         this.genre = genre;
+    }
+
+    public String getGenreChart() {
+        return genreChart;
+    }
+
+    public void setGenreChart(String genreChart) {
+        this.genreChart = genreChart;
     }
 }

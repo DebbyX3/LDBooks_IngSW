@@ -51,8 +51,8 @@ public class ControllerUpdateChartsManager {
     private ObservableList<Genre> genreComboboxData = FXCollections.observableArrayList();
 
     @FXML
-    private ComboBox<String> categoryComboBox;
-    private ObservableList<String> categoryComboboxData = FXCollections.observableArrayList();
+    private ComboBox<Category> categoryComboBox;
+    private ObservableList<Category> categoryComboboxData = FXCollections.observableArrayList();
 
 
     @FXML
@@ -78,6 +78,8 @@ public class ControllerUpdateChartsManager {
     {
 
         bookNewInformationVBox.setDisable(true);
+        selectBookButton.setDisable(true);
+
         //Inizializza combobox Genre
         populateGenreFilter();
         genreComboBox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
@@ -86,8 +88,6 @@ public class ControllerUpdateChartsManager {
         populateCategory();
         categoryComboBox.setItems(categoryComboboxData);
         categoryComboBox.getSelectionModel().selectFirst();
-
-
 
 
         //populateCharts();
@@ -125,46 +125,64 @@ public class ControllerUpdateChartsManager {
     private void populateCategory()
     {
         Model DBCategory = new ModelDatabaseCharts();
-        categoryComboboxData.add("All");
+        categoryComboboxData.add(new Category("All"));
         categoryComboboxData.addAll(DBCategory.getCategory());
     }
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
-
-        ChartFilter filter = new ChartFilter();
-        Genre genre =  genreComboBox.getValue();
-        String category = categoryComboBox.getValue();
-
-        /*
-        if(!genre.equals(new Genre("All"))) // if the genre is not "all", add the genre to the filter
-            filter.setGenre(genre);
-
-         */
-        filter.setGenre(genre);
-        filter.setCategory(category);
-
+        // fetch value from comboBox
+        ChartFilter chartToCreate = new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue());
         chartsTableView.getColumns().clear();
-        populateCharts(filter);
-        populateBooks(filter.getGenre());
-        BookCombobox.getItems().clear();
-        BookCombobox.setItems(bookIsbnAndTitle(books));
-        BookCombobox.setDisable(false);
-
+        populateChartsWithFilter(chartToCreate);
     }
 
-    private void populateCharts(ChartFilter filter) {
+    private void populateChartsWithFilter(ChartFilter filters)
+    {
+        // prepare all the stuff to create new View
         Model DBCharts = new ModelDatabaseCharts();
+        Model DBBooks = new ModelDatabaseBooks();
         View viewCharts = new ViewCharts();
         chartsTableView.getColumns().clear();
-        viewCharts.buildChart(chartsTableView,DBCharts.getCharts(filter));
+
+        // check what is the chart to create:
+        if(filters.getGenre().equals(new Genre("All")) && filters.getCategory().equals(new Category("All")))
+            viewCharts.buildChart(chartsTableView,DBCharts.getGeneralCharts());
+        else if(!filters.getGenre().equals(new Genre("All")) && filters.getCategory().equals(new Category("All")))
+            viewCharts.buildChart(chartsTableView,DBCharts.getChartsForGenre(filters));
+        else if(filters.getGenre().equals(new Genre("All")) && !filters.getCategory().equals(new Category("All")))
+            viewCharts.buildChart(chartsTableView,DBCharts.getChartsForCategory(filters));
+        else
+          viewCharts.buildChart(chartsTableView,DBCharts.getChartsForCategoryAndGenre(filters));
+
+
+
+        books.clear();
+        BookCombobox.getSelectionModel().clearSelection();
+        BookCombobox.getItems().clear();
+
+        // fill book ComboBox for the specific filter fields:
+        if(filters.getGenre().equals(new Genre("All")))
+            books.addAll(DBBooks.getAllBooks(new ChartFilter()));
+        else
+            books.addAll(DBBooks.getAllBooks(filters));
+
+        // add books in the ComboBox
+        //BookCombobox.getSelectionModel().
+        BookCombobox.setItems(bookIsbnAndTitle(books));
+
+        // enable book ComboBox and button
+        BookCombobox.setDisable(false);
+        selectBookButton.setDisable(false);
     }
 
     private void handleSelectBookButton(ActionEvent actionEvent)
     {
+        // clear old fields
         rankTextField.clear();
         weekInTextField.clear();
 
+        // fetch all the information of the book selected and fill all the fields
         Model DBSinglebook = new ModelDatabaseBooks();
         String[] isbn_Title = BookCombobox.getValue().split(" ");
         Book b = DBSinglebook.getSpecificBooksForGenre(isbn_Title[0]);
@@ -174,14 +192,25 @@ public class ControllerUpdateChartsManager {
         authorsLabel.setText( authors.substring(1,authors.length()-1));
         genreLabel.setText(b.getGenre().toString());
 
-        // change chartView based on book selected
-        ArrayList<Charts> c = getChartFromGenre(new ChartFilter(b.getGenre(),categoryComboBox.getValue()));
+        // fetch from DB the books of the specific filter and check if the selected book is in there
+        Model DBCharts = new ModelDatabaseCharts();
+        ArrayList<Charts> booksInChart;
 
-        for (Charts chart: c) {
-            if(chart.getISBN().equals(b.getISBN()))
+        if(genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
+          booksInChart = DBCharts.getGeneralCharts();
+        else if(!genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
+            booksInChart = DBCharts.getChartsForGenre(new ChartFilter(genreComboBox.getValue()));
+        else if(genreComboBox.getValue().equals(new Genre("All")) && !categoryComboBox.getValue().equals(new Category("All")))
+            booksInChart = DBCharts.getChartsForCategory(new ChartFilter(categoryComboBox.getValue()));
+        else
+            booksInChart = DBCharts.getChartsForCategoryAndGenre(new ChartFilter(genreComboBox.getValue(),categoryComboBox.getValue()));
+
+        //now check if the book selected is in there and update all the fields
+        for (Charts bookInChart: booksInChart) {
+            if(bookInChart.getISBN().equals(b.getISBN()))
             {
-                rankTextField.setText(chart.getRank().toString());
-                weekInTextField.setText(chart.getWeeksIn().toString());
+                rankTextField.setText(bookInChart.getRank().toString());
+                weekInTextField.setText(bookInChart.getWeeksIn().toString());
             }
         }
 
@@ -190,226 +219,24 @@ public class ControllerUpdateChartsManager {
 
     private void handleInsertUpdateBookButton(ActionEvent actionEvent)
     {
-        ArrayList<Charts> chartsInView;
-
-        chartsInView = getChartFromGenre(new ChartFilter(genreComboBox.getValue(),categoryComboBox.getValue()));
-
-        Charts bookToUpdateInCharts = null;
-
-        if (isValidField())
-        {
-            for (Charts chart : chartsInView) {
-                if (chart.getISBN().equals(isbnLabel.getText())) {
-                    bookToUpdateInCharts = chart;
-                    break;
-                }
-            }
-
-            if (bookToUpdateInCharts != null)
-            {
-
-                //UPDATE RANK IN TABLE VIEW:
-                //book already exists, so just update
-                Integer initRank = bookToUpdateInCharts.getRank();
-                bookToUpdateInCharts.setRank(Integer.parseInt(rankTextField.getText()));
-                Integer finalRank = Integer.parseInt(rankTextField.getText());
-                ArrayList<Charts> modified;
 
 
-                if (initRank < finalRank)
-                {
-                    modified = new ArrayList<>();
-
-                    for (Charts chartsView : chartsInView)
-                    {
-                        if (!chartsView.getISBN().equals(isbnLabel.getText()) && (chartsView.getRank() > initRank && chartsView.getRank() <= finalRank)) {
-                            chartsView.setRank(chartsView.getRank() - 1);
-                            modified.add(chartsView);
-                        }
-                    }
-                }
-                else
-                {
-                    modified = new ArrayList<>();
-                    for (Charts chartsView : chartsInView)
-                    {
-                        if (!chartsView.getISBN().equals(isbnLabel.getText()) && (chartsView.getRank() < initRank && chartsView.getRank() >= finalRank)) {
-                            chartsView.setRank(chartsView.getRank() + 1);
-                            modified.add(chartsView);
-                        }
-                    }
-                }
-
-                bookToUpdateInCharts.setWeeksIn(Integer.parseInt(weekInTextField.getText()));
-                if(categoryComboBox.getValue().equals("All"))
-                    bookToUpdateInCharts.setCategory("All");
-                else
-                    bookToUpdateInCharts.setCategory(categoryComboBox.getValue());
-
-                System.out.println(bookToUpdateInCharts.getCategory());
-
-                modified.add(bookToUpdateInCharts);
-                ModelDatabaseCharts updateDB = new ModelDatabaseCharts();
-
-                for (Charts updateChartDB: modified)
-                {
-                    updateChartDB.setCategory(categoryComboBox.getValue());
-                    updateDB.updateCharts(updateChartDB);
-                }
-
-
-                updateChartsView(chartsInView);
-            }
-            else
-            {
-                // BOOK IS NOT IN CHART
-
-                Charts bookToInsertOnTheCharts = new Charts();
-                bookToInsertOnTheCharts.setTitle(titleLabel.getText());
-                bookToInsertOnTheCharts.setISBN(isbnLabel.getText());
-                bookToInsertOnTheCharts.setRank(Integer.parseInt(rankTextField.getText()));
-                bookToInsertOnTheCharts.setWeeksIn(Integer.parseInt(weekInTextField.getText()));
-                if(categoryComboBox.getValue().equals("All"))
-                    bookToInsertOnTheCharts.setCategory("All");
-                else
-                    bookToInsertOnTheCharts.setCategory(categoryComboBox.getValue());
-
-                System.out.println(bookToInsertOnTheCharts.getCategory());
-
-
-
-                bookToInsertOnTheCharts.setGenre(new Genre(genreLabel.getText()));
-                Model DBSinglebook = new ModelDatabaseBooks();
-                String[] isbn_Title = BookCombobox.getValue().split(" ");
-                Book b = DBSinglebook.getSpecificBooksForGenre(isbn_Title[0]);
-                bookToInsertOnTheCharts.setAuthors(b.getAuthors());
-
-
-                Integer finalRank = Integer.parseInt(rankTextField.getText());
-                ArrayList<Charts> modified = new ArrayList<>();
-                boolean empty = true;
-
-                for (Charts chartsView : chartsInView)
-                {
-                    if (chartsView.getRank().equals(finalRank)) {
-                        empty = false;
-                        break;
-                    }
-                }
-
-                if(!empty)
-                {
-                    for (Charts chartsView : chartsInView)
-                    {
-                        if (chartsView.getRank() >= finalRank)
-                        {
-                            chartsView.setRank(chartsView.getRank() + 1);
-                            modified.add(chartsView);
-                        }
-                    }
-                }
-
-
-                ModelDatabaseCharts insertToCharts = new ModelDatabaseCharts();
-                insertToCharts.insertBookOnTheCharts(bookToInsertOnTheCharts);
-                chartsInView.add(bookToInsertOnTheCharts);
-
-
-                //insert new book to charts
-                ModelDatabaseCharts updateDB = new ModelDatabaseCharts();
-
-                for (Charts updateChartDB: modified)
-                {
-                    updateChartDB.setCategory(categoryComboBox.getValue());
-                    updateDB.updateCharts(updateChartDB);
-                }
-
-
-                updateChartsView(chartsInView);
-            }
-        }
-
-
-        rankTextField.clear();
-        weekInTextField.clear();
-        bookNewInformationVBox.setDisable(true);
-        BookCombobox.setDisable(true);
     }
 
 
     private void updateChartsView(ArrayList<Charts> chartUpdated) {
-        View viewCharts = new ViewCharts();
-        chartsTableView.getColumns().clear();
-        viewCharts.buildChart(chartsTableView,chartUpdated);
+
     }
 
     private void handleDeleteBookButton(ActionEvent actionEvent)
     {
-        ArrayList<Charts> modified = new ArrayList<>();
-        if(isValidField())
-        {
-            ModelDatabaseCharts deleteBookFromCharts = new ModelDatabaseCharts();
-            if(categoryComboBox.getValue().equals("All"))
-                deleteBookFromCharts.deleteBookFromCharts(isbnLabel.getText(),"All");
-            else
-                deleteBookFromCharts.deleteBookFromCharts(isbnLabel.getText(),categoryComboBox.getValue());
-
-            // UPDATE RANK
-            ArrayList<Charts> chartsInView = getChartFromGenre(new ChartFilter(genreComboBox.getValue()));
-            for (Charts c: chartsInView)
-            {
-                if(c.getRank() > Integer.parseInt(rankTextField.getText()))
-                {
-                    c.setRank(c.getRank() - 1);
-                    modified.add(c);
-                }
-
-            }
-
-            ModelDatabaseCharts updateDB = new ModelDatabaseCharts();
-
-            for (Charts updateChartDB: modified)
-            {
-                updateChartDB.setCategory(categoryComboBox.getValue());
-                updateDB.updateCharts(updateChartDB);
-            }
-
-
-            updateChartsView(chartsInView);
-        }
-
-        rankTextField.clear();
-        weekInTextField.clear();
-        bookNewInformationVBox.setDisable(true);
 
     }
 
-    private ArrayList<Charts> getChartFromGenre(ChartFilter filter)
-    {
-        Model DBCharts = new ModelDatabaseCharts();
-        return DBCharts.getCharts(filter);
-    }
 
     private boolean isValidField()
     {
-        StringBuilder error = new StringBuilder();
-        if(rankTextField.getText().equals(""))
-            error.append("- Rank field must be filled!\n");
-        else
-            if(!isNumerical(rankTextField.getText()))
-                error.append("- Rank field must be numerical!\n");
-
-        if(weekInTextField.getText().equals(""))
-            error.append("- Week In must be filled!\n");
-        else
-            if(!isNumerical(weekInTextField.getText()))
-                error.append("- Week In must be numerical!\n");
-
-
-        if(!error.toString().isEmpty())
-            displayAlert(error.toString());
-
-        return error.toString().isEmpty();
+        return false;
     }
 
 
@@ -427,12 +254,7 @@ public class ControllerUpdateChartsManager {
 
     private void populateBooks(Genre filterGenre)
     {
-        Model DBbooks = new ModelDatabaseBooks();
-        books.clear();
-        if(filterGenre.equals(new Genre("All")))
-            books.addAll(DBbooks.getAllBooks());
-        else
-            books.addAll(DBbooks.getSpecificBooksForGenre(filterGenre));
+
     }
 
     private void displayAlert(String s)
