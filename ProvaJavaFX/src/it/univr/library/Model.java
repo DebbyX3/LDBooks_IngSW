@@ -89,11 +89,29 @@ public interface Model
 
     public default ArrayList<Librocard> getSpecificLibroCard(String mail){return null;};
 
-    public default void updateCharts(Charts bookToInsertToCharts){};
+    public default void updateChartsGenreAllCategoryAll(Charts bookToUpdateInCharts){};
 
-    public default void insertBookOnTheCharts(Charts bookToInsertOnTheCharts){};
+    public default void updateChartsGenreSelectedCategoryAll(Charts bookToUpdateInCharts){};
 
-    public default void deleteBookFromCharts(String isbn, String category){};
+    public default void updateChartsGenreAllCategorySelected(Charts bookToUpdateInCharts){};
+
+    public default void updateChartsGenreSelectedCategorySelected(Charts bookToUpdateInCharts){};
+
+    public default void insertBookOnTheChartsSelectedGenreAllCategory(Charts bookToInsertOnTheCharts){};
+
+    public default void insertBookOnTheChartsAllGenreAllCategory(Charts bookToInsertOnTheCharts){};
+
+    public default void insertBookOnTheChartsAllGenreSelectedCategory(Charts bookToInsertOnTheCharts){};
+
+    public default void insertBookOnTheChartsSelectedGenreSelectedCategory(Charts bookToInsertOnTheCharts){};
+
+    public default void deleteBookFromChartsAllGenreAllCategory(String isbn){};
+
+    public default void deleteBookFromChartsSelectedGenreAllCategory(String isbn, Genre genre){};
+
+    public default void deleteBookFromChartsAllGenreSelectedCategory(String isbn, Category category){};
+
+    public default void deleteBookFromChartsSelectedGenreSelectedCategory(String isbn, Genre genre, Category category){};
 
     public default ArrayList<Charts> getChartsForGenre(ChartFilter filter){return null;};
 

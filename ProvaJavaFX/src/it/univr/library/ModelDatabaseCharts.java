@@ -134,65 +134,117 @@ public class ModelDatabaseCharts implements Model {
 
 
     @Override
-    public void updateCharts(Charts bookToUpdateInCharts)
+    public void updateChartsGenreAllCategoryAll(Charts bookToUpdateInCharts)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate("UPDATE charts " +
+                "SET rank = ? , weeksIn = ? " +
+                "WHERE idChart LIKE ? AND Category ISNULL AND Genre ISNULL", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId()));
+    }
+
+    @Override
+    public void updateChartsGenreSelectedCategoryAll(Charts bookToUpdateInCharts)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate(" UPDATE charts " +
+                "    SET rank = ? , weeksIn = ? " +
+                "    WHERE idChart LIKE ? AND Category ISNULL AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getGenreChart()));
+    }
+
+    @Override
+    public void updateChartsGenreAllCategorySelected(Charts bookToUpdateInCharts)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate(" UPDATE charts " +
+                "    SET rank = ? , weeksIn = ? " +
+                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre ISNULL ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory()));
+    }
+
+    @Override
+    public void updateChartsGenreSelectedCategorySelected(Charts bookToUpdateInCharts)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate(" UPDATE charts " +
+                "    SET rank = ? , weeksIn = ? " +
+                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory(), bookToUpdateInCharts.getGenreChart()));
+    }
+
+
+
+
+   @Override
+    public void insertBookOnTheChartsAllGenreAllCategory(Charts bookToInsertOnTheCharts)
     {
         db.DBOpenConnection();
 
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN) " +
+                "VALUES(?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN()));
+    }
 
-        if(!bookToUpdateInCharts.getCategory().equals("All"))
-        {
-            db.executeSQLUpdate("UPDATE charts " +
-                    "SET rank = ?, weeksIn = ?, ISBN = ?, Category = ?" +
-                    "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
-                    bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getCategory(), bookToUpdateInCharts.getId()));
-        }
-        else
-        {
-            db.executeSQLUpdate("UPDATE charts " +
-                    "SET rank = ?, weeksIn = ?, ISBN = ? " +
-                    "WHERE idChart LIKE ?", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(),
-                    bookToUpdateInCharts.getISBN(), bookToUpdateInCharts.getId()));
-        }
+    @Override
+    public void insertBookOnTheChartsSelectedGenreAllCategory(Charts bookToInsertOnTheCharts)
+    {
+        db.DBOpenConnection();
 
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Genre) " +
+                "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getGenreChart()));
+    }
+
+    @Override
+    public void insertBookOnTheChartsAllGenreSelectedCategory(Charts bookToInsertOnTheCharts)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Category) " +
+                "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory().getName()));
+    }
+
+    @Override
+    public void insertBookOnTheChartsSelectedGenreSelectedCategory(Charts bookToInsertOnTheCharts)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Category, Genre) " +
+                "VALUES(?, ?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory().getName(), bookToInsertOnTheCharts.getGenreChart()));
+    }
+
+
+
+    @Override
+    public void deleteBookFromChartsAllGenreAllCategory(String isbn)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( "DELETE from charts " +
+                "WHERE ISBN LIKE ? AND Genre ISNULL AND Category ISNULL",List.of(isbn));
 
     }
 
     @Override
-    public void insertBookOnTheCharts(Charts bookToInsertOnTheCharts)
+    public void deleteBookFromChartsSelectedGenreAllCategory(String isbn, Genre genre)
     {
         db.DBOpenConnection();
 
-
-        if(!bookToInsertOnTheCharts.getCategory().equals("All"))
-        {
-            db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, category) " +
-                    "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory()));
-        }
-        else
-        {
-            db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN) " +
-                    "VALUES(?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN()));
-        }
-
-
-
+        db.executeSQLUpdate( "DELETE from charts " +
+                "WHERE ISBN LIKE ? AND Genre LIKE ? AND Category ISNULL",List.of(isbn, genre.getName()));
     }
 
     @Override
-    public void deleteBookFromCharts(String isbn, String category)
+    public void deleteBookFromChartsAllGenreSelectedCategory(String isbn, Category category)
     {
         db.DBOpenConnection();
-        if(category.equals("All"))
-        {
-            db.executeSQLUpdate( "DELETE from charts " +
-                    "WHERE ISBN LIKE ? ",List.of(isbn));
-        }
-        else
-        {
-            db.executeSQLUpdate( "DELETE from charts " +
-                    "WHERE ISBN LIKE ? AND Category LIKE ?",List.of(isbn,category));
-        }
 
+        db.executeSQLUpdate( "DELETE from charts " +
+                "WHERE ISBN LIKE ? AND Genre ISNULL AND Category LIKE ?",List.of(isbn, category.getName()));
+    }
+
+    @Override
+    public void deleteBookFromChartsSelectedGenreSelectedCategory(String isbn, Genre genre, Category category)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( "DELETE from charts " +
+                "WHERE ISBN LIKE ? AND Genre LIKE ? AND Category LIKE ?",List.of(isbn, genre.getName(), category.getName()));
     }
 
 
@@ -234,4 +286,6 @@ public class ModelDatabaseCharts implements Model {
 
         return null;
     }
+
+
 }
