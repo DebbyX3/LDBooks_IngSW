@@ -1,5 +1,6 @@
 package it.univr.library;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -45,6 +46,21 @@ public class ControllerCart {
     @FXML
     private void initialize()
     {
+        checkOutButton.setOnAction(this::handleCheckOutButton);
+    }
+
+    private void handleCheckOutButton(ActionEvent actionEvent)
+    {
+        if(user==null)
+        {
+            StageManager logInSignUpPage = new StageManager();
+            logInSignUpPage.setStageLoginAfterCheckOut((Stage) checkOutButton.getScene().getWindow(), user, cart);
+        }
+        else
+        {
+            StageManager paymentPage = new StageManager();
+            paymentPage.setStagePaymentPage((Stage) checkOutButton.getScene().getWindow(), user, cart);
+        }
     }
 
     public void populateCart(Map<Book,Integer> cart) {
@@ -65,7 +81,6 @@ public class ControllerCart {
         ControllerHeader controllerHeader = new ControllerHeader();
         controllerHeader.createHeader(user, headerHBox, cart);
     }
-
 
 
     public void handleRemoveBookFromCart(Book book, Button removeBookButton)

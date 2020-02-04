@@ -1,6 +1,7 @@
 package it.univr.library;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -60,10 +61,20 @@ public class ControllerSpecificBook
 
     public void handleAddBookToCart(Book book, Integer quantity, Button cartButton) {
         cart.put(book, quantity);
-        StageManager catalogView = new StageManager();
-        catalogView.setStageCatalog((Stage) cartButton.getScene().getWindow(), user, cart);
+        displayConfirmation();
     }
 
+    private Alert displayConfirmation()
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Cart Information");
+        alert.setHeaderText("Book successfully add to cart!");
+
+
+        alert.showAndWait();
+
+        return alert;
+    }
 
 
 }

@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerPayment">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
@@ -36,8 +36,8 @@
                         <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="43.199987792968784" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="38.599999999999966" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="307.4000244140625" minHeight="0.0" prefHeight="39.599999999999966" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="43.199987792968784" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="307.4000244140625" minHeight="0.0" prefHeight="43.199987792968784" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="52.199993896484386" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="4.599969482421898" prefHeight="61.99998779296874" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -47,7 +47,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Label prefHeight="27.0" prefWidth="153.0" text="Total Price:" textAlignment="CENTER">
+                              <Label prefHeight="27.0" prefWidth="255.0" text="Total Price:" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
@@ -56,7 +56,7 @@
                         </VBox>
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <Label fx:id="priceLabel" prefHeight="25.0" prefWidth="81.0" text="price €">
+                              <Label fx:id="priceLabel" prefHeight="25.0" prefWidth="302.0">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -65,7 +65,7 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
                            <children>
-                              <Label prefHeight="27.0" prefWidth="153.0" text="LibroCard points:" textAlignment="CENTER">
+                              <Label prefHeight="27.0" prefWidth="278.0" text="LibroCard points:" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -74,7 +74,7 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="81.0" text="points">
+                              <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="276.0">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -93,21 +93,33 @@
                               </Label>
                            </children>
                         </VBox>
-                        <RadioButton mnemonicParsing="false" text="Default Address" GridPane.columnIndex="2" GridPane.rowIndex="5">
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Address2" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                           <children>
+                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
+                              <Label fx:id="defaultAddressLabel" prefHeight="17.0" prefWidth="266.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton mnemonicParsing="false" text="Address3" GridPane.columnIndex="2" GridPane.rowIndex="7">
+                           <children>
+                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
+                              <Label fx:id="secondAddressLabel" prefHeight="17.0" prefWidth="269.0" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                        </RadioButton>
+                           <children>
+                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
+                              <Label fx:id="thirdAddressLabel" prefHeight="17.0" prefWidth="272.0" />
+                           </children>
+                        </HBox>
                         <VBox alignment="CENTER" GridPane.rowIndex="4">
                            <GridPane.margin>
                               <Insets />
@@ -120,27 +132,39 @@
                               </Label>
                            </children>
                         </VBox>
-                        <RadioButton layoutX="548.0" layoutY="255.0" mnemonicParsing="false" text="Credit-Debit Card" GridPane.rowIndex="5">
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="5">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton layoutX="30.0" layoutY="255.0" mnemonicParsing="false" text="PayPal" GridPane.rowIndex="6">
+                           <children>
+                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="45.0" />
+                              <Label prefHeight="17.0" prefWidth="277.0" text="Credit/Debit Card" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                        </RadioButton>
-                        <RadioButton layoutX="30.0" layoutY="255.0" mnemonicParsing="false" text="GiftCard" GridPane.rowIndex="7">
+                           <children>
+                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
+                              <Label prefHeight="17.0" prefWidth="258.0" text="Paypal" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
-                        </RadioButton>
+                           <children>
+                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="35.0" />
+                              <Label prefHeight="17.0" prefWidth="268.0" text="Transfer/Gift card" />
+                           </children>
+                        </HBox>
                         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button fx:id="catalogButton1" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="168.0" style="-fx-background-color: #ffa939;" text="Proceed to payment" textAlignment="CENTER">
+                              <Button fx:id="paymentButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="168.0" style="-fx-background-color: #ffa939;" text="Proceed to payment" textAlignment="CENTER">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>

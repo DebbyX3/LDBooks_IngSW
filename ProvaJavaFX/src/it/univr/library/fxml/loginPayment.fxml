@@ -16,11 +16,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerLoginPayment">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -41,10 +41,10 @@
                         <RowConstraints maxHeight="360.39998168945306" minHeight="2.600006103515625" prefHeight="25.99998779296874" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="9.000015258789062" prefHeight="34.19999999999999" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="17.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="38.199951171875" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="26.39996337890625" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="25.60003662109375" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="68.80004272460934" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="46.79996337890623" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="25.200036621093773" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="31.60004882812501" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="42.60002441406249" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
@@ -52,7 +52,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Log In">
+                              <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Log In">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -86,8 +86,8 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <PasswordField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets />
@@ -107,7 +107,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Sign Up">
+                              <Button fx:id="signUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Sign Up">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -125,7 +125,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Hyperlink alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="305.0" text="Continue as Unregistered User" GridPane.columnIndex="1" GridPane.rowIndex="11">
+                        <Hyperlink fx:id="unregisterHyperlink" alignment="CENTER" contentDisplay="CENTER" prefHeight="22.0" prefWidth="305.0" text="Continue as Unregistered User" GridPane.columnIndex="1" GridPane.rowIndex="11">
                            <font>
                               <Font size="14.0" />
                            </font>

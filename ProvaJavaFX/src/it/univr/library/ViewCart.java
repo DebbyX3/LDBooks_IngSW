@@ -26,7 +26,18 @@ public class ViewCart implements View {
         cartScrollPane.setVvalue(cartScrollPane.getVmin());
         double subtotal = 0;
         double shippingCost;
-        if(cart.isEmpty())
+        boolean onlyAudioBook = true;
+
+        for (Book books: cart.keySet())
+        {
+            if (!books.getFormat().getName().equals("Digital Edition") && !books.getFormat().getName().equals("Audiobook"))
+            {
+                onlyAudioBook = false;
+                break;
+            }
+        }
+
+        if(cart.isEmpty() || onlyAudioBook)
             shippingCost = 0;
         else
             shippingCost = 5.99;
@@ -367,8 +378,8 @@ public class ViewCart implements View {
         totalLibroCardPointsLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalLibroCardPointsLabel.setPrefWidth(175);
         totalLibroCardPointsLabel.setPrefHeight(17);
-        Integer totalLibroCardPoints = cart.get(book) * book.getPoints();
-        totalLibroCardPointsLabel.setText(totalLibroCardPoints.toString());
+        double totalLibroCardPoints = cart.get(book) * book.getPoints();
+        totalLibroCardPointsLabel.setText(String.format("%.2f",totalLibroCardPoints));
         totalLibroCardPointsLabel.setAlignment(Pos.CENTER_LEFT);
         totalLibroCardPointsLabel.setContentDisplay(ContentDisplay.LEFT);
         totalLibroCardPointsLabel.setFont(new Font("System", 12.0));
@@ -394,8 +405,8 @@ public class ViewCart implements View {
         totalPriceLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalPriceLabel.setPrefWidth(175);
         totalPriceLabel.setPrefHeight(17);
-        Integer totalPriceL = cart.get(book) * book.getPrice().intValue();
-        totalPriceLabel.setText(totalPriceL.toString()+" €");
+        double totalPriceL = cart.get(book) * book.getPrice().doubleValue();
+        totalPriceLabel.setText(String.format("%.2f €",totalPriceL));
         totalPriceLabel.setAlignment(Pos.CENTER_LEFT);
         totalPriceLabel.setContentDisplay(ContentDisplay.LEFT);
         totalPriceLabel.setFont(new Font("System", 12.0));

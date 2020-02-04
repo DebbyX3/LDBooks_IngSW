@@ -652,4 +652,54 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageLoginAfterCheckOut(Stage primaryStage, User user, Map<Book, Integer> cart)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/loginPayment.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerLoginPayment controllerLoginPayment = fxmlLoader.getController();
+            controllerLoginPayment.setCart(cart);
+            controllerLoginPayment.setUser(user);
+            controllerLoginPayment.setHeader();
+
+
+            primaryStage.setTitle("Login-SignUp Payment - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void setStagePaymentPage(Stage primaryStage, User user, Map<Book, Integer> cart)
+    {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/payment.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerPayment controllerPayment = fxmlLoader.getController();
+            controllerPayment.setCart(cart);
+            controllerPayment.setUser(user);
+            controllerPayment.setHeader();
+
+
+            primaryStage.setTitle("Payment - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
