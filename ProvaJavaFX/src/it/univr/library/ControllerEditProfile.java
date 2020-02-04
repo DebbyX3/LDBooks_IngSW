@@ -1,6 +1,7 @@
 package it.univr.library;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class ControllerEditProfile {
@@ -44,9 +46,6 @@ public class ControllerEditProfile {
 
     RegisteredClient regUser; //serve?
 
-    private ArrayList<String> postalCodes;
-
-    private ArrayList<String> cities;
     private Map<Book, Integer> cart;
 
     public ControllerEditProfile()
@@ -55,11 +54,7 @@ public class ControllerEditProfile {
     @FXML
     private void initialize()
     {
-        Model DBSignUp = new ModelDatabaseSignUp();
-        cities = DBSignUp.getCities();
-        postalCodes = DBSignUp.getCAPs();
-
-        editProfileButton.setOnAction(this::handleEditProfileButton);
+        //editProfileButton.setOnAction(this::handleEditProfileButton);
         addAddressButton.setOnAction(this::handleAddAddressButton);
     }
 
@@ -86,9 +81,11 @@ public class ControllerEditProfile {
         newAddress.setCity("");
 
         regUser.getAddresses().add(newAddress);
-        View viewInformationsUser = new ViewInformationsUser();
-        //TODO chiamare un metodo per pulire VBOX ADDRESS pre compilati dalla chiamata di populateUser... nello stageManager prima di creare i nuovi
-        viewInformationsUser.buildInformationsEdit(regUser, nameTextField, surnameTextField, phoneTextField, mailLabel, addressVbox);
+
+        View viewInformationUser = new ViewInformationUser();
+        //TODO chiamare un metodo per pulire VBOX ADDRESS pre compilati dalla chiamata di populateUser...
+        // nello stageManager prima di creare i nuovi
+        //viewInformationUser.buildEditProfileInformation(regUser, nameTextField, surnameTextField, phoneTextField, mailLabel, addressVbox);
     }
 
     private void handleEditProfileButton(ActionEvent actionEvent)
@@ -98,27 +95,36 @@ public class ControllerEditProfile {
 
     }
 
-    public void populateUserInformations()
+    public void populateUserInformation()
     {
-        View viewInformationsUser = new ViewInformationsUser();
+        View viewInformationUser = new ViewInformationUser();
         regUser = userToRegisteredUser((Client) user);
-        /*TODO creare lista di textfield e metterli come lista attributo, passare questa lista come
-           oggetto alla view così il controller se la tiene per accedere ai campi successivamente
-           e per creare un altro regUser di confronto
-         */
-        viewInformationsUser.buildInformationsEdit(regUser, nameTextField, surnameTextField, phoneTextField, mailLabel, addressVbox);
+
+        viewInformationUser.buildEditProfileInformation(regUser, nameTextField, surnameTextField, phoneTextField, mailLabel, addressVbox);
+
+        //fa schifo, bisognerebbe fare l'handler del bottone nella view ma è un bottone fatto da fxml e non ha molto senso
+        editProfileButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                List<Address> addresses = new ArrayList<>();
+
+                for (AddressFields af: viewInformationUser.getAddressFieldsList())
+                    addresses.add(af.toAddress());
+
+                checkAddresses(addresses);
+            }
+        });
     }
 
-    private RegisteredClient userToRegisteredUser(Client testuser)
-    {
-        Model DBInformations = new ModelDatabaseUserInformations();
-        RegisteredClient regUser = DBInformations.getRegisteredUser(testuser);
+    private void checkAddresses(List<Address> newAddresses)
+    {}
 
-        regUser.setEmail(testuser.getEmail());
-        regUser.setName(testuser.getName());
-        regUser.setSurname(testuser.getSurname());
-        regUser.setPhoneNumber(testuser.getPhoneNumber());
-        regUser.setPassword(testuser.getPassword());
+    private RegisteredClient userToRegisteredUser(Client user)
+    {
+        Model DBInformation = new ModelDatabaseUserInformation();
+        RegisteredClient regUser =
+                new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
+                        user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));
 
         return regUser;
     }

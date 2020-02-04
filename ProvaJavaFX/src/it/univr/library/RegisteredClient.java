@@ -1,12 +1,13 @@
 package it.univr.library;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class RegisteredClient extends Client
 {
-    private ArrayList<Address> addresses = new ArrayList<Address>();
+    private List<Address> addresses = new ArrayList<Address>();
 
-    public RegisteredClient(String name, String surname, String email, String password, String phoneNumber, ArrayList<Address> addresses) {
+    public RegisteredClient(String name, String surname, String email, String password, String phoneNumber, List<Address> addresses) {
         super(name, surname, email, password, phoneNumber);
         this.addresses = addresses;
     }
@@ -23,12 +24,12 @@ public class RegisteredClient extends Client
         addresses.add(singleAddress);
     }
 
-    public RegisteredClient(ArrayList<Address> listOfAddress)
+    public RegisteredClient(List<Address> listOfAddress)
     {
         this.addresses = listOfAddress;
     }
 
-    public ArrayList<Address> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
@@ -37,7 +38,7 @@ public class RegisteredClient extends Client
         addresses.add(singleAddress);
     }
 
-    public void setAddresses(ArrayList<Address> addresses)
+    public void setAddresses(List<Address> addresses)
     {
         this.addresses = addresses;
     }

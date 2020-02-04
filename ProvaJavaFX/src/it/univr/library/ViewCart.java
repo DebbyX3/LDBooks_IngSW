@@ -127,7 +127,7 @@ public class ViewCart implements View {
         cartGridPane.getChildren().add(imageVbox);
 
         // BOOK INFORMATION
-        /* *** BOOK INFORMATIONS *** */
+        /* *** BOOK INFORMATION *** */
         VBox bookInformationVbox = new VBox();
         bookInformationVbox.setAlignment(Pos.CENTER_LEFT);
 

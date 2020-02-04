@@ -9,8 +9,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,8 +22,8 @@ public class ControllerSignUp {
     private Button signUpButton;
 
     @FXML
-    private ComboBox citiesAndCapsComboBox;
-    private ObservableList<String> citiesAndCapsComboboxData = FXCollections.observableArrayList();
+    private ComboBox citiesAndPostalCodesComboBox;
+    private ObservableList<String> citiesAndPostalCodesComboboxData = FXCollections.observableArrayList();
 
     @FXML
     private HBox headerHBox;
@@ -53,22 +51,26 @@ public class ControllerSignUp {
 
     private User regUser;
 
-    private ArrayList<String> postalCodes;
+    //contains methods and attributes that help managing addresses
+    private ControllerAddress controllerAddress = new ControllerAddress();
 
-    private ArrayList<String> cities;
+    /*private List<String> cities;
+
+    private List<String> postalCodes;*/
 
     private final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$", Pattern.CASE_INSENSITIVE);
+
     private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
     {
         //populate comboBox of cities
-        populateCitiesAndCAPsCombobox();
+        citiesAndPostalCodesComboboxData = controllerAddress.populateCitiesAndPostalCodesCombobox();
 
-        citiesAndCapsComboBox.setItems(citiesAndCapsComboboxData);
-        citiesAndCapsComboBox.getSelectionModel().selectFirst();
+        citiesAndPostalCodesComboBox.setItems(citiesAndPostalCodesComboboxData);
+        citiesAndPostalCodesComboBox.getSelectionModel().selectFirst();
 
         signUpButton.setOnAction(this::handleSignUpButton);
     }
@@ -88,26 +90,6 @@ public class ControllerSignUp {
         controllerHeader.createHeader(regUser, headerHBox,cart);
     }
 
-    private void populateCitiesAndCAPsCombobox()
-    {
-        ArrayList<String> citiesAndCAPs = new ArrayList<>();
-
-        Model DBSignUp = new ModelDatabaseSignUp();
-
-        cities = DBSignUp.getCities();
-        postalCodes = DBSignUp.getCAPs();
-
-        Iterator<String> citiesIterator = cities.iterator();
-        Iterator<String> CAPsIterator = postalCodes.iterator();
-
-        while(citiesIterator.hasNext() && CAPsIterator.hasNext())
-        {
-            citiesAndCAPs.add(citiesIterator.next() + " - " + CAPsIterator.next());
-        }
-        
-        citiesAndCapsComboboxData.addAll(citiesAndCAPs);
-    }
-
     private void handleSignUpButton(ActionEvent actionEvent)
     {
         Model DBcheckUser = new ModelDatabaseSignUp();
@@ -117,8 +99,12 @@ public class ControllerSignUp {
         if(!isAnyFieldNullOrEmpty())
         {
             //fetch user from the text field and create the object
-            RegisteredClient testUser = fetchUser(nameTextField.getText(), surnameTextField.getText(), streetTextField.getText(), houseNumberTextField.getText(),
-                    getPostalCodeFromCombobox(), getCityFromCombobox(), phoneNumberTextField.getText(), mailTextField.getText(), pswPasswordField.getText());
+            RegisteredClient testUser = fetchUser(nameTextField.getText(), surnameTextField.getText(),
+                                                  streetTextField.getText(), houseNumberTextField.getText(),
+                                                  controllerAddress.getPostalCodeFromCombobox(citiesAndPostalCodesComboBox),
+                                                  controllerAddress.getCityFromCombobox(citiesAndPostalCodesComboBox),
+                                                  phoneNumberTextField.getText(),
+                                                  mailTextField.getText(), pswPasswordField.getText());
 
             //normalize all the TextFields
             normalizeUser(testUser);
@@ -153,16 +139,6 @@ public class ControllerSignUp {
             error.append("All text field must be filled!\n");
             displayAlert(error.toString());
         }
-    }
-
-    private String getCityFromCombobox()
-    {
-        return cities.get(citiesAndCapsComboBox.getSelectionModel().getSelectedIndex());
-    }
-
-    private String getPostalCodeFromCombobox()
-    {
-        return postalCodes.get(citiesAndCapsComboBox.getSelectionModel().getSelectedIndex());
     }
 
     private boolean areValidFields(RegisteredClient testUser, StringBuilder error)
@@ -207,7 +183,7 @@ public class ControllerSignUp {
                 || surnameTextField == null || surnameTextField.getText().isEmpty()
                 || streetTextField == null || streetTextField.getText().isEmpty()
                 || houseNumberTextField == null || houseNumberTextField.getText().isEmpty()
-                || citiesAndCapsComboBox == null
+                || citiesAndPostalCodesComboBox == null
                 || phoneNumberTextField == null || phoneNumberTextField.getText().isEmpty()
                 || mailTextField == null || mailTextField.getText().isEmpty()
                 || pswPasswordField == null || pswPasswordField.getText().isEmpty();
@@ -215,20 +191,10 @@ public class ControllerSignUp {
 
     private RegisteredClient fetchUser(String name, String surname, String street, String houseNumber, String postalCode, String city, String phoneNumber, String mail, String psw)
     {
-        Address address = new Address();
-        address.setStreet(street);
-        address.setHouseNumber(houseNumber);
-        address.setPostalCode(postalCode);
-        address.setCity(city);
+        Address address = new Address(street, houseNumber, city, postalCode);
+        RegisteredClient regUser = new RegisteredClient(name, surname, mail, psw, phoneNumber, address);
 
-        RegisteredClient test = new RegisteredClient(address);
-        test.setName(name);
-        test.setSurname(surname);
-        test.setPhoneNumber(phoneNumber);
-        test.setEmail(mail);
-        test.setPassword(psw);
-
-        return test;
+        return regUser;
     }
 
     private boolean isAlpha(String s) {

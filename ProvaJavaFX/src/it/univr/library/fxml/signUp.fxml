@@ -127,7 +127,7 @@
                         <TextField fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <TextField fx:id="houseNumberTextField" layoutX="298.0" layoutY="127.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="citiesAndCapsComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="citiesAndPostalCodesComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <PasswordField fx:id="pswPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="8" />

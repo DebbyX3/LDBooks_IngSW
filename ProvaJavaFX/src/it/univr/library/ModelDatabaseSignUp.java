@@ -11,57 +11,56 @@ public class ModelDatabaseSignUp implements Model
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public ArrayList<String> getCities()
+    public List<String> getCities()
     {
-        return getCitiesCAPs().getCities();
+        return getCitiesPostalCodes().getCities();
     }
 
     @Override
-    public ArrayList<String> getCAPs()
+    public List<String> getPostalCodes()
     {
-        return getCitiesCAPs().getCAPs();
+        return getCitiesPostalCodes().getPostalCodes();
     }
 
-    private Cities getCitiesCAPs()
+    private CitiesPostalCodes getCitiesPostalCodes()
     {
-        Cities citiesAndCAPs;
+        CitiesPostalCodes citiesAndPostalCodes;
 
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT name, CAP "+
                             "FROM cities " +
                             "ORDER BY name ASC");
 
-        citiesAndCAPs = resultSetToCitiesAndCAPs(db.getResultSet());
+        citiesAndPostalCodes = resultSetToCitiesAndPostalCodes(db.getResultSet());
         db.DBCloseConnection();
 
-        return citiesAndCAPs;
+        return citiesAndPostalCodes;
     }
 
-    private Cities resultSetToCitiesAndCAPs(ResultSet rs)
+    private CitiesPostalCodes resultSetToCitiesAndPostalCodes(ResultSet rs)
     {
-        ArrayList<String> cities = new ArrayList<>();
-        ArrayList<String> CAPs = new ArrayList<>();
+        List<String> cities = new ArrayList<>();
+        List<String> postalCodes = new ArrayList<>();
 
         String singleCity;
-        String singleCAP;
+        String singlePostalCode;
 
-        Cities citiesAndCAPs = new Cities();
+        CitiesPostalCodes citiesAndPostalCodes;
 
         try
         {
             while (rs.next())
             {
                 singleCity = db.getSQLString(rs, "name");
-                singleCAP = db.getSQLString(rs, "CAP");
+                singlePostalCode = db.getSQLString(rs, "CAP");
 
                 cities.add(singleCity);
-                CAPs.add(singleCAP);
+                postalCodes.add(singlePostalCode);
             }
 
-            citiesAndCAPs.setCAPs(CAPs);
-            citiesAndCAPs.setCities(cities);
+            citiesAndPostalCodes = new CitiesPostalCodes(cities, postalCodes);
 
-            return citiesAndCAPs;
+            return citiesAndPostalCodes;
         }
         catch (SQLException e)
         {
@@ -125,15 +124,6 @@ public class ModelDatabaseSignUp implements Model
     {
         db.DBOpenConnection();
 
-        /*db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
-                            "VALUES (?, ?, ?, ?, ?)",
-                            List.of(testUser.getEmail(), testUser.getNameQuery(), testUser.getSurnameQuery(), testUser.getPhoneNumber(), testUser.getPassword()));
-
-        System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
-                "VALUES ('" + testUser.getEmail() + "','" + testUser.getNameQuery() + "','" + testUser.getSurnameQuery()
-                + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
-        */
-
         db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
                         "VALUES (?, ?, ?, ?, ?)",
                 List.of(testUser.getEmail(), testUser.getName(), testUser.getSurname(), testUser.getPhoneNumber(), testUser.getPassword()));
@@ -183,7 +173,7 @@ public class ModelDatabaseSignUp implements Model
         db.DBCloseConnection();
     }
 
-    private void createNewAddress(ArrayList<Address> addresses)
+    private void createNewAddress(List<Address> addresses)
     {
         Address a = new Address();
 
@@ -211,7 +201,7 @@ public class ModelDatabaseSignUp implements Model
      * @param addresses, list of addresses
      * @return true if address already exists in db otherwise false
      */
-    private boolean addressAlreadyExists(ArrayList<Address> addresses) {
+    private boolean addressAlreadyExists(List<Address> addresses) {
 
         Address a = new Address();
         boolean result = false;

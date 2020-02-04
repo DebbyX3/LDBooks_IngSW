@@ -26,14 +26,13 @@ public interface Model
 
     public default Manager getManager(User testUser){return null;};
 
-
-    public default RegisteredClient getRegisteredUser(User testUser){ return null;}
+    public default List<Address> getAddressesRegisteredUser(User testUser){ return null;}
 
     public default Librocard getLibrocardInformation(User user){return null;}
 
-    public default ArrayList<String> getCities(){return null;}
+    public default List<String> getCities(){return null;}
 
-    public default ArrayList<String> getCAPs(){return null;}
+    public default List<String> getPostalCodes(){return null;}
 
     public default Boolean doesMailAlreadyExist(RegisteredClient test){return null;}
 

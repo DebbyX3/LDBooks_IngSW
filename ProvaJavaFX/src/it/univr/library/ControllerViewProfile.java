@@ -72,24 +72,20 @@ public class ControllerViewProfile
         EditProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user, cart);
     }
 
-    public void populateUserInformations()
+    public void populateUserInformation()
     {
         //genero schermata fxml con le informazioni e le riempio
-        View viewInformationsUser = new ViewInformationsUser();
+        View viewInformationUser = new ViewInformationUser();
 
-        viewInformationsUser.buildInformations(userToRegisteredUser((Client) user), nameLabel, surnameLabel, phoneLabel, emailLabel, addressVbox);
+        viewInformationUser.buildViewProfileInformation(userToRegisteredUser((Client) user), nameLabel, surnameLabel, phoneLabel, emailLabel, addressVbox);
     }
 
-    private RegisteredClient userToRegisteredUser(Client testuser)
+    private RegisteredClient userToRegisteredUser(Client user)
     {
-        Model DBInformations = new ModelDatabaseUserInformations();
-        RegisteredClient regUser = DBInformations.getRegisteredUser(testuser);
-
-        regUser.setEmail(testuser.getEmail());
-        regUser.setName(testuser.getName());
-        regUser.setSurname(testuser.getSurname());
-        regUser.setPhoneNumber(testuser.getPhoneNumber());
-        regUser.setPassword(testuser.getPassword());
+        Model DBInformation = new ModelDatabaseUserInformation();
+        RegisteredClient regUser =
+                new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
+                        user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));
 
         return regUser;
     }

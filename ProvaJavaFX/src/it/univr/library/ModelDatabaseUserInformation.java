@@ -2,31 +2,32 @@ package it.univr.library;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseUserInformations implements Model
+public class ModelDatabaseUserInformation implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public RegisteredClient getRegisteredUser(User testUser)
+    public List<Address> getAddressesRegisteredUser(User testUser)
     {
-        RegisteredClient regUser;
+        List<Address> regUser;
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
                             "FROM ship " +
                             "WHERE emailRegisteredUser LIKE ?",
                             List.of(testUser.getEmail()));
 
-        regUser = resultSetToRegisteredUser(db.getResultSet());
+        regUser = resultSetToListAddress(db.getResultSet());
         db.DBCloseConnection();
 
         return regUser;
     }
 
-    private RegisteredClient resultSetToRegisteredUser(ResultSet rs)
+    private List<Address> resultSetToListAddress(ResultSet rs)
     {
-        RegisteredClient regUser = new RegisteredClient();
+        List<Address> regUserAddressed = new ArrayList<>();
         Address address;
 
         try
@@ -40,10 +41,10 @@ public class ModelDatabaseUserInformations implements Model
                 address.setCity(db.getSQLString(rs, "cityName"));
                 address.setPostalCode(db.getSQLString(rs, "cityCAP"));
 
-                regUser.setSingleAddress(address);
+                regUserAddressed.add(address);
             }
 
-            return regUser;
+            return regUserAddressed;
         }
         catch (SQLException e)
         {
