@@ -5,17 +5,15 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-import java.util.List;
-
 public class AddressFields
 {
     private TextField streetTextField;
     private TextField houseNumberTextField;
 
     private ComboBox citiesAndPostalCodesComboBox;
-    private ObservableList<String> citiesAndPostalCodesComboboxData;
+    private ObservableList<String> citiesAndPostalCodesComboboxData = FXCollections.observableArrayList();
 
-    ControllerAddress controllerAddress = new ControllerAddress();
+    ControllerUserInfo controllerUserInfo = new ControllerUserInfo();
 
     public AddressFields(Address address)
     {
@@ -26,18 +24,20 @@ public class AddressFields
     {
         streetTextField = new TextField(street);
         houseNumberTextField = new TextField(houseNumber);
-        citiesAndPostalCodesComboboxData = controllerAddress.populateCitiesAndPostalCodesCombobox();
+        citiesAndPostalCodesComboboxData = controllerUserInfo.populateCitiesAndPostalCodesCombobox();
+        citiesAndPostalCodesComboboxData.add("Empty");
+
 
         citiesAndPostalCodesComboBox = new ComboBox();
         citiesAndPostalCodesComboBox.setItems(citiesAndPostalCodesComboboxData);
-        citiesAndPostalCodesComboBox.getSelectionModel().select(controllerAddress.getCities().indexOf(city));
+        citiesAndPostalCodesComboBox.getSelectionModel().select(controllerUserInfo.getCities().indexOf(city));
     }
 
     public Address toAddress()
     {
         return new Address(streetTextField.getText(), houseNumberTextField.getText(),
-                controllerAddress.getCityFromCombobox(citiesAndPostalCodesComboBox),
-                controllerAddress.getPostalCodeFromCombobox(citiesAndPostalCodesComboBox));
+                controllerUserInfo.getCityFromCombobox(citiesAndPostalCodesComboBox),
+                controllerUserInfo.getPostalCodeFromCombobox(citiesAndPostalCodesComboBox));
     }
 
     public TextField getStreetTextField() {

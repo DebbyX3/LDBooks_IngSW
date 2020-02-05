@@ -110,13 +110,14 @@ public class ViewInformationUser implements View
     }
 
     @Override
-    public void buildEditProfileInformation(RegisteredClient registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, Label mailLabel, VBox addressVBox)
+    public void buildEditProfileInformation(RegisteredClient registeredUser, TextField nameTextField, TextField surnameTextField, TextField phoneTextField, TextField passwordTextField, Label mailLabel, VBox addressVBox)
     {
         /* **** SETTING NAME, SURNAME, PHONE NUMBER AND EMAIL TEXTFIELDS **** */
         nameTextField.setText(registeredUser.getName());
         surnameTextField.setText(registeredUser.getSurname());
         phoneTextField.setText(registeredUser.getPhoneNumber());
         mailLabel.setText(registeredUser.getEmail());
+        passwordTextField.setText(registeredUser.getPassword());
 
         for (Address address: registeredUser.getAddresses())
         {

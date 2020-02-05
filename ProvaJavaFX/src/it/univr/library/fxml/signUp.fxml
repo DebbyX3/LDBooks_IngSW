@@ -130,7 +130,7 @@
                         <ComboBox fx:id="citiesAndPostalCodesComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <PasswordField fx:id="pswPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <PasswordField fx:id="passwordTextField" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11">
                            <children>
                               <Button fx:id="signUpButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="145.0" style="-fx-background-color: #ffa939;" text="Sign Up">

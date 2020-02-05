@@ -8,6 +8,8 @@ public class Client extends User
     {
         super(name, surname, email, password);
         this.phoneNumber = phoneNumber;
+
+        normalizeUser();
     }
 
     public Client(){}
@@ -24,5 +26,11 @@ public class Client extends User
     public String toString()
     {
         return super.toString() + ", " + phoneNumber;
+    }
+
+    private void normalizeUser()
+    {
+        if(phoneNumber != null)
+            phoneNumber = phoneNumber.trim();
     }
 }

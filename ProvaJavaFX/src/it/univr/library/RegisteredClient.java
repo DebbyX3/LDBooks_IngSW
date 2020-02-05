@@ -10,11 +10,15 @@ public class RegisteredClient extends Client
     public RegisteredClient(String name, String surname, String email, String password, String phoneNumber, List<Address> addresses) {
         super(name, surname, email, password, phoneNumber);
         this.addresses = addresses;
+
+        normalizeUser();
     }
 
     public RegisteredClient(String name, String surname, String email, String password, String phoneNumber, Address singleAddress) {
         super(name, surname, email, password, phoneNumber);
         this.addresses.add(singleAddress);
+
+        normalizeUser();
     }
 
     public RegisteredClient(){};
@@ -47,5 +51,11 @@ public class RegisteredClient extends Client
     public String toString()
     {
         return super.toString() + ", " + addresses;
+    }
+
+    private void normalizeUser()
+    {
+        for(Address address: addresses)
+            address.normalizeAddress();
     }
 }

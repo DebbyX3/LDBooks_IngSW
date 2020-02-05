@@ -38,7 +38,9 @@ public interface Model
 
     public default void addUser(RegisteredClient user){}
 
-    public default void addAddress(RegisteredClient testUser){};
+    public default void addAddress(RegisteredClient user, Address address){};
+
+    public default void unlinkAddressFromUser(RegisteredClient user, Address addressToDelete){};
 
     public default void createLibroCard(RegisteredClient testUser){};
 

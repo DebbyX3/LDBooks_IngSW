@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseSignUp implements Model
+public class ModelDatabaseUserInfo implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
@@ -120,138 +120,129 @@ public class ModelDatabaseSignUp implements Model
     }
 
     @Override
-    public void addUser(RegisteredClient testUser)
+    public void addUser(RegisteredClient user)
     {
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
                         "VALUES (?, ?, ?, ?, ?)",
-                List.of(testUser.getEmail(), testUser.getName(), testUser.getSurname(), testUser.getPhoneNumber(), testUser.getPassword()));
+                List.of(user.getEmail(), user.getName(), user.getSurname(), user.getPhoneNumber(), user.getPassword()));
 
 
         System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
-                "VALUES ('" + testUser.getEmail() + "','" + testUser.getName() + "','" + testUser.getSurname()
-                + "','" + testUser.getPhoneNumber() + "','" + testUser.getPassword() + "')");
+                "VALUES ('" + user.getEmail() + "','" + user.getName() + "','" + user.getSurname()
+                + "','" + user.getPhoneNumber() + "','" + user.getPassword() + "')");
 
         db.DBCloseConnection();
     }
 
     @Override
-    public void addAddress(RegisteredClient testUser)
+    public void addAddress(RegisteredClient user, Address address)
     {
-       if(!addressAlreadyExists(testUser.getAddresses()))
+       if(!addressAlreadyExists(address))
        {
            //create address
-           createNewAddress(testUser.getAddresses());
+           createNewAddress(address);
        }
         //only link it to the user
-        linkAddressToUser(testUser);
+        linkAddressToUser(user, address);
     }
 
-    private void linkAddressToUser(RegisteredClient testUser)
+    private void linkAddressToUser(RegisteredClient user, Address address)
     {
-        Address a = new Address();
-
-        for (Address address: testUser.getAddresses())
-        {
-            a.setStreet(address.getStreet());
-            a.setHouseNumber(address.getHouseNumber());
-            a.setCity(address.getCity());
-            a.setPostalCode(address.getPostalCode());
-        }
-
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
                             "VALUES(?, ?, ?, ?, ?)",
-                            List.of(testUser.getEmail(), a.getStreetQuery(), a.getHouseNumber(), a.getCity(), a.getPostalCode()));
+                            List.of(user.getEmail(), address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
 
         System.out.println("INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                "VALUES( '" + testUser.getEmail() + "', '"+ a.getStreetQuery() + "', '" + a.getHouseNumber() +
-                "', '" + a.getCity() + "', '" + a.getPostalCode() + "')");
+                "VALUES( '" + user.getEmail() + "', '"+ address.getStreetQuery() + "', '" + address.getHouseNumber() +
+                "', '" + address.getCity() + "', '" + address.getPostalCode() + "')");
 
         db.DBCloseConnection();
     }
 
-    private void createNewAddress(List<Address> addresses)
+    @Override
+    public void unlinkAddressFromUser(RegisteredClient user, Address addressToDelete)
     {
-        Address a = new Address();
+        db.DBOpenConnection();
 
-        for (Address address:addresses) {
-            a.setStreet(address.getStreet());
-            a.setHouseNumber(address.getHouseNumber());
-            a.setCity(address.getCity());
-            a.setPostalCode(address.getPostalCode());
-        }
+        db.executeSQLUpdate(  "DELETE FROM ship " +
+                                    "WHERE emailRegisteredUser LIKE ? AND " +
+                                    "addressStreet LIKE ? AND " +
+                                    "addressHouseNumber LIKE ? AND " +
+                                    "cityName LIKE ? AND " +
+                                    "cityCAP LIKE ?",
+                                    List.of(user.getEmail(), addressToDelete.getStreetQuery(), addressToDelete.getHouseNumber(),
+                                            addressToDelete.getCity(), addressToDelete.getPostalCode()));
 
+        db.DBCloseConnection();
+    }
+
+    private void createNewAddress(Address address)
+    {
         db.DBOpenConnection();
 
         db.executeSQLUpdate("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
                            "VALUES(?, ?, ?, ?)",
-                            List.of(a.getStreetQuery(), a.getHouseNumber(), a.getCity(), a.getPostalCode()));
+                            List.of(address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
 
         System.out.println("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
-                "VALUES( '" + a.getStreetQuery() + "', '" + a.getHouseNumber() + "', '" + a.getCity() + "', '" +
-                a.getPostalCode() + "')");
+                "VALUES( '" + address.getStreetQuery() + "', '" + address.getHouseNumber() + "', '" + address.getCity() + "', '" +
+                address.getPostalCode() + "')");
 
         db.DBCloseConnection();
     }
 
     /**
-     * @param addresses, list of addresses
+     * @param address, an address of Address class
      * @return true if address already exists in db otherwise false
      */
-    private boolean addressAlreadyExists(List<Address> addresses) {
+    private boolean addressAlreadyExists(Address address)
+    {
+        boolean existsRow = false;
 
-        Address a = new Address();
-        boolean result = false;
         db.DBOpenConnection();
 
-        for (Address address:addresses) {
-            a.setStreet(address.getStreet());
-            a.setHouseNumber(address.getHouseNumber());
-            a.setCity(address.getCity());
-            a.setPostalCode(address.getPostalCode());
-        }
-
-        db.executeSQLQuery("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
-                            "FROM ship " +
-                            "WHERE addressStreet LIKE ? " +
-                            "AND addressHouseNumber LIKE ? " +
+        db.executeSQLQuery("SELECT street, houseNumber, cityName, cityCAP " +
+                            "FROM addresses " +
+                            "WHERE street LIKE ? " +
+                            "AND houseNumber LIKE ? " +
                             "AND cityName LIKE ? "+
                             "AND cityCAP LIKE ?",
-                            List.of(a.getStreetQuery(), a.getHouseNumber(), a.getCity(), a.getPostalCode()));
+                            List.of(address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
 
-        System.out.println("SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
+        System.out.println("SELECT street, houseNumber, cityName, cityCAP " +
                 "FROM ship " +
-                "WHERE addressStreet LIKE '" + a.getStreetQuery() + "' AND addressHouseNumber LIKE '" +
-                a.getHouseNumber() + "' AND cityName LIKE '" + a.getCity() +
-                "' AND cityCAP LIKE '" + a.getPostalCode() + "'");
+                "WHERE street LIKE '" + address.getStreetQuery() + "' AND houseNumber LIKE '" +
+                address.getHouseNumber() + "' AND cityName LIKE '" + address.getCity() +
+                "' AND cityCAP LIKE '" + address.getPostalCode() + "'");
 
         try
         {
-            result = db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+            existsRow = db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
         }
         catch (SQLException e) {
-            result = false;
+            existsRow = false;
         }
 
         db.DBCloseConnection();
-        return result;
+        return existsRow;
     }
 
     @Override
-    public void createLibroCard(RegisteredClient testUser)
+    public void createLibroCard(RegisteredClient user)
     {
         Date unixTime = new Date(System.currentTimeMillis() / 1000L);
 
         db.DBOpenConnection();
         db.executeSQLUpdate( "INSERT INTO libroCards (totalPoints, issueDate, email) " +
                            "VALUES('0', ?, ?);",
-                            List.of(unixTime, testUser.getEmail()));
+                            List.of(unixTime, user.getEmail()));
 
         System.out.println( "INSERT INTO table (totalPoints, issueDate, email) " +
-                            "VALUES('0', '" + unixTime + "', '" + testUser.getEmail() +"');");
+                            "VALUES('0', '" + unixTime + "', '" + user.getEmail() +"');");
 
         db.DBCloseConnection();
     }

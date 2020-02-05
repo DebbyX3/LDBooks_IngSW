@@ -115,7 +115,7 @@
                               </ScrollPane>
                               <TextField fx:id="nameTextField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <TextField fx:id="surnameTextField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <TextField fx:id="phoneTextField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                              <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                               <Label fx:id="mailLabel" prefHeight="18.0" prefWidth="408.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                               <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="424.0" prefHeight="20.0" prefWidth="170.0" text="Password:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <font>

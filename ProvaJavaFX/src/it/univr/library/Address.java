@@ -14,6 +14,8 @@ public class Address
         this.houseNumber = houseNumber;
         this.city = city;
         this.postalCode = postalCode;
+
+        normalizeAddress();
     }
 
     public String getStreetQuery() {
@@ -77,5 +79,39 @@ public class Address
     public String toString()
     {
         return this.getStreet() + " " + this.getHouseNumber() + " " + this.getCity() + " " + this.getPostalCode();
+    }
+
+    public boolean isFilled()
+    {
+        return  (street != null && !street.trim().isEmpty()) &&
+                (houseNumber != null && !houseNumber.trim().isEmpty()) &&
+                (city != null && !city.trim().isEmpty()) &&
+                (postalCode != null && !postalCode.trim().isEmpty());
+    }
+
+    public boolean isEmpty()
+    {
+        return  (street == null || street.trim().isEmpty()) &&
+                (houseNumber == null || houseNumber.trim().isEmpty()) &&
+                (city == null || city.trim().isEmpty()) &&
+                (postalCode == null || postalCode.trim().isEmpty());
+    }
+
+    public boolean isPartiallyEmpty()
+    {
+        // It is partially empty when it is neither completely filled nor completely empty
+        return !(isFilled() || isEmpty()); // the same as (!isFilled() && !isEmpty())
+    }
+
+    public void normalizeAddress()
+    {
+        if(street != null)
+            street = street.trim();
+        if(houseNumber != null)
+            houseNumber = houseNumber.trim();
+        if(city != null)
+            city = city.trim();
+        if(postalCode != null)
+            postalCode = postalCode.trim();
     }
 }
