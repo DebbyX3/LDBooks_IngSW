@@ -27,10 +27,15 @@ public class AddressFields
         citiesAndPostalCodesComboboxData = controllerUserInfo.populateCitiesAndPostalCodesCombobox();
         citiesAndPostalCodesComboboxData.add("Empty");
 
-
         citiesAndPostalCodesComboBox = new ComboBox();
         citiesAndPostalCodesComboBox.setItems(citiesAndPostalCodesComboboxData);
-        citiesAndPostalCodesComboBox.getSelectionModel().select(controllerUserInfo.getCities().indexOf(city));
+
+        int indexCity = controllerUserInfo.getCities().indexOf(city);
+
+        if(indexCity < 0 || indexCity > controllerUserInfo.getCities().size()-1)
+            citiesAndPostalCodesComboBox.getSelectionModel().selectLast();
+        else
+            citiesAndPostalCodesComboBox.getSelectionModel().select(indexCity);
     }
 
     public Address toAddress()

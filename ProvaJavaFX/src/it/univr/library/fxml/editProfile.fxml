@@ -16,12 +16,12 @@
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerEditProfile">
   <children>
-      <BorderPane prefHeight="654.0" prefWidth="900.0">
+      <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="900.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <HBox prefHeight="541.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="550.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
                   <ScrollPane prefHeight="606.0" prefWidth="900.0">
                      <content>
@@ -38,6 +38,7 @@
                             <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="200.0" minHeight="200.0" prefHeight="200.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="20.0" minHeight="20.0" prefHeight="20.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                               <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
@@ -45,7 +46,7 @@
                               <RowConstraints maxHeight="45.0" minHeight="45.0" prefHeight="45.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="186.0" text="E-mail:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                              <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="255.0" text="E-mail:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -53,7 +54,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="152.0" prefHeight="27.0" prefWidth="304.0" text="Name:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                              <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="152.0" prefHeight="20.0" prefWidth="148.0" text="Name:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -61,7 +62,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="9">
+                              <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="10">
                                  <GridPane.margin>
                                     <Insets />
                                  </GridPane.margin>
@@ -76,7 +77,7 @@
                                     </Button>
                                  </children>
                               </VBox>
-                              <Label alignment="CENTER_RIGHT" layoutX="190.0" layoutY="107.0" prefHeight="27.0" prefWidth="279.0" text="Surname:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                              <Label alignment="CENTER_RIGHT" layoutX="190.0" layoutY="107.0" prefHeight="20.0" prefWidth="239.0" text="Surname:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -84,7 +85,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="246.0" prefHeight="20.0" prefWidth="286.0" text="Address:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                              <Label alignment="CENTER_RIGHT" layoutX="210.0" layoutY="246.0" prefHeight="20.0" prefWidth="171.0" text="Addresses:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -92,7 +93,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label alignment="CENTER_RIGHT" layoutX="176.0" layoutY="264.0" prefHeight="20.0" prefWidth="166.0" text="Phone Number:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <Label alignment="CENTER_RIGHT" layoutX="176.0" layoutY="264.0" prefHeight="20.0" prefWidth="222.0" text="Phone Number:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -100,7 +101,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <Label alignment="CENTER" prefHeight="26.0" prefWidth="470.0" text="Your Profile:" underline="true" GridPane.columnIndex="2">
+                              <Label alignment="CENTER" prefHeight="26.0" prefWidth="470.0" text="Your Profile" underline="true" GridPane.columnIndex="2">
                                  <font>
                                     <Font name="System Bold" size="16.0" />
                                  </font>
@@ -108,16 +109,19 @@
                                     <Insets />
                                  </GridPane.margin>
                               </Label>
-                              <ScrollPane prefHeight="190.0" prefWidth="353.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                              <ScrollPane prefHeight="190.0" prefWidth="353.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                                  <content>
-                                    <VBox fx:id="addressVbox" fillWidth="false" prefHeight="196.0" prefWidth="391.0" />
+                                    <VBox fx:id="addressVbox" fillWidth="false" maxWidth="395.0" minWidth="381.0" prefHeight="197.0" prefWidth="381.0">
+                                       <padding>
+                                          <Insets left="10.0" right="10.0" />
+                                       </padding></VBox>
                                  </content>
                               </ScrollPane>
                               <TextField fx:id="nameTextField" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                               <TextField fx:id="surnameTextField" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                              <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                              <Label fx:id="mailLabel" prefHeight="18.0" prefWidth="408.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="424.0" prefHeight="20.0" prefWidth="170.0" text="Password:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                              <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                              <Label fx:id="mailLabel" prefHeight="18.0" prefWidth="408.0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="424.0" prefHeight="20.0" prefWidth="170.0" text="Password:" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="8">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
@@ -125,7 +129,7 @@
                                     <Insets right="10.0" />
                                  </GridPane.margin>
                               </Label>
-                              <TextField fx:id="passwordTextField" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                              <TextField fx:id="passwordTextField" GridPane.columnIndex="2" GridPane.rowIndex="8" />
                               <VBox alignment="CENTER" prefHeight="40.0" prefWidth="352.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
                                  <children>
                                     <Button fx:id="addAddressButton" alignment="CENTER" mnemonicParsing="false" prefHeight="26.0" prefWidth="129.0" style="-fx-background-color: #ffc880;" text="Add new address">
@@ -138,6 +142,11 @@
                                     </Button>
                                  </children>
                               </VBox>
+                              <Label prefHeight="51.0" prefWidth="218.0" text="Leave an address empty if you want to delete it" textAlignment="CENTER" wrapText="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                 <GridPane.margin>
+                                    <Insets left="10.0" right="10.0" />
+                                 </GridPane.margin>
+                              </Label>
                            </children>
                            <opaqueInsets>
                               <Insets />

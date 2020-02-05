@@ -12,7 +12,6 @@ public interface Model
 
     public default ArrayList<Book> getSpecificBooksForGenre(Genre genre){return null;}
 
-
     public default ArrayList<Genre> getGenres()
     {
         return null;
@@ -37,6 +36,8 @@ public interface Model
     public default Boolean doesMailAlreadyExist(RegisteredClient test){return null;}
 
     public default void addUser(RegisteredClient user){}
+
+    public default void updateUser(RegisteredClient user){}
 
     public default void addAddress(RegisteredClient user, Address address){};
 

@@ -409,7 +409,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/EditProfile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editProfile.fxml"));
 
             root = fxmlLoader.load();
             ControllerEditProfile controllerEditProfile = fxmlLoader.getController();

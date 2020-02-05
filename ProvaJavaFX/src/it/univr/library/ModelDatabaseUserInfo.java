@@ -85,9 +85,9 @@ public class ModelDatabaseUserInfo implements Model
         db.DBOpenConnection();
 
         //First, check the registeredUser table
-        db.executeSQLQuery( "SELECT email " +
-                            "FROM registeredUsers " +
-                            "WHERE email LIKE ?", List.of(user.getEmail()));
+        db.executeSQLQuery(   "SELECT email " +
+                                    "FROM registeredUsers " +
+                                    "WHERE email LIKE ?", List.of(user.getEmail()));
 
         try
         {
@@ -100,9 +100,9 @@ public class ModelDatabaseUserInfo implements Model
         }
 
         //If the user doesn't exist in the registeredUser table, then check in the Manager table
-        db.executeSQLQuery( "SELECT email " +
-                            "FROM managers " +
-                            "WHERE email LIKE ?", List.of(user.getEmail()));
+        db.executeSQLQuery(   "SELECT email " +
+                                    "FROM managers " +
+                                    "WHERE email LIKE ?", List.of(user.getEmail()));
 
         try
         {
@@ -125,7 +125,7 @@ public class ModelDatabaseUserInfo implements Model
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
-                        "VALUES (?, ?, ?, ?, ?)",
+                                    "VALUES (?, ?, ?, ?, ?)",
                 List.of(user.getEmail(), user.getName(), user.getSurname(), user.getPhoneNumber(), user.getPassword()));
 
 
@@ -137,23 +137,38 @@ public class ModelDatabaseUserInfo implements Model
     }
 
     @Override
+    public void updateUser(RegisteredClient user)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( "UPDATE registeredUsers " +
+                                    "SET name = ?, " +
+                                    "surname = ?, " +
+                                    "phoneNumber = ?, " +
+                                    "password = ? " +
+                                    "WHERE email LIKE ?",
+                List.of(user.getName(), user.getSurname(), user.getPhoneNumber(), user.getPassword(), user.getEmail()));
+
+        db.DBCloseConnection();
+    }
+
+    @Override
     public void addAddress(RegisteredClient user, Address address)
     {
-       if(!addressAlreadyExists(address))
-       {
-           //create address
-           createNewAddress(address);
-       }
-        //only link it to the user
-        linkAddressToUser(user, address);
+        if(!addressAlreadyExists(address))
+           createNewAddress(address); //create address
+
+        //only link it to the user if it's not already linked
+        if(!addressAlreadyLinked(user, address))
+            linkAddressToUser(user, address);   // link address
     }
 
     private void linkAddressToUser(RegisteredClient user, Address address)
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                            "VALUES(?, ?, ?, ?, ?)",
+        db.executeSQLUpdate(  "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
+                                    "VALUES(?, ?, ?, ?, ?)",
                             List.of(user.getEmail(), address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
 
         System.out.println("INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
@@ -184,8 +199,8 @@ public class ModelDatabaseUserInfo implements Model
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
-                           "VALUES(?, ?, ?, ?)",
+        db.executeSQLUpdate(  "INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
+                                    "VALUES(?, ?, ?, ?)",
                             List.of(address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
 
         System.out.println("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
@@ -205,18 +220,53 @@ public class ModelDatabaseUserInfo implements Model
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT street, houseNumber, cityName, cityCAP " +
-                            "FROM addresses " +
-                            "WHERE street LIKE ? " +
-                            "AND houseNumber LIKE ? " +
-                            "AND cityName LIKE ? "+
-                            "AND cityCAP LIKE ?",
+        db.executeSQLQuery(   "SELECT street, houseNumber, cityName, cityCAP " +
+                                    "FROM addresses " +
+                                    "WHERE street LIKE ? " +
+                                    "AND houseNumber LIKE ? " +
+                                    "AND cityName LIKE ? "+
+                                    "AND cityCAP LIKE ?",
                             List.of(address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
 
         System.out.println("SELECT street, houseNumber, cityName, cityCAP " +
-                "FROM ship " +
+                "FROM addresses " +
                 "WHERE street LIKE '" + address.getStreetQuery() + "' AND houseNumber LIKE '" +
                 address.getHouseNumber() + "' AND cityName LIKE '" + address.getCity() +
+                "' AND cityCAP LIKE '" + address.getPostalCode() + "'");
+
+        try
+        {
+            existsRow = db.getResultSet().isBeforeFirst(); //false if there are no rows, true if there are some rows
+        }
+        catch (SQLException e) {
+            existsRow = false;
+        }
+
+        db.DBCloseConnection();
+        return existsRow;
+    }
+
+    private boolean addressAlreadyLinked(RegisteredClient user, Address address)
+    {
+        boolean existsRow = false;
+
+        db.DBOpenConnection();
+
+        db.executeSQLQuery(   "SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
+                                    "FROM ship " +
+                                    "WHERE emailRegisteredUser LIKE ? " +
+                                    "AND addressStreet LIKE ? " +
+                                    "AND addressHouseNumber LIKE ? "+
+                                    "AND cityName LIKE ? " +
+                                    "AND cityCAP LIKE ?",
+                List.of(user.getEmail(), address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
+
+        System.out.println("SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
+                "FROM ship " +
+                "WHERE emailRegisteredUser LIKE '" + user.getEmail() +
+                "' AND addressStreet LIKE '" + address.getStreetQuery() +
+                "' AND addressHouseNumber LIKE '" + address.getHouseNumber() +
+                "' AND cityName LIKE '" + address.getCity() +
                 "' AND cityCAP LIKE '" + address.getPostalCode() + "'");
 
         try
@@ -238,7 +288,7 @@ public class ModelDatabaseUserInfo implements Model
 
         db.DBOpenConnection();
         db.executeSQLUpdate( "INSERT INTO libroCards (totalPoints, issueDate, email) " +
-                           "VALUES('0', ?, ?);",
+                                    "VALUES('0', ?, ?);",
                             List.of(unixTime, user.getEmail()));
 
         System.out.println( "INSERT INTO table (totalPoints, issueDate, email) " +

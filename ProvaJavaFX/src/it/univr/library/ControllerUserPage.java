@@ -72,7 +72,8 @@ public class ControllerUserPage
 
     private void handleEditProfileButton(ActionEvent actionEvent)
     {
-
+        StageManager editProfileStage = new StageManager();
+        editProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user, cart);
     }
 
     private void handleMyOrdersButton(ActionEvent actionEvent)

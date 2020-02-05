@@ -68,8 +68,8 @@ public class ControllerViewProfile
 
     private void handleEditProfileButton(ActionEvent actionEvent)
     {
-        StageManager EditProfileStage = new StageManager();
-        EditProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user, cart);
+        StageManager editProfileStage = new StageManager();
+        editProfileStage.setStageEditProfile((Stage) editProfileButton.getScene().getWindow(), user, cart);
     }
 
     public void populateUserInformation()

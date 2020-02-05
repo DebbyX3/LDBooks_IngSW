@@ -54,7 +54,7 @@ public class ControllerSpecificBook
     public void populateBookInfo()
     {
         View buildSpecificBook = new ViewBooks();
-        buildSpecificBook.buildBookForSpecificBook(bookInfoVBox, titleLabel, languageLabel, bookGroup, this);
+        buildSpecificBook.buildBookForSpecificBook(bookInfoVBox, titleLabel, languageLabel, bookGroup, this, user);
     }
 
 

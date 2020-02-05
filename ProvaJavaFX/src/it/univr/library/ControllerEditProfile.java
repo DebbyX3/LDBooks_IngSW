@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,7 +57,6 @@ public class ControllerEditProfile {
 
     @FXML
     private void initialize() {
-        addAddressButton.setOnAction(this::handleAddAddressButton);
     }
 
     public void setUser(User user) {
@@ -72,7 +72,8 @@ public class ControllerEditProfile {
         controllerHeader.createHeader(user, headerHBox, cart);
     }
 
-    public void populateUserInformation() {
+    public void populateUserInformation()
+    {
         View viewInformationUser = new ViewInformationUser();
         regUser = userToRegisteredUser((Client) user);
 
@@ -80,18 +81,12 @@ public class ControllerEditProfile {
 
         //bisognerebbe fare l'handler del bottone nella view ma è un bottone fatto da fxml e non ha molto senso
         editProfileButton.setOnAction(event -> handleEditProfileButton(viewInformationUser));
+        addAddressButton.setOnAction(event -> handleAddAddressButton(viewInformationUser));
     }
 
-    private void handleAddAddressButton(ActionEvent actionEvent) {
-        /*Address newAddress = new Address();
-        newAddress.setStreet("");
-        newAddress.setHouseNumber("");
-        newAddress.setPostalCode("");
-        newAddress.setCity("");
-
-        regUser.getAddresses().add(newAddress);
-
-        View viewInformationUser = new ViewInformationUser();*/
+    private void handleAddAddressButton(View viewInformationUser)
+    {
+        viewInformationUser.addEmptyAddressEditProfile(addressVbox);
     }
 
     private void handleEditProfileButton(View viewInformationUser)
@@ -107,6 +102,7 @@ public class ControllerEditProfile {
     private void checkInputs(List<Address> newAddresses)
     {
         StringBuilder error = new StringBuilder();
+        Model DBcheckUser = new ModelDatabaseUserInfo();
 
         //check if textfields are not empty or null, if the list is valid
         if(!isNameSurnamePhoneNumberPasswordNullOrEmpty())
@@ -122,11 +118,17 @@ public class ControllerEditProfile {
 
                     if(areValidFields(newRegUser, error))
                     {
+                        // call method to deal with the addresses
                         manageAddresses(regUser.getAddresses(), newAddresses, newRegUser);
 
+                        // call method to update user info
+                        DBcheckUser.updateUser(newRegUser);
+
+                        //if everything's ok change scene
+                        StageManager viewProfileStage = new StageManager();
+                        viewProfileStage.setStageViewProfile((Stage) editProfileButton.getScene().getWindow(), newRegUser, cart);
                     }
                 }
-                //|| passwordTextField == null || passwordTextField.getText().isEmpty();
                 else
                     error.append("- The fields of the addresses should be all filled or all empty\n");
             }
@@ -135,8 +137,10 @@ public class ControllerEditProfile {
         }
         else {
             error.append("- Name, surname, phone number and password must be filled\n");
-            displayAlert(error.toString());//da sistemare gli alert
+
         }
+        if (!error.toString().isEmpty())
+            displayAlert(error.toString());
     }
 
     private boolean isNameSurnamePhoneNumberPasswordNullOrEmpty()
@@ -229,8 +233,8 @@ public class ControllerEditProfile {
         Address currentOldAddr;
         Address currentNewAddr;
 
-        // Iterate on the new addresses because they can increase in number
-        while (newAddrIterator.hasNext())
+        // Iterate on the old addresses because we are sure that the old and new addresses go in pairs
+        while (oldAddrIterator.hasNext())
         {
             currentOldAddr = oldAddrIterator.next();
             currentNewAddr = newAddrIterator.next();
@@ -244,6 +248,16 @@ public class ControllerEditProfile {
                 DBcheckUser.addAddress(newRegUser, currentNewAddr); //linka/aggiungi quello nuovo
                 DBcheckUser.unlinkAddressFromUser(newRegUser, currentOldAddr); //togli il link a quello vecchio
             }
+        }
+
+        // At this point, the new addresses outnumber the old ones, so simply add the new ones
+        while (newAddrIterator.hasNext())
+        {
+            currentNewAddr = newAddrIterator.next();
+
+            // If it is empty, then do nothing because it's supposed to be a new address, and there's nothing to delete
+            if(!currentNewAddr.isEmpty())
+                DBcheckUser.addAddress(newRegUser, currentNewAddr); // Just add the new address
         }
     }
 
