@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import java.util.List;
+
 public abstract class User
 {
     private String name;
@@ -54,4 +56,6 @@ public abstract class User
     {
         return name + " " + surname + ", " + email + ", " + password;
     }
+
+    public abstract List<Address> getAddresses();
 }

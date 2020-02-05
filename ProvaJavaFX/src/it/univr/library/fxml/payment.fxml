@@ -99,7 +99,7 @@
                            </GridPane.margin>
                            <children>
                               <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
-                              <Label fx:id="defaultAddressLabel" prefHeight="17.0" prefWidth="266.0" />
+                              <Label fx:id="defaultAddressLabel" prefHeight="17.0" prefWidth="272.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -108,7 +108,7 @@
                            </GridPane.margin>
                            <children>
                               <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
-                              <Label fx:id="secondAddressLabel" prefHeight="17.0" prefWidth="269.0" />
+                              <Label fx:id="secondAddressLabel" prefHeight="17.0" prefWidth="272.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="7">

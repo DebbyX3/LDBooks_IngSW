@@ -691,6 +691,7 @@ public class StageManager
             controllerPayment.setCart(cart);
             controllerPayment.setUser(user);
             controllerPayment.setHeader();
+            controllerPayment.populatePaymentLabel();
 
 
             primaryStage.setTitle("Payment - LD Books");

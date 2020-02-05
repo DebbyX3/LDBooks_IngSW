@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
+import javax.print.DocFlavor;
 import java.util.Map;
 
 public class ControllerLoginPayment {
@@ -65,7 +67,7 @@ public class ControllerLoginPayment {
             if(realUser != null) //user page
             {
                 StageManager paymentPage = new StageManager();
-                paymentPage.setStagePaymentPage((Stage) loginButton.getScene().getWindow(), realUser, cart);
+                paymentPage.setStagePaymentPage((Stage) loginButton.getScene().getWindow(), userToRegisteredUser(realUser), cart);
             }
 
         }
@@ -100,4 +102,17 @@ public class ControllerLoginPayment {
         alert.showAndWait();
     }
 
+    private RegisteredClient userToRegisteredUser(Client testuser)
+    {
+        Model DBInformations = new ModelDatabaseUserInformations();
+        RegisteredClient regUser = DBInformations.getRegisteredUser(testuser);
+
+        regUser.setEmail(testuser.getEmail());
+        regUser.setName(testuser.getName());
+        regUser.setSurname(testuser.getSurname());
+        regUser.setPhoneNumber(testuser.getPhoneNumber());
+        regUser.setPassword(testuser.getPassword());
+
+        return regUser;
+    }
 }

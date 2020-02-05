@@ -1,5 +1,7 @@
 package it.univr.library;
 
+import java.util.List;
+
 public class Client extends User
 {
     private String phoneNumber;
@@ -24,5 +26,10 @@ public class Client extends User
     public String toString()
     {
         return super.toString() + ", " + phoneNumber;
+    }
+
+    @Override
+    public List<Address> getAddresses() {
+        return null;
     }
 }

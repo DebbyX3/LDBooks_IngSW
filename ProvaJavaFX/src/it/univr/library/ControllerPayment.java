@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 
 import java.util.Map;
@@ -28,6 +30,8 @@ public class ControllerPayment {
     @FXML
     private Label thirdAddressLabel;
 
+
+
     @FXML
     private Button paymentButton;
 
@@ -38,9 +42,6 @@ public class ControllerPayment {
     @FXML
     private void initialize()
     {
-        //TODO set the right price and points, maybe pass as parameter from the last scene?
-        priceLabel.setText("43 €");
-        pointsLabel.setText("100 points");
         paymentButton.setOnAction(this::handlePaymentButton);
     }
 
@@ -58,8 +59,64 @@ public class ControllerPayment {
         controllerHeader.createHeader(user, headerHBox, cart);
     }
 
-    private void handlePaymentButton(ActionEvent actionEvent) {
+    private void handlePaymentButton(ActionEvent actionEvent)
+    {
+        // fetch all the information and create the order, update db with the new order and update quantity available for the books in cart
+
+
+
+
     }
 
+    public void populatePaymentLabel()
+    {
+        double totalPrice = 0;
+        double pointsLibrocard = 0;
 
+        double shippingCost;
+        boolean onlyAudioBook = true;
+
+        for (Book books: cart.keySet())
+        {
+            if (!books.getFormat().getName().equals("Digital Edition") && !books.getFormat().getName().equals("Audiobook"))
+            {
+                onlyAudioBook = false;
+                break;
+            }
+        }
+
+        if(onlyAudioBook)
+            shippingCost = 0;
+        else
+            shippingCost = 5.99;
+
+        for (Book bookInCart: cart.keySet())
+        {
+            totalPrice += bookInCart.getPrice().doubleValue();
+            pointsLibrocard += bookInCart.getPoints().doubleValue();
+        }
+
+        totalPrice += shippingCost;
+
+        priceLabel.setText(String.format("%.2f €", totalPrice));
+        pointsLabel.setText(String.format("%.2f Points", pointsLibrocard));
+
+        int numberOfShipAddresses = user.getAddresses().size();
+
+        switch (numberOfShipAddresses)
+        {
+            case 1:
+                defaultAddressLabel.setText(user.getAddresses().get(0).toString());
+                break;
+            case 2:
+                defaultAddressLabel.setText(user.getAddresses().get(0).toString());
+                secondAddressLabel.setText(user.getAddresses().get(1).toString());
+                break;
+            default:
+                defaultAddressLabel.setText(user.getAddresses().get(0).toString());
+                secondAddressLabel.setText(user.getAddresses().get(1).toString());
+                thirdAddressLabel.setText(user.getAddresses().get(2).toString());
+                break;
+        }
+    }
 }
