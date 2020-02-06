@@ -16,4 +16,6 @@ public class Manager extends User
     public List<Address> getAddresses() {
         return null;
     }
+
+
 }

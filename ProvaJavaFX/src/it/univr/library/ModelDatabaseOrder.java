@@ -277,4 +277,68 @@ public class ModelDatabaseOrder implements Model
         books.add(book);
     }
 
+    @Override
+    public void addNewOrderRegisteredClient(Order order)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( " INSERT INTO orders (dateOrder, totalPrice, balancePoints, paymentType, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ", List.of(order.getDate(), order.getTotalPrice(), order.getBalancePoints(), order.getPaymentType(), order.getEmailRegisteredUser(),
+                order.getAddress().getStreet(), order.getAddress().getHouseNumber(), order.getAddress().getCity(), order.getAddress().getPostalCode()));
+    }
+
+
+    @Override
+    public void addNewOrderNotRegisteredClient(Order order)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( " INSERT INTO orders (dateOrder, totalPrice, balancePoints, paymentType, emailNotRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ", List.of(order.getDate(), order.getTotalPrice(), order.getBalancePoints(), order.getPaymentType(), order.getEmailNotRegisteredUser(),
+                order.getAddress().getStreet(), order.getAddress().getHouseNumber(), order.getAddress().getCity(), order.getAddress().getPostalCode()));
+    }
+
+    @Override
+    public Integer getLastOrderCode()
+    {
+        int code;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT code " +
+                            "FROM orders " +
+                            "WHERE ROWID IN ( SELECT max( ROWID ) FROM orders ) ");
+        code = resultSetToCode(db.getResultSet());
+        return code;
+    }
+
+    private int resultSetToCode(ResultSet rs)
+    {
+        int code = 0;
+        try
+        {
+            while (rs.next())
+            {
+                code = db.getSQLInt(rs,"code");
+            }
+
+            return code;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return Integer.parseInt(null);
+
+    }
+
+    @Override
+    public void linkBookToOrder(Book book, int orderCode, int quantity)
+    {
+        db.DBOpenConnection();
+
+        db.executeSQLUpdate( "INSERT INTO makeUp (ISBN, code, purchasedQuantity) " +
+                "VALUES (?, ?, ?) ", List.of(book.getISBN(), orderCode, quantity));
+
+    }
+
 }

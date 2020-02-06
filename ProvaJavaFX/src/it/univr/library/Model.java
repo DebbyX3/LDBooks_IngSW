@@ -125,5 +125,13 @@ public interface Model
 
     public default ArrayList<Charts> getChartsForCategory(ChartFilter filter){return null;};
 
+    public default void addNewOrderRegisteredClient(Order order){};
+
+    public default void addNewOrderNotRegisteredClient(Order order){};
+
+    public default Integer getLastOrderCode(){return null;};
+
+    public default void linkBookToOrder(Book book, int orderCode, int quantity){};
+
 
 }

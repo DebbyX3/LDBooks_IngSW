@@ -56,11 +56,20 @@
                         </VBox>
                         <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
-                              <Label fx:id="priceLabel" prefHeight="25.0" prefWidth="302.0">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="priceLabel" prefHeight="25.0" prefWidth="176.0">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="priceLabel1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="302.0" text="€">
+                                       <font>
+                                          <Font size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="2">
@@ -74,11 +83,20 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <children>
-                              <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="276.0">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
+                              <HBox>
+                                 <children>
+                                    <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="150.0">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pointsLabel1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="276.0" text="points">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="4">
@@ -98,8 +116,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
-                              <Label fx:id="defaultAddressLabel" prefHeight="17.0" prefWidth="272.0" />
+                              <RadioButton fx:id="firstAddressRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="285.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="6">
@@ -107,8 +124,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
-                              <Label fx:id="secondAddressLabel" prefHeight="17.0" prefWidth="272.0" />
+                              <RadioButton fx:id="secondAddressRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="299.0" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.columnIndex="2" GridPane.rowIndex="7">
@@ -116,8 +132,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
-                              <Label fx:id="thirdAddressLabel" prefHeight="17.0" prefWidth="272.0" />
+                              <RadioButton fx:id="thirdAddressRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="290.0" />
                            </children>
                         </HBox>
                         <VBox alignment="CENTER" GridPane.rowIndex="4">
@@ -137,8 +152,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="45.0" />
-                              <Label prefHeight="17.0" prefWidth="277.0" text="Credit/Debit Card" />
+                              <RadioButton fx:id="creditCardRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="308.0" text="Credit/Debit Card" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">
@@ -146,8 +160,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="30.0" />
-                              <Label prefHeight="17.0" prefWidth="258.0" text="Paypal" />
+                              <RadioButton fx:id="paypalRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="315.0" text="Paypal" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="7">
@@ -155,8 +168,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton mnemonicParsing="false" prefHeight="17.0" prefWidth="35.0" />
-                              <Label prefHeight="17.0" prefWidth="268.0" text="Transfer/Gift card" />
+                              <RadioButton fx:id="transferRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="293.0" text="Transfer" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">

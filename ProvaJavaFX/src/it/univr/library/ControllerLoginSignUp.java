@@ -69,7 +69,7 @@ public class ControllerLoginSignUp {
             if(realUser != null) //user page
             {
                 StageManager loginStage = new StageManager();
-                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), realUser, cart);
+                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), userToRegisteredUser(realUser), cart);
             }
             else //manager page
             {
@@ -102,6 +102,20 @@ public class ControllerLoginSignUp {
         u.setPassword(pswField.getText());
 
         return u;
+    }
+
+    private RegisteredClient userToRegisteredUser(Client testuser)
+    {
+        Model DBInformations = new ModelDatabaseUserInformations();
+        RegisteredClient regUser = DBInformations.getRegisteredUser(testuser);
+
+        regUser.setEmail(testuser.getEmail());
+        regUser.setName(testuser.getName());
+        regUser.setSurname(testuser.getSurname());
+        regUser.setPhoneNumber(testuser.getPhoneNumber());
+        regUser.setPassword(testuser.getPassword());
+
+        return regUser;
     }
 
 

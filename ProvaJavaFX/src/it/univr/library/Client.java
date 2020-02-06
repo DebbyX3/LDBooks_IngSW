@@ -32,4 +32,6 @@ public class Client extends User
     public List<Address> getAddresses() {
         return null;
     }
+
+
 }

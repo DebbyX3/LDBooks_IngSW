@@ -18,7 +18,7 @@
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
-            <HBox alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
+            <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -35,7 +35,6 @@
                       <RowConstraints maxHeight="280.19996643066406" minHeight="10.0" prefHeight="53.5999786376953" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="51.199975585937494" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="283.3999786376953" minHeight="10.0" prefHeight="51.199975585937494" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="54.800024414062534" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="57.800012207031216" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="307.4000244140625" minHeight="0.0" prefHeight="52.20000610351562" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="55.800024414062534" vgrow="SOMETIMES" />
@@ -45,7 +44,7 @@
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="60.60001220703123" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="338.0" text="E-mail:" textAlignment="CENTER" GridPane.rowIndex="8">
+                        <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="338.0" text="E-mail:" textAlignment="CENTER" GridPane.rowIndex="7">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -61,7 +60,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="10">
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">
                            <GridPane.margin>
                               <Insets />
                            </GridPane.margin>
@@ -92,7 +91,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="200.0" layoutY="214.0" prefHeight="20.0" prefWidth="312.0" text="Postal Code:" textAlignment="CENTER" GridPane.rowIndex="5">
+                        <Label alignment="CENTER_RIGHT" layoutX="176.0" layoutY="264.0" prefHeight="20.0" prefWidth="329.0" text="City:" textAlignment="CENTER" GridPane.rowIndex="5">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -100,15 +99,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="176.0" layoutY="264.0" prefHeight="20.0" prefWidth="329.0" text="City:" textAlignment="CENTER" GridPane.rowIndex="6">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <Label alignment="CENTER_RIGHT" layoutX="176.0" layoutY="264.0" prefHeight="20.0" prefWidth="346.0" text="Phone Number:" textAlignment="CENTER" GridPane.rowIndex="7">
+                        <Label alignment="CENTER_RIGHT" layoutX="176.0" layoutY="264.0" prefHeight="20.0" prefWidth="346.0" text="Phone Number:" textAlignment="CENTER" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
@@ -119,9 +110,8 @@
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="307.0" text="Your personal data:" underline="true" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -130,7 +120,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ComboBox prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="193.0" prefHeight="20.0" prefWidth="308.0" text="House Number:" textAlignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="System Bold" size="14.0" />

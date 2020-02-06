@@ -157,7 +157,7 @@ public class ModelDatabaseCharts implements Model {
         db.DBOpenConnection();
         db.executeSQLUpdate(" UPDATE charts " +
                 "    SET rank = ? , weeksIn = ? " +
-                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre ISNULL ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory()));
+                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre ISNULL ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName()));
     }
 
     @Override
@@ -166,7 +166,7 @@ public class ModelDatabaseCharts implements Model {
         db.DBOpenConnection();
         db.executeSQLUpdate(" UPDATE charts " +
                 "    SET rank = ? , weeksIn = ? " +
-                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory(), bookToUpdateInCharts.getGenreChart()));
+                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName(), bookToUpdateInCharts.getGenreChart()));
     }
 
 

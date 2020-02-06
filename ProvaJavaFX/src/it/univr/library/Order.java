@@ -24,6 +24,8 @@ public class Order
     private BigDecimal shippingCost;
     private String status;
 
+
+
     public Address getAddress() {
         return address;
     }

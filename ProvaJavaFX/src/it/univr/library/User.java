@@ -57,5 +57,6 @@ public abstract class User
         return name + " " + surname + ", " + email + ", " + password;
     }
 
+
     public abstract List<Address> getAddresses();
 }
