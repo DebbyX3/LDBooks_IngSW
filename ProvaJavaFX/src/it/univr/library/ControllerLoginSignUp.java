@@ -104,20 +104,12 @@ public class ControllerLoginSignUp {
         return u;
     }
 
-    private RegisteredClient userToRegisteredUser(Client testuser)
-    {
-        Model DBInformations = new ModelDatabaseUserInformations();
-        RegisteredClient regUser = DBInformations.getRegisteredUser(testuser);
-
-        regUser.setEmail(testuser.getEmail());
-        regUser.setName(testuser.getName());
-        regUser.setSurname(testuser.getSurname());
-        regUser.setPhoneNumber(testuser.getPhoneNumber());
-        regUser.setPassword(testuser.getPassword());
+    private RegisteredClient userToRegisteredUser(Client user) {
+        Model DBInformation = new ModelDatabaseUserInformation();
+        RegisteredClient regUser =
+                new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
+                        user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));
 
         return regUser;
     }
-
-
-
 }
