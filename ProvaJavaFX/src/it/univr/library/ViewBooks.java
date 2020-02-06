@@ -178,10 +178,10 @@ public class ViewBooks implements View
         }
     }
 
-    public void buildBookForSpecificBook(VBox bookInfoVBox, Label titleLabel, Label languageLabel, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook)
+    public void buildBookForSpecificBook(VBox bookInfoVBox, Label titleLabel, Label languageLabel, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook, User user)
     {
         buildTitleAndLanguageBookForSpecificBook(titleLabel, languageLabel, bookGroup);
-        buildBookInformation(bookInfoVBox, bookGroup, controllerSpecificBook);
+        buildBookInformation(bookInfoVBox, bookGroup, controllerSpecificBook, user);
     }
 
     private void buildTitleAndLanguageBookForSpecificBook(Label titleLabel, Label languageLabel,BookGroup bookGroup)
@@ -190,7 +190,7 @@ public class ViewBooks implements View
         languageLabel.setText("Language: " + bookGroup.getBooks().get(0).getLanguage());
     }
 
-    private void  buildBookInformation(VBox bookInfoVBox, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook)
+    private void buildBookInformation(VBox bookInfoVBox, BookGroup bookGroup, ControllerSpecificBook controllerSpecificBook, User user)
     {
         //build hbox
 
@@ -350,15 +350,11 @@ public class ViewBooks implements View
             cartButton.setCursor(Cursor.HAND);
             FlowPane.setMargin(cartButton, new Insets(0, 0, 0, 10)); //Insets(top, right, bottom, left)
 
-
-
-
             cartImageView = new ImageView();
             cartImageView.setFitWidth(48.0);
             cartImageView.setFitHeight(32.0);
             cartImageView.setPickOnBounds(true);
             cartImageView.setPreserveRatio(true);
-
 
             try {
                 cartImageView.setImage(new Image("/images/cart.png"));
@@ -367,6 +363,10 @@ public class ViewBooks implements View
             catch (NullPointerException | IllegalArgumentException e){
                 cartButton.setText("Buy it!");
             }
+
+            // Disable button if the user is a manager
+            if(user instanceof Manager)
+                cartButton.setDisable(true);
 
             /* **** SETTING PRICE LABEL **** */
             priceLabel = new Label(currentBook.getPrice().toString() + "€");

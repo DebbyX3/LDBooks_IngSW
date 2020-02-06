@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 
-import java.util.List;
 import java.util.Map;
 
 public class ControllerLibroCardUser {
@@ -47,9 +46,9 @@ public class ControllerLibroCardUser {
     {
         Model DBUserLibroCard = new ModelDatabaseUserLibrocard();
         //genero schermata fxml con le informazioni e le riempio
-        View viewInformationsUserLibrocard = new ViewInformationsUserLibrocard();
+        View viewInformationUserLibrocard = new ViewInformationUserLibrocard();
 
-        viewInformationsUserLibrocard.buildLibrocard(user, DBUserLibroCard.getLibrocardInformation(user), nameSurnameText, pointsText, issueDateText, idText);
+        viewInformationUserLibrocard.buildLibrocard(user, DBUserLibroCard.getLibrocardInformation(user), nameSurnameText, pointsText, issueDateText, idText);
     }
 
 

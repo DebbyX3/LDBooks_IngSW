@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -19,7 +20,14 @@ public class ViewHeader implements View
 {
     public void createLogo(HBox headerHBox)
     {
-        ImageView logoImageView = new ImageView("/images/Logo.png");
+        ImageView logoImageView = new ImageView();
+
+        try {
+            logoImageView.setImage(new Image("/images/Logo.png"));
+        }
+        catch (NullPointerException | IllegalArgumentException e){
+            logoImageView.setImage(null);
+        }
 
         logoImageView.setFitWidth(92.0);
         logoImageView.setFitHeight(87.0);
@@ -32,7 +40,7 @@ public class ViewHeader implements View
     public void createCatalogButton(HBox headerHBox, User user, Map<Book,Integer> cart) {
         Button catalogButton = new Button();
         HBox imageTextHBox = new HBox();
-        ImageView homeImageView = new ImageView("/images/home.png");
+        ImageView homeImageView = new ImageView();
         Label catalogLabel = new Label();
 
         // *** setting button
@@ -46,8 +54,15 @@ public class ViewHeader implements View
         catalogButton.setFont(new Font(13.0));
         catalogButton.setCursor(Cursor.HAND);
 
-        // *** setting hbox
+        // setting hbox
         imageTextHBox.setAlignment(Pos.CENTER);
+
+        try {
+            homeImageView.setImage(new Image("/images/home.png"));
+        }
+        catch (NullPointerException | IllegalArgumentException e){
+            homeImageView.setImage(null);
+        }
 
         // *** setting home image
         homeImageView.setFitWidth(20.0);
@@ -186,7 +201,14 @@ public class ViewHeader implements View
 
     public void createCartImageView(HBox rightHeaderHBox, User user, Map<Book,Integer> cart)
     {
-        ImageView cartImageView = new ImageView("/images/cart.png");
+        ImageView cartImageView = new ImageView();
+
+        try {
+            cartImageView.setImage(new Image("/images/cart.png"));
+        }
+        catch (NullPointerException | IllegalArgumentException e){
+            cartImageView.setImage(null);
+        }
 
         cartImageView.setFitWidth(64.0);
         cartImageView.setFitHeight(43.0);

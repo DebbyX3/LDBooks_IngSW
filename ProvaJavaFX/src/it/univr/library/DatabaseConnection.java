@@ -28,7 +28,8 @@ public class DatabaseConnection
     {
         try
         {
-            rs.close();
+            if(rs != null) // rs is null when an executeSQLUpdate is performed
+                rs.close();
             connection.close();
         }
         catch (SQLException e)
@@ -45,8 +46,6 @@ public class DatabaseConnection
 
     public void executeSQLQuery(String query, List<Object> args)
     {
-        Object objectClass;
-
         try
         {
             final PreparedStatement preparedStmt = prepareStatement(query, args);
@@ -66,8 +65,6 @@ public class DatabaseConnection
 
     public void executeSQLUpdate(String query, List<Object> args)
     {
-        Object objectClass;
-
         try
         {
             final PreparedStatement preparedStmt = prepareStatement(query, args);

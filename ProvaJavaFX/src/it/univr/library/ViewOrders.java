@@ -275,7 +275,7 @@ public class ViewOrders implements View {
     {
         addImageBook(orderGridPane, book);
 
-        /* *** BOOK INFORMATIONS *** */
+        /* *** BOOK INFORMATION *** */
         VBox bookInformationVbox = new VBox();
         bookInformationVbox.setAlignment(Pos.CENTER_LEFT);
 

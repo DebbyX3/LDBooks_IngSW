@@ -14,6 +14,8 @@ public abstract class User
         this.surname = surname;
         this.email = email;
         this.password = password;
+
+        normalizeUser();
     }
 
     protected User() { //keep this!
@@ -49,6 +51,16 @@ public abstract class User
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    private void normalizeUser()
+    {
+        if(name != null)
+            name = name.trim();
+        if(surname != null)
+            surname = surname.trim();
+        if(email != null)
+            email = email.trim();
     }
 
     @Override

@@ -389,7 +389,7 @@ public class StageManager
             ControllerViewProfile controllerViewProfile = fxmlLoader.getController();
             controllerViewProfile.setCart(cart);
             controllerViewProfile.setUser(user);
-            controllerViewProfile.populateUserInformations();
+            controllerViewProfile.populateUserInformation();
             controllerViewProfile.setHeader();
 
             primaryStage.setTitle("ViewProfile - LD Books");
@@ -403,21 +403,20 @@ public class StageManager
 
     }
 
-    public void setStageEditProfile(Stage primaryStage, User user, Map<Book,Integer> cart) {
+    public void setStageEditProfile(Stage primaryStage, User user, Map<Book,Integer> cart)
+    {
         Parent root;
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/EditProfile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editProfile.fxml"));
 
             root = fxmlLoader.load();
             ControllerEditProfile controllerEditProfile = fxmlLoader.getController();
             controllerEditProfile.setCart(cart);
             controllerEditProfile.setUser(user);
-            controllerEditProfile.populateUserInformations();
+            controllerEditProfile.populateUserInformation();
             controllerEditProfile.setHeader();
-
-
 
             primaryStage.setTitle("Edit Profile - LD Books");
             primaryStage.setScene(new Scene(root));
@@ -494,7 +493,7 @@ public class StageManager
             controllerOrderUser.populateOrderUser(order);
             controllerOrderUser.setHeader();
 
-            primaryStage.setTitle("OrderUser - LD Books");
+            primaryStage.setTitle("Order User - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
         }

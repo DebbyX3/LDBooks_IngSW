@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.spi.CalendarDataProvider;
 
-public class ViewInformationsUserLibrocard implements View {
+public class ViewInformationUserLibrocard implements View {
 
     @Override
     public void buildLibrocard(User user, Librocard librocard, Text nameSurnameText, Text pointsText, Text issueDateText, Text idText)

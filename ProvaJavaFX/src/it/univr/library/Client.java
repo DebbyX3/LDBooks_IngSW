@@ -10,6 +10,8 @@ public class Client extends User
     {
         super(name, surname, email, password);
         this.phoneNumber = phoneNumber;
+
+        normalizeUser();
     }
 
     public Client(){}
@@ -34,4 +36,9 @@ public class Client extends User
     }
 
 
+    private void normalizeUser()
+    {
+        if(phoneNumber != null)
+            phoneNumber = phoneNumber.trim();
+    }
 }
