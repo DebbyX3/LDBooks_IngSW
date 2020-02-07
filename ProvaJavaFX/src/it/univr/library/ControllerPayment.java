@@ -111,6 +111,10 @@ public class ControllerPayment {
             for (Book book: cart.keySet())
                 updateMaxQuantityBooks.updateQuantityAvailableBook(book.getMaxQuantity() - cart.get(book),book.getISBN());
 
+            // update libroCard points for the user
+            Model updateLibroCard = new ModelDatabaseUserLibrocard();
+            updateLibroCard.updateLibroCardPoints(order);
+
             displayConfirmation();
 
 
@@ -184,7 +188,7 @@ public class ControllerPayment {
     public void populatePaymentLabel()
     {
         double totalPrice = 0;
-        double pointsLibrocard = 0;
+        int pointsLibrocard = 0;
 
         double shippingCost = getShippingCost();
 
@@ -192,13 +196,13 @@ public class ControllerPayment {
         for (Book bookInCart: cart.keySet())
         {
             totalPrice += bookInCart.getPrice().doubleValue();
-            pointsLibrocard += bookInCart.getPoints().doubleValue();
+            pointsLibrocard += bookInCart.getPoints();
         }
 
         totalPrice += shippingCost;
 
         priceLabel.setText(String.format("%.2f", totalPrice));
-        pointsLabel.setText(String.format("%.2f", pointsLibrocard));
+        pointsLabel.setText(String.valueOf(pointsLibrocard));
 
         int numberOfShipAddresses = user.getAddresses().size();
 
@@ -261,7 +265,7 @@ public class ControllerPayment {
         for (Book bookInCart: cart.keySet())
         {
             totalPrice += bookInCart.getPrice().doubleValue();
-            pointsLibrocard += bookInCart.getPoints().doubleValue();
+            pointsLibrocard += bookInCart.getPoints();
         }
 
         totalPrice += shippingCost;
@@ -269,6 +273,7 @@ public class ControllerPayment {
         order.setTotalPrice(new BigDecimal(totalPrice));
         order.setBalancePoints(pointsLibrocard);
         order.setPaymentType(fetchPaymentType());
+
         if(user instanceof RegisteredClient && user.getPassword() != null)
             order.setEmailRegisteredUser(user.getEmail());
         else

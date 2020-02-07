@@ -137,6 +137,8 @@ public interface Model
 
     public default Integer getLastOrderCode(){return null;};
 
+    public default void updateLibroCardPoints(Order order){};
+
     public default void linkBookToOrder(Book book, int orderCode, int quantity){};
 
     public default void updateQuantityAvailableBook(int quantity, String isbn){};

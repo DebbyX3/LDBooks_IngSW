@@ -303,7 +303,7 @@ public class ViewBooks implements View
             VBox.setMargin(pagesLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
 
             /* **** SETTING LIBROCARD POINTS LABEL **** */
-            librocardPointsLabel = new Label("Librocards Point: " + currentBook.getPages());
+            librocardPointsLabel = new Label("Librocards Point: " + currentBook.getPoints());
             librocardPointsLabel.prefHeight(18.0);
             librocardPointsLabel.prefWidth(456.0);
             librocardPointsLabel.setLayoutX(10.0);
@@ -390,8 +390,11 @@ public class ViewBooks implements View
                quantity.add(i);
 
             quantityComboBox.setItems(quantity);
-            quantityComboBox.setValue(1);
-            //TODO handler cart button
+            if(currentBook.getMaxQuantity() > 0)
+                quantityComboBox.setValue(1);
+            else
+                quantityComboBox.setValue(0);
+
             ComboBox finalQuantityComboBox = quantityComboBox;
             Button finalCartButton = cartButton;
             cartButton.setOnAction(actionEvent -> controllerSpecificBook.handleAddBookToCart(new Book(currentBook), (Integer) finalQuantityComboBox.getValue(), finalCartButton));

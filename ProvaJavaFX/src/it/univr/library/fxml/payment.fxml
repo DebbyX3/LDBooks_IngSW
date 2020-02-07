@@ -63,7 +63,7 @@
                                           <Font size="16.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="priceLabel1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="302.0" text="€">
+                                    <Label fx:id="priceLabel1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="357.0" text="€">
                                        <font>
                                           <Font size="16.0" />
                                        </font>
@@ -85,12 +85,12 @@
                            <children>
                               <HBox>
                                  <children>
-                                    <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="150.0">
+                                    <Label fx:id="pointsLabel" prefHeight="25.0" prefWidth="119.0">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="pointsLabel1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="276.0" text="points">
+                                    <Label fx:id="pointsLabel1" layoutX="10.0" layoutY="10.0" prefHeight="25.0" prefWidth="300.0" text="points">
                                        <font>
                                           <Font size="14.0" />
                                        </font>

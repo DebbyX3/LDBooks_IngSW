@@ -51,4 +51,17 @@ public class ModelDatabaseUserLibrocard implements Model
 
         return null;
     }
+
+
+    @Override
+    public void updateLibroCardPoints(Order order)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate(  "UPDATE libroCards " +
+                        "SET totalPoints = totalPoints + ? " +
+                        "WHERE email LIKE ? ", List.of(order.getBalancePoints(), order.getEmailRegisteredUser() != null ? order.getEmailRegisteredUser() : order.getEmailNotRegisteredUser()));
+
+    }
+
+
 }

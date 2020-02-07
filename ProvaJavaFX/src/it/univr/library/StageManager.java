@@ -689,7 +689,8 @@ public class StageManager
             ControllerPayment controllerPayment = fxmlLoader.getController();
             controllerPayment.setCart(cart);
             controllerPayment.setUser(user);
-            controllerPayment.setHeader();
+            if(user.getPassword() != null)
+                controllerPayment.setHeader();
             controllerPayment.populatePaymentLabel();
 
 

@@ -43,7 +43,7 @@ public class ViewCart implements View {
             shippingCost = 5.99;
 
         double totalPrice = 0;
-        double libroCardPoints = 0;
+        int libroCardPoints = 0;
 
         for (Book book: cart.keySet())
         {
@@ -62,7 +62,7 @@ public class ViewCart implements View {
             //VBox.setMargin(line, new Insets(0,10 , 0, 0));
             cartVBox.getChildren().add(line);
             subtotal += book.getPrice().doubleValue() * cart.get(book);
-            libroCardPoints += book.getPoints().doubleValue() * cart.get(book);
+            libroCardPoints += book.getPoints() * cart.get(book);
         }
 
         totalPrice = subtotal + shippingCost;
@@ -378,8 +378,8 @@ public class ViewCart implements View {
         totalLibroCardPointsLabel.setMinWidth(Region.USE_PREF_SIZE);
         totalLibroCardPointsLabel.setPrefWidth(175);
         totalLibroCardPointsLabel.setPrefHeight(17);
-        double totalLibroCardPoints = cart.get(book) * book.getPoints();
-        totalLibroCardPointsLabel.setText(String.format("%.2f",totalLibroCardPoints));
+        int totalLibroCardPoints = cart.get(book) * book.getPoints();
+        totalLibroCardPointsLabel.setText(String.valueOf(totalLibroCardPoints));
         totalLibroCardPointsLabel.setAlignment(Pos.CENTER_LEFT);
         totalLibroCardPointsLabel.setContentDisplay(ContentDisplay.LEFT);
         totalLibroCardPointsLabel.setFont(new Font("System", 12.0));
