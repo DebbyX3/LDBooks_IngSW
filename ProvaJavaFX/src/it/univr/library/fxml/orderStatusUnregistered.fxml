@@ -66,27 +66,6 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <Label alignment="TOP_RIGHT" prefHeight="20.0" prefWidth="327.0" text="Tracking Code:" GridPane.rowIndex="4">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                           <GridPane.margin>
-                              <Insets right="10.0" />
-                           </GridPane.margin>
-                        </Label>
-                        <TextField fx:id="trackingCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="6">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </Separator>
-                        <Separator layoutX="9.0" layoutY="469.0" prefHeight="2.0" prefWidth="258.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="8">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                        </HBox>
-                        <TextField fx:id="mailTextField" layoutX="278.0" layoutY="186.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <Label alignment="TOP_RIGHT" layoutX="10.0" layoutY="188.0" prefHeight="20.0" prefWidth="327.0" text="Email:" GridPane.rowIndex="3">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -95,6 +74,22 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
+                        <Label alignment="TOP_RIGHT" prefHeight="20.0" prefWidth="327.0" text="Tracking Code:" GridPane.rowIndex="4">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <GridPane.margin>
+                              <Insets right="10.0" />
+                           </GridPane.margin>
+                        </Label>
+                        <TextField fx:id="mailTextField" layoutX="278.0" layoutY="186.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="trackingCodeTextField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="6">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                        </Separator>
+                        <Separator layoutX="9.0" layoutY="469.0" prefHeight="2.0" prefWidth="258.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />

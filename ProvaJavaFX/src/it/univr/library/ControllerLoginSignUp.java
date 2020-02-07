@@ -6,9 +6,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.util.Map;
 
 public class ControllerLoginSignUp {
@@ -35,6 +37,12 @@ public class ControllerLoginSignUp {
     @FXML
     private void initialize()
     {
+        // handle to press enter for login
+        pswField.setOnKeyReleased(event ->
+        {
+            if (event.getCode() == KeyCode.ENTER)
+                loginButton.fire();
+        });
 
         loginButton.setOnAction(this::handleLoginButton);
         signUpButton.setOnAction(this::handleSignUpButton);
@@ -57,6 +65,7 @@ public class ControllerLoginSignUp {
 
     private void handleLoginButton(ActionEvent actionEvent)
     {
+
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
         Client realUser = DBLogin.getClient(user);
