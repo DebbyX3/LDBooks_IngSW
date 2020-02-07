@@ -20,7 +20,7 @@ public class ViewCart implements View {
     @Override
     public void buildCart(Map<Book, Integer> cart, VBox cartVBox, ScrollPane cartScrollPane, ControllerCart controllerCart, Label subTotalLabel, Label shippingCostLabel, Label TotalPriceLabel, Label libroCardPointsLabel)
     {
-        //TODO check if book is digital format and update shipping cost
+
         GridPane cartGridPane;
         //bring up the scrollpane
         cartScrollPane.setVvalue(cartScrollPane.getVmin());
@@ -61,8 +61,8 @@ public class ViewCart implements View {
             line.setPrefHeight(200);
             //VBox.setMargin(line, new Insets(0,10 , 0, 0));
             cartVBox.getChildren().add(line);
-            subtotal += book.getPrice().doubleValue();
-            libroCardPoints += book.getPoints().doubleValue();
+            subtotal += book.getPrice().doubleValue() * cart.get(book);
+            libroCardPoints += book.getPoints().doubleValue() * cart.get(book);
         }
 
         totalPrice = subtotal + shippingCost;

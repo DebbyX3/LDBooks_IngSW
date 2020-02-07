@@ -120,6 +120,34 @@ public class ModelDatabaseUserInfo implements Model
     }
 
     @Override
+    public Boolean doesMailUnregisteredAlreadyExist(RegisteredClient user)
+    {
+        boolean result = false;
+
+        db.DBOpenConnection();
+
+        //First, check the registeredUser table
+        db.executeSQLQuery(   "SELECT email " +
+                "FROM notRegisteredUsers " +
+                "WHERE email LIKE ?", List.of(user.getEmail()));
+
+        try
+        {
+            //If the mail does not exist in the registeredUser table
+            //return false if there are no rows, true if there are some rows
+            result = db.getResultSet().isBeforeFirst();
+        }
+        catch (SQLException e) {
+            result = false;
+        }
+
+
+        db.DBCloseConnection();
+
+        return result;
+    }
+
+    @Override
     public void addUser(RegisteredClient user)
     {
         db.DBOpenConnection();
@@ -132,6 +160,16 @@ public class ModelDatabaseUserInfo implements Model
         System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
                 "VALUES ('" + user.getEmail() + "','" + user.getName() + "','" + user.getSurname()
                 + "','" + user.getPhoneNumber() + "','" + user.getPassword() + "')");
+
+        db.DBCloseConnection();
+    }
+
+    @Override
+    public void addUnregisteredUser(RegisteredClient user, Address shipAddress)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "INSERT INTO notRegisteredUsers(email, name, surname, phoneNumber, addressStreet, addressHouseNumber, cityName, cityCAP) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ", List.of(user.getEmail(), user.getName(), user.getSurname(), user.getPhoneNumber(), shipAddress.getStreet(), shipAddress.getHouseNumber(), shipAddress.getCity(), shipAddress.getPostalCode()));
 
         db.DBCloseConnection();
     }

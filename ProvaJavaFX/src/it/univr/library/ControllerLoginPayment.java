@@ -69,18 +69,22 @@ public class ControllerLoginPayment {
                 StageManager paymentPage = new StageManager();
                 paymentPage.setStagePaymentPage((Stage) loginButton.getScene().getWindow(), userToRegisteredUser(realUser), cart);
             }
-
         }
     }
 
 
 
-    private void handleSignUpButton(ActionEvent actionEvent) {
+    private void handleSignUpButton(ActionEvent actionEvent)
+    {
+        StageManager signUpPage = new StageManager();
+        signUpPage.setStageSignUp((Stage) loginButton.getScene().getWindow(), user, cart);
     }
 
-    private void handleContinueAsUnregistered(ActionEvent actionEvent) {
+    private void handleContinueAsUnregistered(ActionEvent actionEvent)
+    {
+        StageManager unregisteredUser = new StageManager();
+        unregisteredUser.setStageUnregisteredUser((Stage) loginButton.getScene().getWindow(), user, cart);
     }
-
 
 
 

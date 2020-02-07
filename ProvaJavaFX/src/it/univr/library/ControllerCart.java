@@ -2,6 +2,7 @@ package it.univr.library;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -51,16 +52,22 @@ public class ControllerCart {
 
     private void handleCheckOutButton(ActionEvent actionEvent)
     {
-        if(user==null)
-        {
-            StageManager logInSignUpPage = new StageManager();
-            logInSignUpPage.setStageLoginAfterCheckOut((Stage) checkOutButton.getScene().getWindow(), user, cart);
-        }
+        if(cart.isEmpty())
+            displayAlert("The cart is empty! Add books to cart :)");
         else
         {
-            StageManager paymentPage = new StageManager();
-            paymentPage.setStagePaymentPage((Stage) checkOutButton.getScene().getWindow(), user, cart);
+            if(user==null)
+            {
+                StageManager logInSignUpPage = new StageManager();
+                logInSignUpPage.setStageLoginAfterCheckOut((Stage) checkOutButton.getScene().getWindow(), user, cart);
+            }
+            else
+            {
+                StageManager paymentPage = new StageManager();
+                paymentPage.setStagePaymentPage((Stage) checkOutButton.getScene().getWindow(), user, cart);
+            }
         }
+
     }
 
     public void populateCart(Map<Book,Integer> cart) {
@@ -88,6 +95,15 @@ public class ControllerCart {
         cart.keySet().remove(book);
         StageManager newCartView = new StageManager();
         newCartView.setStageUserCart((Stage) removeBookButton.getScene().getWindow(), user, cart);
+    }
+
+    private void displayAlert(String s) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Check your input!");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        alert.showAndWait();
     }
 
 

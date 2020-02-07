@@ -282,9 +282,9 @@ public class ModelDatabaseOrder implements Model
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( " INSERT INTO orders (dateOrder, totalPrice, balancePoints, paymentType, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ", List.of(order.getDate(), order.getTotalPrice(), order.getBalancePoints(), order.getPaymentType(), order.getEmailRegisteredUser(),
-                order.getAddress().getStreet(), order.getAddress().getHouseNumber(), order.getAddress().getCity(), order.getAddress().getPostalCode()));
+        db.executeSQLUpdate( " INSERT INTO orders (dateOrder, totalPrice, balancePoints, paymentType, emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP, status) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", List.of(order.getDate(), order.getTotalPrice(), order.getBalancePoints(), order.getPaymentType(), order.getEmailRegisteredUser(),
+                order.getAddress().getStreet(), order.getAddress().getHouseNumber(), order.getAddress().getCity(), order.getAddress().getPostalCode(), order.getStatus()));
     }
 
 
@@ -293,9 +293,9 @@ public class ModelDatabaseOrder implements Model
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( " INSERT INTO orders (dateOrder, totalPrice, balancePoints, paymentType, emailNotRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) ", List.of(order.getDate(), order.getTotalPrice(), order.getBalancePoints(), order.getPaymentType(), order.getEmailNotRegisteredUser(),
-                order.getAddress().getStreet(), order.getAddress().getHouseNumber(), order.getAddress().getCity(), order.getAddress().getPostalCode()));
+        db.executeSQLUpdate( " INSERT INTO orders (dateOrder, totalPrice, balancePoints, paymentType, emailNotRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP, status) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ", List.of(order.getDate(), order.getTotalPrice(), order.getBalancePoints(), order.getPaymentType(), order.getEmailNotRegisteredUser(),
+                order.getAddress().getStreet(), order.getAddress().getHouseNumber(), order.getAddress().getCity(), order.getAddress().getPostalCode(), order.getStatus()));
     }
 
     @Override

@@ -35,6 +35,10 @@ public interface Model
 
     public default Boolean doesMailAlreadyExist(RegisteredClient test){return null;}
 
+    public default Boolean doesMailUnregisteredAlreadyExist(RegisteredClient user){return  null;};
+
+    public default void addUnregisteredUser(RegisteredClient user, Address shipAddress){};
+
     public default void addUser(RegisteredClient user){}
 
     public default void updateUser(RegisteredClient user){}
@@ -134,6 +138,10 @@ public interface Model
     public default Integer getLastOrderCode(){return null;};
 
     public default void linkBookToOrder(Book book, int orderCode, int quantity){};
+
+    public default void updateQuantityAvailableBook(int quantity, String isbn){};
+
+    public default void insertNewUnregisteredClient(RegisteredClient client, String street, String houseNumber, String city, String postalCode){};
 
 
 }

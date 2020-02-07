@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -26,6 +27,7 @@ public class ControllerPayment {
 
    @FXML
    private RadioButton firstAddressRadioButton;
+
 
     @FXML
     private RadioButton secondAddressRadioButton;
@@ -55,6 +57,18 @@ public class ControllerPayment {
     @FXML
     private void initialize()
     {
+        // Group paymentType
+        ToggleGroup paymentType = new ToggleGroup();
+        creditCardRadioButton.setToggleGroup(paymentType);
+        paypalRadioButton.setToggleGroup(paymentType);
+        transferRadioButton.setToggleGroup(paymentType);
+
+        // Group shipAddress
+        ToggleGroup shipAddress = new ToggleGroup();
+        firstAddressRadioButton.setToggleGroup(shipAddress);
+        secondAddressRadioButton.setToggleGroup(shipAddress);
+        thirdAddressRadioButton.setToggleGroup(shipAddress);
+
         paymentButton.setOnAction(this::handlePaymentButton);
     }
 
@@ -74,34 +88,70 @@ public class ControllerPayment {
 
     private void handlePaymentButton(ActionEvent actionEvent)
     {
-        // fetch all the information and create the order, update db with the new order and update quantity available for the books in cart
-        Model insertNewOrderIntoDb = new ModelDatabaseOrder();
-        Order order = createOrder();
-
-        // first put order into db orders
-        if(user instanceof RegisteredClient)
-            insertNewOrderIntoDb.addNewOrderRegisteredClient(order);
-        else
-            insertNewOrderIntoDb.addNewOrderNotRegisteredClient(order);
-
-        // then link books with the order in makeUp table with quantity
-        for (Book bookToLink: cart.keySet())
+        if(isValidProcess())
         {
-            insertNewOrderIntoDb.linkBookToOrder(bookToLink, insertNewOrderIntoDb.getLastOrderCode(), cart.get(bookToLink));
+            // fetch all the information and create the order, update db with the new order and update quantity available for the books in cart
+            Model insertNewOrderIntoDb = new ModelDatabaseOrder();
+            Order order = createOrder();
+
+            // first put order into db orders
+            if(user instanceof RegisteredClient && user.getPassword() != null)
+                insertNewOrderIntoDb.addNewOrderRegisteredClient(order);
+            else
+                insertNewOrderIntoDb.addNewOrderNotRegisteredClient(order);
+
+            // then link books with the order in makeUp table with quantity
+            for (Book bookToLink: cart.keySet())
+            {
+                insertNewOrderIntoDb.linkBookToOrder(bookToLink, insertNewOrderIntoDb.getLastOrderCode(), cart.get(bookToLink));
+            }
+
+            // update the quantity available for all the books in the cart
+            Model updateMaxQuantityBooks = new ModelDatabaseBooks();
+            for (Book book: cart.keySet())
+                updateMaxQuantityBooks.updateQuantityAvailableBook(book.getMaxQuantity() - cart.get(book),book.getISBN());
+
+            displayConfirmation();
+
+
+            // clear cart and change scene
+            cart.clear();
+            StageManager backToHomePage = new StageManager();
+
+            if(user instanceof RegisteredClient && user.getPassword() != null)
+                backToHomePage.setStageCatalog((Stage) paymentButton.getScene().getWindow(), user, cart);
+            else
+                backToHomePage.setStageCatalog((Stage) paymentButton.getScene().getWindow(), null, cart);
+
         }
+    }
 
-        //TODO update the quantity available for all the books in the cart
+    private boolean isValidProcess()
+    {
+        StringBuilder error = new StringBuilder();
 
+        if (!paypalRadioButton.isSelected() && !creditCardRadioButton.isSelected() && !transferRadioButton.isSelected())
+            error.append("- Select one type of payment!\n");
 
+        if(!firstAddressRadioButton.isSelected()  && !secondAddressRadioButton.isSelected() && !thirdAddressRadioButton.isSelected())
+            error.append("- Select a ship Address!\n");
+        else
+            if(fetchAddress() == null)
+                error.append("- Select a valid ship Address!\n");
+
+        if(!error.toString().isEmpty())
+            displayAlert(error.toString());
+
+        return error.toString().isEmpty();
     }
 
     private String fetchPaymentType()
     {
-        String paymentType;
+        String paymentType = "";
 
-        if(creditCardRadioButton != null)
+        if(creditCardRadioButton.isSelected())
             paymentType = creditCardRadioButton.getText();
-        else if(paypalRadioButton != null)
+        else if(paypalRadioButton.isSelected())
             paymentType = paypalRadioButton.getText();
         else
             paymentType = transferRadioButton.getText();
@@ -111,14 +161,15 @@ public class ControllerPayment {
 
     private Address fetchAddress()
     {
-       String address;
+       String address = "";
 
-       if(firstAddressRadioButton != null)
+       if(firstAddressRadioButton.isSelected())
            address = firstAddressRadioButton.getText();
-       else if(secondAddressRadioButton != null)
+       else if(secondAddressRadioButton.isSelected())
            address = secondAddressRadioButton.getText();
        else
            address = thirdAddressRadioButton.getText();
+
 
        Address shipAddress = null;
 
@@ -218,14 +269,35 @@ public class ControllerPayment {
         order.setTotalPrice(new BigDecimal(totalPrice));
         order.setBalancePoints(pointsLibrocard);
         order.setPaymentType(fetchPaymentType());
-        if(user instanceof RegisteredClient)
+        if(user instanceof RegisteredClient && user.getPassword() != null)
             order.setEmailRegisteredUser(user.getEmail());
         else
             order.setEmailNotRegisteredUser(user.getEmail());
+
+
 
         order.setShippingCost(new BigDecimal(getShippingCost()));
         order.setStatus("In progress");
 
         return order;
+    }
+
+    private void displayConfirmation() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Payment");
+        alert.setHeaderText(null);
+        Model getOrderCode = new ModelDatabaseOrder();
+        alert.setContentText(String.format("Payment has been successful, your Tracking Code is: %d", getOrderCode.getLastOrderCode()));
+
+        alert.showAndWait();
+    }
+
+    private void displayAlert(String s) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Check your input!");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
+
+        alert.showAndWait();
     }
 }

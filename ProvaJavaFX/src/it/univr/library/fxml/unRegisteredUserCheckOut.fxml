@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerCatalog">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.univr.library.ControllerUnregisteredPaymentPage">
   <children>
       <BorderPane prefHeight="800.0" prefWidth="900.0">
          <top>
@@ -65,7 +65,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <Button alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="227.0" style="-fx-background-color: #ffa939;" text="Continue as Unregistered user">
+                              <Button fx:id="continueAsUnregisteredButton" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="227.0" style="-fx-background-color: #ffa939;" text="Continue as Unregistered user">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -107,11 +107,11 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="307.0" text="Your personal data:" underline="true" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -120,7 +120,7 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <ComboBox fx:id="cityComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="193.0" prefHeight="20.0" prefWidth="308.0" text="House Number:" textAlignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -129,7 +129,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField layoutX="293.0" layoutY="190.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="houseNumberTextField" layoutX="293.0" layoutY="190.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>

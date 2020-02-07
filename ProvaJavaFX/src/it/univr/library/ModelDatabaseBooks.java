@@ -188,7 +188,15 @@ public class ModelDatabaseBooks implements Model {
                 book.getPages(),book.getLanguage().getName(),book.getFormat().getName(),book.getImagePath(), book.getISBN()));
     }
 
+    @Override
+    public void updateQuantityAvailableBook(int quantity, String isbn)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate(" UPDATE books " +
+                "SET maxQuantity = ? " +
+                "WHERE books.ISBN LIKE ? ", List.of(quantity, isbn));
 
+    }
 
 
 

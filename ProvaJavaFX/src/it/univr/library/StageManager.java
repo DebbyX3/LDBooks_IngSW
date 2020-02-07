@@ -702,4 +702,28 @@ public class StageManager
             e.printStackTrace();
         }
     }
+
+    public void setStageUnregisteredUser(Stage primaryStage, User user, Map<Book, Integer> cart) {
+        Parent root;
+
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/unRegisteredUserCheckOut.fxml"));
+
+            root = fxmlLoader.load();
+            ControllerUnregisteredPaymentPage controllerUnregisteredPaymentPage = fxmlLoader.getController();
+            controllerUnregisteredPaymentPage.setCart(cart);
+            controllerUnregisteredPaymentPage.setUser(user);
+            controllerUnregisteredPaymentPage.setHeader();
+
+
+            primaryStage.setTitle("Continue as Unregistered - LD Books");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.show();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
