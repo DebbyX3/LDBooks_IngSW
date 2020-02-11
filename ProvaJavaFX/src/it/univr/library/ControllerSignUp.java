@@ -103,7 +103,7 @@ public class ControllerSignUp {
             if(areValidFields(newRegUser, error))
             {
                 // check if mail is unique
-                if(!DBcheckUser.doesMailAlreadyExist(newRegUser))
+                if(!DBcheckUser.doesMailAlreadyExist(newRegUser) && !DBcheckUser.doesMailUnregisteredAlreadyExist(newRegUser))
                 {
                     //call method to add user to db
                     DBcheckUser.addUser(newRegUser);
@@ -119,7 +119,7 @@ public class ControllerSignUp {
                     loginStage.setStageUserPage((Stage) signUpButton.getScene().getWindow(), newRegUser, cart);
                 }
                 else
-                    displayAlert("Mail already exists");
+                    displayAlert("This e-mail is already linked to another user! Try another one :)");
             }
             else
                 displayAlert(error.toString());

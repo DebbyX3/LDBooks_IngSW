@@ -185,18 +185,34 @@ public class ControllerAddBook {
     {
         if(!isAnyFieldEmptyorNotValid())
         {
-            Book book = fetchBookInformation();
-
             Model DBbook = new ModelDatabaseBooks();
-            Model DBauthor = new ModelDatabaseAuthor();
-            DBbook.addNewBookToDB(book);
+            Book book = fetchBookInformation();
+            boolean exists = false;
 
-            for (Author authorToLink: book.getAuthors())
-                DBauthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
+            for (Book bookOfCatalog: DBbook.getAllBooks()) {
+                if (book.getISBN().equals(bookOfCatalog.getISBN())) {
+                    exists = true;
+                    break;
+                }
+            }
 
-            //change scene
-            StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager, cart);
+            if(!exists)
+            {
+                Model DBauthor = new ModelDatabaseAuthor();
+                DBbook.addNewBookToDB(book);
+
+                for (Author authorToLink: book.getAuthors())
+                    DBauthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
+
+                //change scene
+                StageManager addEditBooks = new StageManager();
+                addEditBooks.setStageAddEditBooks((Stage) addNewBookButton.getScene().getWindow(), manager, cart);
+            }
+            else
+            {
+                displayAlert("Book with this ISBN already exists!");
+            }
+
         }
     }
 

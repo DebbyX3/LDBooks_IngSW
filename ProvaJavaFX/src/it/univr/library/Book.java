@@ -184,9 +184,7 @@ public class Book implements Comparable<Book>
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
 
-        //TODO maybe check all fields
         return ((Book) o).getISBN().equals(this.getISBN());
-
     }
 
     @Override

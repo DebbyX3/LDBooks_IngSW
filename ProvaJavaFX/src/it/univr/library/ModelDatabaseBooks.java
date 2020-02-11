@@ -163,7 +163,7 @@ public class ModelDatabaseBooks implements Model {
         return null;
     }
 
-    //TODO: try catch exception for CONSTRAINT KEY (ISBN already exists) error
+
     @Override
     public void addNewBookToDB(Book book)
     {
