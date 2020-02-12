@@ -6,7 +6,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import javax.print.DocFlavor;
 import java.util.Map;
 
 public class ControllerLoginPayment {
@@ -107,7 +106,7 @@ public class ControllerLoginPayment {
     }
 
     private RegisteredClient userToRegisteredUser(Client user) {
-        Model DBInformation = new ModelDatabaseUserInformation();
+        Model DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));

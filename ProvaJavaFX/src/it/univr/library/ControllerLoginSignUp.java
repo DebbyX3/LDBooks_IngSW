@@ -10,7 +10,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.awt.event.KeyEvent;
 import java.util.Map;
 
 public class ControllerLoginSignUp {
@@ -114,7 +113,7 @@ public class ControllerLoginSignUp {
     }
 
     private RegisteredClient userToRegisteredUser(Client user) {
-        Model DBInformation = new ModelDatabaseUserInformation();
+        Model DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));

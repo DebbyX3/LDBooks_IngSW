@@ -1,6 +1,5 @@
 package it.univr.library;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -194,7 +193,7 @@ public class ControllerEditProfile {
     }
 
     private RegisteredClient userToRegisteredUser(Client user) {
-        Model DBInformation = new ModelDatabaseUserInformation();
+        Model DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));

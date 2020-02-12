@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseUserInformation implements Model
+public class ModelDatabaseUserAddress implements Model
 {
     private DatabaseConnection db = new DatabaseConnection();
 
