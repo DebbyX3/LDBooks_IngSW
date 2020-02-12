@@ -21,11 +21,13 @@ public interface Model
 
     public default void addNewLanguage(Language language){};
 
-    public default Client getClient(User testUser){ return null;}
+    public default RegisteredClient getRegisteredClient(User testUser){ return null;}
 
     public default Manager getManager(User testUser){return null;};
 
     public default List<Address> getAddressesRegisteredUser(User testUser){ return null;}
+
+    public default String getPhoneNumber(User user){return null;};
 
     public default Librocard getLibrocardInformation(User user){return null;}
 

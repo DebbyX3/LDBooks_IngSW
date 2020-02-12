@@ -218,6 +218,13 @@ public class ViewHeader implements View
         rightHeaderHBox.setMargin(cartImageView, new Insets(0, 20.0, 0, 0));  //top, right, bottom, left
         cartImageView.setCursor(Cursor.HAND);
 
+        if(user instanceof Manager)
+        {
+            cartImageView.setDisable(true);
+            cartImageView.setOpacity(0.2);
+        }
+
+
         cartImageView.setOnMouseClicked(e -> new ControllerHeader().handleCartClicked(cartImageView, user, cart));
         rightHeaderHBox.getChildren().add(cartImageView);
     }

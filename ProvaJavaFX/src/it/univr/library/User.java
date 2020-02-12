@@ -70,5 +70,5 @@ public abstract class User
     }
 
 
-    public abstract List<Address> getAddresses();
+    //public abstract List<Address> getAddresses();
 }

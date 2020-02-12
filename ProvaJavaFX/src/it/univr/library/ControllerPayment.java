@@ -1,11 +1,8 @@
 package it.univr.library;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -95,9 +92,9 @@ public class ControllerPayment {
             Order order = createOrder();
 
             // first put order into db orders
-            if(user instanceof RegisteredClient && user.getPassword() != null)
+            if(user instanceof RegisteredClient)
                 insertNewOrderIntoDb.addNewOrderRegisteredClient(order);
-            else
+            else if(user instanceof Client)
                 insertNewOrderIntoDb.addNewOrderNotRegisteredClient(order);
 
             // then link books with the order in makeUp table with quantity
@@ -122,9 +119,9 @@ public class ControllerPayment {
             cart.clear();
             StageManager backToHomePage = new StageManager();
 
-            if(user instanceof RegisteredClient && user.getPassword() != null)
+            if(user instanceof RegisteredClient)
                 backToHomePage.setStageCatalog((Stage) paymentButton.getScene().getWindow(), user, cart);
-            else
+            else if(user instanceof Client)
                 backToHomePage.setStageCatalog((Stage) paymentButton.getScene().getWindow(), null, cart);
 
         }
@@ -166,6 +163,7 @@ public class ControllerPayment {
     private Address fetchAddress()
     {
        String address = "";
+       RegisteredClient regClient = userToRegisteredClient(user);
 
        if(firstAddressRadioButton.isSelected())
            address = firstAddressRadioButton.getText();
@@ -177,7 +175,7 @@ public class ControllerPayment {
 
        Address shipAddress = null;
 
-        for (Address shipAdd: user.getAddresses()) {
+        for (Address shipAdd: regClient.getAddresses()) {
             if(shipAdd.toString().equals(address))
                 shipAddress = shipAdd;
         }
@@ -189,6 +187,7 @@ public class ControllerPayment {
     {
         double totalPrice = 0;
         int pointsLibrocard = 0;
+        RegisteredClient regClient = userToRegisteredClient(user);
 
         double shippingCost = getShippingCost();
 
@@ -204,21 +203,21 @@ public class ControllerPayment {
         priceLabel.setText(String.format("%.2f", totalPrice));
         pointsLabel.setText(String.valueOf(pointsLibrocard));
 
-        int numberOfShipAddresses = user.getAddresses().size();
+        int numberOfShipAddresses = regClient.getAddresses().size();
 
         switch (numberOfShipAddresses)
         {
             case 1:
-                firstAddressRadioButton.setText(user.getAddresses().get(0).toString());
+                firstAddressRadioButton.setText(regClient.getAddresses().get(0).toString());
                 break;
             case 2:
-                firstAddressRadioButton.setText(user.getAddresses().get(0).toString());
-                secondAddressRadioButton.setText(user.getAddresses().get(1).toString());
+                firstAddressRadioButton.setText(regClient.getAddresses().get(0).toString());
+                secondAddressRadioButton.setText(regClient.getAddresses().get(1).toString());
                 break;
             default:
-                firstAddressRadioButton.setText(user.getAddresses().get(0).toString());
-                secondAddressRadioButton.setText(user.getAddresses().get(1).toString());
-                thirdAddressRadioButton.setText(user.getAddresses().get(2).toString());
+                firstAddressRadioButton.setText(regClient.getAddresses().get(0).toString());
+                secondAddressRadioButton.setText(regClient.getAddresses().get(1).toString());
+                thirdAddressRadioButton.setText(regClient.getAddresses().get(2).toString());
                 break;
         }
     }
@@ -274,9 +273,9 @@ public class ControllerPayment {
         order.setBalancePoints(pointsLibrocard);
         order.setPaymentType(fetchPaymentType());
 
-        if(user instanceof RegisteredClient && user.getPassword() != null)
+        if(user instanceof RegisteredClient)
             order.setEmailRegisteredUser(user.getEmail());
-        else
+        else if(user instanceof Client)
             order.setEmailNotRegisteredUser(user.getEmail());
 
 
@@ -304,5 +303,15 @@ public class ControllerPayment {
         alert.setContentText(s);
 
         alert.showAndWait();
+    }
+
+    private RegisteredClient userToRegisteredClient(User user) {
+        Model DBInformation = new ModelDatabaseUserAddress();
+        Model DBInfo = new ModelDatabaseUserInfo();
+        RegisteredClient regUser =
+                new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
+                        user.getPassword(), DBInfo.getPhoneNumber(user), DBInformation.getAddressesRegisteredUser(user));
+
+        return regUser;
     }
 }

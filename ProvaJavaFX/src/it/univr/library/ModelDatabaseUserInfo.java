@@ -11,6 +11,52 @@ public class ModelDatabaseUserInfo implements Model
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
+    public String getPhoneNumber(User user)
+    {
+        String phoneNumber;
+
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( " SELECT phoneNumber " +
+                                    "FROM registeredUsers " +
+                                    "WHERE email LIKE ? " +
+                                    "UNION " +
+                                    "SELECT phoneNumber " +
+                                    "FROM notRegisteredUsers " +
+                                    "WHERE email LIKE ? ",
+                                    List.of(user.getEmail(), user.getEmail()));
+
+        phoneNumber = resultSetToPhoneNumber(db.getResultSet());
+        db.DBCloseConnection();
+
+        return phoneNumber;
+    }
+
+    private String resultSetToPhoneNumber(ResultSet rs)
+    {
+
+        String phoneNumber = "";
+
+        try
+        {
+            while (rs.next())
+            {
+                phoneNumber = db.getSQLString(rs,"phoneNumber");
+            }
+
+
+            return phoneNumber;
+        }
+        catch (SQLException e)
+        {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+
+        return null;
+    }
+
+    @Override
     public List<String> getCities()
     {
         return getCitiesPostalCodes().getCities();

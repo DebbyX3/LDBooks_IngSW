@@ -639,9 +639,6 @@ public class StageManager
             controllerCart.setHeader();
             controllerCart.populateCart(cart);
 
-
-
-
             primaryStage.setTitle("UserCart - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
@@ -689,10 +686,9 @@ public class StageManager
             ControllerPayment controllerPayment = fxmlLoader.getController();
             controllerPayment.setCart(cart);
             controllerPayment.setUser(user);
-            if(user.getPassword() != null)
+            if(user instanceof RegisteredClient)
                 controllerPayment.setHeader();
             controllerPayment.populatePaymentLabel();
-
 
             primaryStage.setTitle("Payment - LD Books");
             primaryStage.setScene(new Scene(root));

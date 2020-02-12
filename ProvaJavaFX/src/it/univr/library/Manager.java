@@ -12,10 +12,10 @@ public class Manager extends User
     public Manager()
     {}
 
-    @Override
+    /*@Override
     public List<Address> getAddresses() {
         return null;
-    }
+    }*/
 
 
 }

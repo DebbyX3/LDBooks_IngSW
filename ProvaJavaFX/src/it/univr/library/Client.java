@@ -30,10 +30,10 @@ public class Client extends User
         return super.toString() + ", " + phoneNumber;
     }
 
-    @Override
+    /*@Override
     public List<Address> getAddresses() {
         return null;
-    }
+    }*/
 
 
     private void normalizeUser()

@@ -16,7 +16,7 @@ public class ModelDatabaseUserAddress implements Model
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
                             "FROM ship " +
-                            "WHERE emailRegisteredUser LIKE ?",
+                            "WHERE emailRegisteredUser LIKE ? ",
                             List.of(testUser.getEmail()));
 
         regUser = resultSetToListAddress(db.getResultSet());

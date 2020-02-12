@@ -56,7 +56,7 @@ public class ControllerLoginPayment {
     {
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
-        Client realUser = DBLogin.getClient(user);
+        RegisteredClient realUser = DBLogin.getRegisteredClient(user);
         Manager manager = DBLogin.getManager(user);
 
         if(realUser == null && manager == null || realUser != null && manager != null)
@@ -66,7 +66,7 @@ public class ControllerLoginPayment {
             if(realUser != null) //user page
             {
                 StageManager paymentPage = new StageManager();
-                paymentPage.setStagePaymentPage((Stage) loginButton.getScene().getWindow(), userToRegisteredUser(realUser), cart);
+                paymentPage.setStagePaymentPage((Stage) loginButton.getScene().getWindow(), realUser, cart);
             }
         }
     }
@@ -105,12 +105,5 @@ public class ControllerLoginPayment {
         alert.showAndWait();
     }
 
-    private RegisteredClient userToRegisteredUser(Client user) {
-        Model DBInformation = new ModelDatabaseUserAddress();
-        RegisteredClient regUser =
-                new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
-                        user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));
 
-        return regUser;
-    }
 }

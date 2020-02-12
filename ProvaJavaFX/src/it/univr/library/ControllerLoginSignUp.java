@@ -67,7 +67,7 @@ public class ControllerLoginSignUp {
 
         Model DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
-        Client realUser = DBLogin.getClient(user);
+        RegisteredClient realUser = DBLogin.getRegisteredClient(user);
         Manager manager = DBLogin.getManager(user);
 
         if(realUser == null && manager == null || realUser != null && manager != null)
@@ -77,7 +77,7 @@ public class ControllerLoginSignUp {
             if(realUser != null) //user page
             {
                 StageManager loginStage = new StageManager();
-                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), userToRegisteredUser(realUser), cart);
+                loginStage.setStageUserPage((Stage) loginButton.getScene().getWindow(), clientToRegisteredClient(realUser), cart);
             }
             else //manager page
             {
@@ -112,7 +112,7 @@ public class ControllerLoginSignUp {
         return u;
     }
 
-    private RegisteredClient userToRegisteredUser(Client user) {
+    private RegisteredClient clientToRegisteredClient(Client user) {
         Model DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),

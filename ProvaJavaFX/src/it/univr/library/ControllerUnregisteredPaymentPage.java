@@ -83,10 +83,12 @@ public class ControllerUnregisteredPaymentPage
         if(isValidFields())
         {
             // create a registered Client and add into db in order to have also the shipAddress in
-            RegisteredClient newClient = createNewClient();
+            Client newClient = createNewClient();
 
-            StageManager paymentPage = new StageManager();
-            paymentPage.setStagePaymentPage((Stage) continueAsUnregisteredButton.getScene().getWindow(), newClient, cart);
+            if(newClient != null) {
+                StageManager paymentPage = new StageManager();
+                paymentPage.setStagePaymentPage((Stage) continueAsUnregisteredButton.getScene().getWindow(), newClient, cart);
+            }
         }
     }
 
@@ -145,8 +147,10 @@ public class ControllerUnregisteredPaymentPage
         alert.showAndWait();
     }
 
-    private RegisteredClient createNewClient()
+    private Client createNewClient()
     {
+        Client clientToReturn = null;
+
         RegisteredClient newClient = new RegisteredClient();
         newClient.setName(nameTextField.getText());
         newClient.setSurname(surnameTextField.getText());
@@ -168,11 +172,17 @@ public class ControllerUnregisteredPaymentPage
 
             //call method to first check if address already exists then if doesn't exist, puts it into db.
             DBcheckUser.addAddress(newClient, shipAddress); //take the first and only address
+
+            clientToReturn = new Client();
+            clientToReturn.setName(nameTextField.getText());
+            clientToReturn.setSurname(surnameTextField.getText());
+            clientToReturn.setPhoneNumber(phoneNumberTextField.getText());
+            clientToReturn.setEmail(mailTextField.getText());
         }
         else
-            displayAlert("Mail already exists!");
+            displayAlert("This e-mail is already linked to another user! Try another one :)");
 
-        return newClient;
+        return clientToReturn;
     }
 
 

@@ -74,7 +74,7 @@ public class ControllerEditProfile {
     public void populateUserInformation()
     {
         View viewInformationUser = new ViewInformationUser();
-        regUser = userToRegisteredUser((Client) user);
+        regUser = clientToRegisteredClient((Client) user);
 
         viewInformationUser.buildEditProfileInformation(regUser, nameTextField, surnameTextField, phoneNumberTextField, passwordTextField, mailLabel, addressVbox);
 
@@ -101,7 +101,8 @@ public class ControllerEditProfile {
     private void checkInputs(List<Address> newAddresses)
     {
         StringBuilder error = new StringBuilder();
-        Model DBcheckUser = new ModelDatabaseUserInfo();
+        Model DBCheckUser = new ModelDatabaseUserInfo();
+        Model DBFetchAddress = new ModelDatabaseUserAddress();
 
         //check if textfields are not empty or null, if the list is valid
         if(!isNameSurnamePhoneNumberPasswordNullOrEmpty())
@@ -114,16 +115,18 @@ public class ControllerEditProfile {
                                             phoneNumberTextField.getText(), mailLabel.getText(),
                                             passwordTextField.getText(), newAddresses);
 
-
                     if(areValidFields(newRegUser, error))
                     {
                         // call method to deal with the addresses
                         manageAddresses(regUser.getAddresses(), newAddresses, newRegUser);
 
                         // call method to update user info
-                        DBcheckUser.updateUser(newRegUser);
+                        DBCheckUser.updateUser(newRegUser);
 
-                        //if everything's ok change scene
+                        // fetch the refreshed addresses and set them to the newRegUser
+                        newRegUser.setAddresses(DBFetchAddress.getAddressesRegisteredUser(newRegUser));
+
+                        // if everything's ok change scene
                         StageManager viewProfileStage = new StageManager();
                         viewProfileStage.setStageViewProfile((Stage) editProfileButton.getScene().getWindow(), newRegUser, cart);
                     }
@@ -192,7 +195,7 @@ public class ControllerEditProfile {
         return true;
     }
 
-    private RegisteredClient userToRegisteredUser(Client user) {
+    private RegisteredClient clientToRegisteredClient(Client user) {
         Model DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),

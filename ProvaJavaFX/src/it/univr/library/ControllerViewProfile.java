@@ -77,10 +77,10 @@ public class ControllerViewProfile
         //genero schermata fxml con le informazioni e le riempio
         View viewInformationUser = new ViewInformationUser();
 
-        viewInformationUser.buildViewProfileInformation(userToRegisteredUser((Client) user), nameLabel, surnameLabel, phoneLabel, emailLabel, addressVbox);
+        viewInformationUser.buildViewProfileInformation(clientToRegisteredClient((Client) user), nameLabel, surnameLabel, phoneLabel, emailLabel, addressVbox);
     }
 
-    private RegisteredClient userToRegisteredUser(Client user)
+    private RegisteredClient clientToRegisteredClient(Client user)
     {
         Model DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =

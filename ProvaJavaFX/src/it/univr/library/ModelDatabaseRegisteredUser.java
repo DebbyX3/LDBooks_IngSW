@@ -10,9 +10,9 @@ public class ModelDatabaseRegisteredUser implements Model
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
-    public Client getClient(User testUser)
+    public RegisteredClient getRegisteredClient(User testUser)
     {
-        Client user;
+        RegisteredClient user;
         db.DBOpenConnection();
         db.executeSQLQuery( "SELECT name, surname, phoneNumber, email, password " +
                             "FROM registeredUsers " +
@@ -27,15 +27,15 @@ public class ModelDatabaseRegisteredUser implements Model
 
 
 
-    private Client resultSetToUser(ResultSet rs)
+    private RegisteredClient resultSetToUser(ResultSet rs)
     {
-        Client user = null;
+        RegisteredClient user = null;
 
         try
         {
             while (rs.next())
             {
-                user = new Client();
+                user = new RegisteredClient();
                 user.setName(db.getSQLString(rs, "name"));
                 user.setSurname(db.getSQLString(rs, "surname"));
                 user.setEmail(db.getSQLString(rs, "email"));
