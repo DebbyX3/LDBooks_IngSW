@@ -48,7 +48,7 @@ public class ViewOrders implements View {
                 orderGridPane.getRowConstraints().add(orderGridPaneRow3);
 
                 //build new book
-                buildSingleBookInformation(book, orderGridPane);
+                buildSingleBookInformation(book, orderGridPane, order);
             }
 
             //add new row for the status bar
@@ -271,7 +271,7 @@ public class ViewOrders implements View {
 
     }
 
-    private void buildSingleBookInformation(Book book, GridPane orderGridPane)
+    private void buildSingleBookInformation(Book book, GridPane orderGridPane, Order order)
     {
         addImageBook(orderGridPane, book);
 
@@ -418,6 +418,32 @@ public class ViewOrders implements View {
 
         priceHbox.getChildren().addAll(priceFixLabel, priceLabel);
         bookInformationVbox.getChildren().add(priceHbox);
+
+        /* *** QUANTITY *** */
+        HBox quantityHbox = new HBox();
+        VBox.setMargin(quantityHbox, new Insets(0,0,7,0));
+
+        Label quantityFixLabel = new Label("quantityFixLabel");
+        quantityFixLabel.setMinWidth(Region.USE_PREF_SIZE);
+        quantityFixLabel.setPrefHeight(17);
+        quantityFixLabel.setText("Quantity:");
+        HBox.setMargin(quantityFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
+        quantityFixLabel.setAlignment(Pos.CENTER_LEFT);
+        quantityFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        quantityFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label quantityLabel = new Label("quantityLabel");
+        quantityLabel.setMinWidth(Region.USE_PREF_SIZE);
+        quantityLabel.setPrefHeight(17);
+        quantityLabel.setPrefWidth(400);
+        Model DBorder = new ModelDatabaseOrder();
+        quantityLabel.setText(String.format("%d",DBorder.getQuantityOrderSingleBook(order,book)));
+        quantityLabel.setAlignment(Pos.CENTER_LEFT);
+        quantityLabel.setContentDisplay(ContentDisplay.LEFT);
+        quantityLabel.setFont(new Font("System", 12.0));
+
+        quantityHbox.getChildren().addAll(quantityFixLabel, quantityLabel);
+        bookInformationVbox.getChildren().add(quantityHbox);
 
         /* *** LIBROCARD POINTS *** */
         HBox librocardPointsHbox = new HBox();

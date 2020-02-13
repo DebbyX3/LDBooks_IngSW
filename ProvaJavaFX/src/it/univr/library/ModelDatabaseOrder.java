@@ -341,4 +341,41 @@ public class ModelDatabaseOrder implements Model
 
     }
 
+    @Override
+    public int getQuantityOrderSingleBook(Order order, Book book)
+    {
+        int quantity;
+
+        db.DBOpenConnection();
+        db.executeSQLQuery( " SELECT purchasedQuantity " +
+                "    FROM makeUp, orders " +
+                "    WHERE makeUp.code = orders.code AND orders.code LIKE ? AND makeUp.ISBN LIKE ? ", List.of(order.getCode(), book.getISBN()));
+
+        quantity = resultSetToQuantity(db.getResultSet());
+        db.DBCloseConnection();
+
+        return quantity;
+    }
+
+    private int resultSetToQuantity(ResultSet rs)
+    {
+        int quantity = 0;
+        try
+        {
+            while (rs.next())
+            {
+                quantity = db.getSQLInt(rs,"purchasedQuantity");
+            }
+
+            return quantity;
+        }
+        catch (SQLException e)
+        {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+        return Integer.parseInt(null);
+    }
+
+
 }

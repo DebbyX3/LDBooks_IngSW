@@ -23,6 +23,8 @@ public interface Model
 
     public default RegisteredClient getRegisteredClient(User testUser){ return null;}
 
+    public default int getQuantityOrderSingleBook(Order order, Book book){return 0;};
+
     public default Manager getManager(User testUser){return null;};
 
     public default List<Address> getAddressesRegisteredUser(User testUser){ return null;}
