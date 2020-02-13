@@ -12,9 +12,11 @@ import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 
-public class ViewLibrocard implements View {
-    public void buildLibroCard(ArrayList<Librocard> librocards, VBox LibrocardVBox, ScrollPane LibroCardScrollPane) {
-
+public class ViewFXManagerLibrocard implements ViewManagerLibrocard
+{
+    @Override
+    public void buildLibroCard(ArrayList<Librocard> librocards, VBox LibrocardVBox, ScrollPane LibroCardScrollPane)
+    {
         GridPane libroCardGridPane;
 
         //bring up the scrollpane
@@ -62,7 +64,6 @@ public class ViewLibrocard implements View {
             libroCardGridPaneRow4.setPrefHeight(25.0);
             libroCardGridPaneRow4.setMaxHeight(45.60);
 
-
             libroCardGridPane.getRowConstraints().addAll(libroCardGridPaneRow1, libroCardGridPaneRow2, libroCardGridPaneRow3, libroCardGridPaneRow4);
 
             /* *** ADD BASIC LABELS *** */
@@ -91,7 +92,6 @@ public class ViewLibrocard implements View {
             libroCardIdUser.getChildren().addAll(userIdFixLabel, userIDLabel);
             GridPane.setConstraints(libroCardIdUser, 0,0);
 
-
             //**** MAIL ****//
             HBox libroCardMailUser = new HBox();
             libroCardMailUser.setAlignment(Pos.TOP_LEFT);
@@ -115,7 +115,6 @@ public class ViewLibrocard implements View {
 
             libroCardMailUser.getChildren().addAll(userMailFixLabel, userMailLabel);
             GridPane.setConstraints(libroCardMailUser, 0,1);
-
 
             //**** TOTAL POINTS ****//
             HBox libroCardTotalPoints = new HBox();
@@ -178,8 +177,6 @@ public class ViewLibrocard implements View {
             line.setPrefHeight(200);
             VBox.setMargin(line, new Insets(0,10 , 0, 0));
             LibrocardVBox.getChildren().add(line);
-
-
         }
     }
 }

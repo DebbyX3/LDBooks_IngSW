@@ -2,8 +2,8 @@ package it.univr.library.Controller;
 
 import it.univr.library.*;
 import it.univr.library.Model.*;
-import it.univr.library.View.View;
 import it.univr.library.View.ViewBooks;
+import it.univr.library.View.ViewFXBooks;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -151,7 +151,7 @@ public class ControllerCatalog {
         BookGroup bookGroup = null;
         List<BookGroup> bookGroups = new ArrayList<>();
 
-        View viewBooks = new ViewBooks();
+        ViewBooks viewBooks = new ViewFXBooks();
 
         // Bring up the ScrollPane
         catalogScrollPane.setVvalue(catalogScrollPane.getVmin());

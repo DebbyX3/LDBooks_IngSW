@@ -1,6 +1,7 @@
 package it.univr.library.Controller;
 
 import it.univr.library.*;
+import it.univr.library.View.ViewFXHeader;
 import it.univr.library.View.ViewHeader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -15,7 +16,7 @@ public class ControllerHeader
 {
     public void createHeader(User user, HBox headerHBox, Map<Book,Integer> cart)
     {
-        ViewHeader createHeader = new ViewHeader();
+        ViewHeader createHeader = new ViewFXHeader();
         HBox rightHeaderHBox;
 
         createHeader.createLogo(headerHBox);
@@ -31,7 +32,7 @@ public class ControllerHeader
 
     public void checkHeader(User user, HBox rightHeaderHbox, Map<Book,Integer> cart)
     {
-        ViewHeader createHeader = new ViewHeader();
+        ViewHeader createHeader = new ViewFXHeader();
 
         if(user == null)
         {
@@ -72,13 +73,11 @@ public class ControllerHeader
             userPageStage.setStageUserPage((Stage) nameSurnameHyperlink.getScene().getWindow(), user, cart);
     }
 
-
     public void handleLogOutButton(Button logoutButton, Map<Book,Integer> cart) {
 
         cart.clear();
         StageManager catalogLogout = new StageManager();
         catalogLogout.setStageCatalog((Stage) logoutButton.getScene().getWindow(), null, cart);
-
     }
 
     public void handleOrderStatusUnregisteredUser(Button orderStatusUnregisteredUser, User user, Map<Book,Integer> cart)

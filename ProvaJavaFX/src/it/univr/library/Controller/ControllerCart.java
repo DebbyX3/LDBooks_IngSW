@@ -3,8 +3,8 @@ package it.univr.library.Controller;
 import it.univr.library.Book;
 import it.univr.library.StageManager;
 import it.univr.library.User;
-import it.univr.library.View.View;
 import it.univr.library.View.ViewCart;
+import it.univr.library.View.ViewFXCart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -74,7 +74,7 @@ public class ControllerCart {
     }
 
     public void populateCart(Map<Book,Integer> cart) {
-        View viewCartUser = new ViewCart();
+        ViewCart viewCartUser = new ViewFXCart();
         cartVBox.getChildren().clear();
         viewCartUser.buildCart(cart, cartVBox, cartScrollPane, this,subTotalLabel, shippingCostLabel, TotalPriceLabel, libroCardPointsLabel);
     }

@@ -3,7 +3,7 @@ package it.univr.library.Controller;
 import it.univr.library.*;
 import it.univr.library.Model.ModelDatabaseUserAddress;
 import it.univr.library.Model.ModelUserAddress;
-import it.univr.library.View.View;
+import it.univr.library.View.ViewFXInformationUser;
 import it.univr.library.View.ViewInformationUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -80,7 +80,7 @@ public class ControllerViewProfile
     public void populateUserInformation()
     {
         //genero schermata fxml con le informazioni e le riempio
-        View viewInformationUser = new ViewInformationUser();
+        ViewInformationUser viewInformationUser = new ViewFXInformationUser();
 
         viewInformationUser.buildViewProfileInformation(clientToRegisteredClient((Client) user), nameLabel, surnameLabel, phoneLabel, emailLabel, addressVbox);
     }

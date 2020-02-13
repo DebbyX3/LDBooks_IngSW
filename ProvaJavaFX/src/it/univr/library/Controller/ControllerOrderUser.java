@@ -5,7 +5,7 @@ import it.univr.library.Model.ModelDatabaseOrder;
 import it.univr.library.Model.ModelOrder;
 import it.univr.library.Order;
 import it.univr.library.User;
-import it.univr.library.View.View;
+import it.univr.library.View.ViewFXOrders;
 import it.univr.library.View.ViewOrders;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -58,14 +58,14 @@ public class ControllerOrderUser {
     public void populateOrderUser()
     {
         ModelOrder DBorders = new ModelDatabaseOrder();
-        View viewOrders = new ViewOrders();
+        ViewOrders viewOrders = new ViewFXOrders();
 
         viewOrders.buildOrders(DBorders.getOrders(user), orderVBox, orderUserScrollPane);
     }
 
     public void populateOrderUser(ArrayList<Order> order)
     {
-        View viewOrders = new ViewOrders();
+        ViewOrders viewOrders = new ViewFXOrders();
         viewOrders.buildOrders(order, orderVBox, orderUserScrollPane);
     }
 

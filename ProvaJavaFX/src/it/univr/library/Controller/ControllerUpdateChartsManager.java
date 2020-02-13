@@ -2,8 +2,8 @@ package it.univr.library.Controller;
 
 import it.univr.library.*;
 import it.univr.library.Model.*;
-import it.univr.library.View.View;
 import it.univr.library.View.ViewCharts;
+import it.univr.library.View.ViewFXCharts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -147,7 +147,7 @@ public class ControllerUpdateChartsManager {
         // prepare all the stuff to create new View
         ModelCharts DBCharts = new ModelDatabaseCharts();
         ModelBooks DBBooks = new ModelDatabaseBooks();
-        View viewCharts = new ViewCharts();
+        ViewCharts viewCharts = new ViewFXCharts();
         chartsTableView.getColumns().clear();
 
         // check what is the chart to create:

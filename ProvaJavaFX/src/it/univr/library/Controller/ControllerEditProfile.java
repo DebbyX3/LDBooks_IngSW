@@ -5,7 +5,7 @@ import it.univr.library.Model.ModelDatabaseUserAddress;
 import it.univr.library.Model.ModelDatabaseUserInfo;
 import it.univr.library.Model.ModelUserAddress;
 import it.univr.library.Model.ModelUserInfo;
-import it.univr.library.View.View;
+import it.univr.library.View.ViewFXInformationUser;
 import it.univr.library.View.ViewInformationUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -80,7 +80,7 @@ public class ControllerEditProfile {
 
     public void populateUserInformation()
     {
-        View viewInformationUser = new ViewInformationUser();
+        ViewInformationUser viewInformationUser = new ViewFXInformationUser();
         regUser = clientToRegisteredClient((Client) user);
 
         viewInformationUser.buildEditProfileInformation(regUser, nameTextField, surnameTextField, phoneNumberTextField, passwordTextField, mailLabel, addressVbox);
@@ -90,12 +90,12 @@ public class ControllerEditProfile {
         addAddressButton.setOnAction(event -> handleAddAddressButton(viewInformationUser));
     }
 
-    private void handleAddAddressButton(View viewInformationUser)
+    private void handleAddAddressButton(ViewInformationUser viewInformationUser)
     {
         viewInformationUser.addEmptyAddressEditProfile(addressVbox);
     }
 
-    private void handleEditProfileButton(View viewInformationUser)
+    private void handleEditProfileButton(ViewInformationUser viewInformationUser)
     {
         List<Address> addresses = new ArrayList<>();
 

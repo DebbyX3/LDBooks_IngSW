@@ -5,8 +5,8 @@ import it.univr.library.Model.ModelCharts;
 import it.univr.library.Model.ModelDatabaseCharts;
 import it.univr.library.Model.ModelDatabaseGenres;
 import it.univr.library.Model.ModelGenres;
-import it.univr.library.View.View;
 import it.univr.library.View.ViewCharts;
+import it.univr.library.View.ViewFXCharts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -98,7 +98,7 @@ public class ControllerCharts {
     {
         // prepare all the stuff to create new View
         ModelCharts DBCharts = new ModelDatabaseCharts();
-        View viewCharts = new ViewCharts();
+        ViewCharts viewCharts = new ViewFXCharts();
         chartsTableView.getColumns().clear();
 
         // check what is the chart to create:

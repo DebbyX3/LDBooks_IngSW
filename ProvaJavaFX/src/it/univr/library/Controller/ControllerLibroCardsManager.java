@@ -4,8 +4,8 @@ import it.univr.library.Book;
 import it.univr.library.Model.ModelDatabaseLibrocard;
 import it.univr.library.Model.ModelLibrocard;
 import it.univr.library.User;
-import it.univr.library.View.View;
-import it.univr.library.View.ViewLibrocard;
+import it.univr.library.View.ViewFXManagerLibrocard;
+import it.univr.library.View.ViewManagerLibrocard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,7 +71,7 @@ public class ControllerLibroCardsManager
         if(!mailFilter.equals("All"))
         {
             ModelLibrocard DBMailLibroCard = new ModelDatabaseLibrocard();
-            View viewMailLibroCard = new ViewLibrocard();
+            ViewManagerLibrocard viewMailLibroCard = new ViewFXManagerLibrocard();
 
             LibroCardVBox.getChildren().clear();
             viewMailLibroCard.buildLibroCard(DBMailLibroCard.getSpecificLibroCard(mailFilter), LibroCardVBox, LibroCardScrollPane);
@@ -83,7 +83,7 @@ public class ControllerLibroCardsManager
     public void populateUsersLibroCard()
     {
         ModelLibrocard DBAllLibroCards = new ModelDatabaseLibrocard();
-        View viewAllLibroCards = new ViewLibrocard();
+        ViewManagerLibrocard viewAllLibroCards = new ViewFXManagerLibrocard();
         LibroCardVBox.getChildren().clear();
         viewAllLibroCards.buildLibroCard(DBAllLibroCards.getAllLibroCards(), LibroCardVBox, LibroCardScrollPane);
     }

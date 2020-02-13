@@ -4,7 +4,7 @@ import it.univr.library.Book;
 import it.univr.library.Model.ModelDatabaseOrder;
 import it.univr.library.Model.ModelOrder;
 import it.univr.library.User;
-import it.univr.library.View.View;
+import it.univr.library.View.ViewFXOrders;
 import it.univr.library.View.ViewOrders;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -77,7 +77,7 @@ public class ControllerOrderManager {
         if(!mailFilter.equals("All"))
         {
             ModelOrder DBMailOrders = new ModelDatabaseOrder();
-            View viewMailOrder = new ViewOrders();
+            ViewOrders viewMailOrder = new ViewFXOrders();
 
             OrderVbox.getChildren().clear();
             viewMailOrder.buildOrders(DBMailOrders.getSpecificMailOrders(mailFilter), OrderVbox, orderManagerScrollPane);
@@ -96,7 +96,7 @@ public class ControllerOrderManager {
     public void populateOrderUsers()
     {
         ModelOrder DBAllOrders = new ModelDatabaseOrder();
-        View viewAllOrder = new ViewOrders();
+        ViewOrders viewAllOrder = new ViewFXOrders();
         OrderVbox.getChildren().clear();
         viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox, orderManagerScrollPane);
     }

@@ -3,8 +3,8 @@ package it.univr.library.Controller;
 import it.univr.library.Book;
 import it.univr.library.BookGroup;
 import it.univr.library.User;
-import it.univr.library.View.View;
 import it.univr.library.View.ViewBooks;
+import it.univr.library.View.ViewFXBooks;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -58,10 +58,9 @@ public class ControllerSpecificBook
 
     public void populateBookInfo()
     {
-        View buildSpecificBook = new ViewBooks();
+        ViewBooks buildSpecificBook = new ViewFXBooks();
         buildSpecificBook.buildBookForSpecificBook(bookInfoVBox, titleLabel, languageLabel, bookGroup, this, user);
     }
-
 
     public void handleAddBookToCart(Book book, Integer quantity, Button cartButton)
     {
