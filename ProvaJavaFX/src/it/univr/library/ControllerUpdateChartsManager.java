@@ -117,14 +117,14 @@ public class ControllerUpdateChartsManager {
 
     private void populateGenreFilter()
     {
-        Model DBGenres = new ModelDatabaseGenres();
+        ModelGenres DBGenres = new ModelDatabaseGenres();
         genreComboboxData.add(new Genre("All"));
         genreComboboxData.addAll(DBGenres.getGenres());
     }
 
     private void populateCategory()
     {
-        Model DBCategory = new ModelDatabaseCharts();
+        ModelCharts DBCategory = new ModelDatabaseCharts();
         categoryComboboxData.add(new Category("All"));
         categoryComboboxData.addAll(DBCategory.getCategory());
     }
@@ -141,8 +141,8 @@ public class ControllerUpdateChartsManager {
     private void populateChartsWithFilter(ChartFilter filters)
     {
         // prepare all the stuff to create new View
-        Model DBCharts = new ModelDatabaseCharts();
-        Model DBBooks = new ModelDatabaseBooks();
+        ModelCharts DBCharts = new ModelDatabaseCharts();
+        ModelBooks DBBooks = new ModelDatabaseBooks();
         View viewCharts = new ViewCharts();
         chartsTableView.getColumns().clear();
 
@@ -190,7 +190,7 @@ public class ControllerUpdateChartsManager {
         weekInTextField.clear();
 
         // fetch all the information of the book selected and fill all the fields
-        Model DBSinglebook = new ModelDatabaseBooks();
+        ModelBooks DBSinglebook = new ModelDatabaseBooks();
         String[] isbn_Title = BookCombobox.getValue().split(" ");
         Book b = DBSinglebook.getSpecificBooksForGenre(isbn_Title[0]);
         isbnLabel.setText(b.getISBN());
@@ -216,7 +216,7 @@ public class ControllerUpdateChartsManager {
     private ArrayList<Charts> getBooksInChartView()
     {
         ArrayList<Charts> booksInChart;
-        Model DBCharts = new ModelDatabaseCharts();
+        ModelCharts DBCharts = new ModelDatabaseCharts();
 
         if(genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
             booksInChart = DBCharts.getGeneralCharts();
@@ -300,7 +300,7 @@ public class ControllerUpdateChartsManager {
                 booksModified.add(book);
 
                 //Now update DB with the arrayList booksModified
-                Model DBupdateCharts = new ModelDatabaseCharts();
+                ModelCharts DBupdateCharts = new ModelDatabaseCharts();
 
                 //check which chart update and update db
                 if(genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
@@ -377,8 +377,8 @@ public class ControllerUpdateChartsManager {
                 book.setWeeksIn(Integer.parseInt(weekInTextField.getText()));
 
                 // based on filter set the category and genre and insert into DB the new book and update
-                Model DBInsertBookIntoChart = new ModelDatabaseCharts();
-                Model DBupdateCharts = new ModelDatabaseCharts();
+                ModelCharts DBInsertBookIntoChart = new ModelDatabaseCharts();
+                ModelCharts DBupdateCharts = new ModelDatabaseCharts();
 
                 if(genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
                 {
@@ -446,7 +446,7 @@ public class ControllerUpdateChartsManager {
 
             if(exists)
             {
-                ModelDatabaseCharts deleteBookFromCharts = new ModelDatabaseCharts();
+                ModelCharts deleteBookFromCharts = new ModelDatabaseCharts();
 
                 //check what is the book to remove and remove it from the right chart
                 if(genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
@@ -487,7 +487,7 @@ public class ControllerUpdateChartsManager {
                 }
 
                 //Update charts and the view
-                Model DBupdateCharts = new ModelDatabaseCharts();
+                ModelCharts DBupdateCharts = new ModelDatabaseCharts();
 
                 if(genreComboBox.getValue().equals(new Genre("All")) && categoryComboBox.getValue().equals(new Category("All")))
                 {

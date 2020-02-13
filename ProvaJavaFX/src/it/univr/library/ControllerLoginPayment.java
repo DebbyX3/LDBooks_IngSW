@@ -54,7 +54,7 @@ public class ControllerLoginPayment {
 
     private void handleLoginButton(ActionEvent actionEvent)
     {
-        Model DBLogin = new ModelDatabaseRegisteredUser();
+        ModelRegisteredUser DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
         RegisteredClient realUser = DBLogin.getRegisteredClient(user);
         Manager manager = DBLogin.getManager(user);

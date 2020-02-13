@@ -57,7 +57,7 @@ public class ControllerOrderUser {
 
     public void populateOrderUser()
     {
-        Model DBorders = new ModelDatabaseOrder();
+        ModelOrder DBorders = new ModelDatabaseOrder();
         View viewOrders = new ViewOrders();
 
         viewOrders.buildOrders(DBorders.getOrders(user), orderVBox, orderUserScrollPane);

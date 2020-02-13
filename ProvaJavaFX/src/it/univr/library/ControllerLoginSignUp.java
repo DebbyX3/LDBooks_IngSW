@@ -65,7 +65,7 @@ public class ControllerLoginSignUp {
     private void handleLoginButton(ActionEvent actionEvent)
     {
 
-        Model DBLogin = new ModelDatabaseRegisteredUser();
+        ModelRegisteredUser DBLogin = new ModelDatabaseRegisteredUser();
         User user = fetchUser();
         RegisteredClient realUser = DBLogin.getRegisteredClient(user);
         Manager manager = DBLogin.getManager(user);
@@ -113,7 +113,7 @@ public class ControllerLoginSignUp {
     }
 
     private RegisteredClient clientToRegisteredClient(Client user) {
-        Model DBInformation = new ModelDatabaseUserAddress();
+        ModelUserAddress DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));

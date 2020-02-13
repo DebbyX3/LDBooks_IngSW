@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabasePublishingHouse implements Model
+public class ModelDatabasePublishingHouse implements ModelPublishingHouse
 {
     private DatabaseConnection db = new DatabaseConnection();
 

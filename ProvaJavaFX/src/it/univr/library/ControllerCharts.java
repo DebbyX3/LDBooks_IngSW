@@ -62,7 +62,7 @@ public class ControllerCharts {
 
     private void populateGenreFilter()
     {
-        Model DBGenres = new ModelDatabaseGenres();
+        ModelGenres DBGenres = new ModelDatabaseGenres();
         genreComboboxData.add(new Genre("All"));
         genreComboboxData.addAll(DBGenres.getGenres());
         genreComboBox.setItems(genreComboboxData);    //setto il combobox del genere con i dati messi in generecomboboxdata
@@ -71,7 +71,7 @@ public class ControllerCharts {
 
     private void populateCategory()
     {
-        Model DBCategory = new ModelDatabaseCharts();
+        ModelCharts DBCategory = new ModelDatabaseCharts();
         categoryComboboxData.add(new Category("All"));
         categoryComboboxData.addAll(DBCategory.getCategory());
         categoryComboBox.setItems(categoryComboboxData);
@@ -90,7 +90,7 @@ public class ControllerCharts {
     private void populateChartsWithFilter(ChartFilter filters)
     {
         // prepare all the stuff to create new View
-        Model DBCharts = new ModelDatabaseCharts();
+        ModelCharts DBCharts = new ModelDatabaseCharts();
         View viewCharts = new ViewCharts();
         chartsTableView.getColumns().clear();
 

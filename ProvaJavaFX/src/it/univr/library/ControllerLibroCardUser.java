@@ -44,7 +44,7 @@ public class ControllerLibroCardUser {
 
     public void populateUserLibroCard()
     {
-        Model DBUserLibroCard = new ModelDatabaseUserLibrocard();
+        ModelUserLibrocard DBUserLibroCard = new ModelDatabaseUserLibrocard();
         //genero schermata fxml con le informazioni e le riempio
         View viewInformationUserLibrocard = new ViewInformationUserLibrocard();
 

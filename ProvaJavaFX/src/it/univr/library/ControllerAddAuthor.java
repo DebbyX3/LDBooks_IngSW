@@ -59,7 +59,7 @@ public class ControllerAddAuthor {
 
     private void populateAuthors()
     {
-        Model DBauthors = new ModelDatabaseAuthor();
+        ModelAuthor DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
     }
 
@@ -67,7 +67,7 @@ public class ControllerAddAuthor {
     {
         if(!nameAuthorTextField.getText().equals("") || !surnameAuthorTextField.getText().equals(""))
         {
-            Model DBinsertNewAuthor = new ModelDatabaseAuthor();
+            ModelAuthor DBinsertNewAuthor = new ModelDatabaseAuthor();
             DBinsertNewAuthor.addNewAuthor(nameAuthorTextField.getText().trim(), surnameAuthorTextField.getText().trim());
 
             //change scene

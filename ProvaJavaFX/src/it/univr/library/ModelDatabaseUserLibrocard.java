@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ModelDatabaseUserLibrocard implements Model
+public class ModelDatabaseUserLibrocard implements ModelUserLibrocard
 {
     private DatabaseConnection db = new DatabaseConnection();
 
@@ -52,7 +52,6 @@ public class ModelDatabaseUserLibrocard implements Model
         return null;
     }
 
-
     @Override
     public void updateLibroCardPoints(Order order)
     {
@@ -62,6 +61,4 @@ public class ModelDatabaseUserLibrocard implements Model
                         "WHERE email LIKE ? ", List.of(order.getBalancePoints(), order.getEmailRegisteredUser() != null ? order.getEmailRegisteredUser() : order.getEmailNotRegisteredUser()));
 
     }
-
-
 }

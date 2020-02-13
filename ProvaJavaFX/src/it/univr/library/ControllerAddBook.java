@@ -185,7 +185,7 @@ public class ControllerAddBook {
     {
         if(!isAnyFieldEmptyorNotValid())
         {
-            Model DBbook = new ModelDatabaseBooks();
+            ModelBooks DBbook = new ModelDatabaseBooks();
             Book book = fetchBookInformation();
             boolean exists = false;
 
@@ -198,7 +198,7 @@ public class ControllerAddBook {
 
             if(!exists)
             {
-                Model DBauthor = new ModelDatabaseAuthor();
+                ModelAuthor DBauthor = new ModelDatabaseAuthor();
                 DBbook.addNewBookToDB(book);
 
                 for (Author authorToLink: book.getAuthors())
@@ -246,30 +246,30 @@ public class ControllerAddBook {
 
     private void popolateAuthors()
     {
-        Model DBauthors = new ModelDatabaseAuthor();
+        ModelAuthor DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
     }
 
     private void populatePublishingHouses()
     {
-        Model DBpublishingHouse = new ModelDatabasePublishingHouse();
+        ModelPublishingHouse DBpublishingHouse = new ModelDatabasePublishingHouse();
         publishingHouses.addAll(DBpublishingHouse.getPublishingHouses());
     }
 
     private void populateGenres()
     {
-        Model DBgenres = new ModelDatabaseGenres();
+        ModelGenres DBgenres = new ModelDatabaseGenres();
         genres.addAll(DBgenres.getGenres());
     }
 
     private void populateFormats() {
-        Model DBformats = new ModelDatabaseFormat();
+        ModelFormat DBformats = new ModelDatabaseFormat();
         formats.addAll(DBformats.getFormats());
     }
 
     private void populateLanguages()
     {
-        Model DBlanguages = new ModelDatabaseLanguage();
+        ModelLanguage DBlanguages = new ModelDatabaseLanguage();
         languages.addAll((DBlanguages.getLanguages()));
     }
 

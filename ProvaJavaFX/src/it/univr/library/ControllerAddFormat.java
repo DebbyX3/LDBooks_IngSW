@@ -58,7 +58,7 @@ public class ControllerAddFormat {
 
     private void populateFormats()
     {
-        Model DBformats = new ModelDatabaseFormat();
+        ModelFormat DBformats = new ModelDatabaseFormat();
         formats.addAll(DBformats.getFormats());
     }
 
@@ -82,7 +82,7 @@ public class ControllerAddFormat {
             if(!exist)
             {
                 //if the authors doesn't already exists so insert into db
-                Model DBinsertNewFormat = new ModelDatabaseFormat();
+                ModelFormat DBinsertNewFormat = new ModelDatabaseFormat();
                 DBinsertNewFormat.addNewFormat(format);
 
                 //change scene

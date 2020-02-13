@@ -54,7 +54,7 @@ public class ControllerOrderUnregisteredUser {
 
     private void handleTrackOrderButton(ActionEvent actionEvent)
     {
-        Model DBgetOrderUserNotReg = new ModelDatabaseOrder();
+        ModelOrder DBgetOrderUserNotReg = new ModelDatabaseOrder();
         StringBuilder error = new StringBuilder();
         String mailNotRegUser;
         String orderCode;

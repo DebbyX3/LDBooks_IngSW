@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseGenres implements Model
+public class ModelDatabaseGenres implements ModelGenres
 {
     private DatabaseConnection db = new DatabaseConnection();
 

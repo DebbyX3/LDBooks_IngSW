@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseOrder implements Model
+public class ModelDatabaseOrder implements ModelOrder
 {
     private DatabaseConnection db = new DatabaseConnection();
 
@@ -193,7 +193,6 @@ public class ModelDatabaseOrder implements Model
         return orders;
     }
 
-
     /**
      * This method creates a single order with all the information
      * @param order
@@ -263,7 +262,7 @@ public class ModelDatabaseOrder implements Model
      */
     private void addBookToArrayList(ArrayList<Book> books, ResultSet rs)
     {
-        Model a = new ModelDatabaseAuthor();
+        ModelAuthor a = new ModelDatabaseAuthor();
         ArrayList<Author> authors = a.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors"));
 
         Book book = new Book(db.getSQLString(rs, "ISBN"), db.getSQLString(rs, "title"),
@@ -376,6 +375,4 @@ public class ModelDatabaseOrder implements Model
         }
         return Integer.parseInt(null);
     }
-
-
 }

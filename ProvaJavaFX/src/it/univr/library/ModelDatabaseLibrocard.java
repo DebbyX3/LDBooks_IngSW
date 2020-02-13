@@ -5,10 +5,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseLibrocard implements Model
+public class ModelDatabaseLibrocard implements ModelLibrocard
 {
     private DatabaseConnection db = new DatabaseConnection();
 
+    @Override
     public ArrayList<String> getMailsLibroCards()
     {
         ArrayList<String> mails;
@@ -44,6 +45,7 @@ public class ModelDatabaseLibrocard implements Model
         return null;
     }
 
+    @Override
     public ArrayList<Librocard> getAllLibroCards()
     {
         ArrayList<Librocard> librocards;
@@ -58,6 +60,7 @@ public class ModelDatabaseLibrocard implements Model
         return librocards;
     }
 
+    @Override
     public ArrayList<Librocard> getSpecificLibroCard(String mail)
     {
         ArrayList<Librocard> librocard;

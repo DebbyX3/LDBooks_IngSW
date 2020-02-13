@@ -7,10 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseCharts implements Model {
-
+public class ModelDatabaseCharts implements ModelCharts
+{
     private DatabaseConnection db = new DatabaseConnection();
-
 
     @Override
     public ArrayList<Charts> getGeneralCharts()
@@ -33,7 +32,6 @@ public class ModelDatabaseCharts implements Model {
 
         return chart;
     }
-
 
     @Override
     public ArrayList<Charts> getChartsForGenre(ChartFilter filter)
@@ -99,11 +97,9 @@ public class ModelDatabaseCharts implements Model {
         return chart;
     }
 
-
-
     private ArrayList<Charts> resultSetToArrayListCharts(ResultSet rs) {
         ArrayList<Charts> chart = new ArrayList<>();
-        Model authors = new ModelDatabaseAuthor();
+        ModelAuthor authors = new ModelDatabaseAuthor();
         Charts chartRecord;
 
         try {
@@ -131,7 +127,6 @@ public class ModelDatabaseCharts implements Model {
 
         return null;
     }
-
 
     @Override
     public void updateChartsGenreAllCategoryAll(Charts bookToUpdateInCharts)
@@ -169,10 +164,7 @@ public class ModelDatabaseCharts implements Model {
                 "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName(), bookToUpdateInCharts.getGenreChart()));
     }
 
-
-
-
-   @Override
+    @Override
     public void insertBookOnTheChartsAllGenreAllCategory(Charts bookToInsertOnTheCharts)
     {
         db.DBOpenConnection();
@@ -207,8 +199,6 @@ public class ModelDatabaseCharts implements Model {
         db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Category, Genre) " +
                 "VALUES(?, ?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory().getName(), bookToInsertOnTheCharts.getGenreChart()));
     }
-
-
 
     @Override
     public void deleteBookFromChartsAllGenreAllCategory(String isbn)
@@ -246,7 +236,6 @@ public class ModelDatabaseCharts implements Model {
         db.executeSQLUpdate( "DELETE from charts " +
                 "WHERE ISBN LIKE ? AND Genre LIKE ? AND Category LIKE ?",List.of(isbn, genre.getName(), category.getName()));
     }
-
 
     @Override
     public ArrayList<Category> getCategory() {
@@ -286,6 +275,4 @@ public class ModelDatabaseCharts implements Model {
 
         return null;
     }
-
-
 }

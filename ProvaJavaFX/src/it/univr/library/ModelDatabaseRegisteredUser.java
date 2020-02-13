@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseRegisteredUser implements Model
+public class ModelDatabaseRegisteredUser implements ModelRegisteredUser
 {
     private DatabaseConnection db = new DatabaseConnection();
 
@@ -24,8 +24,6 @@ public class ModelDatabaseRegisteredUser implements Model
 
         return user;
     }
-
-
 
     private RegisteredClient resultSetToUser(ResultSet rs)
     {

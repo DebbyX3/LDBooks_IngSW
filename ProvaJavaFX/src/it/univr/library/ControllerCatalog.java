@@ -117,26 +117,26 @@ public class ControllerCatalog {
 
     private void populateCatalog(Filter filter)
     {
-        Model DBBooks = new ModelDatabaseBooks();
+        ModelBooks DBBooks = new ModelDatabaseBooks();
         buildCatalog(DBBooks.getAllBooks(filter));
     }
 
     private void populateCatalog()
     {
-        Model DBBooks = new ModelDatabaseBooks();
+        ModelBooks DBBooks = new ModelDatabaseBooks();
         buildCatalog(DBBooks.getAllBooks());
     }
 
     private void populateGenreFilter()
     {
-        Model DBGenres = new ModelDatabaseGenres();
+        ModelGenres DBGenres = new ModelDatabaseGenres();
         genreComboboxData.add(new Genre("All"));
         genreComboboxData.addAll((DBGenres.getGenres()));
     }
 
     private void populateLanguageFilter()
     {
-        Model DBLanguage = new ModelDatabaseLanguage();
+        ModelLanguage DBLanguage = new ModelDatabaseLanguage();
         languageComboboxData.add(new Language("All"));
         languageComboboxData.addAll(DBLanguage.getLanguages());
     }

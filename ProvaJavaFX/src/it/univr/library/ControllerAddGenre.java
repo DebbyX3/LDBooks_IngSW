@@ -53,7 +53,7 @@ public class ControllerAddGenre {
 
     private void populateGenres()
     {
-        Model DBgenres = new ModelDatabaseGenres();
+        ModelGenres DBgenres = new ModelDatabaseGenres();
         genres.addAll(DBgenres.getGenres());
     }
 
@@ -76,7 +76,7 @@ public class ControllerAddGenre {
             if(!exist)
             {
                 //if the authors doesn't already exists so insert into db
-                Model DBinsertNewGenre = new ModelDatabaseGenres();
+                ModelGenres DBinsertNewGenre = new ModelDatabaseGenres();
                 DBinsertNewGenre.addNewGenre(newGenre.getName());
 
                 //change scene

@@ -58,7 +58,7 @@ public class ControllerAddPublishingHouse {
 
     private void populatePublishingHouse()
     {
-        Model DBPhouses = new ModelDatabasePublishingHouse();
+        ModelPublishingHouse DBPhouses = new ModelDatabasePublishingHouse();
         publishingHouses.addAll(DBPhouses.getPublishingHouses());
     }
 
@@ -80,7 +80,7 @@ public class ControllerAddPublishingHouse {
             if(!exist)
             {
                 //if the authors doesn't already exists so insert into db
-                Model DBinsertNewPublishingHouse = new ModelDatabasePublishingHouse();
+                ModelPublishingHouse DBinsertNewPublishingHouse = new ModelDatabasePublishingHouse();
                 DBinsertNewPublishingHouse.addNewPublishingHouse(newPublishingHouse);
 
                 //change scene

@@ -4,7 +4,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseBooks implements Model {
+public class ModelDatabaseBooks implements ModelBooks
+{
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override
@@ -127,7 +128,7 @@ public class ModelDatabaseBooks implements Model {
 
 
     private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
-        Model authors = new ModelDatabaseAuthor();
+        ModelAuthor authors = new ModelDatabaseAuthor();
         ArrayList<Book> books = new ArrayList<>();
         Book singleBook;
 

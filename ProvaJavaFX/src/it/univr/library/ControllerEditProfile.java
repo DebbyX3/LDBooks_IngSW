@@ -101,8 +101,8 @@ public class ControllerEditProfile {
     private void checkInputs(List<Address> newAddresses)
     {
         StringBuilder error = new StringBuilder();
-        Model DBCheckUser = new ModelDatabaseUserInfo();
-        Model DBFetchAddress = new ModelDatabaseUserAddress();
+        ModelUserInfo DBCheckUser = new ModelDatabaseUserInfo();
+        ModelUserAddress DBFetchAddress = new ModelDatabaseUserAddress();
 
         //check if textfields are not empty or null, if the list is valid
         if(!isNameSurnamePhoneNumberPasswordNullOrEmpty())
@@ -196,7 +196,7 @@ public class ControllerEditProfile {
     }
 
     private RegisteredClient clientToRegisteredClient(Client user) {
-        Model DBInformation = new ModelDatabaseUserAddress();
+        ModelUserAddress DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));
@@ -227,7 +227,7 @@ public class ControllerEditProfile {
 
     private void manageAddresses(List<Address> oldAddresses, List<Address> newAddresses, RegisteredClient newRegUser)
     {
-        Model DBcheckUser = new ModelDatabaseUserInfo();
+        ModelUserInfo DBcheckUser = new ModelDatabaseUserInfo();
 
         Iterator<Address> oldAddrIterator = oldAddresses.iterator();
         Iterator<Address> newAddrIterator = newAddresses.iterator();

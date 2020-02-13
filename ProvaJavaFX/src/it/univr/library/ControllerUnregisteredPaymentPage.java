@@ -163,7 +163,7 @@ public class ControllerUnregisteredPaymentPage
         newClient.setSingleAddress(shipAddress);
 
         //check if mail is unique
-        Model DBcheckUser = new ModelDatabaseUserInfo();
+        ModelUserInfo DBcheckUser = new ModelDatabaseUserInfo();
 
         if(!DBcheckUser.doesMailUnregisteredAlreadyExist(newClient) && !DBcheckUser.doesMailAlreadyExist(newClient))
         {

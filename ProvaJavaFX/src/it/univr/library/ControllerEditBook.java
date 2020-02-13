@@ -161,7 +161,7 @@ public class ControllerEditBook {
 
     private void handleFilterButton(ActionEvent actionEvent)
     {
-        Model DBSinglebook = new ModelDatabaseBooks();
+        ModelBooks DBSinglebook = new ModelDatabaseBooks();
         String[] isbn_Title = BookCombobox.getValue().split(" ");
         Book b = DBSinglebook.getSpecificBooksForGenre(isbn_Title[0]);
         authors.clear();
@@ -217,18 +217,18 @@ public class ControllerEditBook {
             Book book = fetchBookInformation();
 
             //update db on writers, remove the authors take from authorsToDelete arrayList<>
-            Model DBdeleteAuthors = new ModelDatabaseAuthor();
+            ModelAuthor DBdeleteAuthors = new ModelDatabaseAuthor();
 
             for (Author authorTodelete: authorsToDelete) {
                 DBdeleteAuthors.deleteLinkBookToAuthors(authorTodelete.getId(),book.getISBN());
             }
 
             //make query to update book
-            Model DBupdateBook = new ModelDatabaseBooks();
+            ModelBooks DBupdateBook = new ModelDatabaseBooks();
             DBupdateBook.updateBook(book);
 
             //make query to link newAuthors
-            Model DBupdateLinkTobook = new ModelDatabaseAuthor();
+            ModelAuthor DBupdateLinkTobook = new ModelDatabaseAuthor();
             for (Author authorToLink: book.getAuthors())
                 DBupdateLinkTobook.linkBookToAuthors(authorToLink.getId(), book.getISBN());
 
@@ -410,7 +410,7 @@ public class ControllerEditBook {
 
     private void populateBooks()
     {
-        Model DBbooks = new ModelDatabaseBooks();
+        ModelBooks DBbooks = new ModelDatabaseBooks();
         books.addAll(DBbooks.getAllBooks());
     }
 
@@ -422,32 +422,32 @@ public class ControllerEditBook {
 
     private void populateAuthors()
     {
-        Model DBauthors = new ModelDatabaseAuthor();
+        ModelAuthor DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
         oldAuthors.addAll(DBauthors.getAuthorsForSpecificBook(isbnLabel.getText()));
     }
 
     private void populatePublishingHouses()
     {
-        Model DBpublishingHouse = new ModelDatabasePublishingHouse();
+        ModelPublishingHouse DBpublishingHouse = new ModelDatabasePublishingHouse();
         publishingHouses.addAll(DBpublishingHouse.getPublishingHouses());
     }
 
     private void populateGenres()
     {
-        Model DBgenres = new ModelDatabaseGenres();
+        ModelGenres DBgenres = new ModelDatabaseGenres();
         genres.addAll(DBgenres.getGenres());
     }
 
     private void populateFormats()
     {
-        Model DBformats = new ModelDatabaseFormat();
+        ModelFormat DBformats = new ModelDatabaseFormat();
         formats.addAll(DBformats.getFormats());
     }
 
     private void populateLanguages()
     {
-        Model DBlanguages = new ModelDatabaseLanguage();
+        ModelLanguage DBlanguages = new ModelDatabaseLanguage();
         languages.addAll((DBlanguages.getLanguages()));
     }
 

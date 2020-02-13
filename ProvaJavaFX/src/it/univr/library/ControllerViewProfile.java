@@ -82,7 +82,7 @@ public class ControllerViewProfile
 
     private RegisteredClient clientToRegisteredClient(Client user)
     {
-        Model DBInformation = new ModelDatabaseUserAddress();
+        ModelUserAddress DBInformation = new ModelDatabaseUserAddress();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), user.getPhoneNumber(), DBInformation.getAddressesRegisteredUser(user));

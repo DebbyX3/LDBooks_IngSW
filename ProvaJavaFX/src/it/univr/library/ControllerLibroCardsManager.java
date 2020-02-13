@@ -64,7 +64,7 @@ public class ControllerLibroCardsManager
 
         if(!mailFilter.equals("All"))
         {
-            Model DBMailLibroCard = new ModelDatabaseLibrocard();
+            ModelLibrocard DBMailLibroCard = new ModelDatabaseLibrocard();
             View viewMailLibroCard = new ViewLibrocard();
 
             LibroCardVBox.getChildren().clear();
@@ -76,7 +76,7 @@ public class ControllerLibroCardsManager
 
     public void populateUsersLibroCard()
     {
-        Model DBAllLibroCards = new ModelDatabaseLibrocard();
+        ModelLibrocard DBAllLibroCards = new ModelDatabaseLibrocard();
         View viewAllLibroCards = new ViewLibrocard();
         LibroCardVBox.getChildren().clear();
         viewAllLibroCards.buildLibroCard(DBAllLibroCards.getAllLibroCards(), LibroCardVBox, LibroCardScrollPane);
@@ -84,7 +84,7 @@ public class ControllerLibroCardsManager
 
     private void populateMailFilter()
     {
-        Model DBmailLibroCardUsers = new ModelDatabaseLibrocard();
+        ModelLibrocard DBmailLibroCardUsers = new ModelDatabaseLibrocard();
         mailUsersComboboxData.add("All");
         mailUsersComboboxData.addAll((DBmailLibroCardUsers.getMailsLibroCards()));
     }

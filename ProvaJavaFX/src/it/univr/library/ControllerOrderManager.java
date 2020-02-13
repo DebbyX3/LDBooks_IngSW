@@ -70,7 +70,7 @@ public class ControllerOrderManager {
 
         if(!mailFilter.equals("All"))
         {
-            Model DBMailOrders = new ModelDatabaseOrder();
+            ModelOrder DBMailOrders = new ModelDatabaseOrder();
             View viewMailOrder = new ViewOrders();
 
             OrderVbox.getChildren().clear();
@@ -82,14 +82,14 @@ public class ControllerOrderManager {
 
     public void populateMailUserFilter()
     {
-        Model DBmailUsers = new ModelDatabaseOrder();
+        ModelOrder DBmailUsers = new ModelDatabaseOrder();
         mailUsersComboboxData.add("All");
         mailUsersComboboxData.addAll((DBmailUsers.getMailsOrders()));
     }
 
     public void populateOrderUsers()
     {
-        Model DBAllOrders = new ModelDatabaseOrder();
+        ModelOrder DBAllOrders = new ModelDatabaseOrder();
         View viewAllOrder = new ViewOrders();
         OrderVbox.getChildren().clear();
         viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox, orderManagerScrollPane);

@@ -436,7 +436,7 @@ public class ViewOrders implements View {
         quantityLabel.setMinWidth(Region.USE_PREF_SIZE);
         quantityLabel.setPrefHeight(17);
         quantityLabel.setPrefWidth(400);
-        Model DBorder = new ModelDatabaseOrder();
+        ModelOrder DBorder = new ModelDatabaseOrder();
         quantityLabel.setText(String.format("%d",DBorder.getQuantityOrderSingleBook(order,book)));
         quantityLabel.setAlignment(Pos.CENTER_LEFT);
         quantityLabel.setContentDisplay(ContentDisplay.LEFT);

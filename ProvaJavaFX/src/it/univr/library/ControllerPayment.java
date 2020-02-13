@@ -88,7 +88,7 @@ public class ControllerPayment {
         if(isValidProcess())
         {
             // fetch all the information and create the order, update db with the new order and update quantity available for the books in cart
-            Model insertNewOrderIntoDb = new ModelDatabaseOrder();
+            ModelOrder insertNewOrderIntoDb = new ModelDatabaseOrder();
             Order order = createOrder();
 
             // first put order into db orders
@@ -104,12 +104,12 @@ public class ControllerPayment {
             }
 
             // update the quantity available for all the books in the cart
-            Model updateMaxQuantityBooks = new ModelDatabaseBooks();
+            ModelBooks updateMaxQuantityBooks = new ModelDatabaseBooks();
             for (Book book: cart.keySet())
                 updateMaxQuantityBooks.updateQuantityAvailableBook(book.getMaxQuantity() - cart.get(book),book.getISBN());
 
             // update libroCard points for the user
-            Model updateLibroCard = new ModelDatabaseUserLibrocard();
+            ModelUserLibrocard updateLibroCard = new ModelDatabaseUserLibrocard();
             updateLibroCard.updateLibroCardPoints(order);
 
             displayConfirmation();
@@ -290,7 +290,7 @@ public class ControllerPayment {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Payment");
         alert.setHeaderText(null);
-        Model getOrderCode = new ModelDatabaseOrder();
+        ModelOrder getOrderCode = new ModelDatabaseOrder();
         alert.setContentText(String.format("Payment has been successful, your Tracking Code is: %d", getOrderCode.getLastOrderCode()));
 
         alert.showAndWait();
@@ -306,8 +306,8 @@ public class ControllerPayment {
     }
 
     private RegisteredClient userToRegisteredClient(User user) {
-        Model DBInformation = new ModelDatabaseUserAddress();
-        Model DBInfo = new ModelDatabaseUserInfo();
+        ModelUserAddress DBInformation = new ModelDatabaseUserAddress();
+        ModelUserInfo DBInfo = new ModelDatabaseUserInfo();
         RegisteredClient regUser =
                 new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), DBInfo.getPhoneNumber(user), DBInformation.getAddressesRegisteredUser(user));

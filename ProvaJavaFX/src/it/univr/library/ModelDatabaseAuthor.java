@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelDatabaseAuthor implements Model {
+public class ModelDatabaseAuthor implements ModelAuthor {
     private DatabaseConnection db = new DatabaseConnection();
 
     @Override

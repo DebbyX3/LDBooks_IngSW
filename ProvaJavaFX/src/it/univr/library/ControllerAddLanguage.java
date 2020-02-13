@@ -60,7 +60,7 @@ public class ControllerAddLanguage {
 
     private void populateLanguages()
     {
-        Model DBlanguages = new ModelDatabaseLanguage();
+        ModelLanguage DBlanguages = new ModelDatabaseLanguage();
         languages.addAll((DBlanguages.getLanguages()));
     }
 
@@ -82,7 +82,7 @@ public class ControllerAddLanguage {
             if(!exist)
             {
                 //if the authors doesn't already exists so insert into db
-                Model DBinsertNewLanguage = new ModelDatabaseLanguage();
+                ModelLanguage DBinsertNewLanguage = new ModelDatabaseLanguage();
                 DBinsertNewLanguage.addNewLanguage(newLanguage);
 
                 //change scene

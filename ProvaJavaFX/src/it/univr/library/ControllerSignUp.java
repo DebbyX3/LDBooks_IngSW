@@ -85,7 +85,7 @@ public class ControllerSignUp {
 
     private void handleSignUpButton(ActionEvent actionEvent)
     {
-        Model DBcheckUser = new ModelDatabaseUserInfo();
+        ModelUserInfo DBcheckUser = new ModelDatabaseUserInfo();
         StringBuilder error = new StringBuilder();
 
         //check if textFields are null

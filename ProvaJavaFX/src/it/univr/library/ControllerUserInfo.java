@@ -20,7 +20,7 @@ public class ControllerUserInfo
 
     public ControllerUserInfo()
     {
-        Model DBSignUp = new ModelDatabaseUserInfo();
+        ModelUserInfo DBSignUp = new ModelDatabaseUserInfo();
 
         citiesPostalCodes = new CitiesPostalCodes(DBSignUp.getCities(), DBSignUp.getPostalCodes());
     }
