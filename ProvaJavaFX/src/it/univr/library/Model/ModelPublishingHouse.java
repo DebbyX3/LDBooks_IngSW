@@ -1,0 +1,11 @@
+package it.univr.library.Model;
+
+import it.univr.library.PublishingHouse;
+
+import java.util.ArrayList;
+
+public interface ModelPublishingHouse
+{
+    public ArrayList<PublishingHouse> getPublishingHouses();
+    public void addNewPublishingHouse(PublishingHouse newPublishingHouse);
+}
