@@ -60,13 +60,13 @@ public class ControllerOrderUser {
         ModelOrder DBorders = new ModelDatabaseOrder();
         ViewOrders viewOrders = new ViewFXOrders();
 
-        viewOrders.buildOrders(DBorders.getOrders(user), orderVBox, orderUserScrollPane);
+        viewOrders.buildOrders(DBorders.getOrders(user), orderVBox, orderUserScrollPane,user);
     }
 
     public void populateOrderUser(ArrayList<Order> order)
     {
         ViewOrders viewOrders = new ViewFXOrders();
-        viewOrders.buildOrders(order, orderVBox, orderUserScrollPane);
+        viewOrders.buildOrders(order, orderVBox, orderUserScrollPane, user);
     }
 
 

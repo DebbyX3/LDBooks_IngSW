@@ -218,6 +218,7 @@ public class StageManager
             controllerOrderManager.setCart(cart);
             controllerOrderManager.setManager(manager);
             controllerOrderManager.setHeader();
+            controllerOrderManager.populateOrderUsers();
 
             primaryStage.setTitle("OrderManager - LD Books");
             primaryStage.setScene(new Scene(root));

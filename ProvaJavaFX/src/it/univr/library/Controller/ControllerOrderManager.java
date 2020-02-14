@@ -39,6 +39,7 @@ public class ControllerOrderManager {
     private User manager;
     private Map<Book, Integer> cart;
 
+
     @FXML
     private void initialize()
     {
@@ -49,7 +50,6 @@ public class ControllerOrderManager {
         //setto il listener
         filterButton.setOnAction(this::handleFilterButton);
 
-        populateOrderUsers();
     }
 
     public void setManager(User manager)
@@ -80,7 +80,7 @@ public class ControllerOrderManager {
             ViewOrders viewMailOrder = new ViewFXOrders();
 
             OrderVbox.getChildren().clear();
-            viewMailOrder.buildOrders(DBMailOrders.getSpecificMailOrders(mailFilter), OrderVbox, orderManagerScrollPane);
+            viewMailOrder.buildOrders(DBMailOrders.getSpecificMailOrders(mailFilter), OrderVbox, orderManagerScrollPane, manager);
         }
         else
             populateOrderUsers();
@@ -98,8 +98,14 @@ public class ControllerOrderManager {
         ModelOrder DBAllOrders = new ModelDatabaseOrder();
         ViewOrders viewAllOrder = new ViewFXOrders();
         OrderVbox.getChildren().clear();
-        viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox, orderManagerScrollPane);
+        viewAllOrder.buildOrders(DBAllOrders.getAllOrders(), OrderVbox, orderManagerScrollPane, manager);
     }
+
+    public static void handleUpdateStatusOrder(String code, String status)
+    {
+        System.out.println("CULONE!");
+    }
+
 
 
 }

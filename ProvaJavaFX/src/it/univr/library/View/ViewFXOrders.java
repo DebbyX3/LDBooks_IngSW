@@ -1,12 +1,14 @@
 package it.univr.library.View;
 
-import it.univr.library.Author;
-import it.univr.library.Book;
+import it.univr.library.*;
+import it.univr.library.Controller.ControllerOrderManager;
 import it.univr.library.Model.ModelDatabaseOrder;
 import it.univr.library.Model.ModelOrder;
-import it.univr.library.Order;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,10 +20,9 @@ import java.util.ArrayList;
 public class ViewFXOrders implements ViewOrders {
 
     @Override
-    public void buildOrders(ArrayList<Order> orders, VBox orderVBox, ScrollPane orderScrollPane)
+    public void buildOrders(ArrayList<Order> orders, VBox orderVBox, ScrollPane orderScrollPane, User user)
     {
         GridPane orderGridPane;
-
         //bring up the scrollpane
         orderScrollPane.setVvalue(orderScrollPane.getVmin());
 
@@ -37,37 +38,37 @@ public class ViewFXOrders implements ViewOrders {
             createExternalLabel(orderGridPane, order);
 
             //declaration for the next single row for each book
-            RowConstraints orderGridPaneRow3;
+            RowConstraints orderGridPaneRow4;
 
             for (Book book: order.getBooks())
             {
                 //create a new row for the new book
-                orderGridPaneRow3 = new RowConstraints();
-                orderGridPaneRow3.setVgrow(Priority.SOMETIMES);
-                orderGridPaneRow3.setMaxHeight(200);
-                orderGridPaneRow3.setPrefHeight(180);
-                orderGridPaneRow3.setMinHeight(180);
-                orderGridPane.getRowConstraints().add(orderGridPaneRow3);
+                orderGridPaneRow4 = new RowConstraints();
+                orderGridPaneRow4.setVgrow(Priority.SOMETIMES);
+                orderGridPaneRow4.setMaxHeight(200);
+                orderGridPaneRow4.setPrefHeight(180);
+                orderGridPaneRow4.setMinHeight(180);
+                orderGridPane.getRowConstraints().add(orderGridPaneRow4);
 
                 //build new book
                 buildSingleBookInformation(book, orderGridPane, order);
             }
 
             //add new row for the status bar
-            RowConstraints orderGridPaneRow4 = new RowConstraints();
-            orderGridPaneRow4.setMinHeight(30);
-            orderGridPaneRow4.setPrefHeight(114);
-            orderGridPaneRow4.setMaxHeight(194.39);
+            RowConstraints orderGridPaneRow5 = new RowConstraints();
+            orderGridPaneRow5.setMinHeight(30);
+            orderGridPaneRow5.setPrefHeight(114);
+            orderGridPaneRow5.setMaxHeight(194.39);
 
-            orderGridPane.getRowConstraints().add(orderGridPaneRow4);
+            orderGridPane.getRowConstraints().add(orderGridPaneRow5);
 
-            createLastRowOrderInformation(order, orderGridPane);
+            createLastRowOrderInformation(order, orderGridPane, user);
             orderVBox.getChildren().add(orderGridPane);
 
             //separator for the new order or for last order
             Separator line = new Separator();
             line.setPrefHeight(200);
-            VBox.setMargin(line, new Insets(0,10 , 0, 0));
+            VBox.setMargin(line, new Insets(20,10 , 0, 0));//int top, int left, int bottom, int right
             orderVBox.getChildren().add(line);
 
         }
@@ -97,6 +98,7 @@ public class ViewFXOrders implements ViewOrders {
         orderGridPaneColumn3.setPrefWidth(284.80);
         orderGridPaneColumn3.setPercentWidth(28.0);
 
+
         orderGridPane.getColumnConstraints().addAll(orderGridPaneColumn1, orderGridPaneColumn2, orderGridPaneColumn3);
 
         /* *** BASIC ROWS *** */
@@ -112,7 +114,13 @@ public class ViewFXOrders implements ViewOrders {
         orderGridPaneRow2.setPrefHeight(25.0);
         orderGridPaneRow2.setMaxHeight(45.60);
 
-        orderGridPane.getRowConstraints().addAll(orderGridPaneRow1, orderGridPaneRow2);
+        RowConstraints orderGridPaneRow3 = new RowConstraints();
+        orderGridPaneRow3.setVgrow(Priority.SOMETIMES);
+        orderGridPaneRow3.setMinHeight(25.0);
+        orderGridPaneRow3.setPrefHeight(25.0);
+        orderGridPaneRow3.setMaxHeight(45.60);
+
+        orderGridPane.getRowConstraints().addAll(orderGridPaneRow1, orderGridPaneRow2,orderGridPaneRow3);
 
         /* *** ADD BASIC LABELS *** */
         HBox orderMadeHbox = new HBox();
@@ -262,9 +270,33 @@ public class ViewFXOrders implements ViewOrders {
         balancePointsHbox.getChildren().addAll(balancePointsFixLabel, balancePointsLabel);
         GridPane.setConstraints(balancePointsHbox, 2,1);
 
+        HBox paymentTypeHbox = new HBox();
+        paymentTypeHbox.setAlignment(Pos.TOP_LEFT);
+        GridPane.setMargin(paymentTypeHbox, new Insets(0,0,0,10));
+
+        Label paymentTypeFixLabel = new Label("paymentTypeFixLabel");
+        paymentTypeFixLabel.setMinWidth(Region.USE_PREF_SIZE);
+        paymentTypeFixLabel.setPrefHeight(17);
+        paymentTypeFixLabel.setText("Payment Type:");
+        paymentTypeFixLabel.setAlignment(Pos.CENTER_LEFT);
+        paymentTypeFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        paymentTypeFixLabel.setFont(new Font("System Bold", 12.0));
+        HBox.setMargin(paymentTypeFixLabel, new Insets(0, 5, 10, 0)); //int top, int left, int bottom, int right
+
+        Label paymentTypeLabel = new Label("paymentTypeLabel");
+        paymentTypeLabel.setMinWidth(Region.USE_PREF_SIZE);
+        paymentTypeLabel.setPrefHeight(17);
+        paymentTypeLabel.setText(order.getPaymentType());
+        paymentTypeLabel.setAlignment(Pos.CENTER_LEFT);
+        paymentTypeLabel.setContentDisplay(ContentDisplay.LEFT);
+        paymentTypeLabel.setFont(new Font("System", 12.0));
+
+        paymentTypeHbox.getChildren().addAll(paymentTypeFixLabel, paymentTypeLabel);
+        GridPane.setConstraints(paymentTypeHbox, 0,2);
+
         /* *** ADD ALL THE LABELS TO GRID PANE */
 
-        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,mailOrderHBox,totalPriceHbox,balancePointsHbox);
+        orderGridPane.getChildren().addAll(orderMadeHbox,sentToHbox,orderCodeHbox,mailOrderHBox,totalPriceHbox,balancePointsHbox,paymentTypeHbox);
     }
 
     private void buildSingleBookInformation(Book book, GridPane orderGridPane, Order order)
@@ -274,6 +306,31 @@ public class ViewFXOrders implements ViewOrders {
         /* *** BOOK INFORMATION *** */
         VBox bookInformationVbox = new VBox();
         bookInformationVbox.setAlignment(Pos.CENTER_LEFT);
+
+        /* *** ISBN *** */
+        HBox isbnHbox = new HBox();
+        VBox.setMargin(isbnHbox, new Insets(0,0,7,0));
+
+        Label isbnFixLabel = new Label("isbnFixLabel");
+        isbnFixLabel.setMinWidth(Region.USE_PREF_SIZE);
+        isbnFixLabel.setPrefHeight(17);
+        isbnFixLabel.setText("ISBN:");
+        HBox.setMargin(isbnFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
+        isbnFixLabel.setAlignment(Pos.CENTER_LEFT);
+        isbnFixLabel.setContentDisplay(ContentDisplay.LEFT);
+        isbnFixLabel.setFont(new Font("System Bold", 12.0));
+
+        Label isbnLabel = new Label("isbnLabel");
+        isbnLabel.setMinWidth(Region.USE_PREF_SIZE);
+        isbnLabel.setPrefWidth(400);
+        isbnLabel.setPrefHeight(17);
+        isbnLabel.setText(book.getISBN());
+        isbnLabel.setAlignment(Pos.CENTER_LEFT);
+        isbnLabel.setContentDisplay(ContentDisplay.LEFT);
+        isbnLabel.setFont(new Font("System", 12.0));
+
+        isbnHbox.getChildren().addAll(isbnFixLabel,isbnLabel);
+        bookInformationVbox.getChildren().add(isbnHbox);
 
         /* *** TITLE *** */
         HBox titleHbox = new HBox();
@@ -365,30 +422,6 @@ public class ViewFXOrders implements ViewOrders {
         publisherHbox.getChildren().addAll(publisherFixLabel,publisherLabel);
         bookInformationVbox.getChildren().add(publisherHbox);
 
-        /* *** ISBN *** */
-        HBox isbnHbox = new HBox();
-        VBox.setMargin(isbnHbox, new Insets(0,0,7,0));
-
-        Label isbnFixLabel = new Label("isbnFixLabel");
-        isbnFixLabel.setMinWidth(Region.USE_PREF_SIZE);
-        isbnFixLabel.setPrefHeight(17);
-        isbnFixLabel.setText("ISBN:");
-        HBox.setMargin(isbnFixLabel, new Insets(0, 5, 0, 0)); //int top, int left, int bottom, int right
-        isbnFixLabel.setAlignment(Pos.CENTER_LEFT);
-        isbnFixLabel.setContentDisplay(ContentDisplay.LEFT);
-        isbnFixLabel.setFont(new Font("System Bold", 12.0));
-
-        Label isbnLabel = new Label("isbnLabel");
-        isbnLabel.setMinWidth(Region.USE_PREF_SIZE);
-        isbnLabel.setPrefWidth(400);
-        isbnLabel.setPrefHeight(17);
-        isbnLabel.setText(book.getISBN());
-        isbnLabel.setAlignment(Pos.CENTER_LEFT);
-        isbnLabel.setContentDisplay(ContentDisplay.LEFT);
-        isbnLabel.setFont(new Font("System", 12.0));
-
-        isbnHbox.getChildren().addAll(isbnFixLabel,isbnLabel);
-        bookInformationVbox.getChildren().add(isbnHbox);
 
         /* *** PRICE *** */
         HBox priceHbox = new HBox();
@@ -466,11 +499,12 @@ public class ViewFXOrders implements ViewOrders {
         librocardPointsHbox.getChildren().addAll(librocardPointsFixLabel,librocardPointsLabel);
         bookInformationVbox.getChildren().add(librocardPointsHbox);
 
+
         GridPane.setConstraints(bookInformationVbox, 1, orderGridPane.getRowCount()-1);
         orderGridPane.getChildren().add(bookInformationVbox);
     }
 
-    private void createLastRowOrderInformation(Order order, GridPane orderGridPane)
+    private void createLastRowOrderInformation(Order order, GridPane orderGridPane, User user)
     {
         HBox statusFixHbox = new HBox();
         statusFixHbox.setAlignment(Pos.CENTER_RIGHT);
@@ -507,24 +541,68 @@ public class ViewFXOrders implements ViewOrders {
         orderGridPane.getChildren().add(progressBarOrder);
         GridPane.setConstraints(progressBarOrder, 1, orderGridPane.getRowCount()-1);
 
-        HBox statusHbox = new HBox();
-        statusHbox.setAlignment(Pos.CENTER);
-        GridPane.setMargin(statusHbox, new Insets(0,  0, 0, 15));
-        statusHbox.setPrefWidth(200);
-        statusHbox.setPrefHeight(100);
+        if(user instanceof Manager)
+        {
+            VBox statusVbox = new VBox();
 
-        Label statusOrderLabel = new Label("statusOrderLabel");
-        statusOrderLabel.setMinWidth(Region.USE_PREF_SIZE);
-        statusOrderLabel.setPrefWidth(283);
-        statusOrderLabel.setPrefHeight(17);
-        statusOrderLabel.setText(order.getStatus());
-        statusOrderLabel.setAlignment(Pos.CENTER_LEFT);
-        statusOrderLabel.setContentDisplay(ContentDisplay.LEFT);
-        statusOrderLabel.setFont(new Font("System Bold", 12.0));
 
-        statusHbox.getChildren().add(statusOrderLabel);
-        orderGridPane.getChildren().add(statusHbox);
-        GridPane.setConstraints(statusHbox,2, orderGridPane.getRowCount()-1);
+            HBox statusHbox = new HBox();
+            statusHbox.setAlignment(Pos.CENTER);
+            GridPane.setMargin(statusHbox, new Insets(10,  0, 40, 15));//int top, int left, int bottom, int right
+            statusHbox.setPrefWidth(200);
+            statusHbox.setPrefHeight(100);
+
+            ComboBox<String> orderStatusComboBox = new ComboBox();
+            ObservableList<String> orderStatus = FXCollections.observableArrayList();
+            orderStatus.add("In progress");
+            orderStatus.add("Send");
+            orderStatus.add("Arrived");
+            orderStatusComboBox.setItems(orderStatus);
+            orderStatusComboBox.getSelectionModel().select(order.getStatus());
+
+            statusHbox.getChildren().add(orderStatusComboBox);
+
+            HBox editButtonHbox = new HBox();
+            editButtonHbox.setAlignment(Pos.CENTER);
+            GridPane.setMargin(editButtonHbox, new Insets(20,  0, 10, 15));
+            editButtonHbox.setPrefWidth(200);
+            editButtonHbox.setPrefHeight(100);
+
+            Button editStatus = new Button();
+            editStatus.setText("Edit");
+            editStatus.setStyle("-fx-background-color: #ffa939;");
+            editStatus.setCursor(Cursor.HAND);
+
+            editStatus.setOnAction(actionEvent -> ControllerOrderManager.handleUpdateStatusOrder(order.getCode(), orderStatusComboBox.getValue()));
+            editButtonHbox.getChildren().add(editStatus);
+
+            statusVbox.getChildren().addAll(statusHbox, editButtonHbox);
+            orderGridPane.getChildren().add(statusVbox);
+            GridPane.setConstraints(statusVbox,2, orderGridPane.getRowCount()-1);
+        }
+        else
+        {
+            HBox statusHbox = new HBox();
+            statusHbox.setAlignment(Pos.CENTER);
+            GridPane.setMargin(statusHbox, new Insets(0,  0, 0, 15));
+            statusHbox.setPrefWidth(200);
+            statusHbox.setPrefHeight(100);
+
+            Label statusOrderLabel = new Label("statusOrderLabel");
+            statusOrderLabel.setMinWidth(Region.USE_PREF_SIZE);
+            statusOrderLabel.setPrefWidth(283);
+            statusOrderLabel.setPrefHeight(17);
+            statusOrderLabel.setText(order.getStatus());
+            statusOrderLabel.setAlignment(Pos.CENTER_LEFT);
+            statusOrderLabel.setContentDisplay(ContentDisplay.LEFT);
+            statusOrderLabel.setFont(new Font("System Bold", 12.0));
+
+            statusHbox.getChildren().add(statusOrderLabel);
+            orderGridPane.getChildren().add(statusHbox);
+            GridPane.setConstraints(statusHbox,2, orderGridPane.getRowCount()-1);
+        }
+
+
     }
 
     private void addImageBook(GridPane orderGridPane, Book book)
