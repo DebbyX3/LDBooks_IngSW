@@ -18,4 +18,5 @@ public interface ModelOrder
     public Integer getLastOrderCode();
     public void linkBookToOrder(Book book, int orderCode, int quantity);
     public int getQuantityOrderSingleBook(Order order, Book book);
+    public void updateOrder(String code, String status);
 }

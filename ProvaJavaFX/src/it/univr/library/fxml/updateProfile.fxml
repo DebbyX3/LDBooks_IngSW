@@ -100,14 +100,6 @@
                               </Label>
                               <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="355.0" text="Update your data:" underline="true" GridPane.columnIndex="1">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <GridPane.margin>
-                                    <Insets />
-                                 </GridPane.margin>
-                              </Label>
                               <VBox alignment="CENTER" fillWidth="false" GridPane.columnIndex="1" GridPane.rowIndex="3">
                                  <children>
                                     <HBox alignment="CENTER" prefHeight="26.0" prefWidth="352.0">
@@ -180,6 +172,14 @@
                                     </HBox>
                                  </children>
                               </VBox>
+                              <Label alignment="CENTER" prefHeight="25.0" prefWidth="355.0" text="Update your data:" underline="true" GridPane.columnIndex="1">
+                                 <font>
+                                    <Font name="System Bold" size="16.0" />
+                                 </font>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </Label>
                               <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="4">
                                  <GridPane.margin>
                                     <Insets />

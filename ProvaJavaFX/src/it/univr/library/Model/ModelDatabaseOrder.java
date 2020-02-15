@@ -377,4 +377,15 @@ public class ModelDatabaseOrder implements ModelOrder
         }
         return Integer.parseInt(null);
     }
+
+    @Override
+    public void updateOrder(String code, String status)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate( "UPDATE orders " +
+                                    "SET status = ? " +
+                                    "WHERE orders.code LIKE ? ", List.of(status, code));
+    }
+
+
 }

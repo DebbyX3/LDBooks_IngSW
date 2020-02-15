@@ -140,7 +140,7 @@
          <left>
             <VBox alignment="TOP_CENTER" prefHeight="504.0" prefWidth="153.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Filter">
+                  <Label text="Update Charts for:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
@@ -168,7 +168,7 @@
                         <Insets top="8.0" />
                      </VBox.margin>
                   </ComboBox>
-                  <Button fx:id="filterButton" layoutX="59.0" layoutY="116.0" mnemonicParsing="false" text="Refresh">
+                  <Button fx:id="filterButton" layoutX="59.0" layoutY="116.0" mnemonicParsing="false" text="Choose">
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>

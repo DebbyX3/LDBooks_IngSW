@@ -4,6 +4,7 @@ import it.univr.library.*;
 import it.univr.library.Controller.ControllerOrderManager;
 import it.univr.library.Model.ModelDatabaseOrder;
 import it.univr.library.Model.ModelOrder;
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -553,18 +554,14 @@ public class ViewFXOrders implements ViewOrders {
             statusHbox.setPrefHeight(100);
 
             ComboBox<String> orderStatusComboBox = new ComboBox();
-            ObservableList<String> orderStatus = FXCollections.observableArrayList();
-            orderStatus.add("In progress");
-            orderStatus.add("Send");
-            orderStatus.add("Arrived");
-            orderStatusComboBox.setItems(orderStatus);
+            orderStatusComboBox.setItems(fillComboBoxStatus(order));
             orderStatusComboBox.getSelectionModel().select(order.getStatus());
 
             statusHbox.getChildren().add(orderStatusComboBox);
 
             HBox editButtonHbox = new HBox();
             editButtonHbox.setAlignment(Pos.CENTER);
-            GridPane.setMargin(editButtonHbox, new Insets(20,  0, 10, 15));
+            VBox.setMargin(editButtonHbox, new Insets(20,  0, 10, 15));
             editButtonHbox.setPrefWidth(200);
             editButtonHbox.setPrefHeight(100);
 
@@ -603,6 +600,23 @@ public class ViewFXOrders implements ViewOrders {
         }
 
 
+    }
+
+    private ObservableList<String> fillComboBoxStatus(Order order)
+    {
+        ObservableList<String> orderStatus = FXCollections.observableArrayList();
+       switch (order.getStatus())
+       {
+           case "In progress":
+               orderStatus.add("Send");
+               orderStatus.add("Arrived");
+               break;
+           default:
+               orderStatus.add("Arrived");
+               break;
+       }
+
+       return orderStatus;
     }
 
     private void addImageBook(GridPane orderGridPane, Book book)

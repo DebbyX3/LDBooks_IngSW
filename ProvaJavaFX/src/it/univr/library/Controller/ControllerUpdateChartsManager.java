@@ -160,8 +160,7 @@ public class ControllerUpdateChartsManager {
         else
           viewCharts.buildChart(chartsTableView,DBCharts.getChartsForCategoryAndGenre(filters));
 
-
-
+        //clear comboBox Books to update with books with filter selected
         books.clear();
         BookCombobox.getSelectionModel().clearSelection();
         BookCombobox.getItems().clear();
@@ -258,9 +257,10 @@ public class ControllerUpdateChartsManager {
                 Integer finalRank = Integer.parseInt(rankTextField.getText());
 
 
-               //create an ArrayList of book in chart that will be modify, the first one is the book selected
+               //create an ArrayList of book in chart that will be modify
                 ArrayList<Charts> booksModified = new ArrayList<>();
 
+                // create a precRank variable to check if there is space between two ranks
                 int precRank = 0;
 
 
@@ -270,6 +270,7 @@ public class ControllerUpdateChartsManager {
                     {
                         if(bookInChart.getRank() - precRank <= 1)
                         {
+                            precRank = bookInChart.getRank();
                             if (!bookInChart.getISBN().equals(isbnLabel.getText()) && (bookInChart.getRank() > initRank && bookInChart.getRank() <= finalRank)) {
                                 bookInChart.setRank(bookInChart.getRank() - 1);
                                 booksModified.add(bookInChart);
@@ -277,7 +278,6 @@ public class ControllerUpdateChartsManager {
                         }
                         else // if there is space between ranks stop updating chart
                             break;
-                        precRank = bookInChart.getRank();
                     }
                 }
                 else
@@ -286,6 +286,7 @@ public class ControllerUpdateChartsManager {
                     {
                         if(bookInChart.getRank() - precRank <= 1)
                         {
+                            precRank = bookInChart.getRank();
                             if (!bookInChart.getISBN().equals(isbnLabel.getText()) && (bookInChart.getRank() < initRank && bookInChart.getRank() >= finalRank)) {
                                 bookInChart.setRank(bookInChart.getRank() + 1);
                                 booksModified.add(bookInChart);
@@ -293,8 +294,6 @@ public class ControllerUpdateChartsManager {
                         }
                         else
                             break;
-
-                        precRank = bookInChart.getRank();
                     }
                 }
 
@@ -341,8 +340,6 @@ public class ControllerUpdateChartsManager {
                 book = new Charts();
                 book.setISBN(isbnLabel.getText());
 
-
-
                 // check if there're books to update
                 ArrayList<Charts> booksModified = new ArrayList<>();
                 boolean empty = true;
@@ -365,15 +362,15 @@ public class ControllerUpdateChartsManager {
                     {
                         if(bookInChart.getRank() - precRank <= 1)
                         {
+                            precRank = bookInChart.getRank();
                             if (bookInChart.getRank() >= Integer.parseInt(rankTextField.getText()))
                             {
                                 bookInChart.setRank(bookInChart.getRank() + 1);
                                 booksModified.add(bookInChart);
                             }
                         }
-                        else
+                        else // if there is space between ranks stop updating chart
                             break;
-
                     }
                 }
 
@@ -424,8 +421,7 @@ public class ControllerUpdateChartsManager {
         rankTextField.clear();
         weekInTextField.clear();
         bookNewInformationVBox.setDisable(true);
-        selectBookButton.setDisable(true);
-        BookCombobox.setDisable(true);
+
     }
 
 
@@ -479,15 +475,17 @@ public class ControllerUpdateChartsManager {
                     // check if there is a space between ranks
                     if(bookInChart.getRank() - precRank <= 1)
                     {
+                        precRank = bookInChart.getRank();
                         if(bookInChart.getRank() > Integer.parseInt(rankTextField.getText()))
                         {
+
                             bookInChart.setRank(bookInChart.getRank() - 1);
                             booksModified.add(bookInChart);
                         }
                     }
                     else
                         break;
-                    precRank = bookInChart.getRank();
+                    //precRank = bookInChart.getRank();
                 }
 
                 //Update charts and the view
@@ -530,8 +528,6 @@ public class ControllerUpdateChartsManager {
         rankTextField.clear();
         weekInTextField.clear();
         bookNewInformationVBox.setDisable(true);
-        selectBookButton.setDisable(true);
-        BookCombobox.setDisable(true);
     }
 
 

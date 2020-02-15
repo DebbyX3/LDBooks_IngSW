@@ -60,21 +60,6 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                           <children>
-                              <Button fx:id="continueAsUnregisteredButton" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="227.0" style="-fx-background-color: #ffa939;" text="Continue as Unregistered user">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
                         <Label alignment="CENTER_RIGHT" layoutX="190.0" layoutY="107.0" prefHeight="27.0" prefWidth="300.0" text="Surname:" textAlignment="CENTER" GridPane.rowIndex="2">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -110,8 +95,25 @@
                         <TextField fx:id="nameTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="surnameTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <TextField fx:id="streetTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="houseNumberTextField" layoutX="293.0" layoutY="190.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <ComboBox fx:id="cityComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <TextField fx:id="phoneNumberTextField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                         <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <children>
+                              <Button fx:id="continueAsUnregisteredButton" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="227.0" style="-fx-background-color: #ffa939;" text="Continue as Unregistered user">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="307.0" text="Your personal data:" underline="true" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="16.0" />
@@ -120,7 +122,6 @@
                               <Insets />
                            </GridPane.margin>
                         </Label>
-                        <ComboBox fx:id="cityComboBox" prefHeight="25.0" prefWidth="310.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="193.0" prefHeight="20.0" prefWidth="308.0" text="House Number:" textAlignment="CENTER" GridPane.rowIndex="4">
                            <font>
                               <Font name="System Bold" size="14.0" />
@@ -129,7 +130,6 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="houseNumberTextField" layoutX="293.0" layoutY="190.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
                </children>

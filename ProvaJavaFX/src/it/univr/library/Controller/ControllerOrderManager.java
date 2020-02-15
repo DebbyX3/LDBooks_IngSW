@@ -103,7 +103,8 @@ public class ControllerOrderManager {
 
     public static void handleUpdateStatusOrder(String code, String status)
     {
-        System.out.println("CULONE!");
+        ModelOrder DBupdateOrder = new ModelDatabaseOrder();
+        DBupdateOrder.updateOrder(code,status);
     }
 
 

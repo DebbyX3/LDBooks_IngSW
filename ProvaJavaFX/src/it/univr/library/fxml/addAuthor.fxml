@@ -37,21 +37,6 @@
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" percentHeight="10.0" prefHeight="71.20001220703125" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                           <children>
-                              <Button fx:id="addNewAuthorButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Add new author">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
                         <Label alignment="CENTER" prefHeight="27.0" prefWidth="302.0" text="Add Author:" underline="true" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -69,6 +54,22 @@
                            </GridPane.margin>
                         </Label>
                         <TextField fx:id="nameAuthorTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="surnameAuthorTextField" layoutX="304.0" layoutY="266.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <children>
+                              <Button fx:id="addNewAuthorButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Add new author">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
                         <ListView fx:id="authorsListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Label alignment="TOP_RIGHT" layoutX="14.0" layoutY="230.0" prefHeight="20.0" prefWidth="297.0" text="Existing Authors:" GridPane.rowIndex="1">
                            <font>
@@ -86,7 +87,6 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="surnameAuthorTextField" layoutX="304.0" layoutY="266.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                      </children>
                      <HBox.margin>
                         <Insets left="10.0" right="10.0" />

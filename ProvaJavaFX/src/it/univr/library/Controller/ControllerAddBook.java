@@ -283,7 +283,10 @@ public class ControllerAddBook {
         if(isbnTextField.getText().trim().equals(""))
             error.append("- ISBN must be filled!\n");
         if(!isISBNvalid(isbnTextField.getText().trim()))
-            error.append("- ISBN has no format 10 or 13!\n");
+            if(!isASINvalid(isbnTextField.getText().trim()))
+                error.append("- ISBN has no format 10 or 13 or ASIN!\n");
+
+
 
         if(titleTextField.getText().trim().isEmpty())
             error.append("- Title must be filled!\n");
@@ -412,5 +415,9 @@ public class ControllerAddBook {
             "[- 0-9X]{13}$|97[89]-[0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)" +
             "(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$");}
 
+    private boolean isASINvalid(String s)
+    {
+        return s.matches("\\b(([0-9]{9}[0-9X])|(B[0-9A-Z]{9}))\\b");
+    }
 
 }

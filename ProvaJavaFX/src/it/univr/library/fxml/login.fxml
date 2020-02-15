@@ -45,21 +45,6 @@
                         <RowConstraints maxHeight="360.39998168945306" minHeight="10.0" prefHeight="68.80004272460934" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                           <GridPane.margin>
-                              <Insets />
-                           </GridPane.margin>
-                           <children>
-                              <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Log In">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </HBox>
                         <Label alignment="CENTER" prefHeight="27.0" prefWidth="302.0" text="Login Page:" underline="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -86,6 +71,21 @@
                         </Label>
                         <TextField fx:id="mailTextField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <PasswordField fx:id="pswField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <HBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                           <GridPane.margin>
+                              <Insets />
+                           </GridPane.margin>
+                           <children>
+                              <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="152.0" style="-fx-background-color: #ffa939;" text="Log In">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </HBox>
                         <Separator prefHeight="2.0" prefWidth="258.0" GridPane.rowIndex="7">
                            <GridPane.margin>
                               <Insets />

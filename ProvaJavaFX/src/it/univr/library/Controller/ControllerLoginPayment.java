@@ -8,6 +8,7 @@ import it.univr.library.Model.ModelRegisteredUser;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
@@ -39,6 +40,13 @@ public class ControllerLoginPayment {
     @FXML
     private void initialize()
     {
+        // handle to press enter for login
+        pswField.setOnKeyReleased(event ->
+        {
+            if (event.getCode() == KeyCode.ENTER)
+                loginButton.fire();
+        });
+
         loginButton.setOnAction(this::handleLoginButton);
         signUpButton.setOnAction(this::handleSignUpButton);
         unregisterHyperlink.setOnAction(this::handleContinueAsUnregistered);
