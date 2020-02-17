@@ -63,11 +63,12 @@ public class ModelDatabaseBooks implements ModelBooks
                 "books.publishingHouseName, books.title " +
                 "FROM books " +
                 "JOIN write ON books.ISBN = write.ISBN " +
-                "JOIN authors ON write.idAuthor = authors.idAuthor ";
+                "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                "WHERE isValid = true ";
 
         if (filter.isGenreSetted()) {
             queryParameters.add(filter.getGenre().getName());
-            query += "WHERE genreName LIKE ? ";
+            query += "AND genreName LIKE ? ";
             isFirstInQuery = false;
         }
 

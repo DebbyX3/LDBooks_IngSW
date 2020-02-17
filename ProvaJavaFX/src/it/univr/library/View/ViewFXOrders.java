@@ -534,7 +534,7 @@ public class ViewFXOrders implements ViewOrders {
 
         if(order.getStatus().equals("In progress"))
             progressBarOrder.setProgress(0.1);
-        else if(order.getStatus().equals("Send"))
+        else if(order.getStatus().equals("Shipped"))
             progressBarOrder.setProgress(0.6);
         else
             progressBarOrder.setProgress(1);
@@ -608,7 +608,7 @@ public class ViewFXOrders implements ViewOrders {
        switch (order.getStatus())
        {
            case "In progress":
-               orderStatus.add("Send");
+               orderStatus.add("Shipped");
                orderStatus.add("Arrived");
                break;
            default:
