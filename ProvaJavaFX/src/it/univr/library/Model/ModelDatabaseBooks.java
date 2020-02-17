@@ -16,8 +16,8 @@ public class ModelDatabaseBooks implements ModelBooks
     }
 
     @Override
-    public ArrayList<Book> getAllBooks(Filter filter) {
-        boolean isFirstInQuery = true;
+    public ArrayList<Book> getAllBooks(Filter filter)
+    {
         ArrayList<Book> books;
         ArrayList<Object> queryParameters = new ArrayList<>();
 
@@ -27,22 +27,20 @@ public class ModelDatabaseBooks implements ModelBooks
                 "books.publishingHouseName, books.title " +
                 "FROM books " +
                 "JOIN write ON books.ISBN = write.ISBN " +
-                "JOIN authors ON write.idAuthor = authors.idAuthor ";
+                "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                "WHERE isValid = true ";
 
         if (filter.isGenreSetted()) {
             queryParameters.add(filter.getGenre().getName());
-            query += "WHERE genreName LIKE ? ";
-            isFirstInQuery = false;
+            query += "AND genreName LIKE ? ";
         }
         if (filter.isLanguageSetted()) {
             queryParameters.add(filter.getLanguage().getName());
-            query += isFirstInQuery ? "WHERE " : "AND ";
-            query += "languageName LIKE ? ";
-            isFirstInQuery = false;
+            query += "AND languageName LIKE ? ";
         }
 
         query += "GROUP BY books.ISBN, title, languageName, formatName " +
-                "ORDER BY books.title, idNameSurnameAuthors ASC ";
+                 "ORDER BY books.title, idNameSurnameAuthors ASC ";
 
         db.DBOpenConnection();
         db.executeSQLQuery(query, queryParameters);
@@ -87,7 +85,7 @@ public class ModelDatabaseBooks implements ModelBooks
     }
 
     @Override
-    public Book getSpecificBooksForGenre(String isbn)
+    public Book getSpecificBook(String isbn)
     {
         ArrayList<Book> b;
         db.DBOpenConnection();
@@ -106,28 +104,6 @@ public class ModelDatabaseBooks implements ModelBooks
 
         return b.get(0);
     }
-
-    @Override
-    public ArrayList<Book> getSpecificBooksForGenre(Genre genre)
-    {
-        ArrayList<Book> booksForGenre;
-        db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT books.ISBN, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
-                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
-                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
-                "books.publishingHouseName, books.title " +
-                "FROM books " +
-                "JOIN write ON books.ISBN = write.ISBN " +
-                "JOIN authors ON write.idAuthor = authors.idAuthor " +
-                "WHERE books.genreName LIKE ? " +
-                "GROUP BY books.ISBN, title, languageName, formatName " +
-                "ORDER By books.title, idNameSurnameAuthors ASC", List.of(genre.getName()));
-        booksForGenre = resultSetToArrayListBook(db.getResultSet());
-        db.DBCloseConnection();
-
-        return booksForGenre;
-    }
-
 
     private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
         ModelAuthor authors = new ModelDatabaseAuthor();
@@ -158,7 +134,9 @@ public class ModelDatabaseBooks implements ModelBooks
             }
 
             return books;
-        } catch (SQLException e) {
+        }
+        catch (SQLException e)
+        {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
@@ -168,7 +146,7 @@ public class ModelDatabaseBooks implements ModelBooks
 
 
     @Override
-    public void addNewBookToDB(Book book)
+    public void addNewBook(Book book)
     {
         db.DBOpenConnection();
         db.executeSQLUpdate( "INSERT INTO books(ISBN, title, description, points, publicationYear, price, " +
@@ -177,6 +155,7 @@ public class ModelDatabaseBooks implements ModelBooks
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",List.of(book.getISBN(), book.getTitle(), book.getDescription(),
                 book.getPoints(), book.getPublicationYear(), book.getPrice(), book.getPublishingHouse().getName(), book.getGenre().getName(),
                 book.getMaxQuantity(), book.getPages(), book.getLanguage().getName(), book.getFormat().getName(), book.getImagePath()));
+        db.DBCloseConnection();
     }
 
     @Override
@@ -189,19 +168,51 @@ public class ModelDatabaseBooks implements ModelBooks
                 "WHERE books.ISBN LIKE ?",List.of(book.getTitle(), book.getDescription(), book.getPoints(), book.getPublicationYear(),
                 book.getPrice(),book.getPublishingHouse().getName(),book.getGenre().getName(), book.getMaxQuantity(),
                 book.getPages(),book.getLanguage().getName(),book.getFormat().getName(),book.getImagePath(), book.getISBN()));
+        db.DBCloseConnection();
     }
 
     @Override
-    public void updateQuantityAvailableBook(int quantity, String isbn)
+    public void updateAvailableQuantityBook(int quantity, String isbn)
     {
         db.DBOpenConnection();
         db.executeSQLUpdate(" UPDATE books " +
                 "SET maxQuantity = ? " +
                 "WHERE books.ISBN LIKE ? ", List.of(quantity, isbn));
-
+        db.DBCloseConnection();
     }
 
+    public void flagBookAsNotValid(String ISBN)
+    {
+        db.DBOpenConnection();
+        db.executeSQLUpdate(  "UPDATE books " +
+                                    "SET isValid = 0 " +
+                                    "WHERE ISBN LIKE ?", List.of(ISBN));
+        db.DBCloseConnection();
+    }
 
+    @Override
+    public boolean doesISBNAlreadyExists(String ISBN)
+    {
+        boolean result = false;
 
+        db.DBOpenConnection();
 
+        db.executeSQLQuery(   "SELECT ISBN " +
+                            "FROM books " +
+                            "WHERE ISBN LIKE ?", List.of(ISBN));
+
+        try
+        {
+            // If the ISBN does not exist in the books table
+            // return false if there are no rows, true if there are some rows
+            result = db.getResultSet().isBeforeFirst();
+        }
+        catch (SQLException e) {
+            result = false;
+        }
+
+        db.DBCloseConnection();
+
+        return result;
+    }
 }

@@ -25,7 +25,7 @@ public class ControllerAddBook {
     private TextField imagePathTextField;
 
     @FXML
-    private TextField isbnTextField;
+    private TextField ISBNTextField;
 
     @FXML
     private TextField titleTextField;
@@ -187,24 +187,16 @@ public class ControllerAddBook {
     {
         if(!isAnyFieldEmptyorNotValid())
         {
-            ModelBooks DBbook = new ModelDatabaseBooks();
-            Book book = fetchBookInformation();
-            boolean exists = false;
-
-            for (Book bookOfCatalog: DBbook.getAllBooks()) {
-                if (book.getISBN().equals(bookOfCatalog.getISBN())) {
-                    exists = true;
-                    break;
-                }
-            }
-
-            if(!exists)
+            if(!doesISBNExists(ISBNTextField.getText()))
             {
-                ModelAuthor DBauthor = new ModelDatabaseAuthor();
-                DBbook.addNewBookToDB(book);
+                ModelBooks DBBook = new ModelDatabaseBooks();
+                Book book = fetchBookInformation();
+
+                ModelAuthor DBAuthor = new ModelDatabaseAuthor();
+                DBBook.addNewBook(book);
 
                 for (Author authorToLink: book.getAuthors())
-                    DBauthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
+                    DBAuthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
 
                 //change scene
                 StageManager addEditBooks = new StageManager();
@@ -212,17 +204,22 @@ public class ControllerAddBook {
             }
             else
             {
-                displayAlert("Book with this ISBN already exists!");
+                displayAlert("A book with this ISBN already exists!");
             }
-
         }
+    }
+
+    private boolean doesISBNExists(String ISBN)
+    {
+        ModelBooks DBBook = new ModelDatabaseBooks();
+        return DBBook.getSpecificBook(ISBN).getISBN().equals(ISBN);
     }
 
     private Book fetchBookInformation()
     {
         Book book = new Book();
 
-        book.setISBN(isbnTextField.getText().trim());
+        book.setISBN(ISBNTextField.getText().trim());
         book.setTitle(titleTextField.getText().trim());
         book.setAuthors(authorsToLinkToBook);
         book.setDescription(descriptionTextArea.getText().trim());
@@ -280,13 +277,11 @@ public class ControllerAddBook {
         StringBuilder error = new StringBuilder();
         Optional<ButtonType> result;
 
-        if(isbnTextField.getText().trim().equals(""))
+        if(ISBNTextField.getText().trim().equals(""))
             error.append("- ISBN must be filled!\n");
-        if(!isISBNvalid(isbnTextField.getText().trim()))
-            if(!isASINvalid(isbnTextField.getText().trim()))
+
+        if(!isISBNvalid(ISBNTextField.getText().trim()) && !isASINvalid(ISBNTextField.getText().trim()))
                 error.append("- ISBN has no format 10 or 13 or ASIN!\n");
-
-
 
         if(titleTextField.getText().trim().isEmpty())
             error.append("- Title must be filled!\n");

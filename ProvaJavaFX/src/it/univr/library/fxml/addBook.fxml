@@ -204,7 +204,7 @@
                               <Insets right="10.0" />
                            </GridPane.margin>
                         </Label>
-                        <TextField fx:id="isbnTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="ISBNTextField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <TextField fx:id="titleTextField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <ComboBox fx:id="numberAuthorsComboBox" prefHeight="25.0" prefWidth="57.0" promptText="N." GridPane.columnIndex="1" GridPane.rowIndex="3" />
                         <ComboBox fx:id="authorComboBox" disable="true" layoutX="301.0" layoutY="88.0" prefHeight="25.0" prefWidth="290.0" promptText="Choose an Author..." GridPane.columnIndex="1" GridPane.rowIndex="4" />

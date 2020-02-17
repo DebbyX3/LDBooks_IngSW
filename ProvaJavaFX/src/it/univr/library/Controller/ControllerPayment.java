@@ -108,7 +108,7 @@ public class ControllerPayment {
             // update the quantity available for all the books in the cart
             ModelBooks updateMaxQuantityBooks = new ModelDatabaseBooks();
             for (Book book: cart.keySet())
-                updateMaxQuantityBooks.updateQuantityAvailableBook(book.getMaxQuantity() - cart.get(book),book.getISBN());
+                updateMaxQuantityBooks.updateAvailableQuantityBook(book.getMaxQuantity() - cart.get(book),book.getISBN());
 
             // update libroCard points for the user
             ModelUserLibrocard updateLibroCard = new ModelDatabaseUserLibrocard();

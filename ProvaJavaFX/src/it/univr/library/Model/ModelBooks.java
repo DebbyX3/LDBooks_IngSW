@@ -11,10 +11,10 @@ public interface ModelBooks {
     public ArrayList<Book> getAllBooks();
     public ArrayList<Book> getAllBooks(Filter filter);
     public ArrayList<Book> getAllBooks(ChartFilter filter);
-    public Book getSpecificBooksForGenre(String isbn);
-    public ArrayList<Book> getSpecificBooksForGenre(Genre genre);
-    public void addNewBookToDB(Book book);
+    public Book getSpecificBook(String isbn);
+    public void addNewBook(Book book);
     public void updateBook(Book book);
-    public void updateQuantityAvailableBook(int quantity, String isbn);
-
+    public void updateAvailableQuantityBook(int quantity, String isbn);
+    public void flagBookAsNotValid(String ISBN);
+    public boolean doesISBNAlreadyExists(String ISBN);
 }

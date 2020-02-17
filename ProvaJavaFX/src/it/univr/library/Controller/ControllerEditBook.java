@@ -22,7 +22,10 @@ public class ControllerEditBook {
     private Button editBookButton;
 
     @FXML
-    private Label isbnLabel;
+    private TextField ISBNTextField;
+
+    @FXML
+    private CheckBox newBookCheckBox;
 
     @FXML
     private TextField titleTextField;
@@ -80,7 +83,7 @@ public class ControllerEditBook {
     private Button deleteAuthorButton;
 
     @FXML
-    private ComboBox<String> BookCombobox;
+    private ComboBox<String> bookCombobox;
     private ObservableList<Book> books = FXCollections.observableArrayList();
 
     @FXML
@@ -89,6 +92,7 @@ public class ControllerEditBook {
     @FXML
     private Button filterButton;
 
+    private Book originalBook; // we use this to keep the original Book
     private User manager;
     private int numberOfAuthors = 0;
     private ArrayList<Author> authorsToLinkToBook = new ArrayList<>();
@@ -100,8 +104,8 @@ public class ControllerEditBook {
     {
         //***************** FETCH AND POPULATE BOOK INFORMATION *****************//
         populateBooks();
-        BookCombobox.setItems(bookIsbnAndTitle(books));
-        BookCombobox.getSelectionModel().selectFirst();
+        bookCombobox.setItems(bookIsbnAndTitle(books));
+        bookCombobox.getSelectionModel().selectFirst();
 
         //***************** FETCH AND POPULATE PUBLISHING HOUSE INFORMATION *****************//
         populatePublishingHouses();
@@ -142,8 +146,7 @@ public class ControllerEditBook {
         });
 
         //***************** FETCH AND POPULATE THE FIELDS WITH THE FIRST BOOK OF CATALOG *****************//
-        populateAllfield(books.get(0));
-
+        populateAllfields(books.get(0));
     }
 
     public void setManager(User manager)
@@ -164,10 +167,10 @@ public class ControllerEditBook {
     private void handleFilterButton(ActionEvent actionEvent)
     {
         ModelBooks DBSinglebook = new ModelDatabaseBooks();
-        String[] isbn_Title = BookCombobox.getValue().split(" ");
-        Book b = DBSinglebook.getSpecificBooksForGenre(isbn_Title[0]);
+        String[] isbn_Title = bookCombobox.getValue().split(" ");
+        Book b = DBSinglebook.getSpecificBook(isbn_Title[0]);
         authors.clear();
-        populateAllfield(b);
+        populateAllfields(b);
     }
 
     /**
@@ -209,34 +212,58 @@ public class ControllerEditBook {
      * Then if everything's ok, fetch information and create a new book.
      * Update DB for the single book and unlink the various authors to delete.
      * Update information on DB for the single book and link the new author/s to the book.
-     *
+     * If we change the ISBN, then the book is not the same, and we want to create a new book,
+     * marking the old one as not valid anymore.
      */
     private void handleEditBookButton(ActionEvent actionEvent)
     {
         //fetch all fields and create a new book to update the information of the existing book on db
-        if(!isAnyFieldEmptyorNotValid())
+        if(!isAnyFieldEmptyOrNotValid())
         {
-            Book book = fetchBookInformation();
+            if(!newBookCheckBox.isSelected() || !doesISBNExists(ISBNTextField.getText()))
+            {
+                ModelBooks DBBook = new ModelDatabaseBooks();
+                ModelAuthor DBAuthor = new ModelDatabaseAuthor();
 
-            //update db on writers, remove the authors take from authorsToDelete arrayList<>
-            ModelAuthor DBdeleteAuthors = new ModelDatabaseAuthor();
+                Book book = fetchBookInformation();
 
-            for (Author authorTodelete: authorsToDelete) {
-                DBdeleteAuthors.deleteLinkBookToAuthors(authorTodelete.getId(),book.getISBN());
+                // If we change the ISBN, then we need to create a new book, and flag the old one as not valid
+                if(!originalBook.getISBN().equals(ISBNTextField.getText()))
+                {
+                    DBBook.addNewBook(book);
+
+                    book.setAuthors(authorListView.getItems());
+
+                    for (Author authorToLink: book.getAuthors())
+                        DBAuthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
+
+                    // Flag the old book as not valid
+                    DBBook.flagBookAsNotValid(originalBook.getISBN());
+                }
+                else // Otherwise, just edit the book
+                {
+                    // Update db on writers, remove the authors take from authorsToDelete arrayList<>
+
+                    for (Author authorToDelete : authorsToDelete) {
+                        DBAuthor.deleteLinkBookToAuthors(authorToDelete.getId(), book.getISBN());
+                    }
+
+                    // Make query to update book
+                    DBBook.updateBook(book);
+
+                    // Make query to link newAuthors
+                    for (Author authorToLink : book.getAuthors())
+                        DBAuthor.linkBookToAuthors(authorToLink.getId(), book.getISBN());
+                }
+
+                // Change scene
+                StageManager addEditBooks = new StageManager();
+                addEditBooks.setStageAddEditBooks((Stage) editBookButton.getScene().getWindow(), manager, cart);
             }
-
-            //make query to update book
-            ModelBooks DBupdateBook = new ModelDatabaseBooks();
-            DBupdateBook.updateBook(book);
-
-            //make query to link newAuthors
-            ModelAuthor DBupdateLinkTobook = new ModelDatabaseAuthor();
-            for (Author authorToLink: book.getAuthors())
-                DBupdateLinkTobook.linkBookToAuthors(authorToLink.getId(), book.getISBN());
-
-            //change scene
-            StageManager addEditBooks = new StageManager();
-            addEditBooks.setStageAddEditBooks((Stage) editBookButton.getScene().getWindow(), manager, cart);
+            else
+            {
+                displayAlert("A book with this ISBN already exists!");
+            }
         }
     }
 
@@ -313,7 +340,7 @@ public class ControllerEditBook {
      * This method take the book passed as parameter and set all the information in the various fields.
      * First of all, clears old values and fills in fields with newer ones.
      */
-    private void populateAllfield(Book selectedBook)
+    private void populateAllfields(Book selectedBook)
     {
         //**** CLEAR OLD VALUES ****//
         authorsToDelete.clear();
@@ -331,7 +358,7 @@ public class ControllerEditBook {
         availableQuantitySpinner.setEditable(true);
 
         //**** SET NEW VALUES ****//
-        isbnLabel.setText(selectedBook.getISBN());
+        ISBNTextField.setText(selectedBook.getISBN());
         titleTextField.setText(selectedBook.getTitle());
         authorListView.setItems(arrayListToObservableList(selectedBook.getAuthors()));
         descriptionTextArea.setText(selectedBook.getDescription());
@@ -354,6 +381,9 @@ public class ControllerEditBook {
         authorComboBox.setItems(authors);
         authorListView.setItems(oldAuthors);
         authorListView.getSelectionModel().selectedItemProperty().addListener((v) -> deleteAuthorButton.setDisable(false));
+
+        //**** KEEP THE ORIGINAL BOOK ****//
+        originalBook = new Book(selectedBook);
     }
 
     private Book fetchBookInformation() {
@@ -364,7 +394,7 @@ public class ControllerEditBook {
         book.setFormat(formatComboBox.getValue());
         book.setGenre(genreComboBox.getValue());
         book.setImagePath(imagePathTextField.getText().trim());
-        book.setISBN(isbnLabel.getText());
+        book.setISBN(ISBNTextField.getText().trim());
         book.setLanguage(languageComboBox.getValue());
         book.setMaxQuantity(Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get()));
         book.setPages(Integer.parseInt(pagesTextField.getText().trim()));
@@ -426,7 +456,7 @@ public class ControllerEditBook {
     {
         ModelAuthor DBauthors = new ModelDatabaseAuthor();
         authors.addAll((DBauthors.getAuthors()));
-        oldAuthors.addAll(DBauthors.getAuthorsForSpecificBook(isbnLabel.getText()));
+        oldAuthors.addAll(DBauthors.getAuthorsForSpecificBook(ISBNTextField.getText()));
     }
 
     private void populatePublishingHouses()
@@ -453,10 +483,16 @@ public class ControllerEditBook {
         languages.addAll((DBlanguages.getLanguages()));
     }
 
-    private boolean isAnyFieldEmptyorNotValid()
+    private boolean isAnyFieldEmptyOrNotValid()
     {
         StringBuilder error = new StringBuilder();
         Optional<ButtonType> result;
+
+        if(ISBNTextField.getText().trim().equals(""))
+            error.append("- ISBN must be filled!\n");
+
+        if(!isISBNvalid(ISBNTextField.getText().trim()) && !isASINvalid(ISBNTextField.getText().trim()))
+            error.append("- ISBN has no format 10 or 13 or ASIN!\n");
 
         if(titleTextField.getText().trim().isEmpty())
             error.append("- Title must be filled!\n");
@@ -544,6 +580,12 @@ public class ControllerEditBook {
         return !error.toString().isEmpty();
     }
 
+    private boolean doesISBNExists(String ISBN)
+    {
+        ModelBooks DBBook = new ModelDatabaseBooks();
+        return DBBook.doesISBNAlreadyExists(ISBN);
+    }
+
     private void displayAlertAddAuthor(int numberOfAuthors)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -591,5 +633,12 @@ public class ControllerEditBook {
         return s.matches("[+-]?([0-9]*[.])?[0-9]+");
     }
 
+    private boolean isISBNvalid(String s){ return s.matches("^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})" +
+            "[- 0-9X]{13}$|97[89]-[0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)" +
+            "(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$");}
 
+    private boolean isASINvalid(String s)
+    {
+        return s.matches("\\b(([0-9]{9}[0-9X])|(B[0-9A-Z]{9}))\\b");
+    }
 }

@@ -61,7 +61,7 @@
                                     <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="isbnLabel" prefHeight="27.0" prefWidth="105.0">
+                              <Label fx:id="ISBNLabel" prefHeight="27.0" prefWidth="105.0">
                                  <HBox.margin>
                                     <Insets left="5.0" />
                                  </HBox.margin>
