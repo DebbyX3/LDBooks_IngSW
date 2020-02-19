@@ -25,7 +25,7 @@ public class ControllerEditBook {
     private TextField ISBNTextField;
 
     @FXML
-    private CheckBox newBookCheckBox;
+    private CheckBox changeISBNCheckBox;
 
     @FXML
     private TextField titleTextField;
@@ -83,7 +83,7 @@ public class ControllerEditBook {
     private Button deleteAuthorButton;
 
     @FXML
-    private ComboBox<String> bookCombobox;
+    private ComboBox<String> bookComboBox;
     private ObservableList<Book> books = FXCollections.observableArrayList();
 
     @FXML
@@ -104,8 +104,8 @@ public class ControllerEditBook {
     {
         //***************** FETCH AND POPULATE BOOK INFORMATION *****************//
         populateBooks();
-        bookCombobox.setItems(bookIsbnAndTitle(books));
-        bookCombobox.getSelectionModel().selectFirst();
+        bookComboBox.setItems(bookIsbnAndTitle(books));
+        bookComboBox.getSelectionModel().selectFirst();
 
         //***************** FETCH AND POPULATE PUBLISHING HOUSE INFORMATION *****************//
         populatePublishingHouses();
@@ -127,6 +127,7 @@ public class ControllerEditBook {
         populateNumbAuthorsComboBox();
         numberAuthorsComboBox.setItems(numberAuthors);
 
+        changeISBNCheckBox.setOnAction(this::handleChangeISBNCheckBox);
         filterButton.setOnAction(this::handleFilterButton);
         deleteAuthorButton.setOnAction(this::handleDeleteAuthorButton);
         selectAuthorButton.setOnAction(this::handleSelectAuthorButton);
@@ -164,10 +165,18 @@ public class ControllerEditBook {
         controllerHeader.createHeader(manager, headerHBox,cart);
     }
 
+    private void handleChangeISBNCheckBox(ActionEvent actionEvent)
+    {
+        if(changeISBNCheckBox.isSelected())
+            ISBNTextField.setDisable(false);
+        if(!changeISBNCheckBox.isSelected())
+            ISBNTextField.setDisable(true);
+    }
+
     private void handleFilterButton(ActionEvent actionEvent)
     {
         ModelBooks DBSinglebook = new ModelDatabaseBooks();
-        String[] isbn_Title = bookCombobox.getValue().split(" ");
+        String[] isbn_Title = bookComboBox.getValue().split(" ");
         Book b = DBSinglebook.getSpecificBook(isbn_Title[0]);
         authors.clear();
         populateAllfields(b);
@@ -220,7 +229,7 @@ public class ControllerEditBook {
         //fetch all fields and create a new book to update the information of the existing book on db
         if(!isAnyFieldEmptyOrNotValid())
         {
-            if(!newBookCheckBox.isSelected() || !doesISBNExists(ISBNTextField.getText()))
+            if(!changeISBNCheckBox.isSelected() || !doesISBNExists(ISBNTextField.getText()))
             {
                 ModelBooks DBBook = new ModelDatabaseBooks();
                 ModelAuthor DBAuthor = new ModelDatabaseAuthor();
@@ -352,6 +361,8 @@ public class ControllerEditBook {
         deleteAuthorButton.setDisable(true);
         authorComboBox.setDisable(true);
         selectAuthorButton.setDisable(false);
+        ISBNTextField.setDisable(true);
+        changeISBNCheckBox.setSelected(false);
         numberOfAuthors = 0;
 
         availableQuantitySpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, selectedBook.getMaxQuantity()));

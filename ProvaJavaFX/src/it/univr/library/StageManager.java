@@ -592,7 +592,6 @@ public class StageManager
             controllerEditBook.setManager(manager);
             controllerEditBook.setHeader();
 
-
             primaryStage.setTitle("EditBook - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
