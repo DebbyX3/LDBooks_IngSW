@@ -46,7 +46,9 @@ public class DatabaseConnection
         {
             if(rs != null) // rs is null when an executeSQLUpdate is performed
                 rs.close();
-            connection.close();
+
+            if(connection != null)
+                connection.close();
         }
         catch (SQLException e)
         {
