@@ -4,11 +4,27 @@ import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * 
+ */
 public class DatabaseConnection
 {
+    private static DatabaseConnection uniqueInstance;
+
     private Connection connection;
     private ResultSet rs;
     private int updateRow;
+
+    private DatabaseConnection()
+    {}
+
+    public static DatabaseConnection getInstance()
+    {
+        if(uniqueInstance == null)
+            uniqueInstance = new DatabaseConnection();
+
+        return uniqueInstance;
+    }
 
     public void DBOpenConnection()
     {

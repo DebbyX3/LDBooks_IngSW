@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseLanguage implements ModelLanguage
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Language> getLanguages()
@@ -20,7 +20,6 @@ public class ModelDatabaseLanguage implements ModelLanguage
         db.executeSQLQuery( "SELECT name FROM languages " +
                             "ORDER BY name ASC");
         languages = resultSetToArrayListLanguages(db.getResultSet());
-        db.DBCloseConnection();
 
         return languages;
     }

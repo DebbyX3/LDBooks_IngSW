@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseGenres implements ModelGenres
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Genre> getGenres()
@@ -21,7 +21,7 @@ public class ModelDatabaseGenres implements ModelGenres
         db.executeSQLQuery( "SELECT name FROM genres " +
                             "ORDER BY name ASC");
         genres = resultSetToArrayListGenre(db.getResultSet());
-        db.DBCloseConnection();
+
 
         System.out.println(genres);
         return genres;

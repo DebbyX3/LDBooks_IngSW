@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ModelDatabaseBooks implements ModelBooks
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Book> getAllBooks() {
@@ -45,7 +45,7 @@ public class ModelDatabaseBooks implements ModelBooks
         db.DBOpenConnection();
         db.executeSQLQuery(query, queryParameters);
         books = resultSetToArrayListBook(db.getResultSet());
-        db.DBCloseConnection();
+
 
         System.out.println(books);
         return books;
@@ -79,7 +79,7 @@ public class ModelDatabaseBooks implements ModelBooks
         db.DBOpenConnection();
         db.executeSQLQuery(query, queryParameters);
         books = resultSetToArrayListBook(db.getResultSet());
-        db.DBCloseConnection();
+
 
         System.out.println(books);
         return books;
@@ -101,7 +101,7 @@ public class ModelDatabaseBooks implements ModelBooks
                 "GROUP BY books.ISBN, title, languageName, formatName " +
                 "ORDER By books.title, idNameSurnameAuthors ASC", List.of(isbn));
         b = resultSetToArrayListBook(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return b.get(0);
     }
@@ -156,7 +156,7 @@ public class ModelDatabaseBooks implements ModelBooks
                 "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",List.of(book.getISBN(), book.getTitle(), book.getDescription(),
                 book.getPoints(), book.getPublicationYear(), book.getPrice(), book.getPublishingHouse().getName(), book.getGenre().getName(),
                 book.getMaxQuantity(), book.getPages(), book.getLanguage().getName(), book.getFormat().getName(), book.getImagePath()));
-        db.DBCloseConnection();
+
     }
 
     @Override
@@ -169,7 +169,7 @@ public class ModelDatabaseBooks implements ModelBooks
                 "WHERE books.ISBN LIKE ?",List.of(book.getTitle(), book.getDescription(), book.getPoints(), book.getPublicationYear(),
                 book.getPrice(),book.getPublishingHouse().getName(),book.getGenre().getName(), book.getMaxQuantity(),
                 book.getPages(),book.getLanguage().getName(),book.getFormat().getName(),book.getImagePath(), book.getISBN()));
-        db.DBCloseConnection();
+
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ModelDatabaseBooks implements ModelBooks
         db.executeSQLUpdate(" UPDATE books " +
                 "SET maxQuantity = ? " +
                 "WHERE books.ISBN LIKE ? ", List.of(quantity, isbn));
-        db.DBCloseConnection();
+
     }
 
     public void flagBookAsNotValid(String ISBN)
@@ -188,7 +188,7 @@ public class ModelDatabaseBooks implements ModelBooks
         db.executeSQLUpdate(  "UPDATE books " +
                                     "SET isValid = 0 " +
                                     "WHERE ISBN LIKE ?", List.of(ISBN));
-        db.DBCloseConnection();
+
     }
 
     @Override
@@ -212,7 +212,7 @@ public class ModelDatabaseBooks implements ModelBooks
             result = false;
         }
 
-        db.DBCloseConnection();
+
 
         return result;
     }

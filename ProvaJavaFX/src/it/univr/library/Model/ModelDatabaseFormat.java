@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseFormat implements ModelFormat
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Format> getFormats()
@@ -22,7 +22,7 @@ public class ModelDatabaseFormat implements ModelFormat
                 "FROM formats ");
 
         formats = resultSetToformats(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return formats;
     }

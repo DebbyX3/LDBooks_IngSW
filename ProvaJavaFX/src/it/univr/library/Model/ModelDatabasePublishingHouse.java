@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabasePublishingHouse implements ModelPublishingHouse
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<PublishingHouse> getPublishingHouses()
@@ -23,7 +23,7 @@ public class ModelDatabasePublishingHouse implements ModelPublishingHouse
                 "ORDER BY name ASC");
 
         publishingHouses = resultSetToPublishingHouses(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return publishingHouses;
     }

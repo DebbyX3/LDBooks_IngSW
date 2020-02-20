@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModelDatabaseAuthor implements ModelAuthor {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Author> getAuthors() {
@@ -21,7 +21,6 @@ public class ModelDatabaseAuthor implements ModelAuthor {
                 "ORDER BY name, surname ASC");
 
         authors = resultSetToAuthors(db.getResultSet());
-        db.DBCloseConnection();
 
         return authors;
     }
@@ -37,7 +36,6 @@ public class ModelDatabaseAuthor implements ModelAuthor {
                             "WHERE write.ISBN LIKE ?",List.of(isbn));
 
         authorsForSpecificBook = resultSetToAuthors(db.getResultSet());
-        db.DBCloseConnection();
 
         return authorsForSpecificBook;
     }
@@ -85,14 +83,12 @@ public class ModelDatabaseAuthor implements ModelAuthor {
                 "WHERE authors.name LIKE ? AND authors.surname LIKE ?", List.of(authorName,authorSurname));
 
         authorID = resultSetToAuthorID(db.getResultSet());
-        db.DBCloseConnection();
 
         return authorID;
     }
 
     private int resultSetToAuthorID(ResultSet rs)
     {
-
         int authorID = 0;
 
         try

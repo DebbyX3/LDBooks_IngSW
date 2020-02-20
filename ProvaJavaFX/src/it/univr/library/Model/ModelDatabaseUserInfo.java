@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseUserInfo implements ModelUserInfo
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public String getPhoneNumber(User user)
@@ -28,7 +28,7 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
                                     List.of(user.getEmail(), user.getEmail()));
 
         phoneNumber = resultSetToPhoneNumber(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return phoneNumber;
     }
@@ -100,7 +100,7 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
             result = result || false;
         }
 
-        db.DBCloseConnection();
+
 
         return result;
     }
@@ -128,7 +128,7 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
         }
 
 
-        db.DBCloseConnection();
+
 
         return result;
     }
@@ -147,7 +147,7 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
                 "VALUES ('" + user.getEmail() + "','" + user.getName() + "','" + user.getSurname()
                 + "','" + user.getPhoneNumber() + "','" + user.getPassword() + "')");
 
-        db.DBCloseConnection();
+
     }
 
     @Override
@@ -157,7 +157,7 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
         db.executeSQLUpdate( "INSERT INTO notRegisteredUsers(email, name, surname, phoneNumber, addressStreet, addressHouseNumber, cityName, cityCAP) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?) ", List.of(user.getEmail(), user.getName(), user.getSurname(), user.getPhoneNumber(), shipAddress.getStreet(), shipAddress.getHouseNumber(), shipAddress.getCity(), shipAddress.getPostalCode()));
 
-        db.DBCloseConnection();
+
     }
 
     @Override
@@ -173,6 +173,6 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
                                     "WHERE email LIKE ?",
                 List.of(user.getName(), user.getSurname(), user.getPhoneNumber(), user.getPassword(), user.getEmail()));
 
-        db.DBCloseConnection();
+
     }
 }

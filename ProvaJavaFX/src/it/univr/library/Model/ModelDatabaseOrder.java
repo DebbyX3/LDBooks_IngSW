@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseOrder implements ModelOrder
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Order> getOrders(User user)
@@ -33,7 +33,7 @@ public class ModelDatabaseOrder implements ModelOrder
 
 
         orders = resultSetToOrders(db.getResultSet());
-        db.DBCloseConnection();
+
 
         System.out.println(orders);
         return orders;
@@ -57,7 +57,7 @@ public class ModelDatabaseOrder implements ModelOrder
                 "GROUP BY books.ISBN", List.of(mailNotRegUser, orderCode));
 
         order = resultSetToOrders(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return order;
     }
@@ -81,7 +81,7 @@ public class ModelDatabaseOrder implements ModelOrder
                 "ORDER BY orders.code", List.of(mail,mail));
 
         order = resultSetToOrders(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return order;
     }
@@ -140,7 +140,7 @@ public class ModelDatabaseOrder implements ModelOrder
                             "FROM orders ");
 
         mails = resultSetToStringMails(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return mails;
     }
@@ -190,7 +190,7 @@ public class ModelDatabaseOrder implements ModelOrder
                             "ORDER BY orders.code");
 
         orders = resultSetToOrders(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return orders;
     }
@@ -353,7 +353,7 @@ public class ModelDatabaseOrder implements ModelOrder
                 "    WHERE makeUp.code = orders.code AND orders.code LIKE ? AND makeUp.ISBN LIKE ? ", List.of(order.getCode(), book.getISBN()));
 
         quantity = resultSetToQuantity(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return quantity;
     }

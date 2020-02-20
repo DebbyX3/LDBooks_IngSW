@@ -22,6 +22,8 @@ public class Main extends Application {
         StageManager homePageStage = new StageManager();
         homePageStage.setStageHomepage(primaryStage);
 
+
+
         /* SCHERMATA INIZIALE PRECEDENTE
         StageManager catalogStage = new StageManager();
         catalogStage.setStageCatalog(primaryStage, null);
@@ -67,6 +69,10 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch(args);
+
+        // Since we use the singleton pattern, we close the database connection here
+        DatabaseConnection db = DatabaseConnection.getInstance();
+        db.DBCloseConnection();
     }
 }
 

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseManagers implements ModelManager
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public Manager getManager(User testUser)
@@ -23,7 +23,7 @@ public class ModelDatabaseManagers implements ModelManager
                 List.of(testUser.getEmail(), testUser.getPassword()));
 
         manager = resultSetToManager(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return manager;
     }

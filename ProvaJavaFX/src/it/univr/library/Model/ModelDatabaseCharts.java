@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ModelDatabaseCharts implements ModelCharts
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<Charts> getGeneralCharts()
@@ -28,7 +28,7 @@ public class ModelDatabaseCharts implements ModelCharts
                 "ORDER BY rank " );
 
         chart = resultSetToArrayListCharts(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return chart;
     }
@@ -50,7 +50,7 @@ public class ModelDatabaseCharts implements ModelCharts
                 "ORDER BY rank ", List.of(filter.getGenre().getName()));
 
         chart = resultSetToArrayListCharts(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return chart;
     }
@@ -71,7 +71,7 @@ public class ModelDatabaseCharts implements ModelCharts
                 "ORDER BY rank", List.of(filter.getCategory().getName()));
 
         chart = resultSetToArrayListCharts(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return chart;
     }
@@ -92,7 +92,7 @@ public class ModelDatabaseCharts implements ModelCharts
                 "ORDER BY rank ", List.of(filter.getCategory().getName(), filter.getGenre().getName()));
 
         chart = resultSetToArrayListCharts(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return chart;
     }
@@ -247,7 +247,7 @@ public class ModelDatabaseCharts implements ModelCharts
                 "FROM Category " );
 
         categories = resultSetToArrayListCategories(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return categories;
     }

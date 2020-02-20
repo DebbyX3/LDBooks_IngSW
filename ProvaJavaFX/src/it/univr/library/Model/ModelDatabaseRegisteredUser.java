@@ -11,7 +11,7 @@ import java.util.List;
 
 public class ModelDatabaseRegisteredUser implements ModelRegisteredUser
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public RegisteredClient getRegisteredClient(User testUser)
@@ -24,7 +24,7 @@ public class ModelDatabaseRegisteredUser implements ModelRegisteredUser
                             List.of(testUser.getEmail(), testUser.getPassword()));
 
         user = resultSetToUser(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return user;
     }

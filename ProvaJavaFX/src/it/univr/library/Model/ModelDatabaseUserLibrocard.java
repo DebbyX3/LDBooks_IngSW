@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ModelDatabaseUserLibrocard implements ModelUserLibrocard
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public Librocard getLibrocardInformation(User user)
@@ -21,7 +21,7 @@ public class ModelDatabaseUserLibrocard implements ModelUserLibrocard
                             "FROM libroCards " +
                             "WHERE email LIKE ?", List.of(user.getEmail()));
         librocard = resultSetToLibroCard(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return librocard;
     }
@@ -75,6 +75,6 @@ public class ModelDatabaseUserLibrocard implements ModelUserLibrocard
         System.out.println( "INSERT INTO table (totalPoints, issueDate, email) " +
                 "VALUES('0', '" + unixTime + "', '" + user.getEmail() +"');");
 
-        db.DBCloseConnection();
+
     }
 }

@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ModelDatabaseUserAddress implements ModelUserAddress
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public List<Address> getAddressesRegisteredUser(User testUser)
@@ -22,7 +22,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                             List.of(testUser.getEmail()));
 
         regUser = resultSetToListAddress(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return regUser;
     }
@@ -80,7 +80,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                 "VALUES( '" + user.getEmail() + "', '"+ address.getStreetQuery() + "', '" + address.getHouseNumber() +
                 "', '" + address.getCity() + "', '" + address.getPostalCode() + "')");
 
-        db.DBCloseConnection();
+
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                 List.of(user.getEmail(), addressToDelete.getStreetQuery(), addressToDelete.getHouseNumber(),
                         addressToDelete.getCity(), addressToDelete.getPostalCode()));
 
-        db.DBCloseConnection();
+
     }
 
     private void createNewAddress(Address address)
@@ -112,7 +112,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                 "VALUES( '" + address.getStreetQuery() + "', '" + address.getHouseNumber() + "', '" + address.getCity() + "', '" +
                 address.getPostalCode() + "')");
 
-        db.DBCloseConnection();
+
     }
 
     /**
@@ -147,7 +147,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
             existsRow = false;
         }
 
-        db.DBCloseConnection();
+
         return existsRow;
     }
 
@@ -182,7 +182,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
             existsRow = false;
         }
 
-        db.DBCloseConnection();
+
         return existsRow;
     }
 
@@ -208,7 +208,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                 "ORDER BY name ASC");
 
         citiesAndPostalCodes = resultSetToCitiesAndPostalCodes(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return citiesAndPostalCodes;
     }

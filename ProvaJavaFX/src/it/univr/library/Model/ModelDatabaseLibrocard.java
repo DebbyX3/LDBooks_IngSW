@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModelDatabaseLibrocard implements ModelLibrocard
 {
-    private DatabaseConnection db = new DatabaseConnection();
+    private DatabaseConnection db = DatabaseConnection.getInstance();
 
     @Override
     public ArrayList<String> getMailsLibroCards()
@@ -21,7 +21,7 @@ public class ModelDatabaseLibrocard implements ModelLibrocard
                 "FROM libroCards ");
 
         mails = resultSetToStringMailsLibroCards(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return mails;
     }
@@ -58,7 +58,7 @@ public class ModelDatabaseLibrocard implements ModelLibrocard
                 "FROM libroCards");
 
         librocards = resultSetToLibroCards(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return librocards;
     }
@@ -74,7 +74,7 @@ public class ModelDatabaseLibrocard implements ModelLibrocard
                 "WHERE libroCards.email LIKE ?", List.of(mail));
 
         librocard = resultSetToLibroCards(db.getResultSet());
-        db.DBCloseConnection();
+
 
         return librocard;
     }
