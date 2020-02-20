@@ -72,7 +72,9 @@ public class Main extends Application {
 
         // Since we use the singleton pattern, we close the database connection here
         DatabaseConnection db = DatabaseConnection.getInstance();
-        db.DBCloseConnection();
+
+        if(db != null)
+            db.DBCloseConnection();
     }
 }
 
