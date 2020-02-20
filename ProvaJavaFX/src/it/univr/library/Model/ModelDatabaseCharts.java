@@ -18,12 +18,12 @@ public class ModelDatabaseCharts implements ModelCharts
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, category, genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
                 "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE Category ISNULL AND Genre ISNULL " +
+                "WHERE category ISNULL AND genre ISNULL " +
                 "GROUP BY books.ISBN " +
                 "ORDER BY rank " );
 
@@ -40,12 +40,12 @@ public class ModelDatabaseCharts implements ModelCharts
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, category, genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
                 "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE Category ISNULL AND Genre LIKE ? " +
+                "WHERE category ISNULL AND genre LIKE ? " +
                 "GROUP BY books.ISBN " +
                 "ORDER BY rank ", List.of(filter.getGenre().getName()));
 
@@ -61,12 +61,12 @@ public class ModelDatabaseCharts implements ModelCharts
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, category, genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
                 "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE Category LIKE ? AND Genre ISNULL " +
+                "WHERE category LIKE ? AND genre ISNULL " +
                 "GROUP BY books.ISBN " +
                 "ORDER BY rank", List.of(filter.getCategory().getName()));
 
@@ -82,12 +82,12 @@ public class ModelDatabaseCharts implements ModelCharts
 
         db.DBOpenConnection();
 
-        db.executeSQLQuery("SELECT idChart, rank, weeksIn, Category, Genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
+        db.executeSQLQuery("SELECT idChart, rank, weeksIn, category, genre, books.ISBN, books.title, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, books.genreName " +
                 "FROM charts " +
                 "JOIN books ON books.ISBN = charts.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN " +
                 "JOIN authors ON authors.idAuthor = write.idAuthor " +
-                "WHERE Category LIKE ? AND Genre LIKE ? " +
+                "WHERE category LIKE ? AND genre LIKE ? " +
                 "GROUP BY books.ISBN " +
                 "ORDER BY rank ", List.of(filter.getCategory().getName(), filter.getGenre().getName()));
 
@@ -110,9 +110,9 @@ public class ModelDatabaseCharts implements ModelCharts
                 chartRecord.setRank(db.getSQLInt(rs, "rank"));
                 chartRecord.setWeeksIn(db.getSQLInt(rs, "weeksIn"));
                 chartRecord.setISBN(db.getSQLString(rs, "ISBN"));
-                chartRecord.setCategory(new Category(db.getSQLString(rs,"Category")));
+                chartRecord.setCategory(new Category(db.getSQLString(rs,"category")));
                 chartRecord.setTitle(db.getSQLString(rs, "title"));
-                chartRecord.setGenreChart(db.getSQLString(rs, "Genre"));
+                chartRecord.setGenreChart(db.getSQLString(rs, "genre"));
                 chartRecord.setGenre(new Genre(db.getSQLString(rs,"genreName")));
                 chartRecord.setAuthors(authors.createArrayListAuthors(db.getSQLStringList(rs, "idNameSurnameAuthors")));
 
@@ -134,7 +134,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
         db.executeSQLUpdate("UPDATE charts " +
                 "SET rank = ? , weeksIn = ? " +
-                "WHERE idChart LIKE ? AND Category ISNULL AND Genre ISNULL", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId()));
+                "WHERE idChart LIKE ? AND category ISNULL AND genre ISNULL", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId()));
     }
 
     @Override
@@ -143,7 +143,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
         db.executeSQLUpdate(" UPDATE charts " +
                 "    SET rank = ? , weeksIn = ? " +
-                "    WHERE idChart LIKE ? AND Category ISNULL AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getGenreChart()));
+                "    WHERE idChart LIKE ? AND category ISNULL AND genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getGenreChart()));
     }
 
     @Override
@@ -152,7 +152,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
         db.executeSQLUpdate(" UPDATE charts " +
                 "    SET rank = ? , weeksIn = ? " +
-                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre ISNULL ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName()));
+                "    WHERE idChart LIKE ? AND category LIKE ? AND genre ISNULL ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName()));
     }
 
     @Override
@@ -161,7 +161,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
         db.executeSQLUpdate(" UPDATE charts " +
                 "    SET rank = ? , weeksIn = ? " +
-                "    WHERE idChart LIKE ? AND Category LIKE ? AND Genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName(), bookToUpdateInCharts.getGenreChart()));
+                "    WHERE idChart LIKE ? AND category LIKE ? AND genre LIKE ? ", List.of(bookToUpdateInCharts.getRank(), bookToUpdateInCharts.getWeeksIn(), bookToUpdateInCharts.getId(), bookToUpdateInCharts.getCategory().getName(), bookToUpdateInCharts.getGenreChart()));
     }
 
     @Override
@@ -178,7 +178,7 @@ public class ModelDatabaseCharts implements ModelCharts
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Genre) " +
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, genre) " +
                 "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getGenreChart()));
     }
 
@@ -187,7 +187,7 @@ public class ModelDatabaseCharts implements ModelCharts
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Category) " +
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, category) " +
                 "VALUES(?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory().getName()));
     }
 
@@ -196,7 +196,7 @@ public class ModelDatabaseCharts implements ModelCharts
     {
         db.DBOpenConnection();
 
-        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, Category, Genre) " +
+        db.executeSQLUpdate( "INSERT INTO charts(rank, weeksIn, ISBN, category, genre) " +
                 "VALUES(?, ?, ?, ?, ?)", List.of(bookToInsertOnTheCharts.getRank(), bookToInsertOnTheCharts.getWeeksIn(),bookToInsertOnTheCharts.getISBN(), bookToInsertOnTheCharts.getCategory().getName(), bookToInsertOnTheCharts.getGenreChart()));
     }
 
@@ -206,7 +206,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "DELETE from charts " +
-                "WHERE ISBN LIKE ? AND Genre ISNULL AND Category ISNULL",List.of(isbn));
+                "WHERE ISBN LIKE ? AND genre ISNULL AND category ISNULL",List.of(isbn));
 
     }
 
@@ -216,7 +216,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "DELETE from charts " +
-                "WHERE ISBN LIKE ? AND Genre LIKE ? AND Category ISNULL",List.of(isbn, genre.getName()));
+                "WHERE ISBN LIKE ? AND genre LIKE ? AND category ISNULL",List.of(isbn, genre.getName()));
     }
 
     @Override
@@ -225,7 +225,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "DELETE from charts " +
-                "WHERE ISBN LIKE ? AND Genre ISNULL AND Category LIKE ?",List.of(isbn, category.getName()));
+                "WHERE ISBN LIKE ? AND genre ISNULL AND category LIKE ?",List.of(isbn, category.getName()));
     }
 
     @Override
@@ -234,7 +234,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
 
         db.executeSQLUpdate( "DELETE from charts " +
-                "WHERE ISBN LIKE ? AND Genre LIKE ? AND Category LIKE ?",List.of(isbn, genre.getName(), category.getName()));
+                "WHERE ISBN LIKE ? AND genre LIKE ? AND category LIKE ?",List.of(isbn, genre.getName(), category.getName()));
     }
 
     @Override
@@ -244,7 +244,7 @@ public class ModelDatabaseCharts implements ModelCharts
         db.DBOpenConnection();
 
         db.executeSQLQuery("SELECT name " +
-                "FROM Category " );
+                "FROM category " );
 
         categories = resultSetToArrayListCategories(db.getResultSet());
 

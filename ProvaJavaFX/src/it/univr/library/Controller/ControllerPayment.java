@@ -114,10 +114,26 @@ public class ControllerPayment {
             ModelUserLibrocard updateLibroCard = new ModelDatabaseUserLibrocard();
             updateLibroCard.updateLibroCardPoints(order);
 
+            // Display alert order confirmation
             displayConfirmation();
 
+            /* // Send email
+            StringBuilder mailMessage = new StringBuilder();
+            MailProva mail = new MailProva();
 
-            // clear cart and change scene
+            mailMessage.append("Your order " + order.getCode() + " that includes: ");
+
+            for(Book bookInCart: cart.keySet())
+                mailMessage.append("- " + bookInCart.getISBN() + " " + bookInCart.getTitle() + " x" + cart.get(bookInCart) + "\n");
+
+            mailMessage.append("is in progress.\n\nCheers, LD Books");
+
+            mail.sendMail(user.getEmail(), user.getName(), user.getSurname(),
+                    "Order " + order.getCode() + " Confirmation", mailMessage.toString());
+
+            */
+
+            // Clear cart and change scene
             cart.clear();
             StageManager backToHomePage = new StageManager();
 
