@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ScrollPane;
@@ -105,8 +106,17 @@ public class ControllerOrderManager {
     {
         ModelOrder DBupdateOrder = new ModelDatabaseOrder();
         DBupdateOrder.updateOrder(code,status);
+
+        displayAlert("Order successfuly updated");
     }
 
+    private static void displayAlert(String s)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Order edit");
+        alert.setHeaderText(null);
+        alert.setContentText(s);
 
-
+        alert.showAndWait();
+    }
 }
