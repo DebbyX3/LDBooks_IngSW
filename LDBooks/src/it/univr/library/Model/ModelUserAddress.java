@@ -9,7 +9,9 @@ import java.util.List;
 public interface ModelUserAddress
 {
     public List<Address> getAddressesRegisteredUser(User testUser);
-    public void addAddress(RegisteredClient user, Address address);
+    public List<Address> getAddressesNotRegisteredUser(User testUser);
+    public void addAddressNotRegisteredUser(Address address);
+    public void addAddressRegisteredUser(RegisteredClient user, Address address);
     public void unlinkAddressFromUser(RegisteredClient user, Address addressToDelete);
     public List<String> getCities();
     public List<String> getPostalCodes();

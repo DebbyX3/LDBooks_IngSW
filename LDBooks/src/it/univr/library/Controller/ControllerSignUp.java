@@ -88,6 +88,8 @@ public class ControllerSignUp {
 
     private void handleSignUpButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         ModelUserInfo DBcheckUser = new ModelDatabaseUserInfo();
         ModelUserAddress DBAddressUser = new ModelDatabaseUserAddress();
         ModelUserLibrocard DBUserLibrocard = new ModelDatabaseUserLibrocard();
@@ -115,7 +117,7 @@ public class ControllerSignUp {
                     DBcheckUser.addUser(newRegUser);
 
                     //call method to first check if address already exists then if doesn't exist, puts it into db.
-                    DBAddressUser.addAddress(newRegUser, newRegUser.getAddresses().get(0)); //take the first and only address
+                    DBAddressUser.addAddressRegisteredUser(newRegUser, newRegUser.getAddresses().get(0)); //take the first and only address
 
                     //create associate librcard
                     DBUserLibrocard.createLibroCard(newRegUser);
@@ -125,15 +127,15 @@ public class ControllerSignUp {
                     loginStage.setStageUserPage((Stage) signUpButton.getScene().getWindow(), newRegUser, cart);
                 }
                 else
-                    displayAlert("This e-mail is already linked to another user! Try another one :)");
+                    alerts.displayAlert("This e-mail is already linked to another user! Try another one :)");
             }
             else
-                displayAlert(error.toString());
+                alerts.displayAlert(error.toString());
         }
         else
         {
             error.append("All text field must be filled!\n");
-            displayAlert(error.toString());
+            alerts.displayAlert(error.toString());
         }
     }
 
@@ -171,14 +173,5 @@ public class ControllerSignUp {
         }
 
         return valid;
-    }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
     }
 }

@@ -31,11 +31,8 @@ public class ModelDatabaseOrder implements ModelOrder
                             "ORDER BY orders.code ASC",
                             List.of(user.getEmail()));
 
-
         orders = resultSetToOrders(db.getResultSet());
 
-
-        System.out.println(orders);
         return orders;
     }
 

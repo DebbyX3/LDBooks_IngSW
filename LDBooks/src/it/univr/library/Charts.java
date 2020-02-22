@@ -4,26 +4,38 @@ import java.util.List;
 
 public class Charts
 {
-    private Integer Id;
+    private Integer id;
     private Integer rank;
     private String ISBN;
     private String title;
     private List<Author> authors;
     private Genre genre;
     private String genreChart;
-
-
     private Integer weeksIn;
     private Category category;
 
+    public Charts(Integer id, Integer rank, String ISBN, String title, List<Author> authors, Genre genre, String genreChart,
+                  Integer weeksIn, Category category)
+    {
+        this.id = id;
+        this.rank = rank;
+        this.ISBN = ISBN;
+        this.title = title;
+        this.authors = authors;
+        this.genre = genre;
+        this.genreChart = genreChart;
+        this.weeksIn = weeksIn;
+        this.category = category;
+    }
 
+    public Charts(){};
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public Category getCategory() {

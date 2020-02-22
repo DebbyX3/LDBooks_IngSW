@@ -71,10 +71,5 @@ public class ModelDatabaseUserLibrocard implements ModelUserLibrocard
         db.executeSQLUpdate( "INSERT INTO libroCards (totalPoints, issueDate, email) " +
                         "VALUES('0', ?, ?);",
                 List.of(unixTime, user.getEmail()));
-
-        System.out.println( "INSERT INTO table (totalPoints, issueDate, email) " +
-                "VALUES('0', '" + unixTime + "', '" + user.getEmail() +"');");
-
-
     }
 }

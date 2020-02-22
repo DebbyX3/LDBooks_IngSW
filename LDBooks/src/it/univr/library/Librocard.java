@@ -17,7 +17,7 @@ public class Librocard
         this.numberID = numberID;
         this.totalPoints = totalPoints;
         this.issueDate = issueDate;
-        this.email = email;
+        this.email = email.trim();
     }
 
     public String getNumberID() {

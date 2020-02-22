@@ -11,10 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class ControllerAddBook {
 
@@ -81,12 +78,14 @@ public class ControllerAddBook {
 
     private User manager;
     private int numberOfAuthors = 0;
-    private ArrayList<Author> authorsToLinkToBook = new ArrayList<>();
+    private List<Author> authorsToLinkToBook = new ArrayList<>();
     private Map<Book, Integer> cart;
 
     @FXML
     private void initialize()
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         populateNumbAuthorsComboBox();
         numberAuthorsComboBox.setItems(numberAuthors);
         // take the value from comboBox to iterate ad take the number of authors selected in the combobox
@@ -119,7 +118,7 @@ public class ControllerAddBook {
         catch (IllegalArgumentException e)
         {
             availableQuantitySpinner.getEditor().textProperty().set("0");
-            displayAlert("Available quantity must be numerical!\n");
+            alerts.displayAlert("Available quantity must be numerical!\n");
         }
         });
 
@@ -146,11 +145,13 @@ public class ControllerAddBook {
 
     private void handleSelectAuthorButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         numberAuthorsComboBox.setDisable(true);
         Author author = authorComboBox.getValue();
         if(author == null)
         {
-            displayAlert("choose an Author!");
+            alerts.displayAlert("choose an Author!");
         }
         else
         {
@@ -164,7 +165,6 @@ public class ControllerAddBook {
             if(!exists)
             {
                 authorsToLinkToBook.add(author);
-                System.out.println(authorsToLinkToBook.toString());
 
                 if(numberOfAuthors == 1)
                 {
@@ -177,20 +177,31 @@ public class ControllerAddBook {
             }
             else
             {
-                displayAlert("Author already selected, choose another one!");
+                alerts.displayAlert("Author already selected, choose another one!");
             }
         }
     }
 
-
     private void handleAddNewBookButton(ActionEvent actionEvent)
     {
-        if(!isAnyFieldEmptyorNotValid())
+        ControllerBooks checkFields = new ControllerBooks();
+        ControllerAlert alerts = new ControllerAlert();
+
+        if(!checkFields.isAnyFieldEmptyOrNotValid(ISBNTextField.getText(), titleTextField.getText(), descriptionTextArea.getText(),
+                publicationYearTextField.getText(), pagesTextField.getText(),
+                librocardPointsTextField.getText(), availableQuantitySpinner.getEditor().textProperty().get(),
+                authorsToLinkToBook, priceTextField.getText()))
         {
-            if(!doesISBNExists(ISBNTextField.getText()))
+            if(!checkFields.doesISBNExists(ISBNTextField.getText()))
             {
                 ModelBooks DBBook = new ModelDatabaseBooks();
-                Book book = fetchBookInformation();
+
+                Book book = checkFields.fetchBookInformation(ISBNTextField.getText(), titleTextField.getText(), authorsToLinkToBook,
+                        descriptionTextArea.getText(), formatComboBox.getValue(), genreComboBox.getValue(),
+                        languageComboBox.getValue(), publishingHouseComboBox.getValue(),
+                        pagesTextField.getText(), librocardPointsTextField.getText(),
+                        availableQuantitySpinner.getEditor().textProperty().get(),priceTextField.getText(),
+                        publicationYearTextField.getText(), imagePathTextField.getText());
 
                 ModelAuthor DBAuthor = new ModelDatabaseAuthor();
                 DBBook.addNewBook(book);
@@ -204,37 +215,13 @@ public class ControllerAddBook {
             }
             else
             {
-                displayAlert("A book with this ISBN already exists!");
+                alerts.displayAlert("A book with this ISBN already exists!");
             }
         }
-    }
-
-    private boolean doesISBNExists(String ISBN)
-    {
-        ModelBooks DBBook = new ModelDatabaseBooks();
-        return DBBook.getSpecificBook(ISBN).getISBN().equals(ISBN);
-    }
-
-    private Book fetchBookInformation()
-    {
-        Book book = new Book();
-
-        book.setISBN(ISBNTextField.getText().trim());
-        book.setTitle(titleTextField.getText().trim());
-        book.setAuthors(authorsToLinkToBook);
-        book.setDescription(descriptionTextArea.getText().trim());
-        book.setFormat(formatComboBox.getValue());
-        book.setGenre(genreComboBox.getValue());
-        book.setLanguage(languageComboBox.getValue());
-        book.setPublishingHouse(publishingHouseComboBox.getValue());
-        book.setPages(Integer.parseInt(pagesTextField.getText().trim()));
-        book.setPoints(Integer.parseInt(librocardPointsTextField.getText().trim()));
-        book.setMaxQuantity(Integer.parseInt(availableQuantitySpinner.getEditor().textProperty().get()));
-        book.setPrice(new BigDecimal(priceTextField.getText().trim()));
-        book.setPublicationYear(Integer.parseInt(publicationYearTextField.getText().trim()));
-        book.setImagePath(imagePathTextField.getText().trim());
-
-        return book;
+        else
+        {
+            availableQuantitySpinner.getEditor().textProperty().set("0");
+        }
     }
 
     private void populateNumbAuthorsComboBox()
@@ -272,103 +259,6 @@ public class ControllerAddBook {
         languages.addAll((DBlanguages.getLanguages()));
     }
 
-    private boolean isAnyFieldEmptyorNotValid()
-    {
-        StringBuilder error = new StringBuilder();
-        Optional<ButtonType> result;
-
-        if(ISBNTextField.getText().trim().equals(""))
-            error.append("- ISBN must be filled!\n");
-
-        if(!isISBNvalid(ISBNTextField.getText().trim()) && !isASINvalid(ISBNTextField.getText().trim()))
-                error.append("- ISBN has no format 10 or 13 or ASIN!\n");
-
-        if(titleTextField.getText().trim().isEmpty())
-            error.append("- Title must be filled!\n");
-
-        if(descriptionTextArea.getText().trim().isEmpty())
-            error.append("- Description must be filled!\n");
-        if(isNumerical(descriptionTextArea.getText().trim()))
-            error.append("- Description must be at least alphabetic\n");
-
-        if(publicationYearTextField.getText().trim().isEmpty())
-            error.append("- Publication year must be filled\n");
-
-        if(!isNumerical(publicationYearTextField.getText().trim()))
-        {
-            error.append("- Publication year must be numerical\n");
-        }
-        else
-        {
-            int year = Calendar.getInstance().get(Calendar.YEAR);
-            if(Integer.parseInt(publicationYearTextField.getText().trim()) < 1000 || Integer.parseInt(publicationYearTextField.getText().trim()) > year)
-                error.append(String.format("- Publication year must be between 1000 and %d\n",year));
-        }
-
-        if(pagesTextField.getText().trim().isEmpty())
-            error.append("- Number of pages must be filled!\n");
-        if(!isNumerical(pagesTextField.getText().trim()))
-            error.append("- Number of pages must be numerical!\n");
-
-        if(librocardPointsTextField.getText().trim().isEmpty())
-            error.append("- LibroCard Points must be filled!\n");
-        if(!isNumerical(librocardPointsTextField.getText().trim()))
-            error.append("- Librocard Points must be numerical!\n");
-
-        //this 'if' should never happen, but let's keep it for stability
-        if(     !isNumerical(availableQuantitySpinner.getEditor().textProperty().get().trim()) ||
-                availableQuantitySpinner.getValue() == null ||
-                availableQuantitySpinner.getEditor().textProperty().get().trim().equals(""))
-        {
-            error.append("- Available Quantity must be numerical!\n");
-            availableQuantitySpinner.getEditor().textProperty().set("0");
-        }
-        else
-        {
-            if (Integer.parseInt(availableQuantitySpinner.getValue().toString().trim()) > 100) {
-                result = displayConfirmation("The quantity available is greater 100, are you sure?\n").showAndWait();
-
-                if (result.get() != ButtonType.OK) {
-                    displayAlert("Ok select a new available quantity!");
-                    return true;
-                }
-            }
-        }
-
-        if(imagePathTextField.getText().trim().isEmpty())
-            error.append("- No imagePath specified!\n");
-
-        //check if I've at least an author for the book
-        if(authorsToLinkToBook.isEmpty())
-            error.append("- Book needs at least one author!\n");
-
-        if(priceTextField.getText().trim().isEmpty())
-            error.append("- Price must be filled!\n");
-
-        if(!isNumerical(priceTextField.getText().trim()))
-        {
-            error.append("- Price must be numerical!\n");
-        }
-        else
-        {
-            if(Float.parseFloat(priceTextField.getText().trim()) > 1000)
-            {
-                result = displayConfirmation("The price that you insert is greater than 1000€, are you sure?\n").showAndWait();
-                if(result.get() != ButtonType.OK)
-                {
-                    displayAlert("Ok select a new price!");
-                    return true;
-                }
-            }
-        }
-
-        //displayConfirmation();
-        if(!error.toString().isEmpty())
-            displayAlert(error.toString());
-
-        return !error.toString().isEmpty();
-    }
-
     private void displayAlertAddAuthor(int numberOfAuthors)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -381,38 +271,4 @@ public class ControllerAddBook {
 
         alert.showAndWait();
     }
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-    private Alert displayConfirmation(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Check Book Information!");
-        alert.setContentText(s);
-
-        return alert;
-    }
-
-    private boolean isNumerical(String s) {
-        return s.matches("[+-]?([0-9]*[.])?[0-9]+");
-    }
-
-    private boolean isISBNvalid(String s){ return s.matches("^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})" +
-            "[- 0-9X]{13}$|97[89]-[0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)" +
-            "(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$");}
-
-    private boolean isASINvalid(String s)
-    {
-        return s.matches("\\b(([0-9]{9}[0-9X])|(B[0-9A-Z]{9}))\\b");
-    }
-
 }

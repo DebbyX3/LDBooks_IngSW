@@ -58,7 +58,6 @@ public class ControllerUpdateChartsManager {
     private ComboBox<Category> categoryComboBox;
     private ObservableList<Category> categoryComboboxData = FXCollections.observableArrayList();
 
-
     @FXML
     private Button filterButton;
 
@@ -69,18 +68,15 @@ public class ControllerUpdateChartsManager {
     @FXML
     private Button selectBookButton;
 
-
     @FXML
     private HBox headerHBox;
 
     private User manager;
     private Map<Book, Integer> cart;
 
-
     @FXML
     private void initialize()
     {
-
         bookNewInformationVBox.setDisable(true);
         selectBookButton.setDisable(true);
 
@@ -93,14 +89,11 @@ public class ControllerUpdateChartsManager {
         categoryComboBox.setItems(categoryComboboxData);
         categoryComboBox.getSelectionModel().selectFirst();
 
-
-        //populateCharts();
-        //handler bottone filtra
+        // handler filter button
         filterButton.setOnAction(this::handleFilterButton);
         selectBookButton.setOnAction(this::handleSelectBookButton);
         deleteBookButton.setOnAction(this::handleDeleteBookButton);
         insertBookButton.setOnAction(this::handleInsertUpdateBookButton);
-
     }
 
     public void setManager(User manager)
@@ -117,7 +110,6 @@ public class ControllerUpdateChartsManager {
         ControllerHeader controllerHeader = new ControllerHeader();
         controllerHeader.createHeader(manager, headerHBox,cart);
     }
-
 
     private void populateGenreFilter()
     {
@@ -138,11 +130,10 @@ public class ControllerUpdateChartsManager {
         // fetch value from comboBox
         ChartFilter chartToCreate = new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue());
         chartsTableView.getColumns().clear();
-        populateChartsWithFilter(chartToCreate);
-
+        populateCharts(chartToCreate);
     }
 
-    private void populateChartsWithFilter(ChartFilter filters)
+    private void populateCharts(ChartFilter filters)
     {
         // prepare all the stuff to create new View
         ModelCharts DBCharts = new ModelDatabaseCharts();
@@ -171,11 +162,9 @@ public class ControllerUpdateChartsManager {
         else
             books.addAll(DBBooks.getAllBooks(filters));
 
-        // add books in the ComboBox
-        //BookCombobox.getSelectionModel().
+        // add books to the ComboBox
         BookCombobox.setItems(bookIsbnAndTitle(books));
         BookCombobox.getSelectionModel().selectFirst();
-
 
         if(!books.isEmpty())
         {
@@ -183,7 +172,6 @@ public class ControllerUpdateChartsManager {
             BookCombobox.setDisable(false);
             selectBookButton.setDisable(false);
         }
-
     }
 
     private void handleSelectBookButton(ActionEvent actionEvent)
@@ -239,7 +227,7 @@ public class ControllerUpdateChartsManager {
         Charts book = null;
 
         //check if the book is in there
-        if(isValidField())
+        if(areValidFields())
         {
             for (Charts bookInChart: booksInChart) {
                 if(bookInChart.getISBN().equals(ISBNLabel.getText()))
@@ -331,7 +319,7 @@ public class ControllerUpdateChartsManager {
                 //now update the view with the new values for the books
                 ChartFilter chartToCreate = new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue());
                 chartsTableView.getColumns().clear();
-                populateChartsWithFilter(chartToCreate);
+                populateCharts(chartToCreate);
 
             }
             else
@@ -413,22 +401,22 @@ public class ControllerUpdateChartsManager {
                 //now update the view with the new values for the books
                 ChartFilter chartToCreate = new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue());
                 chartsTableView.getColumns().clear();
-                populateChartsWithFilter(chartToCreate);
+                populateCharts(chartToCreate);
 
             }
+
+            rankTextField.clear();
+            weekInTextField.clear();
+            bookNewInformationVBox.setDisable(true);
         }
-
-        rankTextField.clear();
-        weekInTextField.clear();
-        bookNewInformationVBox.setDisable(true);
-
     }
 
 
     private void handleDeleteBookButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
 
-        if(isValidField())
+        if(areValidFields())
         {
             //now update the rank for the others books
             ArrayList<Charts> booksInChart = getBooksInChartView();
@@ -441,7 +429,6 @@ public class ControllerUpdateChartsManager {
                     exists = true;
                     break;
                 }
-
             }
 
             if(exists)
@@ -465,7 +452,6 @@ public class ControllerUpdateChartsManager {
                 {
                     deleteBookFromCharts.deleteBookFromChartsSelectedGenreSelectedCategory(ISBNLabel.getText(), genreComboBox.getValue(),categoryComboBox.getValue());
                 }
-
 
                 ArrayList<Charts> booksModified = new ArrayList<>();
                 int precRank = 0;
@@ -516,11 +502,11 @@ public class ControllerUpdateChartsManager {
                 //now update the view with the new values for the books
                 ChartFilter chartToCreate = new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue());
                 chartsTableView.getColumns().clear();
-                populateChartsWithFilter(chartToCreate);
+                populateCharts(chartToCreate);
             }
             else
             {
-                displayAlert("The selected book is not in the chart!");
+                alerts.displayAlert("The selected book is not in the chart!");
             }
 
         }
@@ -531,24 +517,23 @@ public class ControllerUpdateChartsManager {
     }
 
 
-    private boolean isValidField()
+    private boolean areValidFields()
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         StringBuilder error = new StringBuilder();
         if(rankTextField.getText().equals(""))
             error.append("- Rank field must be filled!\n");
-        else
-        if(!isNumerical(rankTextField.getText()))
-            error.append("- Rank field must be numerical!\n");
+        else if(!isNumerical(rankTextField.getText()))
+            error.append("- Rank field must be numerical or/and positive!\n");
 
         if(weekInTextField.getText().equals(""))
             error.append("- Week In must be filled!\n");
-        else
-        if(!isNumerical(weekInTextField.getText()))
-            error.append("- Week In must be numerical!\n");
-
+        else if(!isNumerical(weekInTextField.getText()))
+            error.append("- Week In must be numerical or/and positive!\n");
 
         if(!error.toString().isEmpty())
-            displayAlert(error.toString());
+            alerts.displayAlert(error.toString());
 
         return error.toString().isEmpty();
     }
@@ -564,22 +549,9 @@ public class ControllerUpdateChartsManager {
         return booksIsbnAndTitle;
     }
 
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
     private boolean isNumerical(String s) {
-        return s.matches("[+-]?([0-9]*[.])?[0-9]+");
+        return s.matches("[+]?([0-9]*[.])?[0-9]+");
     }
-
-
 }
 
 

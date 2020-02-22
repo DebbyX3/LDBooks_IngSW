@@ -9,7 +9,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -22,7 +21,6 @@ import java.util.regex.Pattern;
 
 public class ControllerUnregisteredPaymentPage
 {
-
     @FXML
     private HBox headerHBox;
 
@@ -85,7 +83,7 @@ public class ControllerUnregisteredPaymentPage
 
     private void handleContinueAsUnregisteredButton(ActionEvent actionEvent)
     {
-        if(isValidFields())
+        if(areValidFields())
         {
             // create a registered Client and add into db in order to have also the shipAddress in
             Client newClient = createNewClient();
@@ -97,8 +95,10 @@ public class ControllerUnregisteredPaymentPage
         }
     }
 
-    private boolean isValidFields()
+    private boolean areValidFields()
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         StringBuilder error = new StringBuilder();
 
         if(nameTextField.getText().trim().isEmpty())
@@ -106,7 +106,6 @@ public class ControllerUnregisteredPaymentPage
         else
             if(isNumerical(nameTextField.getText().trim()))
                 error.append("- Name must be alphabetical!\n");
-
 
         if(surnameTextField.getText().trim().isEmpty())
             error.append("- Surname must be filled!\n");
@@ -119,7 +118,6 @@ public class ControllerUnregisteredPaymentPage
         else
             if(isNumerical(streetTextField.getText().trim()))
                 error.append("- Street must be alphabetical!\n");
-
 
         if(houseNumberTextField.getText().trim().isEmpty())
             error.append("- House Number must be filled!\n");
@@ -137,23 +135,16 @@ public class ControllerUnregisteredPaymentPage
                 error.append("- Mail is not in the right format (a@b.com)!\n");
 
         if(!error.toString().isEmpty())
-            displayAlert(error.toString());
+            alerts.displayAlert(error.toString());
 
         return error.toString().isEmpty();
 
     }
 
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
     private Client createNewClient()
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         Client clientToReturn = null;
 
         RegisteredClient newClient = new RegisteredClient();
@@ -173,11 +164,11 @@ public class ControllerUnregisteredPaymentPage
 
         if(!DBcheckUser.doesMailUnregisteredAlreadyExist(newClient) && !DBcheckUser.doesMailAlreadyExist(newClient))
         {
-            //call method to add user to db
-            DBcheckUser.addUnregisteredUser(newClient, shipAddress);
+            // First, call method to check if address already exists then if doesn't exist, puts it into db.
+            DBAddressUser.addAddressNotRegisteredUser(shipAddress); //take the first and only address
 
-            //call method to first check if address already exists then if doesn't exist, puts it into db.
-            DBAddressUser.addAddress(newClient, shipAddress); //take the first and only address
+            // Call method to add user to db
+            DBcheckUser.addUnregisteredUser(newClient, shipAddress);
 
             clientToReturn = new Client();
             clientToReturn.setName(nameTextField.getText());
@@ -186,14 +177,14 @@ public class ControllerUnregisteredPaymentPage
             clientToReturn.setEmail(mailTextField.getText());
         }
         else
-            displayAlert("This e-mail is already linked to another user! Try another one :)");
+            alerts.displayAlert("This e-mail is already linked to another user! Try another one :)");
 
         return clientToReturn;
     }
 
 
     private boolean isNumerical(String s) {
-        return s.matches("[+-]?([0-9]*[.])?[0-9]+");
+        return s.matches("[+]?([0-9]*[.])?[0-9]+");
     }
 
     public boolean isMailValid(String emailStr) {

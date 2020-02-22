@@ -5,7 +5,7 @@ public class Format implements Comparable<Format>
     private String name;
 
     public Format(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     public String getName() {

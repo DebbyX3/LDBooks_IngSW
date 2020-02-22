@@ -55,8 +55,10 @@ public class ControllerCart {
 
     private void handleCheckOutButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         if(cart.isEmpty())
-            displayAlert("The cart is empty! Add books to cart :)");
+            alerts.displayAlert("The cart is empty! Add books to cart :)");
         else
         {
             if(user==null)
@@ -99,15 +101,4 @@ public class ControllerCart {
         StageManager newCartView = new StageManager();
         newCartView.setStageUserCart((Stage) removeBookButton.getScene().getWindow(), user, cart);
     }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Check your input!");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }

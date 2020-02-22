@@ -11,6 +11,8 @@ public class Author implements Comparable<Author>
         this.id = id;
         this.name = name;
         this.surname = surname;
+
+        normalizeAuthor();
     }
 
     @Override
@@ -67,5 +69,11 @@ public class Author implements Comparable<Author>
         }
     }
 
-
+    private void normalizeAuthor()
+    {
+        if(name != null)
+            name = name.trim();
+        if(surname != null)
+            surname = surname.trim();
+    }
 }

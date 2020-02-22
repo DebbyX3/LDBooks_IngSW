@@ -148,8 +148,6 @@ public class ModelDatabaseAuthor implements ModelAuthor {
             if(idName_SurnameSplit.length > 1)
                 surname = idName_SurnameSplit[1]; //contains only "surname1 surname2" (only surname)
 
-            System.out.println(id + "\n" + name + "\n" + surname + "\n");
-
             author = new Author(id, name, surname);
             authors.add(author);
         }

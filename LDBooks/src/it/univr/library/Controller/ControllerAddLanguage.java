@@ -72,6 +72,8 @@ public class ControllerAddLanguage {
 
     private void handleAddNewLanguageButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         Language newLanguage = new Language(newLanguageTextField.getText().trim());
 
         if(!newLanguage.getName().isEmpty())
@@ -97,26 +99,12 @@ public class ControllerAddLanguage {
             }
             else
             {
-                displayAlert("Language already exists!");
+                alerts.displayAlert("Language already exists!");
             }
         }
         else
         {
-            displayAlert("Language name must be filled!");
+            alerts.displayAlert("Language name must be filled!");
         }
-
-
     }
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }

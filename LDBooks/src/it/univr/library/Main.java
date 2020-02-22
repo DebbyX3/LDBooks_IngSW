@@ -77,9 +77,3 @@ public class Main extends Application {
             db.DBCloseConnection();
     }
 }
-
-
-
-        /*FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        System.out.println(selectedFile);*/

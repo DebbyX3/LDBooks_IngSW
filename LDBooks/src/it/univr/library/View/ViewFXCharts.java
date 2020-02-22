@@ -9,37 +9,35 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ViewFXCharts implements ViewCharts
 {
     @Override
     public void buildChart(TableView chartsTableView, ArrayList<Charts> charts)
     {
-        TableColumn Rank = new TableColumn("Rank");
+        TableColumn rank = new TableColumn("Rank");
         TableColumn ISBN = new TableColumn("ISBN");
-        TableColumn Title = new TableColumn("Title");
-        TableColumn Authors = new TableColumn("Authors");
-        TableColumn Genre = new TableColumn("Genre");
-        TableColumn WeeksIn = new TableColumn("WeeksIn");
-        TableColumn Category = new TableColumn("Category");
+        TableColumn title = new TableColumn("Title");
+        TableColumn authors = new TableColumn("Authors");
+        TableColumn genre = new TableColumn("Genre");
+        TableColumn weeksIn = new TableColumn("WeeksIn");
+        TableColumn category = new TableColumn("Category");
 
-        chartsTableView.getColumns().addAll(Rank, ISBN, Title, Authors, Genre, WeeksIn,Category);
+        chartsTableView.getColumns().addAll(rank, ISBN, title, authors, genre, weeksIn, category);
 
         final ObservableList<Charts> chart = FXCollections.observableArrayList();
-        for (Charts c: charts)
-        {
-           chart.add(c);
-        }
+        chart.addAll(charts);
 
-        Rank.setCellValueFactory(new PropertyValueFactory<Chart,String>("Rank"));
-        ISBN.setCellValueFactory(new PropertyValueFactory<Chart,String>("ISBN"));
-        Title.setCellValueFactory(new PropertyValueFactory<Chart,String>("Title"));
-        Authors.setCellValueFactory(new PropertyValueFactory<Chart,String>("Authors"));
-        Genre.setCellValueFactory(new PropertyValueFactory<Chart,String>("Genre"));
-        WeeksIn.setCellValueFactory(new PropertyValueFactory<Chart,String>("WeeksIn"));
-        Category.setCellValueFactory(new PropertyValueFactory<Chart,String>("Category"));
+        rank.setCellValueFactory(new PropertyValueFactory<Chart, String>("Rank"));
+        ISBN.setCellValueFactory(new PropertyValueFactory<Chart, String>("ISBN"));
+        title.setCellValueFactory(new PropertyValueFactory<Chart, String>("Title"));
+        authors.setCellValueFactory(new PropertyValueFactory<Chart, String>("Authors"));
+        genre.setCellValueFactory(new PropertyValueFactory<Chart, String>("Genre"));
+        weeksIn.setCellValueFactory(new PropertyValueFactory<Chart, String>("WeeksIn"));
+        category.setCellValueFactory(new PropertyValueFactory<Chart, String>("Category"));
 
         chartsTableView.setItems(chart);
-        chartsTableView.getSortOrder().add(Rank);
+        chartsTableView.getSortOrder().add(rank);
     }
 }

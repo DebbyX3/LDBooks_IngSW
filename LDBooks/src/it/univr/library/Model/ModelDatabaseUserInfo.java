@@ -141,13 +141,6 @@ public class ModelDatabaseUserInfo implements ModelUserInfo
         db.executeSQLUpdate( "INSERT INTO registeredUsers(email, name, surname, phoneNumber, password) " +
                                     "VALUES (?, ?, ?, ?, ?)",
                 List.of(user.getEmail(), user.getName(), user.getSurname(), user.getPhoneNumber(), user.getPassword()));
-
-
-        System.out.println("INSERT INTO registeredUsers (email, name, surname, phoneNumber, password) " +
-                "VALUES ('" + user.getEmail() + "','" + user.getName() + "','" + user.getSurname()
-                + "','" + user.getPhoneNumber() + "','" + user.getPassword() + "')");
-
-
     }
 
     @Override

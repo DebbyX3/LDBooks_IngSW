@@ -714,7 +714,6 @@ public class StageManager
             controllerUnregisteredPaymentPage.setUser(user);
             controllerUnregisteredPaymentPage.setHeader();
 
-
             primaryStage.setTitle("Continue as Unregistered - LD Books");
             primaryStage.setScene(new Scene(root));
             primaryStage.show();

@@ -22,8 +22,6 @@ public class ModelDatabaseGenres implements ModelGenres
                             "ORDER BY name ASC");
         genres = resultSetToArrayListGenre(db.getResultSet());
 
-
-        System.out.println(genres);
         return genres;
     }
 

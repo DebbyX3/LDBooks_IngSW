@@ -16,13 +16,27 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
     {
         List<Address> regUser;
         db.DBOpenConnection();
-        db.executeSQLQuery( "SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
+        db.executeSQLQuery( "SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
                             "FROM ship " +
                             "WHERE emailRegisteredUser LIKE ? ",
                             List.of(testUser.getEmail()));
 
         regUser = resultSetToListAddress(db.getResultSet());
 
+        return regUser;
+    }
+
+    @Override
+    public List<Address> getAddressesNotRegisteredUser(User testUser)
+    {
+        List<Address> regUser;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT addressStreet, addressHouseNumber, cityName, cityCAP " +
+                        "FROM notRegisteredUsers " +
+                        "WHERE email LIKE ? ",
+                List.of(testUser.getEmail()));
+
+        regUser = resultSetToListAddress(db.getResultSet());
 
         return regUser;
     }
@@ -58,7 +72,7 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
     }
 
     @Override
-    public void addAddress(RegisteredClient user, Address address)
+    public void addAddressRegisteredUser(RegisteredClient user, Address address)
     {
         if(!addressAlreadyExists(address))
             createNewAddress(address); //create address
@@ -68,6 +82,13 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
             linkAddressToUser(user, address);   // link address
     }
 
+    @Override
+    public void addAddressNotRegisteredUser(Address address)
+    {
+        if(!addressAlreadyExists(address))
+            createNewAddress(address); //create address
+    }
+
     private void linkAddressToUser(RegisteredClient user, Address address)
     {
         db.DBOpenConnection();
@@ -75,12 +96,6 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
         db.executeSQLUpdate(  "INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
                         "VALUES(?, ?, ?, ?, ?)",
                 List.of(user.getEmail(), address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
-
-        System.out.println("INSERT INTO ship(emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP) " +
-                "VALUES( '" + user.getEmail() + "', '"+ address.getStreetQuery() + "', '" + address.getHouseNumber() +
-                "', '" + address.getCity() + "', '" + address.getPostalCode() + "')");
-
-
     }
 
     @Override
@@ -107,12 +122,6 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
         db.executeSQLUpdate(  "INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
                         "VALUES(?, ?, ?, ?)",
                 List.of(address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
-
-        System.out.println("INSERT INTO addresses(street, houseNumber, cityName, cityCAP) " +
-                "VALUES( '" + address.getStreetQuery() + "', '" + address.getHouseNumber() + "', '" + address.getCity() + "', '" +
-                address.getPostalCode() + "')");
-
-
     }
 
     /**
@@ -132,12 +141,6 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                         "AND cityName LIKE ? "+
                         "AND cityCAP LIKE ?",
                 List.of(address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
-
-        System.out.println("SELECT street, houseNumber, cityName, cityCAP " +
-                "FROM addresses " +
-                "WHERE street LIKE '" + address.getStreetQuery() + "' AND houseNumber LIKE '" +
-                address.getHouseNumber() + "' AND cityName LIKE '" + address.getCity() +
-                "' AND cityCAP LIKE '" + address.getPostalCode() + "'");
 
         try
         {
@@ -165,14 +168,6 @@ public class ModelDatabaseUserAddress implements ModelUserAddress
                         "AND cityName LIKE ? " +
                         "AND cityCAP LIKE ?",
                 List.of(user.getEmail(), address.getStreetQuery(), address.getHouseNumber(), address.getCity(), address.getPostalCode()));
-
-        System.out.println("SELECT emailRegisteredUser, addressStreet, addressHouseNumber, cityName, cityCAP " +
-                "FROM ship " +
-                "WHERE emailRegisteredUser LIKE '" + user.getEmail() +
-                "' AND addressStreet LIKE '" + address.getStreetQuery() +
-                "' AND addressHouseNumber LIKE '" + address.getHouseNumber() +
-                "' AND cityName LIKE '" + address.getCity() +
-                "' AND cityCAP LIKE '" + address.getPostalCode() + "'");
 
         try
         {

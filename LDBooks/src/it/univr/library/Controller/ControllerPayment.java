@@ -87,6 +87,8 @@ public class ControllerPayment {
 
     private void handlePaymentButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         if(isValidProcess())
         {
             // fetch all the information and create the order, update db with the new order and update quantity available for the books in cart
@@ -115,23 +117,8 @@ public class ControllerPayment {
             updateLibroCard.updateLibroCardPoints(order);
 
             // Display alert order confirmation
-            displayConfirmation();
-
-            /* // Send email
-            StringBuilder mailMessage = new StringBuilder();
-            MailProva mail = new MailProva();
-
-            mailMessage.append("Your order " + order.getCode() + " that includes: ");
-
-            for(Book bookInCart: cart.keySet())
-                mailMessage.append("- " + bookInCart.getISBN() + " " + bookInCart.getTitle() + " x" + cart.get(bookInCart) + "\n");
-
-            mailMessage.append("is in progress.\n\nCheers, LD Books");
-
-            mail.sendMail(user.getEmail(), user.getName(), user.getSurname(),
-                    "Order " + order.getCode() + " Confirmation", mailMessage.toString());
-
-            */
+            ModelOrder getOrderCode = new ModelDatabaseOrder();
+            alerts.displayConfirmation(String.format("Payment has been successful, your Tracking Code is: %d", getOrderCode.getLastOrderCode()));
 
             // Clear cart and change scene
             cart.clear();
@@ -148,6 +135,7 @@ public class ControllerPayment {
     private boolean isValidProcess()
     {
         StringBuilder error = new StringBuilder();
+        ControllerAlert alerts = new ControllerAlert();
 
         if (!paypalRadioButton.isSelected() && !creditCardRadioButton.isSelected() && !transferRadioButton.isSelected())
             error.append("- Select one type of payment!\n");
@@ -159,7 +147,7 @@ public class ControllerPayment {
                 error.append("- Select a valid ship Address!\n");
 
         if(!error.toString().isEmpty())
-            displayAlert(error.toString());
+            alerts.displayAlert(error.toString());
 
         return error.toString().isEmpty();
     }
@@ -296,39 +284,23 @@ public class ControllerPayment {
         else if(user instanceof Client)
             order.setEmailNotRegisteredUser(user.getEmail());
 
-
-
         order.setShippingCost(new BigDecimal(getShippingCost()));
         order.setStatus("In progress");
 
         return order;
     }
 
-    private void displayConfirmation() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Payment");
-        alert.setHeaderText(null);
-        ModelOrder getOrderCode = new ModelDatabaseOrder();
-        alert.setContentText(String.format("Payment has been successful, your Tracking Code is: %d", getOrderCode.getLastOrderCode()));
-
-        alert.showAndWait();
-    }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input!");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
     private RegisteredClient userToRegisteredClient(User user) {
         ModelUserAddress DBInformation = new ModelDatabaseUserAddress();
         ModelUserInfo DBInfo = new ModelDatabaseUserInfo();
-        RegisteredClient regUser =
-                new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
+        RegisteredClient regUser = null;
+
+        if (user instanceof RegisteredClient)
+            regUser = new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
                         user.getPassword(), DBInfo.getPhoneNumber(user), DBInformation.getAddressesRegisteredUser(user));
+        else if (user instanceof Client)
+            regUser = new RegisteredClient(user.getName(), user.getSurname(), user.getEmail(),
+                      user.getPassword(), DBInfo.getPhoneNumber(user), DBInformation.getAddressesNotRegisteredUser(user));
 
         return regUser;
     }

@@ -5,7 +5,7 @@ public class PublishingHouse implements Comparable<PublishingHouse>
     private String name;
 
     public PublishingHouse(String name) {
-        this.name = name;
+        this.name = name.trim();
     }
 
     public String getName() {

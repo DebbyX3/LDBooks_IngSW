@@ -70,6 +70,7 @@ public class ControllerAddPublishingHouse {
 
     private void handleAddNewPublishingHouse(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
         PublishingHouse newPublishingHouse = new PublishingHouse(newPublishingHouseTextFiled.getText().trim());
 
         if(!newPublishingHouse.getName().isEmpty())
@@ -95,26 +96,14 @@ public class ControllerAddPublishingHouse {
             }
             else
             {
-                displayAlert("Publishing House already exists!");
+                alerts.displayAlert("Publishing House already exists!");
             }
         }
         else
         {
-            displayAlert("Publishing house name must be filled!");
+            alerts.displayAlert("Publishing house name must be filled!");
         }
 
     }
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }
 

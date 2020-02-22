@@ -66,6 +66,8 @@ public class ControllerLoginSignUp {
 
     private void handleLoginButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         ModelRegisteredUser DBLoginRegisteredUser = new ModelDatabaseRegisteredUser();
         ModelManager DBLoginManager = new ModelDatabaseManagers();
 
@@ -74,7 +76,7 @@ public class ControllerLoginSignUp {
         Manager manager = DBLoginManager.getManager(user);
 
         if(realUser == null && manager == null || realUser != null && manager != null)
-            displayAlert("Invalid mail or password!");
+            alerts.displayAlert("Invalid mail or password!");
         else
         {
             if(realUser != null) //user page
@@ -95,15 +97,6 @@ public class ControllerLoginSignUp {
     {
         StageManager signUpStage = new StageManager();
         signUpStage.setStageSignUp((Stage) signUpButton.getScene().getWindow(), user, cart);
-    }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
     }
 
     private User fetchUser()

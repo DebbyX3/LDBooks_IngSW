@@ -107,6 +107,8 @@ public class ControllerEditProfile {
 
     private void checkInputs(List<Address> newAddresses)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         StringBuilder error = new StringBuilder();
         ModelUserInfo DBCheckUser = new ModelDatabaseUserInfo();
         ModelUserAddress DBFetchAddress = new ModelDatabaseUserAddress();
@@ -149,7 +151,7 @@ public class ControllerEditProfile {
 
         }
         if (!error.toString().isEmpty())
-            displayAlert(error.toString());
+            alerts.displayAlert(error.toString());
     }
 
     private boolean isNameSurnamePhoneNumberPasswordNullOrEmpty()
@@ -254,7 +256,7 @@ public class ControllerEditProfile {
             }
             else if(!currentOldAddr.equals(currentNewAddr)) // se non sono uguali, allora aggiornalo
             {
-                DBcheckUser.addAddress(newRegUser, currentNewAddr); //linka/aggiungi quello nuovo
+                DBcheckUser.addAddressRegisteredUser(newRegUser, currentNewAddr); //linka/aggiungi quello nuovo
                 DBcheckUser.unlinkAddressFromUser(newRegUser, currentOldAddr); //togli il link a quello vecchio
             }
         }
@@ -266,16 +268,7 @@ public class ControllerEditProfile {
 
             // If it is empty, then do nothing because it's supposed to be a new address, and there's nothing to delete
             if(!currentNewAddr.isEmpty())
-                DBcheckUser.addAddress(newRegUser, currentNewAddr); // Just add the new address
+                DBcheckUser.addAddressRegisteredUser(newRegUser, currentNewAddr); // Just add the new address
         }
-    }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
     }
 }

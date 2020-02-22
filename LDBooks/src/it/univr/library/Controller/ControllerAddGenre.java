@@ -65,8 +65,9 @@ public class ControllerAddGenre {
 
     private void handleAddNewGenre(ActionEvent actionEvent)
     {
-
+        ControllerAlert alerts = new ControllerAlert();
         Genre newGenre = new Genre(newGenreTextField.getText().trim());
+
         if (!newGenre.getName().isEmpty())
         {
             boolean exist = false;
@@ -91,25 +92,14 @@ public class ControllerAddGenre {
             }
             else
             {
-                displayAlert("Genre already exists!");
+                alerts.displayAlert("Genre already exists!");
             }
         }
         else
         {
-            displayAlert("Genre name must be filled!");
+            alerts.displayAlert("Genre name must be filled!");
         }
 
-    }
-
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
     }
 
     public void setCart(Map<Book, Integer> cart) {

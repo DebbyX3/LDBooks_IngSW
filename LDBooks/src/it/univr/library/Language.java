@@ -6,7 +6,7 @@ public class Language
 
     public Language(String name)
     {
-        this.name = name;
+        this.name = name.trim();
     }
 
     @Override

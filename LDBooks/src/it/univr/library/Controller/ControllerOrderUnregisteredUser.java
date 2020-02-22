@@ -60,6 +60,8 @@ public class ControllerOrderUnregisteredUser {
 
     private void handleTrackOrderButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         ModelOrder DBgetOrderUserNotReg = new ModelDatabaseOrder();
         StringBuilder error = new StringBuilder();
         String mailNotRegUser;
@@ -80,7 +82,7 @@ public class ControllerOrderUnregisteredUser {
 
                 if(order == null || order.isEmpty())
                 {
-                    displayAlert("There is not Track Code associates to this mail!\n" + "Check your inputs");
+                    alerts.displayAlert("There is not Track Code associates to this mail!\n" + "Check your inputs");
                 }
                 else //take the order from db
                 {
@@ -90,10 +92,10 @@ public class ControllerOrderUnregisteredUser {
                 }
             }
             else
-                displayAlert(error.toString());
+                alerts.displayAlert(error.toString());
         }
         else
-            displayAlert("All text field must be filled!");
+            alerts.displayAlert("All text field must be filled!");
     }
 
     private boolean isAnyFieldNullOrEmpty()
@@ -109,15 +111,4 @@ public class ControllerOrderUnregisteredUser {
 
         return  error.toString().isEmpty();
     }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }

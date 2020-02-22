@@ -71,6 +71,8 @@ public class ControllerAddAuthor {
 
     private void handleAddNewAuthorButton(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         if(!nameAuthorTextField.getText().equals("") || !surnameAuthorTextField.getText().equals(""))
         {
             ModelAuthor DBinsertNewAuthor = new ModelDatabaseAuthor();
@@ -82,19 +84,7 @@ public class ControllerAddAuthor {
         }
         else
         {
-            displayAlert("Fill at least one field between name or surname!");
+            alerts.displayAlert("Fill at least one field between name or surname!");
         }
     }
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }

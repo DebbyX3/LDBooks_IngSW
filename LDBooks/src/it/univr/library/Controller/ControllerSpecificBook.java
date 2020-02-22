@@ -64,36 +64,15 @@ public class ControllerSpecificBook
 
     public void handleAddBookToCart(Book book, Integer quantity, Button cartButton)
     {
+        ControllerAlert alerts = new ControllerAlert();
+
         if(quantity == 0 && book.getMaxQuantity() == 0)
-            displayAlert("This book is not available!");
+            alerts.displayAlert("This book is not available!");
         else
         {
             cart.put(book, quantity);
-            displayConfirmation();
+            alerts.displayConfirmation("Book successfully add to cart!");
         }
 
     }
-
-    private Alert displayConfirmation()
-    {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Cart Information");
-        alert.setHeaderText("Book successfully add to cart!");
-
-
-        alert.showAndWait();
-
-        return alert;
-    }
-
-    private void displayAlert(String s) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Check your input!");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }

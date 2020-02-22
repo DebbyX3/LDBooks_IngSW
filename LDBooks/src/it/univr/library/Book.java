@@ -34,7 +34,7 @@ public class Book implements Comparable<Book>
 
     public Book(String ISBN, String title, List<Author> authors, String description, Integer points, BigDecimal price, Integer publicationYear, PublishingHouse publishingHouse, Genre genre, Language language, Integer maxQuantity, Integer pages, Format format, String imagePath) {
         this.ISBN = ISBN;
-        this.title = title.trim();
+        this.title = title;
         this.authors = authors;
         this.description = description;
         this.points = points;
@@ -47,6 +47,8 @@ public class Book implements Comparable<Book>
         this.pages = pages;
         this.format = format;
         this.imagePath = imagePath;
+
+        normalizeBook();
     }
 
     @Override
@@ -228,5 +230,15 @@ public class Book implements Comparable<Book>
             }
         }
         return this.getTitle().compareTo(o.getTitle());
+    }
+
+    private void normalizeBook()
+    {
+        if(ISBN != null)
+            ISBN = ISBN.trim();
+        if(title != null)
+            title = title.trim();
+        if(description != null)
+            description = description.trim();
     }
 }

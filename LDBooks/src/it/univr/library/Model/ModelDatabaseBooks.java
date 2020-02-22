@@ -46,8 +46,6 @@ public class ModelDatabaseBooks implements ModelBooks
         db.executeSQLQuery(query, queryParameters);
         books = resultSetToArrayListBook(db.getResultSet());
 
-
-        System.out.println(books);
         return books;
     }
 
@@ -80,8 +78,6 @@ public class ModelDatabaseBooks implements ModelBooks
         db.executeSQLQuery(query, queryParameters);
         books = resultSetToArrayListBook(db.getResultSet());
 
-
-        System.out.println(books);
         return books;
     }
 

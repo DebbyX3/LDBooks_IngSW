@@ -70,6 +70,7 @@ public class ControllerAddFormat {
 
     private void handleAddNewFormat(ActionEvent actionEvent)
     {
+        ControllerAlert alerts = new ControllerAlert();
         Format format =  new Format(newFormatTextField.getText().trim());
 
         if(!format.getName().isEmpty())
@@ -97,28 +98,13 @@ public class ControllerAddFormat {
             }
             else
             {
-                displayAlert("Format already exists!");
+                alerts.displayAlert("Format already exists!");
             }
         }
         else
         {
-            displayAlert("Format name must be filled!");
+            alerts.displayAlert("Format name must be filled!");
         }
 
     }
-
-
-
-
-    private void displayAlert(String s)
-    {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Check your input");
-        alert.setHeaderText(null);
-        alert.setContentText(s);
-
-        alert.showAndWait();
-    }
-
-
 }

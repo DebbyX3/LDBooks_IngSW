@@ -152,7 +152,7 @@
                               <Insets />
                            </GridPane.margin>
                            <children>
-                              <RadioButton fx:id="creditCardRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="308.0" text="Credit/Debit Card" />
+                              <RadioButton fx:id="creditCardRadioButton" mnemonicParsing="false" prefHeight="17.0" prefWidth="308.0" text="Credit Card" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" GridPane.rowIndex="6">

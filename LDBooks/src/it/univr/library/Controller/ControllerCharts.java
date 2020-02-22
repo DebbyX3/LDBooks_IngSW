@@ -39,8 +39,6 @@ public class ControllerCharts {
 
     private Map<Book,Integer> cart;
 
-
-
     @FXML
     private void initialize()
     {
@@ -50,7 +48,6 @@ public class ControllerCharts {
 
         filterButton.setOnAction(this::handleFilterButton);
     }
-
 
     public void setUser(User user)
     {
@@ -91,7 +88,6 @@ public class ControllerCharts {
         ChartFilter chartToCreate = new ChartFilter(genreComboBox.getValue(), categoryComboBox.getValue());
         chartsTableView.getColumns().clear();
         populateChartsWithFilter(chartToCreate);
-
     }
 
     private void populateChartsWithFilter(ChartFilter filters)
@@ -111,9 +107,4 @@ public class ControllerCharts {
         else
             viewCharts.buildChart(chartsTableView,DBCharts.getChartsForCategoryAndGenre(filters));
     }
-
-
-
-
-
 }
