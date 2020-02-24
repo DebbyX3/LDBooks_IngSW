@@ -190,7 +190,7 @@ public class ControllerAddBook {
         if(!checkFields.isAnyFieldEmptyOrNotValid(ISBNTextField.getText(), titleTextField.getText(), descriptionTextArea.getText(),
                 publicationYearTextField.getText(), pagesTextField.getText(),
                 librocardPointsTextField.getText(), availableQuantitySpinner.getEditor().textProperty().get(),
-                authorsToLinkToBook, priceTextField.getText()))
+                authorsToLinkToBook,null, priceTextField.getText()))
         {
             if(!checkFields.doesISBNExists(ISBNTextField.getText()))
             {

@@ -5,6 +5,7 @@ import it.univr.library.Model.ModelBooks;
 import it.univr.library.Model.ModelDatabaseBooks;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ListView;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -14,7 +15,7 @@ import java.util.Optional;
 public class ControllerBooks
 {
     public boolean isAnyFieldEmptyOrNotValid(String ISBN, String title, String description, String publicationYear, String pages,
-                                             String librocardPoints, String availableQuantity, List authorsToLinkToBook, String price)
+                                             String librocardPoints, String availableQuantity, List authorsToLinkToBook, ListView authorListView, String price)
     {
         ControllerAlert alerts = new ControllerAlert();
 
@@ -23,17 +24,18 @@ public class ControllerBooks
 
         if(ISBN.trim().equals(""))
             error.append("- ISBN must be filled!\n");
-
-        if(!isISBNvalid(ISBN.trim()) && !isASINvalid(ISBN.trim()))
-            error.append("- ISBN has no format 10 or 13 or ASIN!\n");
+        else
+            if(!isISBNvalid(ISBN.trim()) && !isASINvalid(ISBN.trim()))
+                error.append("- ISBN has no format 10 or 13 or ASIN!\n");
 
         if(title.trim().isEmpty())
             error.append("- Title must be filled!\n");
 
         if(description.trim().isEmpty())
             error.append("- Description must be filled!\n");
-        if(isNumerical(description.trim()))
-            error.append("- Description must be at least alphabetic\n");
+        else
+            if(isNumerical(description.trim()))
+                error.append("- Description must be at least alphabetic\n");
 
         if(publicationYear.trim().isEmpty())
             error.append("- Publication year must be filled\n");
@@ -78,7 +80,7 @@ public class ControllerBooks
         }
 
         //check if I've at least an author for the book
-        if(authorsToLinkToBook.isEmpty())
+        if(authorsToLinkToBook.isEmpty() && authorListView.getItems().isEmpty())
             error.append("- Book needs at least one author\n");
 
         if(price.trim().isEmpty())
@@ -134,7 +136,7 @@ public class ControllerBooks
     public boolean doesISBNExists(String ISBN)
     {
         ModelBooks DBBook = new ModelDatabaseBooks();
-        return DBBook.getSpecificBook(ISBN).getISBN().equals(ISBN);
+        return DBBook.doesISBNAlreadyExists(ISBN);
     }
 
     private boolean isNumerical(String s) {

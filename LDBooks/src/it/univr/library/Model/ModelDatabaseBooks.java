@@ -102,6 +102,7 @@ public class ModelDatabaseBooks implements ModelBooks
         return b.get(0);
     }
 
+
     private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
         ModelAuthor authors = new ModelDatabaseAuthor();
         ArrayList<Book> books = new ArrayList<>();
