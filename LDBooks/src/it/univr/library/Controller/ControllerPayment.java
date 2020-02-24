@@ -200,8 +200,8 @@ public class ControllerPayment {
 
         for (Book bookInCart: cart.keySet())
         {
-            totalPrice += bookInCart.getPrice().doubleValue();
-            pointsLibrocard += bookInCart.getPoints();
+            totalPrice += bookInCart.getPrice().doubleValue()*cart.get(bookInCart);
+            pointsLibrocard += bookInCart.getPoints()*cart.get(bookInCart);
         }
 
         totalPrice += shippingCost;
