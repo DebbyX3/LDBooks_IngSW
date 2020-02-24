@@ -7,6 +7,7 @@ import it.univr.library.Order;
 import it.univr.library.StageManager;
 import it.univr.library.User;
 import javafx.fxml.FXML;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -40,6 +41,12 @@ public class ControllerOrderUnregisteredUser {
     @FXML
     private void initialize()
     {
+        // handle to press enter for login
+        trackingCodeTextField.setOnKeyReleased(event ->
+        {
+            if (event.getCode() == KeyCode.ENTER)
+                trackOrderButton.fire();
+        });
         trackOrderButton.setOnAction(this::handleTrackOrderButton);
     }
 
