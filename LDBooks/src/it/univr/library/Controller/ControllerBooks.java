@@ -3,7 +3,6 @@ package it.univr.library.Controller;
 import it.univr.library.*;
 import it.univr.library.Model.ModelBooks;
 import it.univr.library.Model.ModelDatabaseBooks;
-import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 
@@ -14,8 +13,49 @@ import java.util.Optional;
 
 public class ControllerBooks
 {
+    /* This is called in the EditBook page
+     * */
     public boolean isAnyFieldEmptyOrNotValid(String ISBN, String title, String description, String publicationYear, String pages,
-                                             String librocardPoints, String availableQuantity, List authorsToLinkToBook, ListView authorListView, String price)
+                                             String librocardPoints, String availableQuantity, List authorsToLinkToBook, String price,
+                                             ListView authorsListView)
+    {
+        ControllerAlert alerts = new ControllerAlert();
+        StringBuilder error;
+        error = new StringBuilder(errorMessagesCheck(ISBN, title, description, publicationYear, pages, librocardPoints,
+                availableQuantity, price));
+
+        //check if I've at least an author for the book
+        if(authorsToLinkToBook.isEmpty() && authorsListView.getItems().isEmpty())
+            error.append("- Book needs at least one author\n");
+
+        if(!error.toString().isEmpty())
+            alerts.displayAlert(error.toString());
+
+        return !error.toString().isEmpty();
+    }
+
+    /* This is called in the AddBook page
+     * */
+    public boolean isAnyFieldEmptyOrNotValid(String ISBN, String title, String description, String publicationYear, String pages,
+                                             String librocardPoints, String availableQuantity, List authorsToLinkToBook, String price)
+    {
+        ControllerAlert alerts = new ControllerAlert();
+        StringBuilder error;
+        error = new StringBuilder(errorMessagesCheck(ISBN, title, description, publicationYear, pages, librocardPoints,
+                availableQuantity, price));
+
+        //check if I've at least an author for the book
+        if(authorsToLinkToBook.isEmpty())
+            error.append("- Book needs at least one author\n");
+
+        if(!error.toString().isEmpty())
+            alerts.displayAlert(error.toString());
+
+        return !error.toString().isEmpty();
+    }
+
+    public String errorMessagesCheck(String ISBN, String title, String description, String publicationYear, String pages,
+                                     String librocardPoints, String availableQuantity, String price)
     {
         ControllerAlert alerts = new ControllerAlert();
 
@@ -24,18 +64,17 @@ public class ControllerBooks
 
         if(ISBN.trim().equals(""))
             error.append("- ISBN must be filled!\n");
-        else
-            if(!isISBNvalid(ISBN.trim()) && !isASINvalid(ISBN.trim()))
-                error.append("- ISBN has no format 10 or 13 or ASIN!\n");
+
+        if(!isISBNvalid(ISBN.trim()) && !isASINvalid(ISBN.trim()))
+            error.append("- ISBN has no format 10 or 13 or ASIN!\n");
 
         if(title.trim().isEmpty())
             error.append("- Title must be filled!\n");
 
         if(description.trim().isEmpty())
             error.append("- Description must be filled!\n");
-        else
-            if(isNumerical(description.trim()))
-                error.append("- Description must be at least alphabetic\n");
+        if(isNumerical(description.trim()))
+            error.append("- Description must be at least alphabetic\n");
 
         if(publicationYear.trim().isEmpty())
             error.append("- Publication year must be filled\n");
@@ -74,22 +113,16 @@ public class ControllerBooks
 
                 if (result.get() != ButtonType.OK) {
                     alerts.displayAlert("Select a new available quantity");
-                    return true;
+                    //return true;
                 }
             }
         }
-
-        //check if I've at least an author for the book
-        if(authorsToLinkToBook.isEmpty() && authorListView.getItems().isEmpty())
-            error.append("- Book needs at least one author\n");
 
         if(price.trim().isEmpty())
             error.append("- Price must be filled\n");
 
         if(!isNumerical(price.trim()))
-        {
             error.append("- Price must be numerical and/or positive\n");
-        }
         else
         {
             if(Float.parseFloat(price.trim()) > 1000)
@@ -98,15 +131,12 @@ public class ControllerBooks
                 if(result.get() != ButtonType.OK)
                 {
                     alerts.displayAlert("Select a new price!");
-                    return true;
+                    //return true;
                 }
             }
         }
 
-        if(!error.toString().isEmpty())
-            alerts.displayAlert(error.toString());
-
-        return !error.toString().isEmpty();
+        return error.toString();
     }
 
     public Book fetchBookInformation(String ISBN, String title, List authors, String description, Format format, Genre genre,

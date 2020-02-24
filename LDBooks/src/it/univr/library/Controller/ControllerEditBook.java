@@ -237,7 +237,7 @@ public class ControllerEditBook {
         if(!checkFields.isAnyFieldEmptyOrNotValid(ISBNTextField.getText(), titleTextField.getText(), descriptionTextArea.getText(),
                 publicationYearTextField.getText(), pagesTextField.getText(),
                 librocardPointsTextField.getText(), availableQuantitySpinner.getEditor().textProperty().get(),
-                authorsToLinkToBook, authorListView, priceTextField.getText()))
+                authorsToLinkToBook, priceTextField.getText(), authorListView))
         {
             if(!changeISBNCheckBox.isSelected() || !checkFields.doesISBNExists(ISBNTextField.getText()))
             {
