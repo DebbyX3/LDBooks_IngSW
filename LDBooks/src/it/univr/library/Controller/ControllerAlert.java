@@ -17,10 +17,22 @@ public class ControllerAlert
     public Alert displayConfirmation(String s)
     {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Check your input");
-        alert.setHeaderText("Check your input");
+        alert.setTitle("Confirm");
+        alert.setHeaderText("Confirm");
         alert.setContentText(s);
 
+        alert.showAndWait();
+
         return alert;
+    }
+
+    public void displayInformation(String s)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information");
+        alert.setHeaderText("Information");
+        alert.setContentText(s);
+
+        alert.showAndWait();
     }
 }

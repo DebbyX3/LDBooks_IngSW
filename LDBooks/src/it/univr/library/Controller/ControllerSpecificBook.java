@@ -71,7 +71,7 @@ public class ControllerSpecificBook
         else
         {
             cart.put(book, quantity);
-            alerts.displayConfirmation("Book successfully add to cart!");
+            alerts.displayInformation("Book successfully add to cart!");
         }
 
     }
