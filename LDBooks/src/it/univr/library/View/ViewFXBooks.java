@@ -263,7 +263,7 @@ public class ViewFXBooks implements ViewBooks
             /* **** SETTING AUTHORS LABEL **** */
             authorsLabel = new Label("Authors: " + setToString(new TreeSet<Author>(currentBook.getAuthors()))); // sorted!
             authorsLabel.prefHeight(18.0);
-            authorsLabel.prefWidth(456.0);
+            //authorsLabel.prefWidth(456.0);
             authorsLabel.setLayoutX(10.0);
             authorsLabel.setLayoutY(10.0);
             VBox.setMargin(authorsLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
@@ -271,7 +271,7 @@ public class ViewFXBooks implements ViewBooks
             /* **** SETTING GENRE LABEL **** */
             genreLabel = new Label("Genre: " + currentBook.getGenre());
             genreLabel.prefHeight(18.0);
-            genreLabel.prefWidth(456.0);
+            //genreLabel.prefWidth(456.0);
             genreLabel.setLayoutX(10.0);
             genreLabel.setLayoutY(10.0);
             VBox.setMargin(genreLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
@@ -279,7 +279,7 @@ public class ViewFXBooks implements ViewBooks
             /* **** SETTING PUBLICATION YEAR LABEL **** */
             publicationYearLabel = new Label("Publication Year: " + currentBook.getPublicationYear());
             publicationYearLabel.prefHeight(18.0);
-            publicationYearLabel.prefWidth(456.0);
+            //publicationYearLabel.prefWidth(456.0);
             publicationYearLabel.setLayoutX(10.0);
             publicationYearLabel.setLayoutY(10.0);
             VBox.setMargin(publicationYearLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
@@ -287,7 +287,7 @@ public class ViewFXBooks implements ViewBooks
             /* **** SETTING PUBLISHING HOUSE LABEL **** */
             publishingHouseLabel = new Label("Publishing House: " + currentBook.getPublishingHouse());
             publishingHouseLabel.prefHeight(18.0);
-            publishingHouseLabel.prefWidth(456.0);
+            //publishingHouseLabel.prefWidth(456.0);
             publishingHouseLabel.setLayoutX(10.0);
             publishingHouseLabel.setLayoutY(10.0);
             VBox.setMargin(publishingHouseLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
@@ -295,7 +295,7 @@ public class ViewFXBooks implements ViewBooks
             /* **** SETTING PAGES LABEL **** */
             pagesLabel = new Label("Pages: " + currentBook.getPages());
             pagesLabel.prefHeight(18.0);
-            pagesLabel.prefWidth(456.0);
+            //pagesLabel.prefWidth(456.0);
             pagesLabel.setLayoutX(10.0);
             pagesLabel.setLayoutY(10.0);
             VBox.setMargin(pagesLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
@@ -303,7 +303,7 @@ public class ViewFXBooks implements ViewBooks
             /* **** SETTING LIBROCARD POINTS LABEL **** */
             librocardPointsLabel = new Label("Librocards Point: " + currentBook.getPoints());
             librocardPointsLabel.prefHeight(18.0);
-            librocardPointsLabel.prefWidth(456.0);
+            //librocardPointsLabel.prefWidth(456.0);
             librocardPointsLabel.setLayoutX(10.0);
             librocardPointsLabel.setLayoutY(10.0);
             VBox.setMargin(librocardPointsLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
@@ -317,7 +317,7 @@ public class ViewFXBooks implements ViewBooks
 
             descriptionTitledPane.setAnimated(true);
             descriptionTitledPane.prefHeight(127.0);
-            descriptionTitledPane.prefWidth(456.0);
+           // descriptionTitledPane.prefWidth(456.0);
 
             /* **** SETTING VBOX BUYING OPTIONS **** */
             buyingOptionsVBox = new VBox();
@@ -371,7 +371,7 @@ public class ViewFXBooks implements ViewBooks
             priceLabel.setAlignment(Pos.CENTER);
             priceLabel.setContentDisplay(ContentDisplay.CENTER);
             priceLabel.setTextAlignment(TextAlignment.CENTER);
-            priceLabel.setPrefWidth(94.0);
+            //priceLabel.setPrefWidth(94.0);
             priceLabel.setPrefHeight(34.0);
             priceLabel.setFont(new Font(23.0));
             FlowPane.setMargin(priceLabel, new Insets(0, 5, 0, 5)); //Insets(top, right, bottom, left)
