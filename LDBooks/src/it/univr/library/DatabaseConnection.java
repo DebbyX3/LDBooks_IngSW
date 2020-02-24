@@ -30,8 +30,11 @@ public class DatabaseConnection
     {
         try
         {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:src/LDBooksDatabaseNew.db");
+            if(connection == null)
+            {
+                Class.forName("org.sqlite.JDBC");
+                connection = DriverManager.getConnection("jdbc:sqlite:src/LDBooksDatabaseNew.db");
+            }
         }
         catch (Exception e)
         {
