@@ -45,11 +45,6 @@ public class ControllerCatalog {
     @FXML
     private ScrollPane catalogScrollPane;
 
-    @FXML
-    private TextField searchTextField;
-
-    @FXML
-    private Button searchBookButton;
 
     private User user;
     private Map<Book,Integer> cart;
@@ -61,13 +56,6 @@ public class ControllerCatalog {
     @FXML
     private void initialize()
     {
-        // handle to press enter for search
-        searchTextField.setOnKeyReleased(event ->
-        {
-            if (event.getCode() == KeyCode.ENTER)
-                searchBookButton.fire();
-        });
-
 
         // Fill the genre ComboBox
         populateGenreFilter();
@@ -77,8 +65,7 @@ public class ControllerCatalog {
 
         // Set listener for filter button
         filterButton.setOnAction(this::handleFilterButton);
-        searchBookButton.setOnAction(this::handleSearchBook);
-        searchTextField.setFocusTraversable(false);
+
 
         // Initialize genre ComboBox
         genreCombobox.setItems(genreComboboxData);    // setto il combobox del genere con i dati messi in generecomboboxdata
@@ -138,28 +125,7 @@ public class ControllerCatalog {
         populateCatalog(filter);
     }
 
-    private void handleSearchBook(ActionEvent actionEvent)
-    {
-        String title = searchTextField.getText().trim();
-        title += '%';
 
-        ControllerAlert alerts = new ControllerAlert();
-        ModelBooks DBgetSpecificBook = new ModelDatabaseBooks();
-        ArrayList<Book> books = DBgetSpecificBook.getSearchedBook(title);
-
-        if(books.isEmpty())
-        {
-            alerts.displayAlert("Book not found! :(");
-            searchTextField.clear();
-        }
-
-        else
-        {
-            catalogVBox.getChildren().clear();
-            buildCatalog(books);
-        }
-
-    }
 
     private void populateCatalog(Filter filter)
     {
