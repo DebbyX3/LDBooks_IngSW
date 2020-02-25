@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -60,6 +61,14 @@ public class ControllerCatalog {
     @FXML
     private void initialize()
     {
+        // handle to press enter for search
+        searchTextField.setOnKeyReleased(event ->
+        {
+            if (event.getCode() == KeyCode.ENTER)
+                searchBookButton.fire();
+        });
+
+
         // Fill the genre ComboBox
         populateGenreFilter();
 
@@ -69,6 +78,7 @@ public class ControllerCatalog {
         // Set listener for filter button
         filterButton.setOnAction(this::handleFilterButton);
         searchBookButton.setOnAction(this::handleSearchBook);
+        searchTextField.setFocusTraversable(false);
 
         // Initialize genre ComboBox
         genreCombobox.setItems(genreComboboxData);    // setto il combobox del genere con i dati messi in generecomboboxdata
