@@ -102,7 +102,26 @@ public class ModelDatabaseBooks implements ModelBooks
         return b.get(0);
     }
 
+    @Override
+    public ArrayList<Book> getSearchedBook(String title)
+    {
+        ArrayList<Book> b;
+        db.DBOpenConnection();
+        db.executeSQLQuery( "SELECT books.ISBN, GROUP_CONCAT(authors.idAuthor || '&' || name || '$' || surname) AS idNameSurnameAuthors, " +
+                "books.description, books.formatName, books.genreName, books.imagePath,books.languageName, " +
+                "books.maxQuantity, books.pages, books.points, books.price, books.publicationYear, " +
+                "books.publishingHouseName, books.title " +
+                "FROM books " +
+                "JOIN write ON books.ISBN = write.ISBN " +
+                "JOIN authors ON write.idAuthor = authors.idAuthor " +
+                "WHERE books.title LIKE ? " +
+                "GROUP BY books.ISBN, title, languageName, formatName " +
+                "ORDER By books.title, idNameSurnameAuthors ASC", List.of(title));
+        b = resultSetToArrayListBook(db.getResultSet());
 
+
+        return b;
+    }
 
     private ArrayList<Book> resultSetToArrayListBook(ResultSet rs) {
         ModelAuthor authors = new ModelDatabaseAuthor();

@@ -12,6 +12,7 @@ public interface ModelBooks {
     public ArrayList<Book> getAllBooks(Filter filter);
     public ArrayList<Book> getAllBooks(ChartFilter filter);
     public Book getSpecificBook(String isbn);
+    public ArrayList<Book> getSearchedBook(String title);
     public void addNewBook(Book book);
     public void updateBook(Book book);
     public void updateAvailableQuantityBook(int quantity, String isbn);
