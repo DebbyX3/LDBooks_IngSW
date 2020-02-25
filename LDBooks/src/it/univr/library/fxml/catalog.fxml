@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -38,12 +39,30 @@
          <left>
             <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Filters">
+                  <Label text="Search">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                      <VBox.margin>
                         <Insets bottom="8.0" left="2.0" right="2.0" top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="searchTextField" prefHeight="25.0" prefWidth="142.0">
+                     <VBox.margin>
+                        <Insets top="8.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Button fx:id="searchBookButton" mnemonicParsing="false" text="Search book">
+                     <VBox.margin>
+                        <Insets top="12.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label text="Filters">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="50.0" />
                      </VBox.margin>
                   </Label>
                   <Label text="Genre">
