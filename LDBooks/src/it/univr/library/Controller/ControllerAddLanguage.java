@@ -1,16 +1,15 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Book;
-import it.univr.library.Language;
+import it.univr.library.Data.Book;
+import it.univr.library.Data.Language;
 import it.univr.library.Model.ModelDatabaseLanguage;
 import it.univr.library.Model.ModelLanguage;
-import it.univr.library.StageManager;
-import it.univr.library.User;
+import it.univr.library.Utils.StageManager;
+import it.univr.library.Data.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;

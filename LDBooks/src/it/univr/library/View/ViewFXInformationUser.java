@@ -1,8 +1,8 @@
 package it.univr.library.View;
 
-import it.univr.library.Address;
-import it.univr.library.AddressFields;
-import it.univr.library.RegisteredClient;
+import it.univr.library.Data.Address;
+import it.univr.library.Utils.AddressFields;
+import it.univr.library.Data.RegisteredClient;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

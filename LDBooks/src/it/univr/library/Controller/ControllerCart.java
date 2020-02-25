@@ -1,13 +1,12 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Book;
-import it.univr.library.StageManager;
-import it.univr.library.User;
+import it.univr.library.Data.Book;
+import it.univr.library.Utils.StageManager;
+import it.univr.library.Data.User;
 import it.univr.library.View.ViewCart;
 import it.univr.library.View.ViewFXCart;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;

@@ -1,6 +1,6 @@
 package it.univr.library.View;
 
-import it.univr.library.Librocard;
+import it.univr.library.Data.Librocard;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 

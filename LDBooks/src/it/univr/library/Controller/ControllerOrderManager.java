@@ -1,9 +1,9 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Book;
+import it.univr.library.Data.Book;
 import it.univr.library.Model.ModelDatabaseOrder;
 import it.univr.library.Model.ModelOrder;
-import it.univr.library.User;
+import it.univr.library.Data.User;
 import it.univr.library.View.ViewFXOrders;
 import it.univr.library.View.ViewOrders;
 import javafx.collections.FXCollections;

@@ -1,6 +1,6 @@
 package it.univr.library.Model;
 
-import it.univr.library.Genre;
+import it.univr.library.Data.Genre;
 
 import java.util.ArrayList;
 

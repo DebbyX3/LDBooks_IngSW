@@ -1,7 +1,7 @@
 package it.univr.library.View;
 
-import it.univr.library.Order;
-import it.univr.library.User;
+import it.univr.library.Data.Order;
+import it.univr.library.Data.User;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 

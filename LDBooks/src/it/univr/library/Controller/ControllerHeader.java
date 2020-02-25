@@ -1,6 +1,7 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.*;
+import it.univr.library.Utils.StageManager;
 import it.univr.library.View.ViewFXHeader;
 import it.univr.library.View.ViewHeader;
 import javafx.scene.control.Button;

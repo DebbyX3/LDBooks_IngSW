@@ -1,7 +1,7 @@
 package it.univr.library.Model;
 
-import it.univr.library.DatabaseConnection;
-import it.univr.library.Librocard;
+import it.univr.library.Utils.DatabaseConnection;
+import it.univr.library.Data.Librocard;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

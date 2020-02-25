@@ -1,8 +1,9 @@
 package it.univr.library.View;
 
-import it.univr.library.*;
 import it.univr.library.Controller.ControllerCatalog;
 import it.univr.library.Controller.ControllerSpecificBook;
+import it.univr.library.Data.*;
+import it.univr.library.Utils.BookGroup;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;

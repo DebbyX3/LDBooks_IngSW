@@ -1,9 +1,9 @@
 package it.univr.library.Model;
 
-import it.univr.library.Librocard;
-import it.univr.library.Order;
-import it.univr.library.RegisteredClient;
-import it.univr.library.User;
+import it.univr.library.Data.Librocard;
+import it.univr.library.Data.Order;
+import it.univr.library.Data.RegisteredClient;
+import it.univr.library.Data.User;
 
 public interface ModelUserLibrocard
 {

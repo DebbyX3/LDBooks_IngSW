@@ -1,4 +1,4 @@
-package it.univr.library;
+package it.univr.library.Data;
 
 public class Category implements Comparable<Category> {
     private String name;

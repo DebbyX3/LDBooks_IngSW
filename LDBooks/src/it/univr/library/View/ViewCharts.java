@@ -1,6 +1,6 @@
 package it.univr.library.View;
 
-import it.univr.library.Charts;
+import it.univr.library.Data.Charts;
 import javafx.scene.control.TableView;
 
 import java.util.ArrayList;

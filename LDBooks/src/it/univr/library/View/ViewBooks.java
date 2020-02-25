@@ -1,9 +1,9 @@
 package it.univr.library.View;
 
-import it.univr.library.BookGroup;
+import it.univr.library.Utils.BookGroup;
 import it.univr.library.Controller.ControllerCatalog;
 import it.univr.library.Controller.ControllerSpecificBook;
-import it.univr.library.User;
+import it.univr.library.Data.User;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 

@@ -1,8 +1,8 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Book;
-import it.univr.library.StageManager;
-import it.univr.library.User;
+import it.univr.library.Data.Book;
+import it.univr.library.Utils.StageManager;
+import it.univr.library.Data.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

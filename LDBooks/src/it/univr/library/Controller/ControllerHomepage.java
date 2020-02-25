@@ -1,15 +1,13 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Book;
-import it.univr.library.StageManager;
+import it.univr.library.Data.Book;
+import it.univr.library.Utils.StageManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class ControllerHomepage {
 

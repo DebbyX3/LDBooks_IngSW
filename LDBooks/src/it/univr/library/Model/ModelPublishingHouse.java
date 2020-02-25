@@ -1,6 +1,6 @@
 package it.univr.library.Model;
 
-import it.univr.library.PublishingHouse;
+import it.univr.library.Data.PublishingHouse;
 
 import java.util.ArrayList;
 

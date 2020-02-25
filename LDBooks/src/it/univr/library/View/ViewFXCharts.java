@@ -1,6 +1,6 @@
 package it.univr.library.View;
 
-import it.univr.library.Charts;
+import it.univr.library.Data.Charts;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.chart.Chart;
@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewFXCharts implements ViewCharts
 {

@@ -1,8 +1,12 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.Book;
+import it.univr.library.Data.Client;
+import it.univr.library.Data.RegisteredClient;
+import it.univr.library.Data.User;
 import it.univr.library.Model.ModelDatabaseUserAddress;
 import it.univr.library.Model.ModelUserAddress;
+import it.univr.library.Utils.StageManager;
 import it.univr.library.View.ViewFXInformationUser;
 import it.univr.library.View.ViewInformationUser;
 import javafx.event.ActionEvent;

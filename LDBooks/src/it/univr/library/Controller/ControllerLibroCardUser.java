@@ -1,9 +1,9 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Book;
+import it.univr.library.Data.Book;
 import it.univr.library.Model.ModelDatabaseUserLibrocard;
 import it.univr.library.Model.ModelUserLibrocard;
-import it.univr.library.User;
+import it.univr.library.Data.User;
 import it.univr.library.View.ViewFXUserLibrocard;
 import it.univr.library.View.ViewUserLibrocard;
 import javafx.fxml.FXML;

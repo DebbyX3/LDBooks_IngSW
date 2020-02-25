@@ -1,9 +1,9 @@
 package it.univr.library.View;
 
-import it.univr.library.Author;
-import it.univr.library.Book;
+import it.univr.library.Data.Author;
+import it.univr.library.Data.Book;
 import it.univr.library.Controller.ControllerCart;
-import it.univr.library.StageManager;
+import it.univr.library.Utils.StageManager;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;

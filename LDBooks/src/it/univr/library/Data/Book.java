@@ -1,11 +1,8 @@
-package it.univr.library;
-
-import javafx.scene.image.Image;
+package it.univr.library.Data;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.Objects;
 
 public class Book implements Comparable<Book>
 {

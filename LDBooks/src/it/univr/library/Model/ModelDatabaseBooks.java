@@ -1,6 +1,9 @@
 package it.univr.library.Model;
 
-import it.univr.library.*;
+import it.univr.library.Data.*;
+import it.univr.library.Utils.ChartFilter;
+import it.univr.library.Utils.DatabaseConnection;
+import it.univr.library.Utils.Filter;
 
 import java.sql.*;
 import java.util.ArrayList;

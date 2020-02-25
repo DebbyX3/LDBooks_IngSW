@@ -1,10 +1,14 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.Book;
+import it.univr.library.Data.Category;
+import it.univr.library.Data.Genre;
+import it.univr.library.Data.User;
 import it.univr.library.Model.ModelCharts;
 import it.univr.library.Model.ModelDatabaseCharts;
 import it.univr.library.Model.ModelDatabaseGenres;
 import it.univr.library.Model.ModelGenres;
+import it.univr.library.Utils.ChartFilter;
 import it.univr.library.View.ViewCharts;
 import it.univr.library.View.ViewFXCharts;
 import javafx.collections.FXCollections;

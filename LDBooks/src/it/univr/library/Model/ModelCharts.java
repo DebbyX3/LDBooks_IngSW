@@ -1,9 +1,9 @@
 package it.univr.library.Model;
 
-import it.univr.library.Category;
-import it.univr.library.ChartFilter;
-import it.univr.library.Charts;
-import it.univr.library.Genre;
+import it.univr.library.Data.Category;
+import it.univr.library.Utils.ChartFilter;
+import it.univr.library.Data.Charts;
+import it.univr.library.Data.Genre;
 
 import java.util.ArrayList;
 

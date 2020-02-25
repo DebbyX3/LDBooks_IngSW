@@ -1,8 +1,7 @@
 package it.univr.library.Model;
 
-import it.univr.library.Manager;
-import it.univr.library.RegisteredClient;
-import it.univr.library.User;
+import it.univr.library.Data.RegisteredClient;
+import it.univr.library.Data.User;
 
 public interface ModelRegisteredUser
 {

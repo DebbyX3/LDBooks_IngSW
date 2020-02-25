@@ -1,8 +1,8 @@
 package it.univr.library.Model;
 
-import it.univr.library.Address;
-import it.univr.library.RegisteredClient;
-import it.univr.library.User;
+import it.univr.library.Data.Address;
+import it.univr.library.Data.RegisteredClient;
+import it.univr.library.Data.User;
 
 import java.util.List;
 

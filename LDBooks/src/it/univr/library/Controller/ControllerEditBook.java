@@ -1,7 +1,8 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.*;
 import it.univr.library.Model.*;
+import it.univr.library.Utils.StageManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,7 +11,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 public class ControllerEditBook {

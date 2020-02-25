@@ -1,6 +1,10 @@
 package it.univr.library.Model;
 
-import it.univr.library.*;
+import it.univr.library.Data.Librocard;
+import it.univr.library.Data.Order;
+import it.univr.library.Data.RegisteredClient;
+import it.univr.library.Data.User;
+import it.univr.library.Utils.DatabaseConnection;
 
 import java.sql.Date;
 import java.sql.ResultSet;

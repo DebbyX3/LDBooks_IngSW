@@ -1,14 +1,15 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.*;
 import it.univr.library.Model.ModelDatabaseUserAddress;
 import it.univr.library.Model.ModelDatabaseUserInfo;
 import it.univr.library.Model.ModelUserAddress;
 import it.univr.library.Model.ModelUserInfo;
+import it.univr.library.Utils.AddressFields;
+import it.univr.library.Utils.StageManager;
 import it.univr.library.View.ViewFXInformationUser;
 import it.univr.library.View.ViewInformationUser;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

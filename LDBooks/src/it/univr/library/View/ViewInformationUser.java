@@ -1,7 +1,7 @@
 package it.univr.library.View;
 
-import it.univr.library.AddressFields;
-import it.univr.library.RegisteredClient;
+import it.univr.library.Utils.AddressFields;
+import it.univr.library.Data.RegisteredClient;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;

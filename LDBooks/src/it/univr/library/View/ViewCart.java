@@ -1,6 +1,6 @@
 package it.univr.library.View;
 
-import it.univr.library.Book;
+import it.univr.library.Data.Book;
 import it.univr.library.Controller.ControllerCart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;

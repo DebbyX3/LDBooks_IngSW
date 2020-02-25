@@ -1,4 +1,7 @@
-package it.univr.library;
+package it.univr.library.Utils;
+
+import it.univr.library.Data.Genre;
+import it.univr.library.Data.Language;
 
 public class Filter
 {

@@ -1,12 +1,10 @@
 package it.univr.library.Controller;
 
-import it.univr.library.Address;
-import it.univr.library.CitiesPostalCodes;
+import it.univr.library.Data.Address;
+import it.univr.library.Utils.CitiesPostalCodes;
 import it.univr.library.Model.ModelDatabaseUserAddress;
-import it.univr.library.Model.ModelDatabaseUserInfo;
 import it.univr.library.Model.ModelUserAddress;
-import it.univr.library.Model.ModelUserInfo;
-import it.univr.library.RegisteredClient;
+import it.univr.library.Data.RegisteredClient;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;

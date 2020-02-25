@@ -1,10 +1,9 @@
 package it.univr.library.View;
 
-import it.univr.library.*;
 import it.univr.library.Controller.ControllerOrderManager;
+import it.univr.library.Data.*;
 import it.univr.library.Model.ModelDatabaseOrder;
 import it.univr.library.Model.ModelOrder;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;

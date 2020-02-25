@@ -1,7 +1,8 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.*;
 import it.univr.library.Model.*;
+import it.univr.library.Utils.ChartFilter;
 import it.univr.library.View.ViewCharts;
 import it.univr.library.View.ViewFXCharts;
 import javafx.collections.FXCollections;

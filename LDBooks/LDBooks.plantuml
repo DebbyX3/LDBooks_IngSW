@@ -1,0 +1,858 @@
+@startuml
+
+title __LDBOOKS's Class Diagram__\n
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Address {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.AddressFields {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Author {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Book {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.BookGroup {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Category {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.ChartFilter {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Charts {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.CitiesPostalCodes {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Client {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAddAuthor {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAddBook {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAddFormat {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAddGenre {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAddLanguage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAddPublishingHouse {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerAlert {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerBooks {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerCart {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerCatalog {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerCharts {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerEditBook {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerEditCatalog {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerEditProfile {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerHeader {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerHomepage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerLibroCardUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerLibroCardsManager {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerLoginPayment {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerLoginSignUp {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerManagerPage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerOrderManager {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerOrderUnregisteredUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerOrderUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerPayment {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerSignUp {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerSpecificBook {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerUnregisteredPaymentPage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerUpdateChartsManager {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerUserInfo {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerUserPage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Controller {
+      class it.univr.library.Controller.ControllerViewProfile {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.DatabaseConnection {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.EditProfileAddress {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.Filter {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Format {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Genre {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Language {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Librocard {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Main {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Manager {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelAuthor {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelBooks {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelCharts {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseAuthor {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseBooks {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseCharts {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseFormat {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseGenres {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseLanguage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseManagers {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseOrder {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabasePublishingHouse {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseRegisteredUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseUserAddress {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseUserInfo {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      class it.univr.library.Model.ModelDatabaseUserLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelFormat {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelGenres {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelLanguage {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelManager {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelOrder {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelPublishingHouse {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelRegisteredUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelUserAddress {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelUserInfo {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace Model {
+      interface it.univr.library.Model.ModelUserLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.Order {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.PublishingHouse {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Data.RegisteredClient {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    class it.univr.library.Utils.StageManager {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    abstract class it.univr.library.Data.User {
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewBooks {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewCart {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewCharts {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXBooks {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXCart {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXCharts {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXHeader {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXInformationUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXManagerLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXOrders {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      class it.univr.library.View.ViewFXUserLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewHeader {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewInformationUser {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewManagerLibrocard {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewOrders {
+      }
+    }
+  }
+  
+
+  namespace it.univr.library {
+    namespace View {
+      interface it.univr.library.View.ViewUserLibrocard {
+      }
+    }
+  }
+  
+
+  it.univr.library.Utils.AddressFields o-- it.univr.library.Controller.ControllerUserInfo : controllerUserInfo
+  it.univr.library.Data.Author .up.|> java.lang.Comparable
+  it.univr.library.Data.Book .up.|> java.lang.Comparable
+  it.univr.library.Data.Book o-- it.univr.library.Data.Format : format
+  it.univr.library.Data.Book o-- it.univr.library.Data.Genre : genre
+  it.univr.library.Data.Book o-- it.univr.library.Data.Language : language
+  it.univr.library.Data.Book o-- it.univr.library.Data.PublishingHouse : publishingHouse
+  it.univr.library.Data.Category .up.|> java.lang.Comparable
+  it.univr.library.Utils.ChartFilter o-- it.univr.library.Data.Category : category
+  it.univr.library.Utils.ChartFilter o-- it.univr.library.Data.Genre : genre
+  it.univr.library.Data.Charts o-- it.univr.library.Data.Category : category
+  it.univr.library.Data.Charts o-- it.univr.library.Data.Genre : genre
+  it.univr.library.Data.Client -up-|> it.univr.library.Data.User
+  it.univr.library.Controller.ControllerAddAuthor o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerAddBook o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerAddFormat o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerAddGenre o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerAddLanguage o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerAddPublishingHouse o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerCart o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerCatalog o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerCharts o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerEditBook o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerEditBook o-- it.univr.library.Data.Book : originalBook
+  it.univr.library.Controller.ControllerEditCatalog o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerEditProfile o-- it.univr.library.Data.RegisteredClient : regUser
+  it.univr.library.Controller.ControllerEditProfile o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerEditProfile o-- it.univr.library.Controller.ControllerUserInfo : controllerUserInfo
+  it.univr.library.Controller.ControllerLibroCardUser o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerLibroCardsManager o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerLoginPayment o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerLoginSignUp o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerManagerPage o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerOrderManager o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerOrderUnregisteredUser o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerOrderUser o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerPayment o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerSignUp o-- it.univr.library.Controller.ControllerUserInfo : controllerUserInfo
+  it.univr.library.Controller.ControllerSignUp o-- it.univr.library.Data.User : regUser
+  it.univr.library.Controller.ControllerSpecificBook o-- it.univr.library.Utils.BookGroup : bookGroup
+  it.univr.library.Controller.ControllerSpecificBook o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerUnregisteredPaymentPage o-- it.univr.library.Controller.ControllerUserInfo : controllerUserInfo
+  it.univr.library.Controller.ControllerUnregisteredPaymentPage o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerUpdateChartsManager o-- it.univr.library.Data.User : manager
+  it.univr.library.Controller.ControllerUserInfo o-- it.univr.library.Utils.CitiesPostalCodes : citiesPostalCodes
+  it.univr.library.Controller.ControllerUserPage o-- it.univr.library.Data.User : user
+  it.univr.library.Controller.ControllerViewProfile o-- it.univr.library.Data.User : user
+  it.univr.library.Utils.Filter o-- it.univr.library.Data.Genre : genre
+  it.univr.library.Utils.Filter o-- it.univr.library.Data.Language : language
+  it.univr.library.Data.Format .up.|> java.lang.Comparable
+  it.univr.library.Data.Genre .up.|> java.lang.Comparable
+  it.univr.library.Main -up-|> javafx.application.Application
+  it.univr.library.Data.Manager -up-|> it.univr.library.Data.User
+  it.univr.library.Model.ModelDatabaseAuthor .up.|> it.univr.library.Model.ModelAuthor
+  it.univr.library.Model.ModelDatabaseAuthor o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseBooks .up.|> it.univr.library.Model.ModelBooks
+  it.univr.library.Model.ModelDatabaseBooks o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseCharts .up.|> it.univr.library.Model.ModelCharts
+  it.univr.library.Model.ModelDatabaseCharts o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseFormat .up.|> it.univr.library.Model.ModelFormat
+  it.univr.library.Model.ModelDatabaseFormat o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseGenres .up.|> it.univr.library.Model.ModelGenres
+  it.univr.library.Model.ModelDatabaseGenres o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseLanguage .up.|> it.univr.library.Model.ModelLanguage
+  it.univr.library.Model.ModelDatabaseLanguage o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseLibrocard .up.|> it.univr.library.Model.ModelLibrocard
+  it.univr.library.Model.ModelDatabaseLibrocard o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseManagers .up.|> it.univr.library.Model.ModelManager
+  it.univr.library.Model.ModelDatabaseManagers o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseOrder .up.|> it.univr.library.Model.ModelOrder
+  it.univr.library.Model.ModelDatabaseOrder o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabasePublishingHouse .up.|> it.univr.library.Model.ModelPublishingHouse
+  it.univr.library.Model.ModelDatabasePublishingHouse o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseRegisteredUser .up.|> it.univr.library.Model.ModelRegisteredUser
+  it.univr.library.Model.ModelDatabaseRegisteredUser o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseUserAddress .up.|> it.univr.library.Model.ModelUserAddress
+  it.univr.library.Model.ModelDatabaseUserAddress o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseUserInfo .up.|> it.univr.library.Model.ModelUserInfo
+  it.univr.library.Model.ModelDatabaseUserInfo o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Model.ModelDatabaseUserLibrocard .up.|> it.univr.library.Model.ModelUserLibrocard
+  it.univr.library.Model.ModelDatabaseUserLibrocard o-- it.univr.library.Utils.DatabaseConnection : db
+  it.univr.library.Data.Order o-- it.univr.library.Data.Address : address
+  it.univr.library.Data.PublishingHouse .up.|> java.lang.Comparable
+  it.univr.library.Data.RegisteredClient -up-|> it.univr.library.Data.Client
+  it.univr.library.View.ViewFXBooks .up.|> it.univr.library.View.ViewBooks
+  it.univr.library.View.ViewFXCart .up.|> it.univr.library.View.ViewCart
+  it.univr.library.View.ViewFXCharts .up.|> it.univr.library.View.ViewCharts
+  it.univr.library.View.ViewFXHeader .up.|> it.univr.library.View.ViewHeader
+  it.univr.library.View.ViewFXInformationUser .up.|> it.univr.library.View.ViewInformationUser
+  it.univr.library.View.ViewFXManagerLibrocard .up.|> it.univr.library.View.ViewManagerLibrocard
+  it.univr.library.View.ViewFXOrders .up.|> it.univr.library.View.ViewOrders
+  it.univr.library.View.ViewFXUserLibrocard .up.|> it.univr.library.View.ViewUserLibrocard
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

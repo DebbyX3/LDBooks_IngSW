@@ -1,6 +1,4 @@
-package it.univr.library;
-
-import java.util.Objects;
+package it.univr.library.Data;
 
 public class Genre implements Comparable<Genre>
 {

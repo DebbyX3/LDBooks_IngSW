@@ -1,9 +1,8 @@
 package it.univr.library.Model;
 
-import it.univr.library.Book;
-import it.univr.library.ChartFilter;
-import it.univr.library.Filter;
-import it.univr.library.Genre;
+import it.univr.library.Data.Book;
+import it.univr.library.Utils.ChartFilter;
+import it.univr.library.Utils.Filter;
 
 import java.util.ArrayList;
 

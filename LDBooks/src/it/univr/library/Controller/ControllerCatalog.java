@@ -1,7 +1,13 @@
 package it.univr.library.Controller;
 
-import it.univr.library.*;
+import it.univr.library.Data.Book;
+import it.univr.library.Data.Genre;
+import it.univr.library.Data.Language;
+import it.univr.library.Data.User;
 import it.univr.library.Model.*;
+import it.univr.library.Utils.BookGroup;
+import it.univr.library.Utils.Filter;
+import it.univr.library.Utils.StageManager;
 import it.univr.library.View.ViewBooks;
 import it.univr.library.View.ViewFXBooks;
 import javafx.collections.FXCollections;

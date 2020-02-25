@@ -1,7 +1,7 @@
 package it.univr.library.View;
 
-import it.univr.library.Book;
-import it.univr.library.User;
+import it.univr.library.Data.Book;
+import it.univr.library.Data.User;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 

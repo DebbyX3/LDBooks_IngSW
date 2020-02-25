@@ -1,7 +1,7 @@
 package it.univr.library.View;
 
-import it.univr.library.Librocard;
-import it.univr.library.User;
+import it.univr.library.Data.Librocard;
+import it.univr.library.Data.User;
 import javafx.scene.text.Text;
 
 public interface ViewUserLibrocard

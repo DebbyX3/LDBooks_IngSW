@@ -1,8 +1,8 @@
 package it.univr.library.Model;
 
-import it.univr.library.Book;
-import it.univr.library.Order;
-import it.univr.library.User;
+import it.univr.library.Data.Book;
+import it.univr.library.Data.Order;
+import it.univr.library.Data.User;
 
 import java.util.ArrayList;
 

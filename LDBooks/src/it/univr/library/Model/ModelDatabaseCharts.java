@@ -1,6 +1,10 @@
 package it.univr.library.Model;
 
-import it.univr.library.*;
+import it.univr.library.Data.Category;
+import it.univr.library.Data.Charts;
+import it.univr.library.Data.Genre;
+import it.univr.library.Utils.ChartFilter;
+import it.univr.library.Utils.DatabaseConnection;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

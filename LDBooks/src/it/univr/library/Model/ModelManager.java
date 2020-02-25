@@ -1,7 +1,7 @@
 package it.univr.library.Model;
 
-import it.univr.library.Manager;
-import it.univr.library.User;
+import it.univr.library.Data.Manager;
+import it.univr.library.Data.User;
 
 public interface ModelManager
 {

@@ -1,4 +1,7 @@
-package it.univr.library;
+package it.univr.library.Utils;
+
+import it.univr.library.Data.Category;
+import it.univr.library.Data.Genre;
 
 public class ChartFilter {
     private Genre genre;

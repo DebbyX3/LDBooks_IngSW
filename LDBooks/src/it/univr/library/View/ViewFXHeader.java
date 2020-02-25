@@ -1,9 +1,9 @@
 package it.univr.library.View;
 
-import it.univr.library.Book;
+import it.univr.library.Data.Book;
 import it.univr.library.Controller.ControllerHeader;
-import it.univr.library.Manager;
-import it.univr.library.User;
+import it.univr.library.Data.Manager;
+import it.univr.library.Data.User;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;

@@ -1,6 +1,7 @@
 package it.univr.library.Model;
 
-import it.univr.library.*;
+import it.univr.library.Data.*;
+import it.univr.library.Utils.DatabaseConnection;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;

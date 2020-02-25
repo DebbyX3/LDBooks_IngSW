@@ -1,6 +1,6 @@
 package it.univr.library.View;
 
-import it.univr.library.Librocard;
+import it.univr.library.Data.Librocard;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;

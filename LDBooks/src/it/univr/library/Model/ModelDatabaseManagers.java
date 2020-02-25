@@ -1,8 +1,8 @@
 package it.univr.library.Model;
 
-import it.univr.library.DatabaseConnection;
-import it.univr.library.Manager;
-import it.univr.library.User;
+import it.univr.library.Utils.DatabaseConnection;
+import it.univr.library.Data.Manager;
+import it.univr.library.Data.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

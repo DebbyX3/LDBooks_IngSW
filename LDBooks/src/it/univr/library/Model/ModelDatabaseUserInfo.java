@@ -1,11 +1,12 @@
 package it.univr.library.Model;
 
-import it.univr.library.*;
+import it.univr.library.Data.Address;
+import it.univr.library.Data.RegisteredClient;
+import it.univr.library.Data.User;
+import it.univr.library.Utils.DatabaseConnection;
 
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ModelDatabaseUserInfo implements ModelUserInfo
