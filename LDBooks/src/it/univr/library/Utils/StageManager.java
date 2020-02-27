@@ -21,7 +21,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/homePage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/homePage.fxml"));
 
             root = fxmlLoader.load();
             ControllerHomepage controllerHomepage = fxmlLoader.getController();
@@ -42,7 +42,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/specificBook.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/specificBook.fxml"));
 
             root = fxmlLoader.load();
             ControllerSpecificBook controllerSpecificBook = fxmlLoader.getController();
@@ -69,7 +69,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/bookCharts.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/bookCharts.fxml"));
 
             root = fxmlLoader.load();
             ControllerCharts controllerCharts = fxmlLoader.getController();
@@ -93,7 +93,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/catalog.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/catalog.fxml"));
 
             root = fxmlLoader.load();
             ControllerCatalog controllerCatalog = fxmlLoader.getController();
@@ -117,7 +117,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/login.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/login.fxml"));
 
             root = fxmlLoader.load();
             ControllerLoginSignUp controllerLoginSignUp = fxmlLoader.getController();
@@ -142,7 +142,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/userPage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/userPage.fxml"));
 
             root = fxmlLoader.load();
             ControllerUserPage controllerUserPage = fxmlLoader.getController();
@@ -166,7 +166,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/managerPage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/managerPage.fxml"));
 
             root = fxmlLoader.load();
             ControllerManagerPage controllerManagerPage = fxmlLoader.getController();
@@ -190,7 +190,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderUser.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/orderUser.fxml"));
 
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
@@ -215,7 +215,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderManager.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/orderManager.fxml"));
 
             root = fxmlLoader.load();
             ControllerOrderManager controllerOrderManager = fxmlLoader.getController();
@@ -240,7 +240,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editCatalog.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/editCatalog.fxml"));
 
             root = fxmlLoader.load();
             ControllerEditCatalog controllerEditCatalog = fxmlLoader.getController();
@@ -265,7 +265,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addAuthor.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/addAuthor.fxml"));
 
             root = fxmlLoader.load();
             ControllerAddAuthor controllerAddAuthor = fxmlLoader.getController();
@@ -290,7 +290,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addLanguage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/addLanguage.fxml"));
 
             root = fxmlLoader.load();
             ControllerAddLanguage controllerAddLanguage = fxmlLoader.getController();
@@ -315,7 +315,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addBook.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/addBook.fxml"));
 
             root = fxmlLoader.load();
             ControllerAddBook controllerAddBook = fxmlLoader.getController();
@@ -338,7 +338,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/librocardManager.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/librocardManager.fxml"));
 
             root = fxmlLoader.load();
             ControllerLibroCardsManager controllerLibroCardsManager = fxmlLoader.getController();
@@ -363,7 +363,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/signUp.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/signUp.fxml"));
 
             root = fxmlLoader.load();
             ControllerSignUp controllerSignUp = fxmlLoader.getController();
@@ -389,7 +389,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/viewProfileOld.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/viewProfileOld.fxml"));
 
             root = fxmlLoader.load();
             ControllerViewProfile controllerViewProfile = fxmlLoader.getController();
@@ -415,7 +415,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editProfile.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/editProfile.fxml"));
 
             root = fxmlLoader.load();
             ControllerEditProfile controllerEditProfile = fxmlLoader.getController();
@@ -440,7 +440,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/librocardUser.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/librocardUser.fxml"));
 
             root = fxmlLoader.load();
             ControllerLibroCardUser controllerLibroCardUser = fxmlLoader.getController();
@@ -466,7 +466,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderStatusUnregistered.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/orderStatusUnregistered.fxml"));
 
             root = fxmlLoader.load();
             ControllerOrderUnregisteredUser controllerOrderUnregisteredUser = fxmlLoader.getController();
@@ -490,7 +490,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/orderUser.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/orderUser.fxml"));
 
             root = fxmlLoader.load();
             ControllerOrderUser controllerOrderUser = fxmlLoader.getController();
@@ -516,7 +516,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addPublishingHouse.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/addPublishingHouse.fxml"));
 
             root = fxmlLoader.load();
             ControllerAddPublishingHouse controllerAddPublishingHouse = fxmlLoader.getController();
@@ -540,7 +540,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addFormat.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/addFormat.fxml"));
 
             root = fxmlLoader.load();
             ControllerAddFormat controllerAddFormat = fxmlLoader.getController();
@@ -564,7 +564,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/addGenre.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/addGenre.fxml"));
 
             root = fxmlLoader.load();
             ControllerAddGenre controllerAddGenre = fxmlLoader.getController();
@@ -588,7 +588,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/editBook.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/editBook.fxml"));
 
             root = fxmlLoader.load();
             ControllerEditBook controllerEditBook = fxmlLoader.getController();
@@ -612,7 +612,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/bookChartsManager.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/bookChartsManager.fxml"));
 
             root = fxmlLoader.load();
             ControllerUpdateChartsManager controllerUpdateChartsManager = fxmlLoader.getController();
@@ -635,7 +635,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/cart.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/cart.fxml"));
 
             root = fxmlLoader.load();
             ControllerCart controllerCart = fxmlLoader.getController();
@@ -660,7 +660,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/loginPayment.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/loginPayment.fxml"));
 
             root = fxmlLoader.load();
             ControllerLoginPayment controllerLoginPayment = fxmlLoader.getController();
@@ -685,7 +685,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/payment.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/payment.fxml"));
 
             root = fxmlLoader.load();
             ControllerPayment controllerPayment = fxmlLoader.getController();
@@ -710,7 +710,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/unRegisteredUserCheckOut.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/unRegisteredUserCheckOut.fxml"));
 
             root = fxmlLoader.load();
             ControllerUnregisteredPaymentPage controllerUnregisteredPaymentPage = fxmlLoader.getController();
