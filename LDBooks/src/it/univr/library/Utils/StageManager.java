@@ -389,7 +389,7 @@ public class StageManager
 
         try
         {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/viewProfileOld.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../fxml/viewProfile.fxml"));
 
             root = fxmlLoader.load();
             ControllerViewProfile controllerViewProfile = fxmlLoader.getController();

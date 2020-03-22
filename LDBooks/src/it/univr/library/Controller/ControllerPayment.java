@@ -119,7 +119,7 @@ public class ControllerPayment {
 
             // Display alert order confirmation
             ModelOrder getOrderCode = new ModelDatabaseOrder();
-            alerts.displayInformation(String.format("Payment has been successful, your Tracking Code is: %d", getOrderCode.getLastOrderCode()));
+            alerts.displayInformation(String.format("Payment has been successful, your Order Code is: %d", getOrderCode.getLastOrderCode()));
 
             // Clear cart and change scene
             cart.clear();

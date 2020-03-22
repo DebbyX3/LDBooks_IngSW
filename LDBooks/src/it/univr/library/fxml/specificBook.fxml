@@ -18,7 +18,7 @@
          <center>
             <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" prefHeight="565.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <content>
-                  <VBox fx:id="bookInfoVBox" alignment="TOP_CENTER" prefHeight="493.0" prefWidth="883.0">
+                  <VBox fx:id="bookInfoVBox" alignment="TOP_CENTER" prefHeight="478.0" prefWidth="880.0">
                      <children>
                         <HBox alignment="CENTER" layoutX="10.0" layoutY="460.0" maxHeight="99.0" minHeight="90.0" prefHeight="91.0" prefWidth="835.0">
                            <VBox.margin>

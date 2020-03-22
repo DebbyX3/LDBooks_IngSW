@@ -314,10 +314,10 @@ public class ViewFXBooks implements ViewBooks
             descriptionTextArea.setWrapText(true);
 
             descriptionAccordion = new Accordion();
-            descriptionTitledPane = new TitledPane("Description", descriptionTextArea);
+            descriptionAccordion.setMinHeight(100);
 
+            descriptionTitledPane = new TitledPane("Description", descriptionTextArea);
             descriptionTitledPane.setAnimated(true);
-            descriptionTitledPane.prefHeight(127.0);
            // descriptionTitledPane.prefWidth(456.0);
 
             /* **** SETTING VBOX BUYING OPTIONS **** */

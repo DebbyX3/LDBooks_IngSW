@@ -21,7 +21,7 @@
             <HBox fx:id="headerHBox" alignment="CENTER" prefHeight="87.0" prefWidth="959.0" BorderPane.alignment="CENTER" />
          </top>
          <center>
-            <HBox prefHeight="550.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+            <HBox prefHeight="504.0" prefWidth="900.0" BorderPane.alignment="CENTER">
                <children>
                   <ScrollPane prefHeight="606.0" prefWidth="900.0">
                      <content>
@@ -180,6 +180,9 @@
                </children>
             </HBox>
          </bottom>
+         <VBox.margin>
+            <Insets top="10.0" />
+         </VBox.margin>
       </BorderPane>
   </children>
 </VBox>
