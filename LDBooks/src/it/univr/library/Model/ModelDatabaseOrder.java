@@ -29,7 +29,7 @@ public class ModelDatabaseOrder implements ModelOrder
                             "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
                             "WHERE emailRegisteredUser LIKE ? " +
                             "GROUP BY books.ISBN, orders.code " +
-                            "ORDER BY orders.code ASC",
+                            "ORDER BY orders.code DESC",
                             List.of(user.getEmail()));
 
         orders = resultSetToOrders(db.getResultSet());
@@ -52,7 +52,8 @@ public class ModelDatabaseOrder implements ModelOrder
                 "FROM orders JOIN makeUp on makeUp.code = orders.code JOIN books on makeUp.ISBN = books.ISBN " +
                 "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
                 "WHERE emailNotRegisteredUser LIKE ? AND orders.code LIKE ? " +
-                "GROUP BY books.ISBN", List.of(mailNotRegUser, orderCode));
+                "GROUP BY books.ISBN " +
+                "ORDER BY orders.code DESC", List.of(mailNotRegUser, orderCode));
 
         order = resultSetToOrders(db.getResultSet());
 
@@ -76,7 +77,7 @@ public class ModelDatabaseOrder implements ModelOrder
                 "JOIN write ON write.ISBN = books.ISBN JOIN authors ON authors.idAuthor = write.idAuthor " +
                 "WHERE emailNotRegisteredUser LIKE ? OR emailRegisteredUser LIKE ? " +
                 "GROUP BY books.ISBN, orders.code " +
-                "ORDER BY orders.code", List.of(mail,mail));
+                "ORDER BY orders.code DESC", List.of(mail,mail));
 
         order = resultSetToOrders(db.getResultSet());
 
@@ -185,7 +186,7 @@ public class ModelDatabaseOrder implements ModelOrder
                             "JOIN books on makeUp.ISBN = books.ISBN JOIN write ON write.ISBN = books.ISBN " +
                             "JOIN authors ON authors.idAuthor = write.idAuthor " +
                             "GROUP BY books.ISBN, orders.code " +
-                            "ORDER BY orders.code");
+                            "ORDER BY orders.code DESC");
 
         orders = resultSetToOrders(db.getResultSet());
 
@@ -384,6 +385,4 @@ public class ModelDatabaseOrder implements ModelOrder
                                     "SET status = ? " +
                                     "WHERE orders.code LIKE ? ", List.of(status, code));
     }
-
-
 }

@@ -65,7 +65,6 @@ public class ControllerAddBook {
     @FXML
     private Spinner availableQuantitySpinner;
 
-
     @FXML
     private Button selectAuthorButton;
 

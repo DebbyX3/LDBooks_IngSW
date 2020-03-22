@@ -154,7 +154,7 @@ public class ViewFXBooks implements ViewBooks
             bookHBox.setCursor(Cursor.HAND);
 
             /* **** ADDING AUTHORS TO LABEL AND ADDING LABELS TO GRIDPANE **** */
-            bookAuthorsLabel.setText("by " + setToString(authors));
+            bookAuthorsLabel.setText("by " + authorsSetToString(authors));
             bookGridPane.getChildren().addAll(bookTitleLabel, bookAuthorsLabel, bookLanguageLabel, bookGenreLabel);
 
             /* **** ADDING IMAGE TO IMAGEHBOX **** */
@@ -262,7 +262,7 @@ public class ViewFXBooks implements ViewBooks
             VBox.setMargin(ISBNLabel, new Insets(0, 0, 5.0, 0)); //Insets(top, right, bottom, left)
 
             /* **** SETTING AUTHORS LABEL **** */
-            authorsLabel = new Label("Authors: " + setToString(new TreeSet<Author>(currentBook.getAuthors()))); // sorted!
+            authorsLabel = new Label("Authors: " + authorsSetToString(new TreeSet<Author>(currentBook.getAuthors()))); // sorted!
             authorsLabel.prefHeight(18.0);
             //authorsLabel.prefWidth(456.0);
             authorsLabel.setLayoutX(10.0);
@@ -431,14 +431,14 @@ public class ViewFXBooks implements ViewBooks
         }
     }
 
-    private String setToString(Set<Author> setStr)
+    private String authorsSetToString(Set<Author> setStr)
     {
         StringBuilder result = new StringBuilder();
         Iterator<Author> iter = setStr.iterator();
 
         while (iter.hasNext())
         {
-            result.append(iter.next());
+            result.append(iter.next().toStringNameSurname());
 
             if(iter.hasNext())
                 result.append(", ");

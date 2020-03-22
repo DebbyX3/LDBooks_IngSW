@@ -18,6 +18,11 @@ public class Author implements Comparable<Author>
     @Override
     public String toString()
     {
+        return name + " " + surname + " (id: " + id + ")";
+    }
+
+    public String toStringNameSurname()
+    {
         return name + " " + surname;
     }
 

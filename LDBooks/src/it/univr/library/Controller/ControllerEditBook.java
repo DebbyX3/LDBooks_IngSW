@@ -311,7 +311,7 @@ public class ControllerEditBook {
 
         if(author == null)
         {
-            alerts.displayAlert("choose an Author!");
+            alerts.displayAlert("Choose an author!");
         }
         else
         {
