@@ -65,7 +65,7 @@ There are already at least two users ready to be used and tested:
 - Manager/Root user - email: giorgiogialli@gmail.com - password: giorgio
 
 The following gif shows an order example:
-![Demo](gif demo.gif)
+![Demo](https://github.com/DebbyX3/LDBooks_IngSW/blob/master/gif%20demo.gif?raw=true)
 
 ## Built With
 
