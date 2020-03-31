@@ -76,6 +76,3 @@ The following gif shows an order example:
 
 * **Deborah Pintani** - [DebbyX3](https://github.com/DebbyX3)
 * **Luca Marzari** - [LM095](https://github.com/LM095)
-
-## Acknowledgments
-*
