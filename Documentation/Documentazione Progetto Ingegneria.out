@@ -1,0 +1,39 @@
+\BOOKMARK [0][-]{chapter.1}{Requisiti di sistema e casi d'uso}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Specifiche progetto}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Casi d'uso}{chapter.1}% 3
+\BOOKMARK [2][-]{subsection.1.2.1}{Casi d'uso utente registrato}{section.1.2}% 4
+\BOOKMARK [2][-]{subsection.1.2.2}{Casi d'uso utente non registrato}{section.1.2}% 5
+\BOOKMARK [2][-]{subsection.1.2.3}{Casi d'uso utente responsabile}{section.1.2}% 6
+\BOOKMARK [0][-]{chapter.2}{Schede di specifica dei casi d'uso}{}% 7
+\BOOKMARK [0][-]{chapter.3}{Diagramma delle sequenze}{}% 8
+\BOOKMARK [0][-]{chapter.4}{Diagrammi delle attivit\340}{}% 9
+\BOOKMARK [1][-]{section.4.1}{Diagramma attivit\340 modifica dati anagrafici utente registrato}{chapter.4}% 10
+\BOOKMARK [1][-]{section.4.2}{Diagramma attivit\340 registrazione utente}{chapter.4}% 11
+\BOOKMARK [1][-]{section.4.3}{Diagramma attivit\340 aggiunta di un libro al carrello}{chapter.4}% 12
+\BOOKMARK [1][-]{section.4.4}{Diagramma attivit\340 creazione di un ordine}{chapter.4}% 13
+\BOOKMARK [1][-]{section.4.5}{Diagramma attivit\340 modifica libro catalogo}{chapter.4}% 14
+\BOOKMARK [1][-]{section.4.6}{Diagramma attivit\340 aggiunta libro al catalogo}{chapter.4}% 15
+\BOOKMARK [1][-]{section.4.7}{Diagramma attivit\340 aggiornamento classifiche}{chapter.4}% 16
+\BOOKMARK [0][-]{chapter.5}{Diagrammi delle classi}{}% 17
+\BOOKMARK [1][-]{section.5.1}{Diagramma delle classi del Main}{chapter.5}% 18
+\BOOKMARK [1][-]{section.5.2}{Diagramma delle classi del package Controller}{chapter.5}% 19
+\BOOKMARK [1][-]{section.5.3}{Diagramma delle classi del package Model}{chapter.5}% 20
+\BOOKMARK [1][-]{section.5.4}{Diagramma delle classi del package View}{chapter.5}% 21
+\BOOKMARK [1][-]{section.5.5}{Diagramma delle classi del package Data}{chapter.5}% 22
+\BOOKMARK [1][-]{section.5.6}{Diagramma delle classi del package Utils}{chapter.5}% 23
+\BOOKMARK [0][-]{chapter.6}{Struttura del database}{}% 24
+\BOOKMARK [1][-]{section.6.1}{Scelte progettuali}{chapter.6}% 25
+\BOOKMARK [1][-]{section.6.2}{Schema Logico}{chapter.6}% 26
+\BOOKMARK [1][-]{section.6.3}{Schema Relazionale}{chapter.6}% 27
+\BOOKMARK [0][-]{chapter.7}{Scelte progettuali}{}% 28
+\BOOKMARK [1][-]{section.7.1}{Sviluppo}{chapter.7}% 29
+\BOOKMARK [1][-]{section.7.2}{Metodologia di sviluppo}{chapter.7}% 30
+\BOOKMARK [1][-]{section.7.3}{Design Pattern utilizzati}{chapter.7}% 31
+\BOOKMARK [2][-]{subsection.7.3.1}{MVC pattern}{section.7.3}% 32
+\BOOKMARK [2][-]{subsection.7.3.2}{Facade pattern}{section.7.3}% 33
+\BOOKMARK [2][-]{subsection.7.3.3}{DAO pattern}{section.7.3}% 34
+\BOOKMARK [2][-]{subsection.7.3.4}{Singleton pattern}{section.7.3}% 35
+\BOOKMARK [2][-]{subsection.7.3.5}{Observer pattern}{section.7.3}% 36
+\BOOKMARK [2][-]{subsection.7.3.6}{Iterator pattern}{section.7.3}% 37
+\BOOKMARK [0][-]{chapter.8}{Validazione e Test}{}% 38
+\BOOKMARK [1][-]{section.8.1}{Esempio caso d'uso - Ordine utente registrato}{chapter.8}% 39
